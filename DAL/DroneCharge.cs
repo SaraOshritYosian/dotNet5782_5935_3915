@@ -6,10 +6,16 @@ namespace DAL
 {
     namespace DO
     {
-        class DroneCharge//הטענת רחפן
+        public struct  DroneCharge//הטענת רחפן
         {
+            public int Droneld { get; set; }
+            public int Stationld { get; set; }
+            public override string ToString()
+            {
+                return $"DroneCharge: Droneld={Droneld}, Stationld={Stationld}";
 
 
+            }
         }
     }
 }

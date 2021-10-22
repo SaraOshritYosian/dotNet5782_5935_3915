@@ -6,8 +6,25 @@ namespace DAL
 {
     namespace DO
     {
-        class Parcel//משלוח
+        public struct  Parcel//משלוח
         {
+            public int Id { get; set; }
+            public int Senderld { get; set; }//לקוח שולח
+            public int Targetld { get; set; }//לקוח מקבל
+            public WeightCategories Weight { get; set; }
+            public Priority Priority { get; set; }
+
+            public int Droneld { get; set; }//רחפן מבצע
+            public DateTime Requested { get; set; }//זמן יצירת חבילה
+            public DateTime Scheduled { get; set; }//זמן שיוך חבילה
+            public DateTime PichedUp { get; set; }//זמן איסוף חבילה
+            public DateTime Delivered { get; set; }//זמן הגעת חבילה למקבל
+            public override string ToString()
+            {
+                return $"customer: Id={Id}, Senderld={Senderld}, Targetld={Targetld},Weight={Weight},Priority={Priority},Droneld={Droneld},Requested={Requested},Scheduled={Scheduled},PichedUp={PichedUp},Delivered={Delivered}";
+
+
+            }
         }
     }
 }
