@@ -6,8 +6,21 @@ namespace DAL
 {
     namespace DO
     {
-        class Customer//מייצג לקוח
+        public struct Customer//מייצג לקוח
         {
+            public int Id { get; set; }
+            public String Name { get; set; }
+            public string Pone { get; set; }
+            public double  Longitude { get; set; }
+            public double Lattitude { get; set; }
+            public override string ToString()
+            {
+                return $"customer: Id={Id}, Name={Name}, Pone={Pone},Longitude={Longitude},Lattitude={Lattitude}"; 
+
+
+            }
         }
+       
+
     }
 }
