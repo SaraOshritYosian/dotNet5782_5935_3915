@@ -5,83 +5,96 @@ namespace ConsoleUI
 {
     class Program
     {
-     enum menuOption {add, update , show, showLists,exit };//תפריט ראשי
-	 enum add { staion,drone, customer,parcel };//תפריט הוספה
-	 enum update { connect,collect,supply,charge };//תפריט עדכון
-     enum show { station,drone,customer,parcel };//תפריט תצוגה
-     enum showLists { station,drones,customers,parcels,unconnectedParcel,valiableStationToCharge };//תפריט הצגת הרשימות
+     enum menuOption {add=1, update , show, showLists,exit };//תפריט ראשי
+	 enum add { staion=1,drone, customer,parcel };//תפריט הוספה
+	 enum update { connect=1,collect,supply,charge, release };//תפריט עדכון
+     enum show { station=1,drone,customer,parcel };//תפריט תצוגה
+     enum showLists { station=1,drones,customers,parcels,unconnectedParcel,valiableStationToCharge };//תפריט הצגת הרשימות
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your choise:")
-            switch (menuOption)
+            int option;
+
+            Console.WriteLine("Enter your choise:");
+            bool b = int.TryParse(Console.ReadLine(), out option);
+            switch (option)//main menu תפריט בחירות ראשי
             {
-                case menuOption.add:
-                    switch (add)
+                case 1://add הוספה
+                    Console.WriteLine("Enter your choise:");
+                    b = int.TryParse(Console.ReadLine(), out option);
+                    switch (option)
                     {
-                        case add.staion:
+                        case 1://add staion הוספת תחנה 
                             break;
-                        case add.drone:
+                        case 2://add drone הוספת רחפן
+
                             break;
-                        case add.customer:
+                        case 3://add customer הוספת לקוח
                             break;
-                        case add.parcel:
+                        case 4://add parcel הוספת משלוח
                             break;
                         default:
                             break;
                     }
                     break;
-                case menuOption.update:
-                    switch (update)
+                case 2://update עדכון
+                    Console.WriteLine("Enter your choise:");
+                    b = int.TryParse(Console.ReadLine(), out option);
+                    switch (option)
                     {
-                        case update.connect:
+                        case 1://connect שיוך חבילה לרחפן
                             break;
-                        case update.collect:
+                        case 2://collect  איסוף חבילה ע"י רחפ ן
                             break;
-                        case update.supply:
+                        case 3://suplly אספקת חבילה ל-לקוח
                             break;
-                        case update.charge:
+                        case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+                case 3://show תצוגה
+                    Console.WriteLine("Enter your choise:");
+                    b = int.TryParse(Console.ReadLine(), out option);
+                    switch (option)
+                    {
+                        case 1://station תצוגת תחנת-בסיס 
+                            break;
+                        case 2://drone  תצוגת רחפן
+                            break;
+                        case 3: //customer תצוגת לקוח
+                            break;
+                        case 4://parcel תצוגת חבילה
                             break;
                         default:
                             break;
                     }
                     break;
-                case menuOption.show:
-                    switch (show)
+                case 4://showLists תצוגת רשימות
+                    Console.WriteLine("Enter your choise:");
+                    b = int.TryParse(Console.ReadLine(), out option);
+                    switch (option)
                     {
-                        case show.station:
+                        case 1://stations  הצגת רשימת תחנות-בסיס 
                             break;
-                        case show.drone:
+                        case 2://drones הצגת רשימת הרחפנים
                             break;
-                        case show.customer:
+                        case 3://customers הצגת רשימת הלקוחות
                             break;
-                        case show.parcel:
+                        case 4://parcels  הצגת רשימת החבילות 
+                            break;
+                        case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
+                            break;
+                        case 6://valiableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
                             break;
                         default:
                             break;
                     }
                     break;
-                case menuOption.showLists:
-                    switch (showLists)
-                    {
-                        case showLists.station:
-                            break;
-                        case showLists.drones:
-                            break;
-                        case showLists.customers:
-                            break;
-                        case showLists.parcels:
-                            break;
-                        case showLists.unconnectedParcel:
-                            break;
-                        case showLists.valiableStationToCharge:
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case menuOption.exit:
+                case 5://exit יציאה
                     break;
                 default:
                     break;
