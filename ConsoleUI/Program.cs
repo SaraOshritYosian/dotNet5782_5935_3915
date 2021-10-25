@@ -5,9 +5,9 @@ namespace ConsoleUI
 {
     class Program
     {
-     enum menuOption {add, updete , show, showLists,exit };//תפריט ראשי
+     enum menuOption {add, update , show, showLists,exit };//תפריט ראשי
 	 enum add { staion,drone, customer,parcel };//תפריט הוספה
-	 enum updete { connect,collect,supply,charge };//תפריט עדכון
+	 enum update { connect,collect,supply,charge };//תפריט עדכון
      enum show { station,drone,customer,parcel };//תפריט תצוגה
      enum showLists { station,drones,customers,parcels,unconnectedParcel,valiableStationToCharge };//תפריט הצגת הרשימות
 
@@ -32,16 +32,16 @@ namespace ConsoleUI
                             break;
                     }
                     break;
-                case menuOption.updete:
-                    switch (updete)
+                case menuOption.update:
+                    switch (update)
                     {
-                        case updete.connect:
+                        case update.connect:
                             break;
-                        case updete.collect:
+                        case update.collect:
                             break;
-                        case updete.supply:
+                        case update.supply:
                             break;
-                        case updete.charge:
+                        case update.charge:
                             break;
                         default:
                             break;
