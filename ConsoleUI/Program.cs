@@ -7,7 +7,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             IDAL.DO
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
