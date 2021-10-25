@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+
+using IDAL.DO;
 
 namespace DalObject
 {
@@ -9,11 +13,17 @@ namespace DalObject
         internal class Config
         {
             internal static int amountDorneId = 0;//כמות הרחפנים
+            internal static int amountStationId = 0;//כמות התחנות
+            internal static int amountCustomerId = 0;//כמות הלקוחות
+           // internal static int amountDorneId = 0;//כמות הרחפנים
             //מונה לחבילות והמונה ות"ז של חבילות יהיו זהים
         }
         //הרשימות
+        internal static List<Drone> drons=new  List<Drone>;//רשימה של רחפנים
+         internal static List<Station> stations=new  List<Station>;//רשימה של תחנות
+         internal static List<Customer> customer=new  List<Customer>;//רשימה של לקוחות
+         internal static List<Parcel> parcel=new  List<Parcel>;//רשימה של חבילות
         static Random rand = new Random();//add current time
-
 
         private static void creatDrone(int num)//פונקציה שיוצרת רחפנים
         {
