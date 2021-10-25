@@ -11,10 +11,15 @@ namespace DAL
 
             public string Id { get; set; }
             public string Model { get; set; }
-            public string Name { get; set; }
-            public string Weight { get; set; }
+            public Status StatusDrone { get; set; }
+            public WeightCategories Weight { get; set; }
             public string Battery { get; set; }
+            public override string ToString()
+            {
+                return $"drone: Id={Id}, Model={Model}, StatusDrone={StatusDrone},Weight={Weight},Battery={Battery}";
 
+
+            }
 
 
         }
