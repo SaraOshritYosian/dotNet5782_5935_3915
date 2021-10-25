@@ -29,5 +29,9 @@ namespace DalObject
         {
             Config.amountDorneId++; //.... באחד amountDorneId שיוצרים רחפן זה מגדיל את
         }
+        static Initialize()//קורא לכל היצירות
+        {
+
+        }
     }
 }
