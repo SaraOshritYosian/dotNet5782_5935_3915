@@ -24,4 +24,5 @@ namespace DAL
 
         }
     }
+    static Station() { }
 }
