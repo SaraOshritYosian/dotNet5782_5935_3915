@@ -14,7 +14,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         public void AddDrone()//יוצר רחפן
         {
-            
+           
         }
         public void AddStation(int id)//יוצר לקוח
         {
