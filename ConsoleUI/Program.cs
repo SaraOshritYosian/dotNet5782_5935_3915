@@ -15,6 +15,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
+            DalObject.DalObject dl = new DalObject.DalObject();
             int option;
             
             Console.WriteLine("Enter your choise:");

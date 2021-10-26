@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using IDAL.DO;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
@@ -14,7 +15,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         public void AddDrone()//יוצר רחפן
         {
-           
+            Drone drone = new Drone(); 
         }
         public void AddStation(int id)//יוצר לקוח
         {
