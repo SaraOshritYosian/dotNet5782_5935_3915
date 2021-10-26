@@ -1,5 +1,5 @@
 ﻿using System;
-using IDAL.DO
+using IDAL.DO;
 
 namespace ConsoleUI
 {
