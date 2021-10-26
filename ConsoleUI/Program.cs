@@ -9,7 +9,7 @@ namespace ConsoleUI
 	 enum add { staion=1,drone, customer,parcel };//תפריט הוספה
 	 enum update { connect=1,collect,supply,charge, release };//תפריט עדכון
      enum show { station=1,drone,customer,parcel };//תפריט תצוגה
-     enum showLists { station=1,drones,customers,parcels,unconnectedParcel,valiableStationToCharge };//תפריט הצגת הרשימות
+     enum showLists { station=1,drones,customers,parcels,unconnectedParcel,availableStationToCharge };//תפריט הצגת הרשימות
 
 
         static void Main(string[] args)
@@ -88,7 +88,7 @@ namespace ConsoleUI
                             break;
                         case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
                             break;
-                        case 6://valiableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
+                        case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
                             break;
                         default:
                             break;
