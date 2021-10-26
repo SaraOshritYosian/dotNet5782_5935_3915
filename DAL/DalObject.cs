@@ -11,23 +11,37 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
-            DataSource.Initialize();
+            DataSource.Config.Initialize();
         }
-        public void AddDrone()//יוצר רחפן
+
+
+         public  void  AddDrone( Drone  dr)//מוסיף רחפן
         {
-            Drone drone = new Drone(); 
+            DataSource.dronsList.Add( dr);
+
         }
-        public void AddStation(int id)//יוצר לקוח
+        public  void AddStation(Station st)//מוסיף תחנת בסיס
         {
-          
+            DataSource.stationsList.Add(st);
         }
-        public void AddCustomer(int id)//יוצר תחנת בסיס
+        public void AddCustomer(Customer cs)//מוסיף לקוח
         {
-            
+            DataSource.customerList.Add(cs);
         }
-        public void AddParcel(int id)//יוצר הזמנה
+        public void AddParcel(Parcel pr)//מוסיף הזמנה
         {
-            
+            DataSource.parcelList.Add(pr);
+        }
+        public static Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז
+        {
+            foreach(Drone dr in DataSource.dronsList.)
+            {
+                if (dr.Id ==id)
+                    return dr;
+                else
+                    return new Drone();
+
+            }
         }
     }
 }

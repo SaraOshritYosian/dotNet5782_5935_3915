@@ -11,8 +11,8 @@ namespace IDAL
             public int Name { get; set; }
             public int Id { get; set; }
             public int ChargeSlots { get; set; }
-            public Double longitude { get; set; }
-            public Double latitude { get; set; }
+            public Double Longitude { get; set; }
+            public Double Latitude { get; set; }
             
             public override string ToString()
             {
@@ -24,5 +24,5 @@ namespace IDAL
 
         }
     }
-    static Station() { }
+   
 }
