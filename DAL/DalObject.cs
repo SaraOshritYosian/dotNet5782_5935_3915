@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DalObject
+namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
     public class DalObject
     {
@@ -12,9 +12,21 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
-        public void AddDrone(int id)//מקבל מזהה של רחפן ויוצר רחפן
+        public void AddDrone()//יוצר רחפן
+        {
+           
+        }
+        public void AddStation(int id)//יוצר לקוח
+        {
+          
+        }
+        public void AddCustomer(int id)//יוצר תחנת בסיס
         {
 
+        }
+        public void AddParcel(int id)//יוצר הזמנה
+        {
+             
         }
     }
 }

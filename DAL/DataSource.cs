@@ -15,7 +15,7 @@ namespace DalObject
             internal static int amountDorneId = 0;//כמות הרחפנים
             internal static int amountStationId = 0;//כמות התחנות
             internal static int amountCustomerId = 0;//כמות הלקוחות
-           // internal static int amountDorneId = 0;//כמות הרחפנים
+            internal static int amountParcelId = 0;//כמות חבילות
             //מונה לחבילות והמונה ות"ז של חבילות יהיו זהים
         }
         //הרשימות
