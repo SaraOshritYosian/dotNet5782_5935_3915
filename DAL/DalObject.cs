@@ -14,7 +14,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         public void AddDrone()//יוצר רחפן
         {
-           AddDrone 
+           
         }
         public void AddStation(int id)//יוצר לקוח
         {
@@ -22,11 +22,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         public void AddCustomer(int id)//יוצר תחנת בסיס
         {
-
+            
         }
         public void AddParcel(int id)//יוצר הזמנה
         {
-             
+            
         }
     }
 }

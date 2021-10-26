@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL
+namespace IDAL
 {
    //enums סדרות של 
    public enum WeightCategories { Light,Medium,Heavy}//סוג החבילה

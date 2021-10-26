@@ -5,6 +5,7 @@ namespace ConsoleUI
 {
     class Program
     {
+        
      enum menuOption {add=1, update , show, showLists,exit };//תפריט ראשי
 	 enum add { staion=1,drone, customer,parcel };//תפריט הוספה
 	 enum update { connect=1,collect,supply,charge, release };//תפריט עדכון
@@ -15,7 +16,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             int option;
-
+            
             Console.WriteLine("Enter your choise:");
             bool b = int.TryParse(Console.ReadLine(), out option);
             switch (option)//main menu תפריט בחירות ראשי
