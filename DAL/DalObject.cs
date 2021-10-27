@@ -88,8 +88,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if (dr.StatusDrone== IDAL.Status.available)
                 {
+                    int id = dr.Id;
                     pr.Droneld = dr.Id;//שיוך חבילה לרחפן
-                    dr.StatusDrone = IDAL.Status.delivered;//להעביר את הרחפן למצב שהוא במשלוח
+                    Drone dd = SearchDrone(id);
+                    dd.StatusDrone = IDAL.Status.delivered;//להעביר את הרחפן למצב שהוא במשלוח
                     pr.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
                     return;
                 }
@@ -111,17 +113,15 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             pr.Delivered = DateTime.Now;//עדכון זמן שיוך הגעת חבילה למקבל
 
         }
-        public void DroneDkimmerForCharging(int idDrone)//Drone a skimmer for charging
+        public void DroneDkimmerForCharging(DroneCharge cs)//Drone a skimmer for charging
         {
-            Drone dr = SearchDrone(idDrone);
-
-            AddDroneCharge(dr);
+            Drone dr = SearchDrone(cs.Droneld);
             dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא בטעינה
-
+            AddDroneCharge(cs);//להוסיף אותו לרשימה של הרחפנים בטעינה
         }
         public void ReleaseDroneFroCharging(int idDrone)//Release Drone from charging
         {
-           
+           //צריך למחוק את הרחפן מרשימת טעינה
            Drone dr = SearchDrone(idDrone);
            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
             

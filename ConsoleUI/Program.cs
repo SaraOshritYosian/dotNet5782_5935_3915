@@ -123,7 +123,7 @@ namespace ConsoleUI
                                 
                                 pr.Droneld =0;
                                 pr.Requested = DateTime.Now;
-                                DateTime.AddMinutes(rand);
+                                //DateTime.AddMinutes(double(rand));
                                 pr.PichedUp = DateTime.Now;//איזה לעשות כאן
                                 pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
                                 int id=d4.AddParcel(pr);
