@@ -11,37 +11,123 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
-            DataSource.Config.Initialize();
+            DataSource.Initialize();
         }
 
 
-         public  void  AddDrone( Drone  dr)//מוסיף רחפן
+        public void AddDrone(Drone dr)//מוסיף רחפן
         {
-            DataSource.dronsList.Add( dr);
+            DataSource.dronsList.Add(dr);
+            DataSource.Config.amountDorneId++;
 
         }
-        public  void AddStation(Station st)//מוסיף תחנת בסיס
+        public void AddStation(Station st)//מוסיף תחנת בסיס
         {
             DataSource.stationsList.Add(st);
+            DataSource.Config.amountStationId++;
+
         }
         public void AddCustomer(Customer cs)//מוסיף לקוח
         {
             DataSource.customerList.Add(cs);
+            DataSource.Config.amountCustomerId++;
         }
-        public void AddParcel(Parcel pr)//מוסיף הזמנה
+        public void AddDroneCharge(DroneCharge cs)//מוסיף רחפנים לעמדות טעינה
         {
+            DataSource.droneChargeList.Add(cs);
+           
+        }
+        public int AddParcel(Parcel pr)//מוסיף הזמנה
+        {
+            pr.Id = DataSource.Config.amountParcelId;
             DataSource.parcelList.Add(pr);
+            DataSource.Config.amountParcelId++;
+            return DataSource.Config.amountParcelId - 1;
         }
-        public static Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז
+        public Parcel SearchParcle(int id)//מחפש חבילה ךפי ת"ז
         {
-            foreach(Drone dr in DataSource.dronsList.)
+            foreach (Parcel dr in DataSource.parcelList)
             {
-                if (dr.Id ==id)
+                if (dr.Id == id)
                     return dr;
-                else
-                    return new Drone();
-
             }
+            return new Parcel();
         }
+        public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז
+        {
+            foreach (Drone dr in DataSource.dronsList)
+            {
+                if (dr.Id == id)
+                    return dr;
+            }
+            return new Drone();
+        }
+        public Customer SearchCustomer(int id)//מחפש לקוח ךפי ת"ז
+        {
+            foreach (Customer dr in DataSource.customerList)
+            {
+                if (dr.Id == id)
+                    return dr;
+            }
+            return new Customer();
+        }
+        public Station SearchStation(int id)//מחפש ,תחנה ךפי ת"ז
+        {
+            foreach (Station dr in DataSource.stationsList)
+            {
+                if (dr.Id == id)
+                    return dr;
+            }
+            return new Station();
+        }
+
+        public void AssignPackageToDrone(int idParcel)//Assign a Package To Drone
+        {
+            Parcel pr = SearchParcle(idParcel);
+            foreach (Drone dr in DataSource.dronsList)
+            {
+                if (dr.StatusDrone== IDAL.Status.available)
+                {
+                    pr.Droneld = dr.Id;//שיוך חבילה לרחפן
+                    dr.StatusDrone = IDAL.Status.delivered;//להעביר את הרחפן למצב שהוא במשלוח
+                    pr.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
+                    return;
+                }
+            }
+
+        }
+        public void PackageCollectionByDrone(int idParcel)//Package collection by Drone
+        {
+            Parcel pr = SearchParcle(idParcel);
+            Drone dr = SearchDrone(pr.Droneld);
+            pr.PichedUp = DateTime.Now;//עדכון זמן שיוך חבילה
+        }
+
+        public void DeliveryOfPackageToTheCustomer(int idParcel)//Delivery of a package to the customer
+        {
+            Parcel pr = SearchParcle(idParcel);
+            Drone dr = SearchDrone(pr.Droneld);
+            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
+            pr.Delivered = DateTime.Now;//עדכון זמן שיוך הגעת חבילה למקבל
+
+        }
+        public void DroneDkimmerForCharging(int idDrone)//Drone a skimmer for charging
+        {
+            Drone dr = SearchDrone(idDrone);
+
+            AddDroneCharge(dr);
+            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא בטעינה
+
+        }
+        public void ReleaseDroneFroCharging(int idDrone)//Release Drone from charging
+        {
+           
+           Drone dr = SearchDrone(idDrone);
+           dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
+            
+        }
+
+
     }
+
 }
