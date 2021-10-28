@@ -21,6 +21,7 @@ namespace ConsoleUI
             DalObject.DalObject d3 = new DalObject.DalObject();//customer
             DalObject.DalObject d4 = new DalObject.DalObject();//parcel
             DalObject.DalObject d5 = new DalObject.DalObject();//DroneCharge
+            DalObject.DalObject d6 = new DalObject.DalObject();
             int option;
             // int a;
             bool ex = true;
@@ -193,31 +194,40 @@ namespace ConsoleUI
                             {
                                 case 1://connect שיוך חבילה לרחפן
                                     Console.WriteLine("Enter The id packago");
-                                    int cod = Console.Read();
+                                    int cod;
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    bool a =d6.AssignPackageToDrone(cod);
 
 
 
                                     break;
                                 case 2://collect  איסוף חבילה ע"י רחפ ן
                                     Console.WriteLine("Enter The id packago");
-                                    cod = Console.Read();
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    d6.PackageCollectionByDrone(cod);
                                     break;
                                 case 3://suplly אספקת חבילה ל-לקוח
                                     Console.WriteLine("Enter The id packago");
-                                    cod = Console.Read();
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                   d6.DeliveryOfPackageToTheCustomer(cod);
                                     break;
                                 case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
-                                    Console.WriteLine("Enter The id drone");
-                                    cod = Console.Read();
-
-                                    break;
-                                case 5://שיחרור רחפן מטעינה
                                     DroneCharge drc = new DroneCharge();
                                     Console.WriteLine("Enter The id drone");
                                     drc.Droneld = Console.Read();
                                     Console.WriteLine("Enter The id station");
                                     drc.Stationld = Console.Read();
                                     d5.AddDroneCharge(drc);
+
+                                    Console.WriteLine("Enter The id drone");
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    d6.DroneDkimmerForCharging(cod);
+                                    break;
+                                case 5://שיחרור רחפן מטעינה
+                                    
+                                    Console.WriteLine("Enter The id drone");
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    d6.ReleaseDroneFroCharging(cod);
                                     break;
 
 
