@@ -22,204 +22,275 @@ namespace ConsoleUI
             DalObject.DalObject d4 = new DalObject.DalObject();//parcel
             DalObject.DalObject d5 = new DalObject.DalObject();//DroneCharge
             int option;
-            int a;
+            // int a;
             bool ex = true;
-            Console.WriteLine("הקש 1 לאפשרות הוספה הקש שתיים לאפשרות עדכון הקש 3 לאפשרות תצוגה הקש 4 לאפשרות הצגת רשימות הקש 5 ליציאה\n");
+            Console.WriteLine("Press 1 Add option Press 2 Update option Press 3 View option Press 4 View lists Press 5 Exit");
             bool b = int.TryParse(Console.ReadLine(), out option);
-            while (ex == true )
+            while (ex == true)
             {
                 switch (option)//main menu תפריט בחירות ראשי
                 {
                     case 1://add הוספה
-                        Console.WriteLine("1 add station\n");
-                        Console.WriteLine("2 add Drone\n");
-                        Console.WriteLine("3 add customer\n");
-                        Console.WriteLine("4 add parcel\n");
-                        b = int.TryParse(Console.ReadLine(), out option);
-                        switch (option)
                         {
+                            Console.WriteLine("1 add station");
+                            Console.WriteLine("2 add Drone");
+                            Console.WriteLine("3 add customer");
+                            Console.WriteLine("4 add parcel");
+                            b = int.TryParse(Console.ReadLine(), out option);
 
-                            case 1://add staion הוספת תחנה 
-                                Station st = new Station();
-                                Console.WriteLine("Enter the ID of the station");
-                                st.Id = Console.Read();
-                                Console.WriteLine("Enter the Name of the station");
-                                st.Name = Console.Read();
-                                Console.WriteLine("Enter the number of latitude of the station");
-                                st.Latitude = Console.Read();
-                                Console.WriteLine("Enter the longitude of the station");
-                                st.Longitude = Console.Read();
-                                Console.WriteLine("Enter the ChargeSlots of the station");
-                                st.ChargeSlots = Console.Read();
-                                d1.AddStation(st);
+                            switch (option)
+                            {
 
-                                break;
-                            case 2://add drone הוספת רחפן
-                                Drone dr = new Drone();
-                                Console.WriteLine("Enter the ID of the Drone");
-                                dr.Id = Console.Read();
-                                Console.WriteLine("Enter the Model of the Drone");
-                                dr.Model = Console.ReadLine();
-                                Console.WriteLine("Enter the number of Weight of the Drone: 0-Light, 1-Medium, 2-Heavy");
-                                int ch = Console.Read();
-                                if (ch == 0)
-                                    dr.Weight = IDAL.WeightCategories.Light;
-                                if (ch == 1)
-                                    dr.Weight = IDAL.WeightCategories.Medium;
-                                if (ch == 2)
-                                    dr.Weight = IDAL.WeightCategories.Heavy;
-                                Console.WriteLine("Enter the number of StatusDrone of the Drone: 0-available, 1-InMaintenance, 2-delivered");
-                                ch = Console.Read();
-                                if (ch == 0)
-                                    dr.StatusDrone = IDAL.Status.available;
-                                if (ch == 1)
-                                    dr.StatusDrone = IDAL.Status.InMaintenance;
-                                if (ch == 2)
-                                    dr.StatusDrone = IDAL.Status.delivered;
+                                case 1://add staion הוספת תחנה 
+                                    {
+                                        Station st = new Station();
+                                        Console.WriteLine("Enter the ID of the station");
+                                        Console.WriteLine("Enter the Name of the station");
+                                        Console.WriteLine("Enter the number of latitude of the station");
+                                        Console.WriteLine("Enter the longitude of the station");
+                                       Console.WriteLine("Enter the ChargeSlots of the station");
+                                        int id;
+                                        b = int.TryParse(Console.ReadLine(), out id);
+                                        st.Id = id;
+                                        int name;
+                                        b = int.TryParse(Console.ReadLine(), out name);
+                                        st.Name = name;
+                                        double Latitude;
+                                        b = double.TryParse(Console.ReadLine(), out Latitude);
+                                        st.Latitude = Latitude;
+                                        double Longitude;
+                                        b = double.TryParse(Console.ReadLine(), out Longitude);
+                                        st.Longitude = Longitude;
+                                        int ChargeSlots;
+                                        b = int.TryParse(Console.ReadLine(), out ChargeSlots);
+                                        st.ChargeSlots = ChargeSlots;
+                                        d1.AddStation(st);
+                                        break;
+                                    }
 
-                                Console.WriteLine("Enter the Battery of the Drone");
-                                dr.Battery = Console.Read();
-                                d2.AddDrone(dr);
-                                break;
-                            case 3://add customer הוספת לקוח
-                                Customer cs = new Customer();
-                                Console.WriteLine("Enter your ID "); 
-                                cs.Id = Console.Read();
-                                Console.WriteLine("Enter your Name");
-                                cs.Name = Console.ReadLine();
+                                case 2://add drone הוספת רחפן
+                                    {
+                                        Drone dr = new Drone();
+                                        Console.WriteLine("Enter the ID of the Drone");
+                                        int id;
+                                        b = int.TryParse(Console.ReadLine(), out id);
+                                        dr.Id = id;
+                                        Console.WriteLine("Enter the Model of the Drone");
+                                        string model = Console.ReadLine();
+                                        
+                                        dr.Model = model;
+                                        Console.WriteLine("Enter the number of Weight of the Drone: 0-Light, 1-Medium, 2-Heavy");
+                                        int ch;
+                                        b = int.TryParse(Console.ReadLine(), out ch);
+                                        if (ch == 0)
+                                            dr.Weight = IDAL.WeightCategories.Light;
+                                        if (ch == 1)
+                                            dr.Weight = IDAL.WeightCategories.Medium;
+                                        if (ch == 2)
+                                            dr.Weight = IDAL.WeightCategories.Heavy;
+                                        Console.WriteLine("Enter the number of StatusDrone of the Drone: 0-available, 1-InMaintenance, 2-delivered");
+                                        b = int.TryParse(Console.ReadLine(), out ch);
+                                        if (ch == 0)
+                                            dr.StatusDrone = IDAL.Status.available;
+                                        if (ch == 1)
+                                            dr.StatusDrone = IDAL.Status.InMaintenance;
+                                        if (ch == 2)
+                                            dr.StatusDrone = IDAL.Status.delivered;
 
-                                Console.WriteLine("Enter your Pone");
-                                cs.Pone = Console.ReadLine();
-                                Console.WriteLine("Enter the Longitude of the home");
-                                cs.Longitude = Console.Read();
-                                Console.WriteLine("Enter the latitude of the home");
-                                cs.Lattitude = Console.Read();
-                                d3.AddCustomer(cs);
-                                break;
-                            case 4://add parcel הוספת משלוח
-                                Parcel pr = new Parcel();
-                                Console.WriteLine("Enter the id of the Parcel");
-                                pr.Senderld = Console.Read();
-                                Console.WriteLine("Enter the Senderld of the Parcel");
-                                pr.Senderld = Console.Read();
-                                Console.WriteLine("Enter the Targetld of the Parcel");
-                                pr.Targetld = Console.Read();
-                                Console.WriteLine("Enter the number of Weight of the Parcel: 0-Light, 1-Medium, 2-Heavy");
-                                ch = Console.Read();
-                                if (ch == 0)
-                                    pr.Weight = IDAL.WeightCategories.Light;
-                                if (ch == 1)
-                                    pr.Weight = IDAL.WeightCategories.Medium;
-                                if (ch == 2)
-                                    pr.Weight = IDAL.WeightCategories.Heavy;
-                                Console.WriteLine("Enter the Priority of the Parcel: 0-simple, 1-quick, 2-emergency");
-                                ch = Console.Read();
-                                if (ch == 0)
-                                    pr.Priority = IDAL.Priority.simple;
-                                if (ch == 1)
-                                    pr.Priority = IDAL.Priority.quick;
-                                if (ch == 2)
-                                    pr.Priority = IDAL.Priority.emergency;
-                                
-                                pr.Droneld =0;
-                                pr.Requested = DateTime.Now;
-                                //DateTime.AddMinutes(double(rand));
-                                pr.PichedUp = DateTime.Now;//איזה לעשות כאן
-                                pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
-                                int id=d4.AddParcel(pr);
-                                Console.WriteLine("The number of the parcel is: " + id);
-                                break;
+                                        Console.WriteLine("Enter the Battery of the Drone");
+                                        int battery;
+                                        b = int.TryParse(Console.ReadLine(), out battery);
+                                        dr.Battery = battery;
+                                        d2.AddDrone(dr);
+                                        break;
+
+                                    }
+
+                                case 3://add customer הוספת לקוח
+                                    {
+                                        Customer cs = new Customer();
+                                        Console.WriteLine("Enter your ID ");
+                                        int id;
+                                        b = int.TryParse(Console.ReadLine(), out id);
+                                        cs.Id =id;
+                                        Console.WriteLine("Enter your Name");
+                                        string name = Console.ReadLine();
+                                        //b = TryParse(Console.ReadLine(), out name);//טעות 
+                                        cs.Name = name;
+                                        Console.WriteLine("Enter your Pone");
+                                        string phone = Console.ReadLine();
+                                        //b = stTryParse(Console.ReadLine(), out phone);
+                                        cs.Pone =phone;
+                                        Console.WriteLine("Enter the Longitude of the home");
+                                        double Longitude;
+                                        b = double.TryParse(Console.ReadLine(), out Longitude);
+                                        cs.Longitude = Longitude;
+                                        Console.WriteLine("Enter the latitude of the home");
+                                        double Latitude;
+                                        b = double.TryParse(Console.ReadLine(), out Latitude);
+                                        cs.Lattitude = Latitude;
+                                        d3.AddCustomer(cs);
+                                        break;
+                                    }
+
+                                case 4://add parcel הוספת משלוח
+                                    {
+                                        int ch;
+                                        Parcel pr = new Parcel();
+                                        Console.WriteLine("Enter the id of the Parcel");
+                                        int id;
+                                        b = int.TryParse(Console.ReadLine(), out id);
+                                        pr.Senderld = id;
+                                        Console.WriteLine("Enter the Senderld of the Parcel");
+                                        b = int.TryParse(Console.ReadLine(), out id);
+                                        pr.Senderld = id;
+                                        Console.WriteLine("Enter the Targetld of the Parcel");
+                                        int target;
+                                        b = int.TryParse(Console.ReadLine(), out target);
+                                        pr.Targetld = target;
+                                        Console.WriteLine("Enter the number of Weight of the Parcel: 0-Light, 1-Medium, 2-Heavy");
+                                        b = int.TryParse(Console.ReadLine(), out ch);
+                                        if (ch == 0)
+                                            pr.Weight = IDAL.WeightCategories.Light;
+                                        if (ch == 1)
+                                            pr.Weight = IDAL.WeightCategories.Medium;
+                                        if (ch == 2)
+                                            pr.Weight = IDAL.WeightCategories.Heavy;
+                                        Console.WriteLine("Enter the Priority of the Parcel: 0-simple, 1-quick, 2-emergency");
+                                        b = int.TryParse(Console.ReadLine(), out ch);
+                                        if (ch == 0)
+                                            pr.Priority = IDAL.Priority.simple;
+                                        if (ch == 1)
+                                            pr.Priority = IDAL.Priority.quick;
+                                        if (ch == 2)
+                                            pr.Priority = IDAL.Priority.emergency;
+
+                                        pr.Droneld = 0;
+                                        pr.Requested = DateTime.Now;
+                                        //DateTime.AddMinutes(double(rand));
+                                        pr.PichedUp = DateTime.Now;//איזה לעשות כאן
+                                        pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
+                                         id = d4.AddParcel(pr);
+                                        Console.WriteLine("The number of the parcel is: " + id);
+                                        break;
+
+                                    }  
+                            }
+                            
                         }
+
                         break;
                     case 2://update עדכון
-                        Console.WriteLine("Enter your choise:");
-                        Console.WriteLine("1 Assign a package to a Drone\n");
-                        Console.WriteLine("2 Package collection by Drone\n");
-                        Console.WriteLine("3 Delivery of a package to the customer\n");
-                        Console.WriteLine("4 Drone a Drone for charging\n");
-                        Console.WriteLine("5 Release Drone from charging\n");
-                        b = int.TryParse(Console.ReadLine(), out option);
-                        switch (option)
                         {
-                            case 1://connect שיוך חבילה לרחפן
-                                Console.WriteLine("Enter The id packago");
-                                int cod = Console.Read();
-                                
-                                
+                            Console.WriteLine("Enter your choise:");
+                            Console.WriteLine("1 Assign a package to a Drone\n");
+                            Console.WriteLine("2 Package collection by Drone\n");
+                            Console.WriteLine("3 Delivery of a package to the customer\n");
+                            Console.WriteLine("4 Drone a Drone for charging\n");
+                            Console.WriteLine("5 Release Drone from charging\n");
+                            b = int.TryParse(Console.ReadLine(), out option);
+                            switch (option)
+                            {
+                                case 1://connect שיוך חבילה לרחפן
+                                    Console.WriteLine("Enter The id packago");
+                                    int cod = Console.Read();
 
-                                break;
-                            case 2://collect  איסוף חבילה ע"י רחפ ן
-                                Console.WriteLine("Enter The id packago");
-                                 cod = Console.Read();
-                                break;
-                            case 3://suplly אספקת חבילה ל-לקוח
-                                Console.WriteLine("Enter The id packago");
-                                 cod = Console.Read();
-                                break;
-                            case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
-                                Console.WriteLine("Enter The id drone");
-                                 cod = Console.Read();
 
-                                break;
-                            case 5://שיחרור רחפן מטעינה
-                                DroneCharge drc = new DroneCharge();
-                                Console.WriteLine("Enter The id drone");
-                                drc.Droneld= Console.Read();
-                                Console.WriteLine("Enter The id station");
-                                drc.Stationld= Console.Read();
-                                d5.AddDroneCharge(drc);
-                                break;
 
-                            default:
-                                break;
+                                    break;
+                                case 2://collect  איסוף חבילה ע"י רחפ ן
+                                    Console.WriteLine("Enter The id packago");
+                                    cod = Console.Read();
+                                    break;
+                                case 3://suplly אספקת חבילה ל-לקוח
+                                    Console.WriteLine("Enter The id packago");
+                                    cod = Console.Read();
+                                    break;
+                                case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
+                                    Console.WriteLine("Enter The id drone");
+                                    cod = Console.Read();
+
+                                    break;
+                                case 5://שיחרור רחפן מטעינה
+                                    DroneCharge drc = new DroneCharge();
+                                    Console.WriteLine("Enter The id drone");
+                                    drc.Droneld = Console.Read();
+                                    Console.WriteLine("Enter The id station");
+                                    drc.Stationld = Console.Read();
+                                    d5.AddDroneCharge(drc);
+                                    break;
+
+
+                            }
+                            break;
                         }
-                        break;
+
                     case 3://show תצוגה
-                        Console.WriteLine("Enter your choise:");
-                        b = int.TryParse(Console.ReadLine(), out option);
-                        switch (option)
                         {
-                            case 1://station תצוגת תחנת-בסיס 
-                                break;
-                            case 2://drone  תצוגת רחפן
-                                break;
-                            case 3: //customer תצוגת לקוח
-                                break;
-                            case 4://parcel תצוגת חבילה
-                                break;
-                            default:
-                                break;
+                            Console.WriteLine("Enter your choise:");
+                            b = int.TryParse(Console.ReadLine(), out option);
+                            switch (option)
+                            {
+                                case 1://station תצוגת תחנת-בסיס 
+                                    break;
+                                case 2://drone  תצוגת רחפן
+                                    break;
+                                case 3: //customer תצוגת לקוח
+                                    break;
+                                case 4://parcel תצוגת חבילה
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
                         }
-                        break;
-                    case 4://showLists תצוגת רשימות
-                        Console.WriteLine("Enter your choise:");
-                        b = int.TryParse(Console.ReadLine(), out option);
-                        switch (option)
-                        {
-                            case 1://stations  הצגת רשימת תחנות-בסיס 
-                                break;
-                            case 2://drones הצגת רשימת הרחפנים
-                                break;
-                            case 3://customers הצגת רשימת הלקוחות
-                                break;
-                            case 4://parcels  הצגת רשימת החבילות 
-                                break;
-                            case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
-                                break;
-                            case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case 5://exit יציאה
-                        ex = false;
-                        break;
-                }
-                Console.WriteLine("הקש 1 לאפשרות הוספה הקש שתיים לאפשרות עדכון הקש 3 לאפשרות תצוגה הקש 4 לאפשרות הצגת רשימות הקש 5 ליציאה\n");
-                 b = int.TryParse(Console.ReadLine(), out option);
-            }
 
+
+                    case 4://showLists תצוגת רשימות
+                        {
+                            Console.WriteLine("Enter your choise:");
+                            b = int.TryParse(Console.ReadLine(), out option);
+                            switch (option)
+                            {
+                                case 1://stations  הצגת רשימת תחנות-בסיס 
+                                    break;
+                                case 2://drones הצגת רשימת הרחפנים
+                                    break;
+                                case 3://customers הצגת רשימת הלקוחות
+                                    break;
+                                case 4://parcels  הצגת רשימת החבילות 
+                                    break;
+                                case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
+                                    break;
+                                case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        }
+
+
+                    case 5:
+                        {//exit יציאה
+                            ex = false;
+                            break;
+                        }
+
+                        
+                }
+                Console.WriteLine("Press 1 Add option Press 2 Update option Press 3 View option Press 4 View lists Press 5 Exit");
+                 b = int.TryParse(Console.ReadLine(), out option);
+
+            }
         }
+    
+    
+    
+    
+    
+    
+    
+   
     }
 }

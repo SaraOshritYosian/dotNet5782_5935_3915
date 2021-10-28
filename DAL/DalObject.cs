@@ -102,7 +102,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         {
             Parcel pr = SearchParcle(idParcel);
             Drone dr = SearchDrone(pr.Droneld);
-            pr.PichedUp = DateTime.Now;//עדכון זמן שיוך חבילה
+            pr.PichedUp = DateTime.Now;//עדכון זמן הגעת הרחפן לשולח חבילה
         }
 
         public void DeliveryOfPackageToTheCustomer(int idParcel)//Delivery of a package to the customer
@@ -126,7 +126,16 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
             
         }
+        public void PrindDroneChargeList(int idDrone)//הדפסת רשימת הרחפנים בטעינה
+        {
+            foreach (Drone dr in DataSource.dronsList) { }
 
+        }
+        public void PrindBaseStationList(int idDrone)//הדפסת רשימת התחנות  הטעינה
+        {
+            foreach (Drone dr in DataSource.dronsList) { }
+
+        }
 
     }
 

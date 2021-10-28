@@ -56,7 +56,11 @@ namespace DalObject
             dronsList.Add(new Drone() { Id = 0, Model = " ", Battery = 0, StatusDrone = 0, Weight = 0 });
             stationsList.Add(new Station() { Name = 0, Id = 0, ChargeSlots = 0, Longitude = 0.0, Latitude = 0 });
             customerList.Add(new Customer() { Id = 0, Name = " ", Lattitude = 0, Longitude = 0, Pone = " " });
-            parcelList.Add(new Parcel() { Id = 0, Senderld = 0, Targetld = 0, Weight = 0, Priority = 0, Droneld = 0, Requested = DateTime.Now, Scheduled = DateTime.Now, PichedUp = DateTime.Now, Delivered = DateTime.Now });
+            parcelList.Add(new Parcel() { Id = Config.amountParcelId++, Senderld = 0, Targetld = 0, Weight = 0, Priority = 0, Droneld = 0, Requested = DateTime.Now, Scheduled = DateTime.Now, PichedUp = DateTime.Now, Delivered = DateTime.Now });
+            Config.amountStationId++;
+            Config.amountCustomerId++;
+            Config.amountDorneId++;
+
         }
     }
 }

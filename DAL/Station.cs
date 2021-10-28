@@ -16,7 +16,7 @@ namespace IDAL
             
             public override string ToString()
             {
-                return $"station:  Name={Name} ,Id ={Id}, ChargeSlots={ChargeSlots}, longitude={longitude},latitude={latitude}";
+                return $"station:  Name={Name} ,Id ={Id}, ChargeSlots={ChargeSlots}, longitude={Longitude},latitude={Latitude}";
 
 
             }
