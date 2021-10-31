@@ -81,7 +81,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return new Station();
         }
 
-        public void AssignPackageToDrone(int idParcel)//Assign a Package To Drone
+        public bool AssignPackageToDrone(int idParcel)//Assign a Package To Drone
         {
             Parcel pr = SearchParcle(idParcel);
             foreach (Drone dr in DataSource.dronsList)
@@ -93,9 +93,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                     Drone dd = SearchDrone(id);
                     dd.StatusDrone = IDAL.Status.delivered;//להעביר את הרחפן למצב שהוא במשלוח
                     pr.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
-                    return;
+                    return true;
                 }
             }
+            return false;
 
         }
         public void PackageCollectionByDrone(int idParcel)//Package collection by Drone
@@ -116,13 +117,27 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void DroneDkimmerForCharging(DroneCharge cs)//Drone a skimmer for charging
         {
             Drone dr = SearchDrone(cs.Droneld);
+            Station st = SearchStation(cs.Stationld);
+            st.ChargeSlots--;//להוריד את כמות המקומות השעינה הפנויות
             dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא בטעינה
             AddDroneCharge(cs);//להוסיף אותו לרשימה של הרחפנים בטעינה
         }
         public void ReleaseDroneFroCharging(int idDrone)//Release Drone from charging
         {
-           //צריך למחוק את הרחפן מרשימת טעינה
-           Drone dr = SearchDrone(idDrone);
+            int stationCod;
+            Station dd;
+            //צריך למחוק את הרחפן מרשימת טעינה
+            foreach (DroneCharge ds in DataSource.droneChargeList) {
+                if (ds.Droneld == idDrone)
+                {
+                     stationCod = ds.Stationld;
+                    dd = SearchStation(stationCod);
+                    dd.ChargeSlots++;//צריך לעלות את כמות המקומות הטעינה
+                    break;
+                }
+                
+            }
+            Drone dr = SearchDrone(idDrone);
            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
             
         }
@@ -238,6 +253,15 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                     break;
                 }
             }
+        }
+        public void PrintFreeBaseStationList(int idDrone)//הדפסת רשימת התחנות  שיש בהם עמדות טעינה פנויות
+        {
+            foreach (Station dr in DataSource.stationsList) {
+                if (dr.ChargeSlots > 0)
+                    Console.WriteLine(dr.Id);
+
+            }
+
         }
 
     }

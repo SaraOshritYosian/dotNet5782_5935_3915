@@ -62,5 +62,6 @@ namespace DalObject
             Config.amountDorneId++;
 
         }
+
     }
 }
