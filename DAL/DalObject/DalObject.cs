@@ -126,15 +126,118 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
             
         }
-        public void PrindDroneChargeList(int idDrone)//הדפסת רשימת הרחפנים בטעינה
+        // .אפשרויות הצגת הרשימות
+        public static void PrindDroneChargeList()//הדפסת רשימת הרחפנים בטעינה
         {
-            foreach (Drone dr in DataSource.dronsList) { }
+            foreach (Drone dr in DataSource.dronsList) 
+            {
+                if(dr.StatusDrone==IDAL.Status.InMaintenance)
+                {
+                    dr.ToString();
+                }
+            }
 
         }
-        public void PrindBaseStationList(int idDrone)//הדפסת רשימת התחנות  הטעינה
+        public static void PrindBaseStationList()
+                                          // הצגת רשימת תחנות-בסיס
         {
-            foreach (Drone dr in DataSource.dronsList) { }
+            foreach (Station station in DataSource.stationsList/*Drone dr in DataSource.dronsList*/)
+            {
+                station.ToString();
+            }
 
+        }
+        //השאלה אם זה תחנות טעינה או רק תחנות רגילות.בכל אופן אני אדפיס פעולה אחרת לתחנות טעינה
+
+        public static void PrintDronesList()//הצגת רשימת הרחפנים
+        {
+            foreach(Drone dr in DataSource.dronsList)
+            {
+                dr.ToString();
+            }
+        }
+        public static void PrintCustomersList()//הצגת רשימת הלקוחות
+        {
+            foreach (Customer customer in DataSource.customerList)
+            {
+                customer.ToString();
+            }
+        }
+        public static void PrintParcelsList()//הצגת רשימת החבילות 
+        {
+            foreach (Parcel parcel in DataSource.parcelList)
+            {
+                parcel.ToString();
+            }
+        }
+        public static void PrintUnconnectedParceslList()// הצגת רשימת חבילות שעוד לא שויכו לרחפן 
+        {
+            foreach (Parcel parcel in DataSource.parcelList)
+            {
+                if(parcel.Id==0)
+                {
+                    parcel.ToString();
+                }
+
+            }
+        }
+        public static void PrintAvailableStationToChargeList()//הצגת תחנות-בסיס עם עמדות טעינה פנויות
+        {
+            foreach (Station station in DataSource.stationsList)
+            {
+                if(station.ChargeSlots>0)
+                {
+                    station.ToString();
+                }
+            }
+        }
+
+        //אפשרויות תצוגה כולן ע"פ מספר מזהה מתאים
+        public static void PrintBaseStation(int stationId)//תצוגת תחנת-בסיס
+        {
+            foreach (Station station in DataSource.stationsList)
+            {
+                if(station.Id==stationId)
+                {
+                    station.ToString();
+                    break;
+                }
+            }
+        }
+        public static void PrintDrone(int droneId)// תצוגת רחפן 
+        {
+            foreach (Drone drone in DataSource.dronsList)
+            {
+                if (drone.Id == droneId)
+                {
+                    drone.ToString();
+                    break;
+                }
+            }
+        }
+
+
+        public static void PrintCustomer(int customerId)//תצוגת לקוח
+        {
+            foreach(Customer customer in DataSource.customerList)
+            {
+                if(customer.Id==customerId)
+                {
+                    customer.ToString();
+                    break;
+                }
+            }
+        }
+        public static void PrintParcel(int parcelId)//תצוגת חבילה
+        {
+            foreach (Parcel parcel in DataSource.parcelList)
+            {
+                if (parcel.Id == parcelId)
+                {
+                    parcel.ToString();
+                    break;
+                }
+            }
         }
 
     }
