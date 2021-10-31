@@ -1,6 +1,7 @@
 ﻿using System;
 using IDAL.DO;
 
+
 namespace ConsoleUI
 {
     class Program
@@ -15,6 +16,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
+
 
             DalObject.DalObject d1 = new DalObject.DalObject();//station
             DalObject.DalObject d2 = new DalObject.DalObject();//drone
@@ -235,16 +237,34 @@ namespace ConsoleUI
                     case 3://show תצוגה
                         {
                             Console.WriteLine("Enter your choise:");
+                            Console.WriteLine("1 show a station\n");
+                            Console.WriteLine("2 show a drone\n");
+                            Console.WriteLine("3 show a customer\n");
+                            Console.WriteLine("4 show a parcel\n");
+                            
                             b = int.TryParse(Console.ReadLine(), out option);
+                            
                             switch (option)
                             {
                                 case 1://station תצוגת תחנת-בסיס 
-                                    break;
+                                    Console.WriteLine("Enter station Id:");
+                                    b = int.TryParse(Console.ReadLine(), out option);
+                                    DalObject.DalObject.PrintBaseStation(option);
+                                 break;
                                 case 2://drone  תצוגת רחפן
+                                    Console.WriteLine("Enter drone Id:");
+                                    b = int.TryParse(Console.ReadLine(), out option);
+                                    DalObject.DalObject.PrintDrone(option);
                                     break;
                                 case 3: //customer תצוגת לקוח
+                                    Console.WriteLine("Enter customer Id:");
+                                    b = int.TryParse(Console.ReadLine(), out option);
+                                    DalObject.DalObject.PrintCustomer(option);
                                     break;
                                 case 4://parcel תצוגת חבילה
+                                    Console.WriteLine("Enter parcel Id:");
+                                    b = int.TryParse(Console.ReadLine(), out option);
+                                    DalObject.DalObject.PrintParcel(option);
                                     break;
                                 default:
                                     break;
@@ -256,20 +276,36 @@ namespace ConsoleUI
                     case 4://showLists תצוגת רשימות
                         {
                             Console.WriteLine("Enter your choise:");
+                            Console.WriteLine("1 show a list of stations\n");
+                            Console.WriteLine("2 show a list of drones\n");
+                            Console.WriteLine("3 show a list of customers\n");
+                            Console.WriteLine("4 show a list of parcels\n");
+                            Console.WriteLine("5 show a list of unconnectedParcel\n");
+                            Console.WriteLine("6 show a list of availableStationToCharge\n");
+                            Console.WriteLine("7 show a list of drones in charging\n");
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
+                                    DalObject.DalObject.PrindBaseStationList();
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
+                                    DalObject.DalObject.PrintDronesList();
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
+                                    DalObject.DalObject.PrintCustomersList();
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
+                                    DalObject.DalObject.PrintParcelsList();
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
+                                    DalObject.DalObject.PrintUnconnectedParceslList();
                                     break;
                                 case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
+                                    DalObject.DalObject.PrintAvailableStationToChargeList();
+                                    break;
+                                case 7://רשימת רחפנים בטעינה
+                                    DalObject.DalObject.PrindDroneChargeList();
                                     break;
                                 default:
                                     break;
@@ -288,7 +324,7 @@ namespace ConsoleUI
                 }
                 Console.WriteLine("Press 1 Add option Press 2 Update option Press 3 View option Press 4 View lists Press 5 Exit");
                  b = int.TryParse(Console.ReadLine(), out option);
-
+                //something
             }
         }
     
