@@ -218,10 +218,7 @@ namespace ConsoleUI
                                     Console.WriteLine("Enter The id station");
                                     drc.Stationld = Console.Read();
                                     d5.AddDroneCharge(drc);
-
-                                    Console.WriteLine("Enter The id drone");
-                                    b = int.TryParse(Console.ReadLine(), out cod);
-                                    d6.DroneDkimmerForCharging(cod);
+                                    
                                     break;
                                 case 5://שיחרור רחפן מטעינה
                                     
