@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+
 using IDAL.DO;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
@@ -11,7 +12,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
-            DataSource.Initialize();
+           // DataSource.Initialize();
         }
 
 
@@ -28,9 +29,9 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
         public void AddCustomer(Customer cs)//מוסיף לקוח
-        {
-            DataSource.customerList.Add(cs);
+        { 
             DataSource.Config.amountCustomerId++;
+            DataSource.customerList.Add(cs);
         }
         public void AddDroneCharge(DroneCharge cs)//מוסיף רחפנים לעמדות טעינה
         {
@@ -148,7 +149,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if(dr.StatusDrone==IDAL.Status.InMaintenance)
                 {
-                    dr.ToString();
+                    Console.WriteLine(dr.ToString());
                 }
             }
 
@@ -158,7 +159,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         {
             foreach (Station station in DataSource.stationsList/*Drone dr in DataSource.dronsList*/)
             {
-                station.ToString();
+                Console.WriteLine(station.ToString());
             }
 
         }
@@ -168,14 +169,14 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         {
             foreach(Drone dr in DataSource.dronsList)
             {
-                dr.ToString();
+                Console.WriteLine(dr.ToString());
             }
         }
         public static void PrintCustomersList()//הצגת רשימת הלקוחות
         {
             foreach (Customer customer in DataSource.customerList)
             {
-                customer.ToString();
+              Console.WriteLine(  customer.ToString());
             }
         }
         public static void PrintParcelsList()//הצגת רשימת החבילות 
@@ -191,7 +192,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if(parcel.Id==0)
                 {
-                    parcel.ToString();
+                    Console.WriteLine(parcel.ToString());
                 }
 
             }
@@ -202,7 +203,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if(station.ChargeSlots>0)
                 {
-                    station.ToString();
+                    Console.WriteLine(station.ToString());
                 }
             }
         }
@@ -214,7 +215,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if(station.Id==stationId)
                 {
-                    station.ToString();
+                    Console.WriteLine(station.ToString());
                     break;
                 }
             }
@@ -225,7 +226,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if (drone.Id == droneId)
                 {
-                    drone.ToString();
+                    Console.WriteLine(drone.ToString());
                     break;
                 }
             }
@@ -238,7 +239,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if(customer.Id==customerId)
                 {
-                    customer.ToString();
+                    Console.WriteLine(customer.ToString());
                     break;
                 }
             }
@@ -249,7 +250,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if (parcel.Id == parcelId)
                 {
-                    parcel.ToString();
+                    Console.WriteLine(parcel.ToString());
                     break;
                 }
             }

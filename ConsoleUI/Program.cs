@@ -186,11 +186,11 @@ namespace ConsoleUI
                     case 2://update עדכון
                         {
                             Console.WriteLine("Enter your choise:");
-                            Console.WriteLine("1 Assign a package to a Drone\n");
-                            Console.WriteLine("2 Package collection by Drone\n");
-                            Console.WriteLine("3 Delivery of a package to the customer\n");
-                            Console.WriteLine("4 Drone a Drone for charging\n");
-                            Console.WriteLine("5 Release Drone from charging\n");
+                            Console.WriteLine("1 Assign a package to a Drone");
+                            Console.WriteLine("2 Package collection by Drone");
+                            Console.WriteLine("3 Delivery of a package to the customer");
+                            Console.WriteLine("4 Drone a Drone for charging");
+                            Console.WriteLine("5 Release Drone from charging");
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
@@ -216,11 +216,13 @@ namespace ConsoleUI
                                 case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
                                     DroneCharge drc = new DroneCharge();
                                     Console.WriteLine("Enter The id drone");
-                                    drc.Droneld = Console.Read();
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    drc.Droneld =cod;
+                                    DalObject.DalObject.PrintAvailableStationToChargeList();//print charge station 
                                     Console.WriteLine("Enter The id station");
-                                    drc.Stationld = Console.Read();
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    drc.Stationld =cod;
                                     d5.AddDroneCharge(drc);
-                                    
                                     break;
                                 case 5://שיחרור רחפן מטעינה
                                     
@@ -237,10 +239,10 @@ namespace ConsoleUI
                     case 3://show תצוגה
                         {
                             Console.WriteLine("Enter your choise:");
-                            Console.WriteLine("1 show a station\n");
-                            Console.WriteLine("2 show a drone\n");
-                            Console.WriteLine("3 show a customer\n");
-                            Console.WriteLine("4 show a parcel\n");
+                            Console.WriteLine("1 show a station");
+                            Console.WriteLine("2 show a drone");
+                            Console.WriteLine("3 show a customer");
+                            Console.WriteLine("4 show a parcel");
                             
                             b = int.TryParse(Console.ReadLine(), out option);
                             
@@ -276,13 +278,13 @@ namespace ConsoleUI
                     case 4://showLists תצוגת רשימות
                         {
                             Console.WriteLine("Enter your choise:");
-                            Console.WriteLine("1 show a list of stations\n");
-                            Console.WriteLine("2 show a list of drones\n");
-                            Console.WriteLine("3 show a list of customers\n");
-                            Console.WriteLine("4 show a list of parcels\n");
-                            Console.WriteLine("5 show a list of unconnectedParcel\n");
-                            Console.WriteLine("6 show a list of availableStationToCharge\n");
-                            Console.WriteLine("7 show a list of drones in charging\n");
+                            Console.WriteLine("1 show a list of stations");
+                            Console.WriteLine("2 show a list of drones");
+                            Console.WriteLine("3 show a list of customers");
+                            Console.WriteLine("4 show a list of parcels");
+                            Console.WriteLine("5 show a list of unconnectedParcel");
+                            Console.WriteLine("6 show a list of availableStationToCharge");
+                            Console.WriteLine("7 show a list of drones in charging");
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
@@ -322,9 +324,11 @@ namespace ConsoleUI
 
                         
                 }
-                Console.WriteLine("Press 1 Add option Press 2 Update option Press 3 View option Press 4 View lists Press 5 Exit");
-                 b = int.TryParse(Console.ReadLine(), out option);
-                //something
+                if (ex != false)
+                {
+                    Console.WriteLine("Press 1 Add option Press 2 Update option Press 3 View option Press 4 View lists Press 5 Exit");
+                    b = int.TryParse(Console.ReadLine(), out option);
+                }
             }
         }
     
