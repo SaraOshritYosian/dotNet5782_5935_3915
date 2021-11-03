@@ -27,31 +27,31 @@ namespace DalObject
             internal static int amountParcelId = 0;//כמות חבילות
             //מונה לחבילות והמונה ות"ז של חבילות יהיו זהים
         }
-        private static void creatDrone(int num)//פונקציה שיוצרת רחפנים
+        private static void creatDrone(int num)//פונקציה שיוצרת רחפנים create a drone
         {
             Config.amountDorneId++; //.... באחד amountDorneId שיוצרים רחפן זה מגדיל את
         }
 
-        private static void creatStation(int num)//פונקציה שיוצרת תחנה
+        private static void creatStation(int num)//פונקציה שיוצרת תחנה create a station
         {
             Config.amountStationId++; //.... באחד amountStationId שיוצרים רחפן זה מגדיל את
         }
 
-        private static void creatCustomer(int num)//פונקציה שיוצרת לקוח
+        private static void creatCustomer(int num)//פונקציה שיוצרת לקוח create a customer
         {
             Config.amountCustomerId++; //.... באחד amountCustomerId שיוצרים רחפן זה מגדיל את
         }
 
-        private static void creatParcel(int num)//פונקציה שיוצרת חבילה
+        private static void creatParcel(int num)//פונקציה שיוצרת חבילה create a parcel
         {
             Config.amountParcelId++; //.... באחד amountParcelId שיוצרים רחפן זה מגדיל את
         }
 
-        private static void creatDroneCharge(int num)//פונקציה שיוצרת עמדות טעינה
+        private static void creatDroneCharge(int num)//פונקציה שיוצרת עמדות טעינה create a charge slot
         {
             Config.amountDorneId++; //.... באחד amountDorneId שיוצרים רחפן זה מגדיל את
         }
-        internal static void Initialize()//מאתחל את הרשימות וקורא לכל היצירות
+        internal static void Initialize()//מאתחל את הרשימות וקורא לכל היצירות 
         {
             dronsList.Add(new Drone() { Id = 0, Model = " ", Battery = 0, StatusDrone = 0, Weight = 0 });
             stationsList.Add(new Station() { Name = 0, Id = 0, ChargeSlots = 0, Longitude = 0.0, Latitude = 0 });
