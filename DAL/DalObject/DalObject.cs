@@ -12,7 +12,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
-           // DataSource.Initialize();
+            DataSource.Initialize();
         }
 
 
