@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Linq;
 namespace IDAL
 {
     namespace DO
@@ -13,12 +15,16 @@ namespace IDAL
             public string Pone { get; set; }
             public double  Longitude { get; set; }
             public double Lattitude { get; set; }
+            //public override string ToString()
+            //{
+
+            //    return $"customer: Id={Id}, Name={Name}, Pone={Pone},Longitude={Longitude},Lattitude={Lattitude}";
+
+
+            //}
             public override string ToString()
             {
-                
-                return $"customer: Id={Id}, Name={Name}, Pone={Pone},Longitude={Longitude},Lattitude={Lattitude}"; 
-
-
+                return this.ToStringProperty();
             }
         }
        

@@ -13,16 +13,19 @@ namespace IDAL
 
             public int Id { get; set; }
             public string Model { get; set; }
-            public Status StatusDrone { get; set; }
+            //public Status StatusDrone { get; set; }
             public WeightCategories Weight { get; set; }
-            public double Battery { get; set; }
+            //public double Battery { get; set; }
+            //public override string ToString()
+            //{
+            //    //return $"drone: Id={Id}, Model={Model}, StatusDrone={StatusDrone},Weight={Weight},Battery={Battery}";
+
+            //    return $"drone: Id={Id}, Model={Model},Weight={Weight}";
+            //}
             public override string ToString()
             {
-                return $"drone: Id={Id}, Model={Model}, StatusDrone={StatusDrone},Weight={Weight},Battery={Battery}";
-
-
+                return this.ToStringProperty();
             }
-
 
         }
     }

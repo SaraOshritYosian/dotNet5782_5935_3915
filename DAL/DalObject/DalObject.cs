@@ -8,7 +8,7 @@ using IDAL.DO;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
-    public class DalObject
+    public class DalObject: IDAL
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
@@ -52,7 +52,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 if (dr.Id == id)
                     return dr;
             }
-            return new Parcel();
+            return new Parcel();//exeption
         }
         public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז search drone by id
         {
@@ -85,7 +85,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public bool AssignPackageToDrone(int idParcel)//Assign a Package To Drone
         {
             Parcel pr = SearchParcle(idParcel);
-            foreach (Drone dr in DataSource.dronsList)
+            foreach (Drone dr in DataSource.dronsList)//for 
             {
                 if (dr.StatusDrone== IDAL.Status.available)
                 {
@@ -93,6 +93,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                     pr.Droneld = dr.Id;//שיוך חבילה לרחפן
                     Drone dd = SearchDrone(id);
                     dd.StatusDrone = IDAL.Status.delivered;//להעביר את הרחפן למצב שהוא במשלוח
+                    DataSource.dronsList[i] = dr;
                     pr.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
                     return true;
                 }
