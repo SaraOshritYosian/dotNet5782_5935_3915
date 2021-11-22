@@ -8,7 +8,7 @@ using IDAL.DO;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
-    public class DalObject: IDAL
+    public partial class DalObject: IDAL
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
@@ -24,6 +24,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
+
         public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז search drone by id
         {
             foreach (Drone dr in DataSource.dronsList)
@@ -32,6 +33,23 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                     return dr;
             }
             return new Drone();
+        }
+
+
+        public void UpdetDrone()
+        {
+            try
+            {
+
+
+                IDAL.DO.Customer customer = accessIdal.GetCustomer(id);
+                if (name != "")
+                    customer.Name = neme;
+                if (name != "")
+                    customer.Name = neme;
+                if (name != "")
+                    customer.Name = neme;
+            }
         }
         #endregion
         #region Station

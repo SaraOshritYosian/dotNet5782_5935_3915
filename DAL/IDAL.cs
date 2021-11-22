@@ -17,7 +17,7 @@ namespace DAL
         #region Drone
         IDAL.DO.Drone GetDrone(int id);//get
         void addDrone(DO.Drone Drone);//add
-        void updetDrone(DO.Drone Drone);//updet
+        void UpdetDrone(DO.Drone Drone);//updet
         void deleteCDrone(int id);//delete
         ///.
         #endregion
