@@ -15,45 +15,14 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             DataSource.Initialize();
         }
 
-
+        #region Drone
         public void AddDrone(Drone dr)//מוסיף רחפן add a drone
         {
             DataSource.dronsList.Add(dr);
             DataSource.Config.amountDorneId++;
 
         }
-        public void AddStation(Station st)//מוסיף תחנת בסיס add a station
-        {
-            DataSource.stationsList.Add(st);
-            DataSource.Config.amountStationId++;
 
-        }
-        public void AddCustomer(Customer cs)//מוסיף לקוח
-        { 
-            DataSource.Config.amountCustomerId++;
-            DataSource.customerList.Add(cs);
-        }
-        public void AddDroneCharge(DroneCharge cs)//מוסיף רחפנים לעמדות טעינה add drone to the charge spot
-        {
-            DataSource.droneChargeList.Add(cs);
-           
-        }
-        public int AddParcel(Parcel pr)//מוסיף הזמנה add a parcel
-        {
-            pr.Id = DataSource.Config.amountParcelId;
-            DataSource.parcelList.Add(pr);
-            DataSource.Config.amountParcelId++;
-            return DataSource.Config.amountParcelId - 1;
-        }
-        public Parcel SearchParcle(int id)//מחפש חבילה ךפי ת"ז search parcel by id
-        {
-            foreach (Parcel dr in DataSource.parcelList)
-            {
-                if (dr.Id == id)
-                    return dr;
-            }
-            return new Parcel();//exeption
-        }
         public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז search drone by id
         {
             foreach (Drone dr in DataSource.dronsList)
@@ -63,15 +32,16 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return new Drone();
         }
-        public Customer SearchCustomer(int id)//מחפש לקוח ךפי ת"ז search customer by id
+        #endregion
+        #region Station
+        public void AddStation(Station st)//מוסיף תחנת בסיס add a station
         {
-            foreach (Customer dr in DataSource.customerList)
-            {
-                if (dr.Id == id)
-                    return dr;
-            }
-            return new Customer();
+            DataSource.stationsList.Add(st);
+            DataSource.Config.amountStationId++;
+
         }
+
+
         public Station SearchStation(int id)//מחפש ,תחנה ךפי ת"ז search station by id
         {
             foreach (Station dr in DataSource.stationsList)
@@ -81,6 +51,59 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return new Station();
         }
+        #endregion
+        #region Parcle
+        public int AddParcel(Parcel pr)//מוסיף הזמנה add a parcel
+        {
+            pr.Id = DataSource.Config.amountParcelId;
+            DataSource.parcelList.Add(pr);
+            DataSource.Config.amountParcelId++;
+            return DataSource.Config.amountParcelId - 1;
+        }
+
+        public Parcel SearchParcle(int id)//מחפש חבילה ךפי ת"ז search parcel by id
+        {
+            foreach (Parcel dr in DataSource.parcelList)
+            {
+                if (dr.Id == id)
+                    return dr;
+            }
+            return new Parcel();//exeption
+        }
+        #endregion
+        #region DroneCharg
+        public void AddDroneCharge(DroneCharge cs)//מוסיף רחפנים לעמדות טעינה add drone to the charge spot
+        {
+            DataSource.droneChargeList.Add(cs);
+
+        }
+        #endregion
+        #region Customer
+
+        public void AddCustomer(Customer cs)//מוסיף לקוח
+        {
+            DataSource.Config.amountCustomerId++;
+            DataSource.customerList.Add(cs);
+        }
+
+        public Customer SearchCustomer(int id)//מחפש לקוח ךפי ת"ז search customer by id
+        {
+            foreach (Customer dr in DataSource.customerList)
+            {
+                if (dr.Id == id)
+                    return dr;
+            }
+            return new Customer();
+        }
+        #endregion
+
+
+
+
+
+
+
+       
 
         public bool AssignPackageToDrone(int idParcel)//Assign a Package To Drone
         {
@@ -266,6 +289,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         //יש לנו כבר כזה לא?
 
         //}
+
+
+
+
 
     }
 
