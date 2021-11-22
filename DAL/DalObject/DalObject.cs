@@ -18,6 +18,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public void AddDrone(Drone dr)//מוסיף רחפן add a drone
         {
+
             DataSource.dronsList.Add(dr);
             DataSource.Config.amountDorneId++;
 

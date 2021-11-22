@@ -15,5 +15,6 @@ namespace DAL.DO
         public Excptions(string message, Exception inner) : base(message, inner) { }
         protected Excptions(SerializationInfo info, StreamingContext context) : base(info, context) {}
 
+
     }
 }
