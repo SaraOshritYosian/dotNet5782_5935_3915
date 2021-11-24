@@ -126,7 +126,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.StationDoesNotExists(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                return throw DO.StationDoesNotExistException(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
         public IEnumerable<DO.Station> GetAllStation()
@@ -143,7 +143,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void addStation(DO.Station station)
         {
             if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
-                throw new DO.StationAlreadyExists(drone.Id, $"bad drone id: {drone.Id}");
+                throw new DO.StationAlreadyExistsException(drone.Id, $"bad drone id: {drone.Id}");
             DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
         }
 
@@ -154,7 +154,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 DataSource.stationsList.Remove(per);
             else
-                throw new DO.DroneDoesNotExist(id, $"bad drone id: {id}")
+                throw new DO.StationDoesNotExistException(id, $"bad drone id: {id}")
 
         }
 
@@ -168,7 +168,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
             else
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+                throw new DO.StationDoesNotExistException(drone.Id, $"bad drone id: {drone.Id}")
 
         }
 
@@ -207,7 +207,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.hjghjfljgl(id, $"bad Parcle id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                return throw DO.ParcelDoesNotExistException(id, $"bad Parcle id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
         public IEnumerable<DO.Parcle> GetAllParcle()
@@ -224,7 +224,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void addParcle(DO.Parcle parcle)
         {
             if (DataSource.parcelList.FirstOrDefault(p => p.Id == parcle.Id) != null)
-                throw new DO.BadParcleIdException(parcle.Id, $"bad drone id: {parcle.Id}");
+                throw new DO.ParcelAlreadyExistsException(parcle.Id, $"bad drone id: {parcle.Id}");
             DataSource.parcelList.Add(parcle.clone());//צריך ליצור קלון
         }
 
@@ -235,7 +235,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 DataSource.parcelList.Remove(per);
             else
-                throw new DO.BadParcleIdException(id, $"bad Parcle id: {id}")
+                throw new DO.ParcelDoesNotExistException(id, $"bad Parcle id: {id}")
 
         }
 
@@ -249,7 +249,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
             else
-                throw new DO.BadParcleIdException(parcle.Id, $"bad drone id: {parcle.Id}")
+                throw new DO.ParcelDoesNotExistException(parcle.Id, $"bad drone id: {parcle.Id}")
 
         }
 
@@ -302,7 +302,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.hjghjfljgl(id, $"bad DroneCharg id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                return throw DO.DroneChargDoesNotExistException(id, $"bad DroneCharg id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
         public IEnumerable<DO.Drone> GetAllDrone()
@@ -378,7 +378,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.hjghjfljgl(id, $"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                return throw DO.CsustomerDoesNotExistException(id, $"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
         public IEnumerable<DO.Customer> GetAllCustomer()
@@ -395,7 +395,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void addCustomer(DO.Customer customer)
         {
             if (DataSource.customerList.FirstOrDefault(p => p.Id == customer.Id) != null)
-                throw new DO.BadCustomerIdException(customer.Id, $"bad customer id: {customer.Id}");
+                throw new DO.CustomerAlreadyExistsException(customer.Id, $"bad customer id: {customer.Id}");
             DataSource.customerList.Add(customer.clone());//צריך ליצור קלון
         }
 
@@ -406,7 +406,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 DataSource.customerList.Remove(per);
             else
-                throw new DO.BadCustomerIdException(id, $"bad customer id: {id}")
+                throw new DO.CustomerDoesNotExistException(id, $"bad customer id: {id}")
 
         }
 
@@ -420,7 +420,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
             else
-                throw new DO.BadDronCustomerException(customer.Id, $"bad drone id: {customer.Id}");
+                throw new DO.CustomerDoesNotExistException(customer.Id, $"bad drone id: {customer.Id}");
 
         }
 
