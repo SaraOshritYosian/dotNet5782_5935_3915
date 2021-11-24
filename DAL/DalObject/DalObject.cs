@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
-    public partial class DalObject : IDAL
+    public partial class DalObject: IDAL
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
@@ -45,7 +45,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
         }
 
-        public void deleteCDrone(int id) 
+        public void deleteDrone(int id) 
         {
             DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
 
@@ -126,45 +126,45 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.hjghjfljgl(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                return throw DO.BadStationIdException(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
-        public IEnumerable<DO.Drone> GetAllDrone()
+        public IEnumerable<DO.Station> GetAllStation()
         {
-            return from Drone in DataSource.dronsList
-                   select Drone.clone();
+            return from Station in DataSource.stationsList
+                   select Station.clone();
         }
 
-        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        public IEnumerable<DO.Station> GetAllStationBy(Predicate<DO.Station> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void addDrone(DO.Drone drone)
+        public void addStation(DO.Station station)
         {
-            if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
-            DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
+            if (DataSource.stationsList.FirstOrDefault(p => p.Id == station.Id) != null)
+                throw new DO.BadStationIdException(station.Id, $"bad Station id: {station.Id}");
+            DataSource.stationsList.Add(station.clone());//צריך ליצור קלון
         }
 
-        public void deleteCDrone(int id)
+        public void deleteStation(int id)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            DO.Station per = DataSource.stationsList.Find(p => p.Id == id);
 
             if (per != null)
-                DataSource.dronsList.Remove(per);
+                DataSource.stationsList.Remove(per);
             else
-                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+                throw new DO.BadStationIdException(id, $"bad Station id: {id}");
 
         }
 
-        public void UpdetDrone(DO.Drone drone)
+        public void UpdetStation(DO.Station station)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            DO.Station per = DataSource.stationsList.Find(p => p.Id == station.Id);
             if (per != null)
             {
-                DataSource.dronsList.Remove(per);//מחיקה
-                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+                DataSource.stationsList.Remove(per);//מחיקה
+                DataSource.stationsList.Add(station.clone());//הוספה מעודכן
             }
 
             else
@@ -172,7 +172,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public void UpdetDrone(int id, Action<DO.Drone> action)
+        public void UpdetStation(int id, Action<DO.Station> action)
         {
             throw new NotImplementedException();
         }
@@ -214,50 +214,50 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 return throw DO.hjghjfljgl(id, $"bad Parcle id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
-        public IEnumerable<DO.Drone> GetAllDrone()
+        public IEnumerable<DO.Parcle> GetAllParcle()
         {
-            return from Drone in DataSource.dronsList
-                   select Drone.clone();
+            return from Parcle in DataSource.parcelList
+                   select Parcle.clone();
         }
 
-        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        public IEnumerable<DO.Parcle> GetAllParcleBy(Predicate<DO.Parcle> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void addDrone(DO.Drone drone)
+        public void addParcle(DO.Parcle parcle)
         {
-            if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
-            DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
+            if (DataSource.parcelList.FirstOrDefault(p => p.Id == parcle.Id) != null)
+                throw new DO.BadParcleIdException(parcle.Id, $"bad drone id: {parcle.Id}");
+            DataSource.parcelList.Add(parcle.clone());//צריך ליצור קלון
         }
 
-        public void deleteCDrone(int id)
+        public void deleteParcle(int id)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            DO.Parcle per = DataSource.parcelList.Find(p => p.Id == id);
 
             if (per != null)
-                DataSource.dronsList.Remove(per);
+                DataSource.parcelList.Remove(per);
             else
-                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+                throw new DO.BadParcleIdException(id, $"bad Parcle id: {id}")
 
         }
 
-        public void UpdetDrone(DO.Drone drone)
+        public void UpdetParcle(DO.Parcle parcle)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            DO.Parcle per = DataSource.parcelList.Find(p => p.Id == parcle.Id);
             if (per != null)
             {
-                DataSource.dronsList.Remove(per);//מחיקה
-                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+                DataSource.parcelList.Remove(per);//מחיקה
+                DataSource.parcelList.Add(parcle.clone());//הוספה מעודכן
             }
 
             else
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+                throw new DO.BadParcleIdException(parcle.Id, $"bad drone id: {parcle.Id}")
 
         }
 
-        public void UpdetDrone(int id, Action<DO.Drone> action)
+        public void UpdetParcle(int id, Action<DO.Parcle> action)
         {
             throw new NotImplementedException();
         }
@@ -399,36 +399,36 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void addCustomer(DO.Customer customer)
         {
             if (DataSource.customerList.FirstOrDefault(p => p.Id == customer.Id) != null)
-                throw new DO.BadCustomerIdException(customer.Id, $"bad drone id: {customer.Id}");
-            DataSource.dronsList.Add(customer.clone());//צריך ליצור קלון
+                throw new DO.BadCustomerIdException(customer.Id, $"bad customer id: {customer.Id}");
+            DataSource.customerList.Add(customer.clone());//צריך ליצור קלון
         }
 
-        public void deleteCDrone(int id)
+        public void deleteCustomer(int id)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
 
             if (per != null)
-                DataSource.dronsList.Remove(per);
+                DataSource.customerList.Remove(per);
             else
-                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+                throw new DO.BadCustomerIdException(id, $"bad customer id: {id}")
 
         }
 
-        public void UpdetDrone(DO.Drone drone)
+        public void UpdetCustomer(DO.Customer customer)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            DO.Customer per = DataSource.customerList.Find(p => p.Id == customer.Id);
             if (per != null)
             {
-                DataSource.dronsList.Remove(per);//מחיקה
-                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+                DataSource.customerList.Remove(per);//מחיקה
+                DataSource.customerList.Add(customer.clone());//הוספה מעודכן
             }
 
             else
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+                throw new DO.BadDronCustomerException(customer.Id, $"bad drone id: {customer.Id}");
 
         }
 
-        public void UpdetDrone(int id, Action<DO.Drone> action)
+        public void UpdetCustomer(int id, Action<DO.Customer> action)
         {
             throw new NotImplementedException();
         }
