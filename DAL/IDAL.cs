@@ -28,7 +28,7 @@ namespace DAL
         void addDrone(DO.Drone drone);//add
         void UpdetDrone(DO.Drone drone);//updet
         void UpdetDrone(int id, Action<DO.Drone> action);//updet
-        void deleteCDrone(int id);//delete
+        void deleteDrone(int id);//delete
         ///.
         #endregion
 
