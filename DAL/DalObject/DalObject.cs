@@ -4,7 +4,6 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-using IDAL.DO;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
@@ -16,7 +15,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
 
         #region Drone
-        public void AddDrone(Drone dr)//מוסיף רחפן add a drone
+        public void AddDrone(DO.Drone dr)//מוסיף רחפן add a drone
         {
 
             DataSource.dronsList.Add(dr);
