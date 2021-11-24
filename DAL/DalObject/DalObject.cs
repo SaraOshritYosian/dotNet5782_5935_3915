@@ -81,13 +81,13 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
-        public void AddDrone(Drone dr)//מוסיף רחפן add a drone
-        {
-            //
-            DataSource.dronsList.Add(dr);
-            DataSource.Config.amountDorneId++;
+        //public void AddDrone(Drone dr)//מוסיף רחפן add a drone
+        //{
+        //    //
+        //    DataSource.dronsList.Add(dr);
+        //    DataSource.Config.amountDorneId++;
 
-        }
+        //}
 
 
         public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז search drone by id
@@ -101,21 +101,21 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
 
 
-        public void UpdetDrone()
-        {
-            try
-            {
+        //public void UpdetDrone()
+        //{
+        //    try
+        //    {
 
 
-                IDAL.DO.Customer customer = accessIdal.GetCustomer(id);
-                if (name != "")
-                    customer.Name = neme;
-                if (name != "")
-                    customer.Name = neme;
-                if (name != "")
-                    customer.Name = neme;
-            }
-        }
+        //        IDAL.DO.Customer customer = accessIdal.GetCustomer(id);
+        //        if (name != "")
+        //            customer.Name = neme;
+        //        if (name != "")
+        //            customer.Name = neme;
+        //        if (name != "")
+        //            customer.Name = neme;
+        //    }
+        //}
         #endregion
 
         #region Station
@@ -181,16 +181,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
+        //public void AddStation(Station st)//מוסיף תחנת בסיס add a station
+        //{
+        //    DataSource.stationsList.Add(st);
+        //    DataSource.Config.amountStationId++;
 
-
-
-
-        public void AddStation(Station st)//מוסיף תחנת בסיס add a station
-        {
-            DataSource.stationsList.Add(st);
-            DataSource.Config.amountStationId++;
-
-        }
+        //}
 
 
         public Station SearchStation(int id)//מחפש ,תחנה ךפי ת"ז search station by id
@@ -280,13 +276,13 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
-        public int AddParcel(Parcel pr)//מוסיף הזמנה add a parcel
-        {
-            pr.Id = DataSource.Config.amountParcelId;
-            DataSource.parcelList.Add(pr);
-            DataSource.Config.amountParcelId++;
-            return DataSource.Config.amountParcelId - 1;
-        }
+        //public int AddParcel(Parcel pr)//מוסיף הזמנה add a parcel
+        //{
+        //    pr.Id = DataSource.Config.amountParcelId;
+        //    DataSource.parcelList.Add(pr);
+        //    DataSource.Config.amountParcelId++;
+        //    return DataSource.Config.amountParcelId - 1;
+        //}
 
         public Parcel SearchParcle(int id)//מחפש חבילה ךפי ת"ז search parcel by id
         {
@@ -376,7 +372,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region Customer
-        public DO.Customer GetDroneCustomer(int id)
+        public DO.Customer GetCustomer(int id)
         {
             DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
             if (per != null)
@@ -442,11 +438,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
-        public void AddCustomer(Customer cs)//מוסיף לקוח
-        {
-            DataSource.Config.amountCustomerId++;
-            DataSource.customerList.Add(cs);
-        }
+        //public void AddCustomer(Customer cs)//מוסיף לקוח
+        //{
+        //    DataSource.Config.amountCustomerId++;
+        //    DataSource.customerList.Add(cs);
+        //}
 
         public Customer SearchCustomer(int id)//מחפש לקוח ךפי ת"ז search customer by id
         {
@@ -469,6 +465,9 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public bool AssignPackageToDrone(int idParcel)//Assign a Package To Drone
         {
+
+            for(int i=0;i<)
+
             Parcel pr = SearchParcle(idParcel);
             foreach (Drone dr in DataSource.dronsList)//for 
             {
