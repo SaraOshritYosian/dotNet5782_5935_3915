@@ -24,7 +24,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.BadDronIdException(id, $"bad drone id: {id}");//שרה זה של השם זה השם של הזריקה
+                return throw DO.DroneDoesNotExistException(id, $"bad drone id: {id}");
         }
 
         public IEnumerable<DO.Drone> GetAllDrone()
@@ -41,7 +41,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void addDrone(DO.Drone drone) 
         {
             if(DataSource.dronsList.FirstOrDefault(p=> p.Id == drone.Id)!=null)
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+                throw new DO.DroneAlreadyExistException(drone.Id, $"bad drone id: {drone.Id}");
             DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
         }
 
@@ -52,7 +52,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 DataSource.dronsList.Remove(per);
             else
-                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+                throw new DO.DroneDoesNotExistException(id, $"bad drone id: {id}")
 
         }
 
@@ -65,7 +65,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
             else
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+                throw new DO.DroneDoesNotExistException(drone.Id, $"bad drone id: {drone.Id}")
 
         }
 
@@ -126,7 +126,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 return per;
             else
-                return throw DO.hjghjfljgl(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                return throw DO.StationDoesNotExists(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
         }
 
         public IEnumerable<DO.Drone> GetAllDrone()
@@ -143,7 +143,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void addDrone(DO.Drone drone)
         {
             if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
-                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+                throw new DO.StationAlreadyExists(drone.Id, $"bad drone id: {drone.Id}");
             DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
         }
 
@@ -154,7 +154,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             if (per != null)
                 DataSource.dronsList.Remove(per);
             else
-                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+                throw new DO.DroneDoesNotExist(id, $"bad drone id: {id}")
 
         }
 
