@@ -7,21 +7,88 @@ using System.Threading.Tasks;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
-    public class DalObject: IDAL
+    public partial class DalObject : IDAL
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
             DataSource.Initialize();
         }
 
-        #region Drone
-        public void AddDrone(DO.Drone dr)//מוסיף רחפן add a drone
-        {
 
+
+        #region Drone
+        //CRUD Drone
+        public DO.Drone GetDrone(int id)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            if (per != null)
+                return per;
+            else
+                return throw DO.BadDronIdException(id, $"bad drone id: {id}");//שרה זה של השם זה השם של הזריקה
+        }
+
+        public IEnumerable<DO.Drone> GetAllDrone()
+        {
+            return from Drone in DataSource.dronsList
+                   select Drone.clone();
+        }
+
+        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        {
+            throw new NotImplementedException();//זריקה
+        }
+
+        public void addDrone(DO.Drone drone) 
+        {
+            if(DataSource.dronsList.FirstOrDefault(p=> p.Id == drone.Id)!=null)
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+            DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
+        }
+
+        public void deleteCDrone(int id) 
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+
+            if (per != null)
+                DataSource.dronsList.Remove(per);
+            else
+                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+
+        }
+
+        public void UpdetDrone(DO.Drone drone) 
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id ==drone.Id );
+            if (per != null) {
+                DataSource.dronsList.Remove(per);//מחיקה
+                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+            }
+
+            else
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+
+        }
+
+        public void UpdetDrone(int id, Action<DO.Drone> action)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+        public void AddDrone(Drone dr)//מוסיף רחפן add a drone
+        {
+            //
             DataSource.dronsList.Add(dr);
             DataSource.Config.amountDorneId++;
 
         }
+
 
         public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז search drone by id
         {
@@ -32,8 +99,92 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return new Drone();
         }
+
+
+        public void UpdetDrone()
+        {
+            try
+            {
+
+
+                IDAL.DO.Customer customer = accessIdal.GetCustomer(id);
+                if (name != "")
+                    customer.Name = neme;
+                if (name != "")
+                    customer.Name = neme;
+                if (name != "")
+                    customer.Name = neme;
+            }
+        }
         #endregion
+
         #region Station
+        //CRU
+        public DO.Station GetStation(int id)
+        {
+            DO.Station per = DataSource.stationsList.Find(p => p.Id == id);
+            if (per != null)
+                return per;
+            else
+                return throw DO.hjghjfljgl(id, $"bad Station id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+        }
+
+        public IEnumerable<DO.Drone> GetAllDrone()
+        {
+            return from Drone in DataSource.dronsList
+                   select Drone.clone();
+        }
+
+        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        {
+            throw new NotImplementedException();//זריקה
+        }
+
+        public void addDrone(DO.Drone drone)
+        {
+            if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+            DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
+        }
+
+        public void deleteCDrone(int id)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+
+            if (per != null)
+                DataSource.dronsList.Remove(per);
+            else
+                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+
+        }
+
+        public void UpdetDrone(DO.Drone drone)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            if (per != null)
+            {
+                DataSource.dronsList.Remove(per);//מחיקה
+                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+            }
+
+            else
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+
+        }
+
+        public void UpdetDrone(int id, Action<DO.Drone> action)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
         public void AddStation(Station st)//מוסיף תחנת בסיס add a station
         {
             DataSource.stationsList.Add(st);
@@ -52,7 +203,83 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return new Station();
         }
         #endregion
+
         #region Parcle
+        public DO.Parcle GetParcle(int id)
+        {
+            DO.Parcle per = DataSource.parcelList.Find(p => p.Id == id);
+            if (per != null)
+                return per;
+            else
+                return throw DO.hjghjfljgl(id, $"bad Parcle id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+        }
+
+        public IEnumerable<DO.Drone> GetAllDrone()
+        {
+            return from Drone in DataSource.dronsList
+                   select Drone.clone();
+        }
+
+        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        {
+            throw new NotImplementedException();//זריקה
+        }
+
+        public void addDrone(DO.Drone drone)
+        {
+            if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+            DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
+        }
+
+        public void deleteCDrone(int id)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+
+            if (per != null)
+                DataSource.dronsList.Remove(per);
+            else
+                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+
+        }
+
+        public void UpdetDrone(DO.Drone drone)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            if (per != null)
+            {
+                DataSource.dronsList.Remove(per);//מחיקה
+                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+            }
+
+            else
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+
+        }
+
+        public void UpdetDrone(int id, Action<DO.Drone> action)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int AddParcel(Parcel pr)//מוסיף הזמנה add a parcel
         {
             pr.Id = DataSource.Config.amountParcelId;
@@ -71,14 +298,149 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return new Parcel();//exeption
         }
         #endregion
+
         #region DroneCharg
+        public DO.Parcle GetDroneCharg(int id)
+        {
+            DO.DroneCharg per = DataSource.droneChargeList.Find(p => p.Id == id);
+            if (per != null)
+                return per;
+            else
+                return throw DO.hjghjfljgl(id, $"bad DroneCharg id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+        }
+
+        public IEnumerable<DO.Drone> GetAllDrone()
+        {
+            return from Drone in DataSource.dronsList
+                   select Drone.clone();
+        }
+
+        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        {
+            throw new NotImplementedException();//זריקה
+        }
+
+        public void addDrone(DO.Drone drone)
+        {
+            if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+            DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
+        }
+
+        public void deleteCDrone(int id)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+
+            if (per != null)
+                DataSource.dronsList.Remove(per);
+            else
+                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+
+        }
+
+        public void UpdetDrone(DO.Drone drone)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            if (per != null)
+            {
+                DataSource.dronsList.Remove(per);//מחיקה
+                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+            }
+
+            else
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+
+        }
+
+        public void UpdetDrone(int id, Action<DO.Drone> action)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public void AddDroneCharge(DroneCharge cs)//מוסיף רחפנים לעמדות טעינה add drone to the charge spot
         {
             DataSource.droneChargeList.Add(cs);
 
         }
         #endregion
+
         #region Customer
+        public DO.Customer GetDroneCustomer(int id)
+        {
+            DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
+            if (per != null)
+                return per;
+            else
+                return throw DO.hjghjfljgl(id, $"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+        }
+
+        public IEnumerable<DO.Customer> GetAllCustomer()
+        {
+            return from Customer in DataSource.customerList
+                   select Customer.clone();
+        }
+
+        public IEnumerable<DO.Customer> GetAllCustomerBy(Predicate<DO.Customer> predicate)
+        {
+            throw new NotImplementedException();//זריקה
+        }
+
+        public void addCustomer(DO.Customer customer)
+        {
+            if (DataSource.customerList.FirstOrDefault(p => p.Id == customer.Id) != null)
+                throw new DO.BadCustomerIdException(customer.Id, $"bad drone id: {customer.Id}");
+            DataSource.dronsList.Add(customer.clone());//צריך ליצור קלון
+        }
+
+        public void deleteCDrone(int id)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+
+            if (per != null)
+                DataSource.dronsList.Remove(per);
+            else
+                throw new DO.BadDronIdException(id, $"bad drone id: {id}")
+
+        }
+
+        public void UpdetDrone(DO.Drone drone)
+        {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            if (per != null)
+            {
+                DataSource.dronsList.Remove(per);//מחיקה
+                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+            }
+
+            else
+                throw new DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+
+        }
+
+        public void UpdetDrone(int id, Action<DO.Drone> action)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
 
         public void AddCustomer(Customer cs)//מוסיף לקוח
         {
