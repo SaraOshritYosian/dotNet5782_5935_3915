@@ -7,8 +7,11 @@ namespace IBL
 {
     namespace BO
     {
-        class ParcelBL
+       public class ParcelBL
         {
+            public int Id { get; set; }
+            public int Senderld { get; set; }//לקוח שולח
+            public int Targetld { get; set; }//לקוח מקבל
         }
     }
 }

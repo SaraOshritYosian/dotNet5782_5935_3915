@@ -1,22 +1,16 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
 
 
-
-namespace IBL
-
+namespace BlObject
 {
-    namespace BO
+  public  class BL: IBL
     {
-        public class CustomerBL
-
-        {
 
 
-        }
     }
 }
