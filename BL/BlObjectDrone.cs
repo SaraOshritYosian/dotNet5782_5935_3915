@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
 
-
-   
-namespace IBL.BO
+namespace BlObject
+{
+    class BlObjectDrone:IBL 
     {
-        public class CustomerBL
-
-        {
-        }
     }
+}
