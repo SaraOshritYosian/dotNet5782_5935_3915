@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DO;
-using.DAL;
+using IDAL.DO;
+
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
 
@@ -21,47 +21,47 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
             #region Drone
             //CRUD Drone
-            public DO.Drone GetDrone(int id)
+            public IDAL.DO.Drone GetDrone(int id)
             {
-                DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
                 if (per != null)
                     return per;
                 else
-                    throw DO.DroneDoesNotExistException(id, $"bad drone id: {id}");
+                    throw new DroneDoesNotExistException( $"bad drone id: {id}");
             }
 
-            public IEnumerable<DO.Drone> GetAllDrone()
+            public IEnumerable<IDAL.DO.Drone> GetAllDrone()
             {
                 return from Drone in DataSource.dronsList
                        select Drone.clone();
             }
 
-            public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+            public IEnumerable<IDAL.DO.Drone> GetAllDroneBy(Predicate<IDAL.DO.Drone> predicate)
             {
                 throw new NotImplementedException();//זריקה
             }
 
-            public void addDrone(DO.Drone drone)
+            public void addDrone(IDAL.DO.Drone drone)
             {
                 if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
-                    throw new DO.DroneAlreadyExistException(drone.Id, $"bad drone id: {drone.Id}");
+                    throw new IDAL.DO.DroneAlreadyExistException( $"bad drone id: {drone.Id}");
                 DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
             }
 
             public void deleteDrone(int id)
             {
-                DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
 
                 if (per != null)
                     DataSource.dronsList.Remove(per);
                 else
-                    throw new DO.DroneDoesNotExistException(id, $"bad drone id: {id}");
+                    throw new IDAL.DO.DroneDoesNotExistException($"bad drone id: {id}");
 
             }
 
-            public void UpdetDrone(DO.Drone drone)
+            public void UpdetDrone(IDAL.DO.Drone drone)
             {
-                DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
                 if (per != null)
                 {
                     DataSource.dronsList.Remove(per);//מחיקה
@@ -69,11 +69,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 }
 
                 else
-                    throw new DO.DroneDoesNotExistException(drone.Id, $"bad drone id: {drone.Id}");
+                    throw new IDAL.DO.DroneDoesNotExistException($"bad drone id: {drone.Id}");
 
             }
 
-            public void UpdetDrone(int id, Action<DO.Drone> action)
+            public void UpdetDrone(int id, Action<IDAL.DO.Drone> action)
             {
                 throw new NotImplementedException();
             }
@@ -379,47 +379,47 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             #endregion
 
             #region Customer
-            public DO.Customer GetCustomer(int id)
+            public IDAL.DO.Customer GetCustomer(int id)
             {
-                DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
+            IDAL.DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
                 if (per != null)
                     return per;
                 else
-                    return throw DO.CsustomerDoesNotExistException(id, $"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+                     throw new CsustomerDoesNotExistException( $"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
             }
 
-            public IEnumerable<DO.Customer> GetAllCustomer()
+            public IEnumerable<IDAL.DO.Customer> GetAllCustomer()
             {
                 return from Customer in DataSource.customerList
                        select Customer.clone();
             }
 
-            public IEnumerable<DO.Customer> GetAllCustomerBy(Predicate<DO.Customer> predicate)
+            public IEnumerable<IDAL.DO.Customer> GetAllCustomerBy(Predicate<IDAL.DO.Customer> predicate)
             {
                 throw new NotImplementedException();//זריקה
             }
 
-            public void addCustomer(DO.Customer customer)
+            public void addCustomer(IDAL.DO.Customer customer)
             {
                 if (DataSource.customerList.FirstOrDefault(p => p.Id == customer.Id) != null)
-                    throw new DO.CustomerAlreadyExistsException(customer.Id, $"bad customer id: {customer.Id}");
+                    throw new IDAL.DO.CustomerAlreadyExistsException( $"bad customer id: {customer.Id}");
                 DataSource.customerList.Add(customer.clone());//צריך ליצור קלון
             }
 
             public void deleteCustomer(int id)
             {
-                DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
+            IDAL.DO.Customer per = DataSource.customerList.Find(p => p.Id == id);
 
                 if (per != null)
                     DataSource.customerList.Remove(per);
                 else
-                    throw new DO.CustomerDoesNotExistException(id, $"bad customer id: {id}")
+                    throw new CsustomerDoesNotExistException( $"bad customer id: {id}")
     
         }
 
-            public void UpdetCustomer(DO.Customer customer)
+            public void UpdetCustomer(IDAL.DO.Customer customer)
             {
-                DO.Customer per = DataSource.customerList.Find(p => p.Id == customer.Id);
+            IDAL.DO.Customer per = DataSource.customerList.Find(p => p.Id == customer.Id);
                 if (per != null)
                 {
                     DataSource.customerList.Remove(per);//מחיקה
@@ -427,11 +427,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 }
 
                 else
-                    throw new DO.CustomerDoesNotExistException(customer.Id, $"bad drone id: {customer.Id}");
+                    throw new CsustomerDoesNotExistException( $"bad drone id: {customer.Id}");
 
             }
 
-            public void UpdetCustomer(int id, Action<DO.Customer> action)
+            public void UpdetCustomer(int id, Action<IDAL.DO.Customer> action)
             {
                 throw new NotImplementedException();
             }
@@ -495,7 +495,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             public void PackageCollectionByDrone(int idParcel)//Package collection by Drone
             {
-                for (int i = 0; i < DataSource.Config.amountParcelId; i++)
+                for (int i = 0; i < DataSource.parcelList.Count; i++)
                 {
                     if (DataSource.parcelList[i].Id == idParcel)
                     {
@@ -507,11 +507,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             public void DeliveryOfPackageToTheCustomer(int idParcel)//Delivery of a package to the customer
             {
                 //לבדוק תקינות
-                for (int i = 0; i < DataSource.Config.amountParcelId; i++)//לחפש את החבילה
+                for (int i = 0; i < DataSource.parcelList.Count; i++)//לחפש את החבילה
                 {
                     if (DataSource.parcelList[i].Id == idParcel)
                     {
-                        for (int j = 0; j < DataSource.Config.amountDorneId; j++)
+                        for (int j = 0; j < DataSource.parcelList.Count; j++)
                         {
                             if (DataSource.dronsList[j].Id == DataSource.parcelList[i].Droneld)//אם מצאתי רחפן לפי ת"ז של רחפן בחבילה
                             {
