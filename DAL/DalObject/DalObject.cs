@@ -18,17 +18,18 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
 
-
+        //
             #region Drone
             //CRUD Drone
             public IDAL.DO.Drone GetDrone(int id)
             {
-            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
-                if (per != null)
-                    return per;
-                else
-                    throw new DroneDoesNotExistException( $"bad drone id: {id}");
-            }
+            //IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            var per = DataSource.dronsList.Find(p => p.Id == id);
+            if (per == -1)
+                throw new DroneDoesNotExistException($"bad drone id: {id}");
+            else
+                return per;
+        }
 
             public IEnumerable<IDAL.DO.Drone> GetAllDrone()
             {
