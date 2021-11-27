@@ -6,7 +6,7 @@ using System.Text;
 //,,,,
 /// </summary>
 
-namespace DAL
+namespace IDAL
 {
     public interface IDal 
     {
