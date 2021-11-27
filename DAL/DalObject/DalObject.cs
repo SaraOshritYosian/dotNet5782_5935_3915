@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using IDAL.DO;
 
-namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
+namespace IDAL//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
 
 
-        public partial class DalObject : IDAl
+        public partial class DalObject : IDAL
         {
             public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
             {
@@ -62,7 +62,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
             public void UpdetDrone(IDAL.DO.Drone drone)
             {
-            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            IDAL.DO.Drone per = DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id);
                 if (per != null)
                 {
                     DataSource.dronsList.Remove(per);//מחיקה

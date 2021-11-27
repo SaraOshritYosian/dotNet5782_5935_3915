@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace BlObject
+using IBL.BO;
+namespace IBL
 {
-    class BlObjectParcel:IBL 
+    public partial class BL 
     {
+
     }
 }

@@ -16,6 +16,7 @@ namespace IBL
         #endregion
 
         #region Drone
+        void AddDrone(Drone drone);//add
         BO.Drone GetDroneBL(int id);
         IEnumerable<BO.Drone> GetAllDrone();
         IEnumerable<BO.Drone> GetAllDroneForList(Predicate<BO.Drone> predicate);

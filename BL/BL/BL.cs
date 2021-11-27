@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BlObject
+namespace IBL
 {
-  public partial class BL
+  public partial class BL : IBL
     {
-
+        public IDal.IDal accessIDal;
 
     }
 }

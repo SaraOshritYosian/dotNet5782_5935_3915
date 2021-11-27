@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-namespace BlObject
-{ץץםל
-    class BlObjectCustomer: IBL
+namespace IBL
+{
+    class BLCustomer: IBL
     {
        public BO.DroneBL GetCustomerBL(int id)
         {

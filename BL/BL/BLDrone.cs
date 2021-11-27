@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IBL.BO;
+
+namespace IBL
+{
+    public partial class BL 
+    {
+        void AddDrone(Drone drone)
+        {
+
+            IDAL.DO.Drone newD= new IDAL.DO.Drone()
+            {
+
+            }
+
+    }
+}
