@@ -10,7 +10,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 {
 
 
-        public partial class DalObject : IDal
+        public partial class DalObject : IDAl
         {
             public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
             {
