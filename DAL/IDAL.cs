@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DAL
 {
-    public interface IDAL 
+    public interface IDal 
     {
          public static double [] ElectricityUse();
         #region Customer
@@ -25,7 +25,7 @@ namespace DAL
         #region Drone
         IEnumerable<DO.Drone> GetAllDrone();
         IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate);
-        IDAL.DO.Drone GetDrone(int id);//get
+        DO.Drone GetDrone(int id);//get
         void addDrone(DO.Drone drone);//add
         void UpdetDrone(DO.Drone drone);//updet
         void UpdetDrone(int id, Action<DO.Drone> action);//updet
