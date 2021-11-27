@@ -10,6 +10,7 @@ namespace DAL
 {
     public interface IDAL 
     {
+         public static double [] ElectricityUse();
         #region Customer
         IEnumerable<DO.Customer> GetAllCustomer();
         IEnumerable<DO.Customer> GetAllCustomerBy(Predicate<DO.Customer> predicate);

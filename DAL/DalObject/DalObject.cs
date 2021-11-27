@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
-    public partial class DalObject: IDAL
+    public partial class DalObject : IDAL
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
             DataSource.Initialize();
         }
-
 
 
         #region Drone
@@ -38,14 +37,14 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             throw new NotImplementedException();//זריקה
         }
 
-        public void addDrone(DO.Drone drone) 
+        public void addDrone(DO.Drone drone)
         {
-            if(DataSource.dronsList.FirstOrDefault(p=> p.Id == drone.Id)!=null)
+            if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
                 throw new DO.DroneAlreadyExistException(drone.Id, $"bad drone id: {drone.Id}");
             DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
         }
 
-        public void deleteDrone(int id) 
+        public void deleteDrone(int id)
         {
             DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
 
@@ -56,10 +55,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public void UpdetDrone(DO.Drone drone) 
+        public void UpdetDrone(DO.Drone drone)
         {
-            DO.Drone per = DataSource.dronsList.Find(p => p.Id ==drone.Id );
-            if (per != null) {
+            DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            if (per != null)
+            {
                 DataSource.dronsList.Remove(per);//מחיקה
                 DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
             }
@@ -461,12 +461,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
-       
+
 
         public bool AssignPackageToDrone(int idParcel)//Assign a Package To Drone
         {
 
-            for(int i = 0; i < DataSource.Config.amountParcelId; i++)
+            for (int i = 0; i < DataSource.Config.amountParcelId; i++)
             {
                 if (DataSource.parcelList[i] == idParcel)
                 {
@@ -477,7 +477,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             Parcel pr = SearchParcle(idParcel);
             foreach (Drone dr in DataSource.dronsList)//for 
             {
-                if (dr.StatusDrone== IDAL.Status.available)
+                if (dr.StatusDrone == IDAL.Status.available)
                 {
                     int id = dr.Id;
                     pr.Droneld = dr.Id;//שיוך חבילה לרחפן
@@ -519,34 +519,35 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             int stationCod;
             Station dd;
             //צריך למחוק את הרחפן מרשימת טעינה
-            foreach (DroneCharge ds in DataSource.droneChargeList) {
+            foreach (DroneCharge ds in DataSource.droneChargeList)
+            {
                 if (ds.Droneld == idDrone)
                 {
-                     stationCod = ds.Stationld;
+                    stationCod = ds.Stationld;
                     dd = SearchStation(stationCod);
                     dd.ChargeSlots++;//צריך לעלות את כמות המקומות הטעינה
                     break;
                 }
-                
+
             }
             Drone dr = SearchDrone(idDrone);
-           dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
-            
+            dr.StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
+
         }
         // .אפשרויות הצגת הרשימות
-        public  void PrindDroneChargeList()//הדפסת רשימת הרחפנים בטעינה print the list of drones in charging
+        public void PrindDroneChargeList()//הדפסת רשימת הרחפנים בטעינה print the list of drones in charging
         {
-            foreach (Drone dr in DataSource.dronsList) 
+            foreach (Drone dr in DataSource.dronsList)
             {
-                if(dr.StatusDrone==IDAL.Status.InMaintenance)
+                if (dr.StatusDrone == IDAL.Status.InMaintenance)
                 {
                     Console.WriteLine(dr.ToString());
                 }
             }
 
         }
-        public  void PrindBaseStationList()
-                                          // הצגת רשימת תחנות-בסיס show base-station list
+        public void PrindBaseStationList()
+        // הצגת רשימת תחנות-בסיס show base-station list
         {
             foreach (Station station in DataSource.stationsList/*Drone dr in DataSource.dronsList*/)
             {
@@ -556,43 +557,43 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         //השאלה אם זה תחנות טעינה או רק תחנות רגילות.בכל אופן אני אדפיס פעולה אחרת לתחנות טעינה
 
-        public  void PrintDronesList()//הצגת רשימת הרחפנים show drone list
+        public void PrintDronesList()//הצגת רשימת הרחפנים show drone list
         {
-            foreach(Drone dr in DataSource.dronsList)
+            foreach (Drone dr in DataSource.dronsList)
             {
                 Console.WriteLine(dr.ToString());
             }
         }
-        public  void PrintCustomersList()//הצגת רשימת הלקוחות show customers list
+        public void PrintCustomersList()//הצגת רשימת הלקוחות show customers list
         {
             foreach (Customer customer in DataSource.customerList)
             {
-              Console.WriteLine(  customer.ToString());
+                Console.WriteLine(customer.ToString());
             }
         }
-        public  void PrintParcelsList()//הצגת רשימת החבילות show parcels list
+        public void PrintParcelsList()//הצגת רשימת החבילות show parcels list
         {
             foreach (Parcel parcel in DataSource.parcelList)
             {
                 parcel.ToString();
             }
         }
-        public  void PrintUnconnectedParceslList()// הצגת רשימת חבילות שעוד לא שויכו לרחפן  show unconnected parcesl list
+        public void PrintUnconnectedParceslList()// הצגת רשימת חבילות שעוד לא שויכו לרחפן  show unconnected parcesl list
         {
             foreach (Parcel parcel in DataSource.parcelList)
             {
-                if(parcel.Id==0)
+                if (parcel.Id == 0)
                 {
                     Console.WriteLine(parcel.ToString());
                 }
 
             }
         }
-        public  void PrintAvailableStationToChargeList()//הצגת תחנות-בסיס עם עמדות טעינה פנויות show stations with available charge slots
+        public void PrintAvailableStationToChargeList()//הצגת תחנות-בסיס עם עמדות טעינה פנויות show stations with available charge slots
         {
             foreach (Station station in DataSource.stationsList)
             {
-                if(station.ChargeSlots>0)
+                if (station.ChargeSlots > 0)
                 {
                     Console.WriteLine(station.ToString());
                 }
@@ -600,18 +601,18 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
 
         //אפשרויות תצוגה כולן ע"פ מספר מזהה מתאים
-        public  void PrintBaseStation(int stationId)//תצוגת תחנת-בסיס show station details by id
+        public void PrintBaseStation(int stationId)//תצוגת תחנת-בסיס show station details by id
         {
             foreach (Station station in DataSource.stationsList)
             {
-                if(station.Id==stationId)
+                if (station.Id == stationId)
                 {
                     Console.WriteLine(station.ToString());
                     break;
                 }
             }
         }
-        public  void PrintDrone(int droneId)// תצוגת רחפן  show drone details by id
+        public void PrintDrone(int droneId)// תצוגת רחפן  show drone details by id
         {
             foreach (Drone drone in DataSource.dronsList)
             {
@@ -624,18 +625,18 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
 
 
-        public  void PrintCustomer(int customerId)//תצוגת לקוח shoe customer details by id
+        public void PrintCustomer(int customerId)//תצוגת לקוח shoe customer details by id
         {
-            foreach(Customer customer in DataSource.customerList)
+            foreach (Customer customer in DataSource.customerList)
             {
-                if(customer.Id==customerId)
+                if (customer.Id == customerId)
                 {
                     Console.WriteLine(customer.ToString());
                     break;
                 }
             }
         }
-        public  void PrintParcel(int parcelId)//תצוגת חבילה show parcel details by id
+        public void PrintParcel(int parcelId)//תצוגת חבילה show parcel details by id
         {
             foreach (Parcel parcel in DataSource.parcelList)
             {
@@ -657,7 +658,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         //יש לנו כבר כזה לא?
 
         //}
-
+        public static double[] ElectricityUse();
 
 
 

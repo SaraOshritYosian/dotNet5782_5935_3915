@@ -22,7 +22,11 @@ namespace DalObject
         internal class Config
         {
 
-            public static int
+            public static double Free;
+            public static double LightWeight;
+            public static double MediumWeight;
+            public static double HeavyWeight;
+            public static double LoadingPrecents;
             //internal static int amountDorneId = 0;//כמות הרחפנים
             //internal static int amountStationId = 0;//כמות התחנות
             //internal static int amountCustomerId = 0;//כמות הלקוחות
