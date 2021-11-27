@@ -24,8 +24,8 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             public IDAL.DO.Drone GetDrone(int id)
             {
             //IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
-            var per = DataSource.dronsList.Find(p => p.Id == id);
-            if (per == -1)
+            var per = DataSource.dronsList.FirstOrDefault(p => p.Id == id);
+            if (per == null)
                 throw new DroneDoesNotExistException($"bad drone id: {id}");
             else
                 return per;
