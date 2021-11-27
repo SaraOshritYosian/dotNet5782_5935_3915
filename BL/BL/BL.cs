@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlObject
 {
-  public  class BL: IBL
+  public partial class BL
     {
 
 
