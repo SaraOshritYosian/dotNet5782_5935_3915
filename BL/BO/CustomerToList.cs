@@ -15,6 +15,11 @@ namespace IBL.BO
         public int NumberOfPackagesSentAndNotDelivered { get; set; }//NumberOfPackagesSentAndNotDelivered
         public int NumberOfPackagesGet { get; set; }//NumberOfPackagesGet
         public int SeveralPackagesOnTheWayToTheCustomer { get; set; }//SeveralPackagesOnTheWayToTheCustomer
-       
+        public override string ToString()
+        {
+
+            return base.ToString() + string.Format("the id is:{0,6},\t name is:{1,-3})\n", Id, Name);
+        }
+
     }
 }
