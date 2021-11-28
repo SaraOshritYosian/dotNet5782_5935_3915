@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL
+using IDAL;
 namespace BL
 {
-  public partial class BL : IBL.IBL
+  public partial class BL : IBL
     {
         IDal dal
 
