@@ -28,7 +28,8 @@ namespace IBL
         public BL()
         {
             accessIDal = new DalObject();
-            double [] arr=new accessIDal.re
+                double[] arr = new accessIDal.RequestPowerConsuptionByDrone();//מה זו הפונקציה  הזו
+
         }
 
     }
