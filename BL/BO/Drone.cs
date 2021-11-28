@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
@@ -15,7 +16,7 @@ namespace IBL.BO
         public StatusBattery StatusBatter { get; set; }
         public StatusDrone StatusDrone { get; set; }
        
-        public PackageInTransfer PackageInTransfe { get; set; }
+        public PackageInTransfer PackageInTransfe { get; set; }//חבילות בהובלה
         public Location CurrentLocation { get; set; }
     }
 

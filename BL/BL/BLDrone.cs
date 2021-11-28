@@ -4,27 +4,81 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using IDAL.DO;
+//using IBL.BO;
 
 namespace IBL
 {
     public partial class BL
     {
-        public void AddDrone(Drone drone)
+        public BO.Drone GetDrone(int id)
+        {
+            BO.Drone bodrone = new BO.Drone();
+            try
+            {
+                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);
+                bodrone.Id = dodrone.Id;
+                bodrone.Model = dodrone.Model;
+                bodrone.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
+               
+
+            }
+            catch (IDAL.DO.DroneDoesNotExistException ex)
+            {
+                throw new DroneDoesNotExistException(ex);
+            }
+            return bodrone;
+
+
+        }
+        public IEnumerable<BO.Drone> GetAllDrone()
+        {
+            return from doDrone in accessIDal.GetAllDrone()
+                   select new BO.Drone()
+                   {
+                       Id = doDrone.Id,
+                       Model = doDrone.Model,
+                       Weight = (BO.Enums.WeightCategories)doDrone.Weigh
+                   }
+
+
+        }
+        public void AddDrone(BO.Drone drone)
         {
 
             IDAL.DO.Drone newD = new IDAL.DO.Drone()
             {
-                Id = drone.Id;
-            Model = drone.Model;
-            Weight = drone.Weight;
-        };
+                Id = drone.Id,
+                Model = drone.Model,
+                Weight = (WeightCategories)drone.Weight,
+                StatusBatter = new Random()//להגריל 20%-40%
+                StatusDrone = BO.Enums.StatusDrone.InMaintenance,
+            bodrone.CurrentLocation =
+            };
 
-        try{
-           accessIDal.AddDrone(newD);
+            try
+            {
+                accessIDal.addDrone(newD);
+
             }
-    catch(IDAL.DO.DroneDoesNotExistException)
-        {
-         throw new DroneDoesNotExistException(); }
+            catch (IDAL.DO.DroneDoesNotExistException ex)
+            {
+                throw new DroneDoesNotExistException(ex);
+            }
 
-  }
+        }
+        void UpdateDrone(BO.Drone drone)
+        {
+
+            try
+            {
+
+            }
+            catch (IDAL.DO.DroneDoesNotExistException ex)
+            {
+                throw new DroneDoesNotExistException(ex);
+            }
+
+        }
+    }
 }
