@@ -6,7 +6,7 @@ using IDAL;
 namespace IDAL.DO
 {
     [Serializable]
-    class Excptions:Exception
+   public class Excptions:Exception
     {
         public Excptions() : base() {}
         public Excptions(string message) : base(message) { }
