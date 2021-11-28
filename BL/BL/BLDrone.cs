@@ -7,15 +7,24 @@ using IBL.BO;
 
 namespace IBL
 {
-    public partial class BL 
+    public partial class BL
     {
-        void AddDrone(Drone drone)
+        public void AddDrone(Drone drone)
         {
 
-            IDAL.DO.Drone newD= new IDAL.DO.Drone()
+            IDAL.DO.Drone newD = new IDAL.DO.Drone()
             {
+                Id = drone.Id;
+            Model = drone.Model;
+            Weight = drone.Weight;
+        };
 
+        try{
+           accessIDal.AddDrone(newD);
             }
+    catch(IDAL.DO.DroneDoesNotExistException)
+        {
+         throw new DroneDoesNotExistException(); }
 
-    }
+  }
 }

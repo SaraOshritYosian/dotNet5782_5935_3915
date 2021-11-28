@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,22 +17,22 @@ namespace IBL
         #endregion
 
         #region Drone
-        void AddDrone(Drone drone);//add
-        BO.Drone GetDroneBL(int id);
-        IEnumerable<BO.Drone> GetAllDrone();
-        IEnumerable<BO.Drone> GetAllDroneForList(Predicate<BO.Drone> predicate);
+       // void AddDrone(Drone drone);//add
+       // BO.Drone GetDroneBL(int id);
+       // IEnumerable<BO.Drone> GetAllDrone();
+      //  IEnumerable<BO.Drone> GetAllDroneForList(Predicate<BO.Drone> predicate);
         #endregion
 
         #region Station
-        BO.Station GetStationBL(int id);
-        IEnumerable<BO.Station> GetAllStation();
-        IEnumerable<BO.Station> GetAllStationForList(Predicate<BO.Station> predicate);
+     //   BO.Station GetStationBL(int id);
+      //  IEnumerable<BO.Station> GetAllStation();
+     //   IEnumerable<BO.Station> GetAllStationForList(Predicate<BO.Station> predicate);
         #endregion
 
         #region Parcel
-        BO.Parcel GetParcelBL(int id);
-        IEnumerable<BO.Parcel> GetAllParcel();
-        IEnumerable<BO.Parcel> GetAllParcelForList(Predicate<BO.Parcel> predicate);
+     //   BO.Parcel GetParcelBL(int id);
+      //  IEnumerable<BO.Parcel> GetAllParcel();
+     //   IEnumerable<BO.Parcel> GetAllParcelForList(Predicate<BO.Parcel> predicate);
         #endregion
 
     }

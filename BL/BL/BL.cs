@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-namespace IBL
+using IDAL
+namespace BL
 {
-  public partial class BL : IBL
+  public partial class BL : IBL.IBL
     {
-        public IDal.IDal accessIDal;
+        IDal dal
+
+
+
+
+        public IDAL.IDal accessIdal;
 
     }
 }
