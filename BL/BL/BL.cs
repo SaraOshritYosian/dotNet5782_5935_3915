@@ -17,7 +17,7 @@ namespace IBL
 {
   public partial class BL : IBL
     {
-        public IDal.IDal accessIDal;
+        public IDAL.IDal accessIDal;
         public List<Drone> BLDrones;
         public static double Free;
         public static double LightWeight;
@@ -29,6 +29,11 @@ namespace IBL
         {
             accessIDal = new DalObject();
                 double[] arr = new accessIDal.RequestPowerConsuptionByDrone();//מה זו הפונקציה  הזו
+                Free = arr[0];
+                LightWeight = arr[1];
+                MediumWeight = arr[2];
+                HeavyWeight = arr[3];
+                LoadingPrecents = arr[4];
 
         }
 
