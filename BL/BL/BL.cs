@@ -5,19 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
-namespace BL
-{
-  public partial class BL : IBL
-    {
-        IDal dal
-
-
 
 namespace IBL
 {
   public partial class BL : IBL
     {
-        public IDal.IDal accessIDal;
+        public IDAL.IDal accessIDal;
         public List<Drone> BLDrones;
         public static double Free;
         public static double LightWeight;
