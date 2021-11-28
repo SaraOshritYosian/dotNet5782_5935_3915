@@ -5,13 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
-namespace BL
-{
-  public partial class BL : IBL
-    {
-        IDal dal
-
-
 
 namespace IBL
 {

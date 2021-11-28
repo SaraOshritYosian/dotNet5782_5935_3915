@@ -8,7 +8,7 @@ namespace IBL
 {
     class BLCustomer: IBL
     {
-       public BO.DroneBL GetCustomerBL(int id)
+       public void GetCustomerBL(int id)
         {
             BO.DroneBL boCustomer = new BO.DroneBL;
             try
