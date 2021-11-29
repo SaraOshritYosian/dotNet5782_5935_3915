@@ -305,9 +305,9 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             #endregion
 
             #region DroneCharg
-            public IDAL.DO.DroneCharg GetDroneCharg(int id)
+            public IDAL.DO.DroneCharge GetDroneCharg(int id)
             {
-            IDAL.DO.DroneCharg per = DataSource.droneChargeList.Find(p => p.Id == id);
+            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.Find(p => p.Id == id);
                 if (per != null)
                     return per;
                 else
@@ -320,40 +320,40 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                        select Drone.clone();
             }
 
-            public IEnumerable<IDAL.DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+            public IEnumerable<IDAL.DO.Drone> GetAllDroneBy(Predicate<IDAL.DO.Drone> predicate)
             {
                 throw new NotImplementedException();//זריקה
             }
 
-            public void addDrone(IDAL.DO.Drone drone)
+            public void AddDrone(IDAL.DO.Drone drone)
             {
                 if (DataSource.dronsList.FirstOrDefault(p => p.Id == drone.Id) != null)
-                    throw new IDAL.DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}");
+                    throw new IDAL.DO.DroneChargDoesNotExistException( $"bad drone id: {drone.Id}");
                 DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
             }
 
             public void deleteCDrone(int id)
             {
-            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            IDAL.DO.Drone? per = DataSource.dronsList.Find(p => p.Id == id);
 
                 if (per != null)
                     DataSource.dronsList.Remove(per);
                 else
-                    throw new IDAL.DO.BadDronIdException(id, $"bad drone id: {id}")
+                    throw new IDAL.DO.DroneChargDoesNotExistException( $"bad drone id: {id}")
     
         }
 
             public void UpdetDrone(IDAL.DO.Drone drone)
             {
-            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
-                if (per != null)
-                {
-                    DataSource.dronsList.Remove(per);//מחיקה
-                    DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
-                }
+            IDAL.DO.Drone? per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            if (per != null)
+            {
+                DataSource.dronsList.Remove(per);//מחיקה
+                DataSource.dronsList.Add(drone.clone());//הוספה מעודכן
+            }
 
-                else
-                    throw new IDAL.DO.BadDronIdException(drone.Id, $"bad drone id: {drone.Id}")
+            else
+                throw new IDAL.DO.DroneChargDoesNotExistException($"bad drone id: {drone.Id}");
     
         }
 
@@ -480,7 +480,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 {
                     if (DataSource.parcelList[i].Id == idParcel)
                     {
-                        for (int j = 0; j < DataSource.dronsList.Count; j++)
+                        for (int j = 0; j < DataSource.Config.amountStationId; j++)
                         {
                            // if (DataSource.dronsList[j].StatusDrone == IDAL.Status.available)//אם מצאתי רחפן זמין
                             {

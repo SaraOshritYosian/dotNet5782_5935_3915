@@ -149,5 +149,16 @@ namespace IBL
                 return "Customer Already Exists";
             }
         }
+        class CantSendToChargeException : Exception
+        {
+            public CantSendToChargeException() : base() { }
+            public CantSendToChargeException(string message) : base(message) { }
+            public CantSendToChargeException(string message, Exception inner) : base(message, inner) { }
+            protected CantSendToChargeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public override string ToString()
+            {
+                return "ERROR";
+            }
+        }
     }
 }
