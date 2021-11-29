@@ -67,6 +67,9 @@ namespace IBL
                         case weightCategories.heavy:
                             electricityUse += distanceBsenderAreciever * HeavyWeight;
                             break;
+                         
+
+                    }
                             if(DALParcel[index].PichedUp==DateTime.MinValue)
                             {
                                 item.CurrentLocation = minDistanceBetween....(BLStation, senderLocation).item1;
@@ -78,8 +81,36 @@ namespace IBL
                                 item.CurrentLocation = senderLocation;
                             }
 
-                    }
+                    item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+                    item.LinkedParceles = DALParcel[index].Id;
 
+                }
+                else
+                {
+                    item.StatusDrone = (BO.Enums.StatusDrone)rand.Next(0, 2);
+                    if(item.StatusDrone==BO.Enums.StatusDrone.InMaintenance)
+                    {
+                        Station station = BLStation[rand.Next(0, BLStation.Count)];
+                        item.CurrentLocation = station.LocationOfStation;
+                        accessIDal.SendDroneToCharge(station.Id, item.Id);
+                        accessIDal.updetDroneCharge(station.Id);
+                        item.StatusBatter = rand.Next(0, 21);
+                    }
+                    else
+                    {
+                        List<IDAL.DO.Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
+                        if(DeliveredBySameId.Any())
+                        {
+                            item.CurrentLocation = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
+                            double electricityUse=min...(BLStation, item.CurrentLocation).item2 * Free;
+                            item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+
+                        }
+                        else
+                        {
+                            item.CurrentLocation = BLStation[rand.Next(0, BLStation.Count)].LocationOfStation;
+                            item.StatusBatter = rand.Next(0, 101);
+                        }
                 }
             }
         }

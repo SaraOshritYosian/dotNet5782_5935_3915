@@ -30,6 +30,7 @@ namespace IDAL
         void UpdetDrone(DO.Drone drone);//updet
         void UpdetDrone(int id, Action<DO.Drone> action);//updet
         void deleteDrone(int id);//delete
+        public IEnumerable<double> ElectricityUse();
         ///.
         #endregion
 
