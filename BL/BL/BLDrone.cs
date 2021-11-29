@@ -45,13 +45,14 @@ namespace IBL
         }
         public void AddDrone(BO.Drone drone)
         {
+            Random rand = new Random();
 
             IDAL.DO.Drone newD = new IDAL.DO.Drone()
             {
                 Id = drone.Id,
                 Model = drone.Model,
                 Weight = (WeightCategories)drone.Weight,
-                StatusBatter = new Random()//להגריל 20%-40%
+                StatusBatter = 20+rand.NextDouble()*40,//להגריל 20%-40%
                 StatusDrone = BO.Enums.StatusDrone.InMaintenance,
             bodrone.CurrentLocation =
             };

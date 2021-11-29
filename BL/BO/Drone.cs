@@ -13,7 +13,7 @@ namespace IBL.BO
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories Weight { get; set; }
-        public StatusBattery StatusBatter { get; set; }
+        public double StatusBatter { get; set; }
         public StatusDrone StatusDrone { get; set; }
        
         public PackageInTransfer PackageInTransfe { get; set; }//חבילות בהובלה

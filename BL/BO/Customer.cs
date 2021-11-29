@@ -16,7 +16,7 @@ namespace IBL
 
         {
             public int Id { get; set; }
-            public int Name { get; set; }
+            public string Name { get; set; }
             public string Pone { get; set; }
             public Location LocationOfCustomer { get; set; }
             public List<DroneInCharge> ListOfPackagesFromTheCustomer { get; set; }//רשימת חבילות אצל הלקוח -מהלקוח
