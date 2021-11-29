@@ -52,8 +52,8 @@ namespace IBL
                 Id = drone.Id,
                 Model = drone.Model,
                 Weight = (WeightCategories)drone.Weight,
-                StatusBatter = 20+rand.NextDouble()*40,//להגריל 20%-40%
-                StatusDrone = BO.Enums.StatusDrone.InMaintenance,
+                StatusBatter = rand.NextDouble() * 40 + 20,//להגריל 20%-40%
+            StatusDrone = BO.Enums.StatusDrone.InMaintenance,
             bodrone.CurrentLocation =
             };
 
