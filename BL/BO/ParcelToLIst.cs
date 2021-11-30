@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using static IBL.BO.Enums;
 namespace IBL.BO
 {
-    class ParcelToLIst
+   public class ParcelToLIst
     {
         public int Id { get; set; }
         public CustomerInParcel Senderld { get; set; }//לקוח שולח

@@ -10,6 +10,6 @@ namespace IBL.BO
     {
         public int Id { get; set; }
         public double StatusBatter { get; set; }
-        public Location CurrentLocation { get; set; }
+        public Location LocationDroneInParcel { get; set; }
     }
 }

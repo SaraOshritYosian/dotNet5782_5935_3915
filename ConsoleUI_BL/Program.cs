@@ -60,7 +60,7 @@ namespace ConsoleUI_BL
                                         double Latitude;
                                         b = double.TryParse(Console.ReadLine(), out Latitude);
                                         location.Latitude = Latitude;
-                                        st.LocationBL = location;
+                                        st.LocationStation = location;
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
                                         st.ChargeSlotsFree = ChargeSlots;
@@ -83,11 +83,11 @@ namespace ConsoleUI_BL
                                         int ch;
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
-                                            dr.Weight = IBL.BO.WeightCategories.Light;
+                                            dr.Weight = IBL.BO.Enums.WeightCategories.Light;
                                         if (ch == 1)
-                                            dr.Weight = IDAL.WeightCategories.Medium;
+                                            dr.Weight = IBL.BO.Enums.WeightCategories.Medium;
                                         if (ch == 2)
-                                            dr.Weight = IDAL.WeightCategories.Heavy;
+                                            dr.Weight = IBL.BO.Enums.WeightCategories.Heavy;
                                         Console.WriteLine("Enter the number of the station to charge");
                                         //int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
