@@ -18,12 +18,7 @@ namespace ConsoleUI_BL
         {
 
             IBL.BL bL = new IBL.BL();
-            //DalObject.DalObject d1 = new DalObject.DalObject();//station
-            //DalObject.DalObject d2 = new DalObject.DalObject();//drone
-            //DalObject.DalObject d3 = new DalObject.DalObject();//customer
-            //DalObject.DalObject d4 = new DalObject.DalObject();//parcel
-            //DalObject.DalObject d5 = new DalObject.DalObject();//DroneCharge
-            //DalObject.DalObject d6 = new DalObject.DalObject();
+            
             int option;
             // int a;
             bool ex = true;
@@ -49,7 +44,7 @@ namespace ConsoleUI_BL
                                         Station st = new Station();
                                         Console.WriteLine("Enter the ID of the station");
                                         Console.WriteLine("Enter the Name of the station");
-                                        Console.WriteLine("Enter the number of latitude of the station");
+                                        Console.WriteLine("Enter the  latitude of the station");
                                         Console.WriteLine("Enter the longitude of the station");
                                         Console.WriteLine("Enter the ChargeSlots of the station");
                                         int id;
@@ -58,16 +53,18 @@ namespace ConsoleUI_BL
                                         int name;
                                         b = int.TryParse(Console.ReadLine(), out name);
                                         st.Name = name;
-                                        double Latitude;
-                                        b = double.TryParse(Console.ReadLine(), out Latitude);
-                                        st.Latitude = Latitude;
                                         double Longitude;
                                         b = double.TryParse(Console.ReadLine(), out Longitude);
-                                        st.Longitude = Longitude;
+                                        Location location = new Location();
+                                        location.Longitude = Longitude;
+                                        double Latitude;
+                                        b = double.TryParse(Console.ReadLine(), out Latitude);
+                                        location.Latitude = Latitude;
+                                        st.LocationStation = location;
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
-                                        st.ChargeSlots = ChargeSlots;
-                                        d1.AddStation(st);
+                                        st.ChargeSlotsFree = ChargeSlots;
+                                        bL.AddStation(st);//צריל לעשטת פונקצית הוספת תחנה
                                         break;
                                     }
 
@@ -86,11 +83,11 @@ namespace ConsoleUI_BL
                                         int ch;
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
-                                            dr.Weight = IBL.BO.WeightCategories.Light;
+                                            dr.Weight = IBL.BO.Enums.WeightCategories.Light;
                                         if (ch == 1)
-                                            dr.Weight = IDAL.WeightCategories.Medium;
+                                            dr.Weight = IBL.BO.Enums.WeightCategories.Medium;
                                         if (ch == 2)
-                                            dr.Weight = IDAL.WeightCategories.Heavy;
+                                            dr.Weight = IBL.BO.Enums.WeightCategories.Heavy;
                                         Console.WriteLine("Enter the number of the station to charge");
                                         //int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
@@ -131,37 +128,35 @@ namespace ConsoleUI_BL
                                     {
                                         int ch;
                                         Parcel pr = new Parcel(); 
-                                        Console.WriteLine("Enter the Senderld of the Parcel");
-                                        b = int.TryParse(Console.ReadLine(), out id);
-                                        pr.Senderld = id;
-                                        Console.WriteLine("Enter the Targetld of the Parcel");
-                                        int target;
-                                        b = int.TryParse(Console.ReadLine(), out target);
-                                        pr.Targetld = target;
+                                        Console.WriteLine("Enter the Senderld of the Parcel");//לקוח שולח
+                                        int ids;
+                                        b = int.TryParse(Console.ReadLine(), out ids);
+                                        //pr.Senderld = id;
+                                        Console.WriteLine("Enter the Targetld of the Parcel");//לקוח מקבל
+                                        int idt;
+                                        b = int.TryParse(Console.ReadLine(), out idt);       
                                         Console.WriteLine("Enter the number of Weight of the Parcel: 0-Light, 1-Medium, 2-Heavy");
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
-                                            pr.Weight = IDAL.WeightCategories.Light;
+                                            pr.Weight = IBL.BO.Enums.WeightCategories.Light;
                                         if (ch == 1)
-                                            pr.Weight = IDAL.WeightCategories.Medium;
+                                            pr.Weight = IBL.BO.Enums.WeightCategories.Medium;
                                         if (ch == 2)
-                                            pr.Weight = IDAL.WeightCategories.Heavy;
+                                            pr.Weight = IBL.BO.Enums.WeightCategories.Heavy;
                                         Console.WriteLine("Enter the Priority of the Parcel: 0-simple, 1-quick, 2-emergency");
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
-                                            pr.Priority = IDAL.Priority.simple;
+                                            pr.Priority = IBL.BO.Enums.Priority.simple;
                                         if (ch == 1)
-                                            pr.Priority = IDAL.Priority.quick;
+                                            pr.Priority = IBL.BO.Enums.Priority.quick;
                                         if (ch == 2)
-                                            pr.Priority = IDAL.Priority.emergency;
+                                            pr.Priority = IBL.BO.Enums.Priority.emergency;
 
-                                        pr.Droneld = 0;
-                                        pr.Requested = DateTime.Now;
-                                        //DateTime.AddMinutes(double(rand));
-                                        pr.PichedUp = DateTime.Now;//איזה לעשות כאן
-                                        pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
-                                        id = d4.AddParcel(pr);
-                                        Console.WriteLine("The number of the parcel is: " + id);
+                                        // pr.PichedUp = DateTime.Now;//איזה לעשות כאן
+                                        // pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
+                                        // id = d4.AddParcel(pr);
+                                        // Console.WriteLine("The number of the parcel is: " + id);
+                                        bL.addparcel(pr);//צריך להוסיף את הפו וכאן קלטנו ת"ז של שולח ומקבל ומשקל חבילה ועדיפות משלוח בביאל מאתחלים זמנים
                                         break;
 
                                     }
@@ -173,51 +168,62 @@ namespace ConsoleUI_BL
                     case 2://update עדכון
                         {
                             Console.WriteLine("Enter your choise:");
-                            Console.WriteLine("1 Assign a package to a Drone");
-                            Console.WriteLine("2 Package collection by Drone");
-                            Console.WriteLine("3 Delivery of a package to the customer");
-                            Console.WriteLine("4 Drone a Drone for charging");
-                            Console.WriteLine("5 Release Drone from charging");
+                            Console.WriteLine("1 Update Drone");
+                            Console.WriteLine("2 Update customet");
+                            Console.WriteLine("3 Sending a Drone for charging");//שליחת רחפן לטעינה
+                            Console.WriteLine("4 Release Drone from charging");//שחרור חפן מטעינה
+                            Console.WriteLine("5 Assign a package to a Drone");//שיוך חבילה לרחפן
+                            Console.WriteLine("6 Package collection by Drone");//איסוף חבילה ע"י רחפן
+                            Console.WriteLine("7 Package delivery by Drone");//הספקת חבילה ע"י רחפן
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
-                                case 1://connect שיוך חבילה לרחפן
-                                    Console.WriteLine("Enter The id packago");
+                                case 1://  Update Drone
+                                    Console.WriteLine("Enter The idDrone and The name of the Drone");
                                     int cod;
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bool a = d6.AssignPackageToDrone(cod);
-
-
-
+                                    string name = Console.ReadLine();
+                                    bL.UpdateDrone(cod, name);//לבנות פונקציה מקבלת ת"ז של רחפן ושם ומעדכנת את השם
                                     break;
-                                case 2://collect  איסוף חבילה ע"י רחפ ן
-                                    Console.WriteLine("Enter The id packago");
+                                case 2://Update customet
+                                    Console.WriteLine("Enter The id of customer");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    d6.PackageCollectionByDrone(cod);
+                                    string name = Console.ReadLine();
+                                    int phone;
+                                    b = int.TryParse(Console.ReadLine(), out phone);
+                                    bL.UpdateCustomet(cod, phone, name);//מעדכן או טלפון או שם יכול להיות שהכניס נתונים ויכול להיות שלא
                                     break;
-                                case 3://suplly אספקת חבילה ל-לקוח
-                                    Console.WriteLine("Enter The id packago");
-                                    b = int.TryParse(Console.ReadLine(), out cod);
-                                    d6.DeliveryOfPackageToTheCustomer(cod);
-                                    break;
-                                case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
-                                    DroneCharge drc = new DroneCharge();
+                                case 3://Sending a Drone for charging
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    drc.Droneld = cod;
-                                    DalObject.DalObject.PrintAvailableStationToChargeList();//print charge station 
-                                    Console.WriteLine("Enter The id station");
-                                    b = int.TryParse(Console.ReadLine(), out cod);
-                                    drc.Stationld = cod;
-                                    d5.AddDroneCharge(drc);
+                                    bL.SendingDroneForCharging(cod);//פונקציה שמקבל ת"ז רחפן ושולחת לטעינה
                                     break;
-                                case 5://שיחרור רחפן מטעינה
+                                case 4://Release Drone from charging
+                                   
+                                    Console.WriteLine("Enter The id drone and Charging time");
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    int time;
+                                    b = int.TryParse(Console.ReadLine(), out time);
+                                    bL.ReleaseDronefromcharging(cod, time);//משחררת מטעינה
+                                    break;
+                                case 5://Assign a package to a Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    d6.ReleaseDroneFroCharging(cod);
+                                    bL.AssignPackageToDrone(cod);//
                                     break;
+                                case 6:// Package collection by Drone
 
+                                    Console.WriteLine("Enter The id drone");
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    bL.PackageCollectionByDrone(cod);
+                                    break;
+                                case 7://Package delivery by Drone
+
+                                    Console.WriteLine("Enter The id drone");
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    bL.PackageDeliveryByDrone(cod);
+                                    break;
 
                             }
                             break;
@@ -269,9 +275,9 @@ namespace ConsoleUI_BL
                             Console.WriteLine("2 show a list of drones");
                             Console.WriteLine("3 show a list of customers");
                             Console.WriteLine("4 show a list of parcels");
-                            Console.WriteLine("5 show a list of unconnectedParcel");
-                            Console.WriteLine("6 show a list of availableStationToCharge");
-                            Console.WriteLine("7 show a list of drones in charging");
+                            Console.WriteLine("5 show a list of unconnectedParcel");//חבילות שלא שוייכו
+                            Console.WriteLine("6 show a list of availableStationToCharge");//תחנות כם עמדות פנויות
+                            
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
@@ -301,7 +307,6 @@ namespace ConsoleUI_BL
                             }
                             break;
                         }
-
 
                     case 5:
                         {//exit יציאה

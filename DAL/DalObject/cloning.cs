@@ -9,8 +9,8 @@ namespace DAL.DalObject
         internal static T Clone<T>(this T original) where T : new()
         {
             T copyToObject =new T();
-            foreach(propertyInFo propertyInFo in typeof(T).ge()//צריךpropertyInFo 
-
+            foreach (propertyInFo propertyInFo in typeof(T).ge();//צריךpropertyInFo 
+            return copyToObject;
         }
     }
 }

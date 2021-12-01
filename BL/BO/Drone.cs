@@ -17,7 +17,7 @@ namespace IBL.BO
         public StatusDrone StatusDrone { get; set; }
        
         public PackageInTransfer PackageInTransfe { get; set; }//חבילות בהובלה
-        public Location CurrentLocation { get; set; }
+        public Location LocationDrone { get; set; }
     }
 
 }
