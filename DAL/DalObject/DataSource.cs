@@ -27,10 +27,10 @@ namespace DalObject
             public static double MediumWeight;
             public static double HeavyWeight;
             public static double LoadingPrecents;
-            //internal static int amountDorneId = 0;//כמות הרחפנים
-            //internal static int amountStationId = 0;//כמות התחנות
-            //internal static int amountCustomerId = 0;//כמות הלקוחות
-            //internal static int amountParcelId = 0;//כמות חבילות
+            internal static int amountDorneId = 0;//כמות הרחפנים
+            internal static int amountStationId = 0;//כמות התחנות
+            internal static int amountCustomerId = 0;//כמות הלקוחות
+            internal static int amountParcelId = 0;//כמות חבילות
             //מונה לחבילות והמונה ות"ז של חבילות יהיו זהים
         }
         private static void creatDrone(int num)//פונקציה שיוצרת רחפנים create a drone

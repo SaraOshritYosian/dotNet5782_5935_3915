@@ -92,9 +92,9 @@ namespace ConsoleUI_BL
                                         if (ch == 2)
                                             dr.Weight = IDAL.WeightCategories.Heavy;
                                         Console.WriteLine("Enter the number of the station to charge");
-                                        b = int.TryParse(Console.ReadLine(), out ch);
-                                        dr.ChargeDrone(b);//שולחים את הרחפן לטעינה
-                                        bL.AddDrone(dr);
+                                        //int id;
+                                        b = int.TryParse(Console.ReadLine(), out id);
+                                        bL.AddDrone(dr, id);
                                         break;
 
                                     }
