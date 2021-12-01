@@ -4,31 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDAL.DO;
+
 
 
 namespace IBL
 {
-   public partial class BLCustomer
+    public partial class BL
     {
-        public BO.Customer GetCustomer(int id)
+        private string GetCustomer(int id)//return name
         {
-           BO.Customer? per = DataSource.customerList.Find(p => p.Id == id);
-            if (per is null)
-                return (Customer)per;
-            else
-                throw new CsustomerDoesNotExistException($"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+
+            IDAL.DO.Customer per =new IDAL.DO.Customer();
+            try
+            {
+                per = accessIDal.GetCustomer(id);
+            }
+            catch (IDAL.DO.Excptions)
+            {
+                throw new BO.AlreadyExistException();
+            }
+            return per.Name;
         }
-        public BO.Customer DelCustomer(int id)
+        public Customer GetCustomer(int id)
         {
-            BO.Customer? per = DataSource.customerList.Find(p => p.Id == id);
-            if (per is null)
-                return (Customer)per;
-            else
-                throw new CsustomerDoesNotExistException($"bad Customer id: {id}");//שרה הקישקוש של השם זה השם של הזריקה
+            IDAL.DO.Customer per = new IDAL.DO.Customer();
+            try
+            {
+                per = accessIDal.GetCustomer(id);
+            }
+            catch (IDAL.DO.Excptions)
+            {
+                throw new BO.AlreadyExistException();
+            }
+            return per;
         }
 
-        public void UpdateCustomer(int id, string name, string phone )
+        public void UpdateCustomer(int id, string name, string phone)
         {
             BO.Customer c = new BO.Customer();
             try
@@ -40,21 +51,47 @@ namespace IBL
                 }
                 if (phone != "")
                 {
-                    c.phone = phone;
+                    c.Pone = phone;
                 }
-                BLCustomer.
+
 
 
             }
-       public void AddCustomer(int id)
+            catch ()
+            {
+
+            }
+        }
+        public void AddCustomer(Customer customer)
         {
-            BO.DroneBL boCustomer = new BO.DroneBL;
+            IDAL.DO.Customer customer1 = new IDAL.DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
             try
             {
-                DO.
+                accessIDal.AddCustomer(customer1);
             }
 
+            catch (IDAL.DO.Excptions)
+            {
+                throw new BO.AlreadyExistException();
+            }
+        }
+        public IEnumerable<BO.Customer> CustomerList()
+        {
+            return from item in accessIDal.ccustomerList()
+                   select GetCustomer(item.Id);
         }
 
-    }
+        public void PrintCustomer(int customerId)//תצוגת לקוח shoe customer details by id
+        {
+            foreach (Customer customer in BL)
+            {
+                if (customer.Id == customerId)
+                {
+                    Console.WriteLine(customer.ToString());
+                    break;
+                }
+            }
+        }
+
+    }  
 }

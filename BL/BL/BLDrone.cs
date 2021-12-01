@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDAL.DO;
 
 namespace IBL
 {
@@ -18,19 +17,19 @@ namespace IBL
             if (drone == default)
                 throw new CantSendToChargeException();
             if (drone.StatusDrone != BO.Enums.StatusDrone.available)
-                throw new CantSendToChargeException("ERROR This is not free drone") ;//not good
+                throw new CantSendToChargeException("ERROR This is not free drone");//not good
             List<IDAL.DO.Station> dalListStation = accessIDal.GetAllStationBy(x => x.ChargeSlotsFree > 0).ToList();
             List<BO.Station> blStation = new List<BO.Station>();
             foreach (var item in dalListStation)
             {
-                blStation.Add(new BO.Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationBL = new Location{Latitude = item.Latitude, Longitude = item.Longitude}});
+                blStation.Add(new BO.Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationBL = new Location { Latitude = item.Latitude, Longitude = item.Longitude } });
 
             }
-            
-            if(!blStation.Any())
+
+            if (!blStation.Any())
                 throw new CantSendToChargeException("ERROR This is not free drone");//not good
             double far = minDistance(blStation, drone.CurrentLocation).Item2;
-        if(drone.StatusBatter-far*Free<0)
+            if (drone.StatusBatter - far * Free < 0)
                 throw new CantSendToChargeException("ERROR To the drone not have enaugh batteryto go ");
             drone.StatusBatter -= far * Free;
             drone.CurrentLocation = minDistance(blStation, drone.CurrentLocation).Item1;
@@ -49,12 +48,12 @@ namespace IBL
                 bodrone.Id = dodrone.Id;
                 bodrone.Model = dodrone.Model;
                 bodrone.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
-               
+
 
             }
-            catch (IDAL.DO.DroneDoesNotExistException ex)
+            catch (DroneDoesNotExistException ex)
             {
-                throw new DroneDoesNotExistException(ex);
+                throw new DroneDoesNotExistException();
             }
             return bodrone;
 
@@ -70,7 +69,7 @@ namespace IBL
                        Weight = (BO.Enums.WeightCategories)doDrone.Weight
                    };
         }
-        public void AddDrone(BO.Drone drone,int cod)
+        public void AddDrone(BO.Drone drone, int cod)
         {
             Random rand = new Random();
 
@@ -79,20 +78,23 @@ namespace IBL
                 Id = drone.Id,
                 Model = drone.Model,
                 Weight = (WeightCategories)drone.Weight,
-                StatusBatter = 20+rand.NextDouble()*40,//להגריל 20%-40%
+                sta = 20 + rand.NextDouble() * 40,//להגריל 20%-40%
                 StatusDrone = BO.Enums.StatusDrone.InMaintenance,
 
-            bodrone.CurrentLocation =//מיקום של התחנה ששם הו אהלך להטען
+                bodrone.CurrentLocation =//מיקום של התחנה ששם הו אהלך להטען
+
+
+
             };
 
             try
             {
-                accessIDal.addDrone(newD);
+                accessIDal.AddDrone(newD);
 
             }
-            catch (IDAL.DO.DroneChargDoesNotExistException ex)
+            catch (DroneChargDoesNotExistException ex)
             {
-                throw new DroneDoesNotExistException(ex);
+                throw new DroneDoesNotExistException();
             }
 
         }
@@ -104,11 +106,18 @@ namespace IBL
             {
 
             }
-            catch (IDAL.DO.DroneDoesNotExistException ex)
+            catch (DroneDoesNotExistException ex)
             {
-                throw new DroneDoesNotExistException(ex);
+                throw new DroneDoesNotExistException();
             }
 
         }
+
+        public IEnumerable<BO.Drone> DroneList()
+        {
+            return from item in accessIDal.ddroneList()
+                   select GetDrone(item.Id);
+        }
+
     }
 }

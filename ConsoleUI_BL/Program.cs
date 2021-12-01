@@ -64,7 +64,7 @@ namespace ConsoleUI_BL
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
                                         st.ChargeSlotsFree = ChargeSlots;
-                                        bL.AddStation(st);//צריל לעשטת פונקצית הוספת תחנה
+                                        bL.AddStation(st);//יש
                                         break;
                                     }
 
@@ -91,7 +91,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter the number of the station to charge");
                                         //int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        bL.AddDrone(dr, id);
+                                        bL.AddDrone(dr, id);//צריך
                                         break;
 
                                     }
@@ -120,7 +120,7 @@ namespace ConsoleUI_BL
                                         b = double.TryParse(Console.ReadLine(), out Latitude);
                                         location.Latitude = Latitude;
                                         cs.LocationOfCustomer = location;
-                                        bL.AddCustomer(cs);//צריך להוסיף את הפעולת הוספה בחקוח BL
+                                        bL.AddCustomer(cs);//יש/
                                         break;
                                     }
 
@@ -188,7 +188,7 @@ namespace ConsoleUI_BL
                                 case 2://Update customet
                                     Console.WriteLine("Enter The id of customer");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    string name = Console.ReadLine();
+                                    name = Console.ReadLine();
                                     int phone;
                                     b = int.TryParse(Console.ReadLine(), out phone);
                                     bL.UpdateCustomet(cod, phone, name);//מעדכן או טלפון או שם יכול להיות שהכניס נתונים ויכול להיות שלא
@@ -244,22 +244,22 @@ namespace ConsoleUI_BL
                                 case 1://station תצוגת תחנת-בסיס 
                                     Console.WriteLine("Enter station Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    DalObject.DalObject.PrintBaseStation(option);
+                                    bL.PrintBaseStation(option);
                                     break;
                                 case 2://drone  תצוגת רחפן
                                     Console.WriteLine("Enter drone Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    DalObject.DalObject.PrintDrone(option);
+                                    bL.PrintDrone(option);
                                     break;
                                 case 3: //customer תצוגת לקוח
                                     Console.WriteLine("Enter customer Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    DalObject.DalObject.PrintCustomer(option);
+                                    bL.PrintCustomer(option);
                                     break;
                                 case 4://parcel תצוגת חבילה
                                     Console.WriteLine("Enter parcel Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    DalObject.DalObject.PrintParcel(option);
+                                    bL.PrintParcel(option);
                                     break;
                                 default:
                                     break;
@@ -282,25 +282,25 @@ namespace ConsoleUI_BL
                             switch (option)
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
-                                    DalObject.DalObject.PrindBaseStationList();
+                                    bL.PrindBaseStationList();
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
-                                    DalObject.DalObject.PrintDronesList();
+                                    bL.PrintDronesList();
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
-                                    DalObject.DalObject.PrintCustomersList();
+                                    bL.PrintCustomersList();
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
-                                    DalObject.DalObject.PrintParcelsList();
+                                   bL.PrintParcelsList();
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
-                                    DalObject.DalObject.PrintUnconnectedParceslList();
+                                   b.PrintUnconnectedParceslList();
                                     break;
                                 case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
-                                    DalObject.DalObject.PrintAvailableStationToChargeList();
+                                    bL.PrintAvailableStationToChargeList();
                                     break;
-                                case 7://רשימת רחפנים בטעינה
-                                    DalObject.DalObject.PrindDroneChargeList();
+                                //case 7://רשימת רחפנים בטעינה
+                                //   bL.PrindDroneChargeList();
                                     break;
                                 default:
                                     break;
