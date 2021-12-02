@@ -91,7 +91,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter the number of the station to charge");
                                         //int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        bL.AddDrone(dr, id);//צריך
+                                        bL.AddDrone(dr, id);//v
                                         break;
 
                                     }
@@ -196,7 +196,7 @@ namespace ConsoleUI_BL
                                 case 3://Sending a Drone for charging
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.SendingDroneForCharging(cod);//פונקציה שמקבל ת"ז רחפן ושולחת לטעינה
+                                    bL.SendingDroneToCharging(cod);//פונקציה שמקבל ת"ז רחפן ושולחת לטעינה
                                     break;
                                 case 4://Release Drone from charging
                                    
@@ -204,7 +204,7 @@ namespace ConsoleUI_BL
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     int time;
                                     b = int.TryParse(Console.ReadLine(), out time);
-                                    bL.ReleaseDronefromcharging(cod, time);//משחררת מטעינה
+                                    bL.ReleaseDrone(cod, time);//משחררת מטעינה
                                     break;
                                 case 5://Assign a package to a Drone
 
@@ -216,7 +216,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.PackageCollectionByDrone(cod);
+                                    bL.PickUpPackage(cod);//צריך לסדר יש באגים
                                     break;
                                 case 7://Package delivery by Drone
 
@@ -282,16 +282,16 @@ namespace ConsoleUI_BL
                             switch (option)
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
-                                    bL.PrindBaseStationList();
+                                    bL.StationList();
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
-                                    bL.PrintDronesList();
+                                    bL.DroneList();
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
                                     bL.PrintCustomersList();
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
-                                   bL.PrintParcelsList();
+                                   bL.ParcelList();
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
                                    b.PrintUnconnectedParceslList();
@@ -301,7 +301,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //case 7://רשימת רחפנים בטעינה
                                 //   bL.PrindDroneChargeList();
-                                    break;
+                                //    break;
                                 default:
                                     break;
                             }
