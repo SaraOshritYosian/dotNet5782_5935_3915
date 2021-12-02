@@ -522,19 +522,6 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
-
-
-
-
-
-
-
-        //public void AddCustomer(Customer cs)//מוסיף לקוח
-        //{
-        //    DataSource.Config.amountCustomerId++;
-        //    DataSource.customerList.Add(cs);
-        //}
-
         public Customer SearchCustomer(int id)//מחפש לקוח ךפי ת"ז search customer by id
         {
             foreach (Customer dr in DataSource.customerList)
@@ -734,18 +721,6 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 }
             }
         }
-
-        //public void PrintFreeBaseStationList()//הדפסת רשימת התחנות  שיש בהם עמדות טעינה פנויות show 
-        //{
-        //    foreach (Station dr in DataSource.stationsList) {
-        //        if (dr.ChargeSlots > 0)
-        //            Console.WriteLine(dr.Id);
-
-        //    }
-        //יש לנו כבר כזה לא?
-
-        //}
-
 
         public IEnumerable<double> ElectricityUse()
         {
