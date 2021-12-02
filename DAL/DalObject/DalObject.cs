@@ -221,7 +221,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region Parcel
-        public IEnumerable<IDAL.DO.Parcel> pparcelList()
+        public IEnumerable<IDAL.DO.Parcel> pparcelList()//return list
         {
             return DataSource.parcelList;
         }
@@ -380,24 +380,48 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public void SendDroneToCharge(int station, int drone)//Drone a skimmer for charging
         {
-            for (int i = 0; i < DataSource.dronsList.Count; i++)
-            {
-                if (DataSource.dronsList[i].Id == drone)
-                {
+            //for (int i = 0; i < DataSource.dronsList.Count; i++)
+           // {
+               // if (DataSource.dronsList[i].Id == drone)
+              //  {
                     for (int j = 0; j < DataSource.stationsList.Count; j++)
                     {
                         if (DataSource.stationsList[j].Id == station)
                         {
-                            DataSource.stationsList[j].ChargeSlots--;
-                            DroneCharge cc = new DroneCharge(drone, station);
-                            DataSource.droneChargeList.Add(cc);
+                            Station s = DataSource.stationsList[j];
+                            s.ChargeSlots--;
+
+                            DataSource.stationsList[j]=s;
+                            DataSource.droneChargeList.Add(new DroneCharge { Droneld = drone, Stationld = station });
+                            return;
                         }
                     }
-                    throw new DoesNotExistException();
+                    return;
+               // }
+         //   }
+           
+
+        }
+        public void ReleaseDroneFromCharging(int drone)//Drone a skimmer from charging
+        {
+            for (int j = 0; j < DataSource.droneChargeList.Count; j++)
+            {
+                if (DataSource.droneChargeList[j].Droneld == drone)
+                {
+                    for (int i = 0; i < DataSource.stationsList.Count; i++)
+                    {
+                        if (DataSource.stationsList[i].Id == DataSource.droneChargeList[j].Stationld)
+                        {
+                            Station ss = DataSource.stationsList[i];
+                            ss.ChargeSlots++;//לעלות את כמות ההטאינה
+                            DataSource.stationsList[i] = ss; 
+                            DataSource.droneChargeList.Remove(DataSource.droneChargeList[j]);
+                           
+                            return;
+                        }
+                    }
                 }
             }
-            throw new DoesNotExistException();
-
         }
 
         public void AddDroneCharge(DroneCharge cs)//מוסיף רחפנים לעמדות טעינה add drone to the charge spot
@@ -412,31 +436,34 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         {
             return DataSource.customerList;
         }
-        public void DeleteDroneCharge(int idDrone)//Release Drone from charging
-        {
-            //צריך למחוק את הרחפן מרשימת טעינה
-            for (int i = 0; i < DataSource.droneChargeList.Count; i++)
-            {
+        //public void DeleteDroneCharge(int idDrone)//Release Drone from charging
+        //{
+        //    //צריך למחוק את הרחפן מרשימת טעינה
+        //    for (int i = 0; i < DataSource.droneChargeList.Count; i++)
+        //    {
 
-                if (DataSource.droneChargeList[i].Droneld == idDrone)
-                {
-                    for (int j = 0; j < DataSource.stationsList.Count; j++)
-                    {
-                        if (DataSource.droneChargeList[i].Stationld == DataSource.stationsList[j].Id)
-                            DataSource.stationsList[j].ChargeSlots++;//צריך לעלות את כמות המקומות הטעינה
-                    }
-                    throw new DoesNotExistException();
-                }
-            }
-            throw new DoesNotExistException();
-           
+        //        if (DataSource.droneChargeList[i].Droneld == idDrone)
+        //        {
+        //            for (int j = 0; j < DataSource.stationsList.Count; j++)
+        //            {
+        //                if (DataSource.droneChargeList[i].Stationld == DataSource.stationsList[j].Id)
+        //                {
 
-        }
+        //                    Station s = DataSource.stationsList[j];
+        //                    s.ChargeSlots--;
+        //                    DataSource.stationsList[j] = s;//צריך לעלות את כמות המקומות הטעינה
+        //                    DroneCharge cc = new DroneCharge { Droneld = idDrone, Stationld = s.Id };
+        //                    DataSource.droneChargeList.Remove(cc);
+        //                    return;
+        //                }
+        //            }
+        //        }
+        //    }
+         
+        //}
 
-           
-
-            public IDAL.DO.Customer GetCustomer(int id)
-        {
+            public IDAL.DO.Customer GetCustomer(int id) { 
+       
             IDAL.DO.Customer? per = DataSource.customerList.Find(p => p.Id == id);
             if (per is null)
                 return (Customer)per;
@@ -527,22 +554,24 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
 
 
-        public bool AssignPackageToDrone(int idParcel)//Assign a Package To Drone
+        public bool AssignPackageToDrone(int idParcel,int idDrone)//Assign a Package To Drone
         {
             //לבדוק אם קיים
             for (int i = 0; i < DataSource.parcelList.Count; i++)//שיוך החבילה לרחפן אני מחפשתאת החבילה ואת הרחפן שרני רוצה ומשנה באתאם את הנתונים
             {
                 if (DataSource.parcelList[i].Id == idParcel)
                 {
-                    for (int j = 0; j < DataSource.Config.amountStationId; j++)
+                    for (int j = 0; j < DataSource.dronsList.Count; j++)
                     {
                         // if (DataSource.dronsList[j].StatusDrone == IDAL.Status.available)//אם מצאתי רחפן זמין
-                        {
-                            DataSource.parcelList[i].Droneld = DataSource.dronsList[j].Id;//הכנסה ת"ז של הרחפן 
-                                                                                          //  DataSource.dronsList[j].Status = IDAL.Status.delivered;//שינוי סטטוס שהוא לא זמין
-                            DataSource.parcelList[i].Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
+                        Parcel p = DataSource.parcelList[i];
+                        p.Droneld = DataSource.dronsList[j].Id;//הכנסה ת"ז של הרחפן 
+                       p.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
+                        DataSource.parcelList[i] = p;
+                        
+                           
                             return true;
-                        }
+                        
                     }
 
                 }
@@ -556,7 +585,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if (DataSource.parcelList[i].Id == idParcel)
                 {
-                    DataSource.parcelList[i].PichedUp = DateTime.Now;//עדכון זמן הגעת הרחפן לשולח חבילה
+                    Parcel p = DataSource.parcelList[i];
+                    p.PichedUp = DateTime.Now;
+                    DataSource.parcelList[i]=p;//עדכון זמן הגעת הרחפן לשולח חבילה
+                    return;
                 }
             }
         }
@@ -568,16 +600,23 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             {
                 if (DataSource.parcelList[i].Id == idParcel)
                 {
-                    for (int j = 0; j < DataSource.parcelList.Count; j++)
+                    for (int j = 0; j < DataSource.dronsList.Count; j++)
                     {
                         if (DataSource.dronsList[j].Id == DataSource.parcelList[i].Droneld)//אם מצאתי רחפן לפי ת"ז של רחפן בחבילה
                         {
                             // DataSource.dronsList[j].StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
-                            DataSource.parcelList[i].Delivered = DateTime.Now;//עדכון זמן שיוך הגעת חבילה למקבל
+                            Parcel p = DataSource.parcelList[i];
+                            p.Delivered = DateTime.Now;//עדכון זמן שיוך חבילה
+                             
+                            DataSource.parcelList[i] = p;
+                            return;
                         }
+                        
                     }
+                   
                 }
             }
+           
         }
 
        
@@ -603,7 +642,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
         }
-        //השאלה אם זה תחנות טעינה או רק תחנות רגילות.בכל אופן אני אדפיס פעולה אחרת לתחנות טעינה
+       
 
         public void PrintDronesList()//הצגת רשימת הרחפנים show drone list
         {

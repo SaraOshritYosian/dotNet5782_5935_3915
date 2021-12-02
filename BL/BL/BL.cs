@@ -96,7 +96,7 @@ namespace IBL
                         Station station = BLStation[rand.Next(0, BLStation.Count)];
                         item.LocationDrone = station.LocationStation;
                         accessIDal.SendDroneToCharge(station.Id, item.Id);
-                        IDAL.DO.DroneCharge = new IDAL.DO.DroneCharge();
+                        //IDAL.DO.DroneCharge  droneCharge= new IDAL.DO.DroneCharge();
                         accessIDal.UpdetDroneCharge(station.Id);
                         item.StatusBatter = rand.Next(0, 21);
                     }
