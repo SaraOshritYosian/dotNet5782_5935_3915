@@ -150,7 +150,7 @@ namespace IBL
                 BLDrones[index].StatusBatter = 100;
             }
             BLDrones[index].StatusDrone = BO.Enums.StatusDrone.available;
-            accessIDal.ReleaseDrone(id);
+            accessIDal.ReleaseDroneFromCharging(id);
 
         public IEnumerable<BO.Drone> DroneList()
         {
