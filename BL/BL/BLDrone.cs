@@ -128,7 +128,7 @@ namespace IBL
 
         }
 
-        void UpdateDrone(BO.Drone drone)
+        void UpdateDrone(BO.Drone drone)//
         {
 
             try
