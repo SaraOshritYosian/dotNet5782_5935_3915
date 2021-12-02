@@ -94,6 +94,7 @@ namespace IBL
                     Latitude = sender.Lattitude,
                     Longitude = sender.Longitude
                 };
+                
                 drone.StatusBatter -= BatteryConsumption(distance, drone.Weight);
                 accessIDal.PackageCollectionByDrone(parcel.Id);
 
