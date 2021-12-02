@@ -141,7 +141,7 @@ namespace IBL
             }
 
         }
-        public void ReleaseDrone(int id,double time)//אני אשאל למה זה אדום
+        public void ReleaseDrone(int id,double time)
         {
             int index = BLDrones.FindIndex(x => x.Id == id);
             BLDrones[index].StatusBatter += time * accessIDal.ElectricityUse().ElementAt(4);//4?
