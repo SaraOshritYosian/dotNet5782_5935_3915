@@ -11,34 +11,8 @@ namespace IBL
 {
     public partial class BL
     {
-        private string GetCustomer(int id)//return name
-        {
-
-            IDAL.DO.Customer per =new IDAL.DO.Customer();
-            try
-            {
-                per = accessIDal.GetCustomer(id);
-            }
-            catch (IDAL.DO.Excptions)
-            {
-                throw new BO.AlreadyExistException();
-            }
-            return per.Name;
-        }
-        //public Customer GetCustomer(int id)
-        //{
-        //    IDAL.DO.Customer per = new IDAL.DO.Customer();
-        //    try
-        //    {
-        //        per = accessIDal.GetCustomer(id);
-        //    }
-        //    catch (IDAL.DO.Excptions)
-        //    {
-        //        throw new BO.AlreadyExistException();
-        //    }
-        //    return per;
-        //}
-        public BO.Customer GetCustomer(int id)//return a customer
+        //return a customer
+        public BO.Customer GetCustomer(int id)//
         {
             BO.Customer c = new BO.Customer();
             try
@@ -53,13 +27,14 @@ namespace IBL
                 c.ListOfPackagesToTheCustomer = (IEnumerable<Parcel>)accessIDal.ListTargetParcel(id);
 
             }
-            catch (IDAL.DO.BadCustomerIdException ex)
+            catch (IDAL.DO.Excptions ex)
             {
-                throw new BO.MissingIdException(ex.Id, ex.Message);
+                throw new BO.Excptions( ex.Message);
             }
             return c;
         }
-        public void UpdateCustomer(int id, string name, string phone)
+        //update customer by id or name or phone ot more
+        public void UpdateCustomer(int id, string name, string phone)//v
         {
             BO.Customer c = new BO.Customer();
             try
@@ -77,12 +52,14 @@ namespace IBL
 
 
             }
-            catch ()
+            catch (IDAL.DO.Excptions ex)
             {
-
+                throw new BO.Excptions(ex.Message);
             }
+
         }
-        public void AddCustomer(Customer customer)
+        //add customer
+        public void AddCustomer(Customer customer)//v
         {
             IDAL.DO.Customer customer1 = new IDAL.DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
             try
@@ -95,7 +72,7 @@ namespace IBL
                 throw new BO.AlreadyExistException();
             }
         }
-        public IEnumerable<BO.Customer> CustomerList()//להוסיף
+        public IEnumerable<BO.Customer> CustomerList()//x
         {
             return from item in accessIDal.ccustomerList()
                    select GetCustomer(item.Id);

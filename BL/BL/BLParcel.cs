@@ -10,7 +10,7 @@ namespace IBL
 {
     public partial class BL
     {
-        public BO.Parcel GetParcel(int id)
+        public BO.Parcel GetParcel(int id)//v
         {
             BO.Parcel bop = new BO.Parcel();
             try
@@ -20,9 +20,9 @@ namespace IBL
                 IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);
 
             }
-            catch(IDAL.DO.Excptions )
+            catch (IDAL.DO.Excptions ex)
             {
-                throw new BO.ParcelDoesNotExistException();
+                throw new BO.Excptions(ex.Message);
             }
             return bop;
 
@@ -40,7 +40,7 @@ namespace IBL
             }
             return parcels[listDis.FindIndex(x => x == listDis.Min())];
         }
-        public void AddParcel(BO.Parcel parcel)
+        public void AddParcel(BO.Parcel parcel)//v
         {
             IDAL.DO.Parcel p = new IDAL.DO.Parcel();
             p.Senderld = parcel.Senderld.Id;
@@ -55,9 +55,9 @@ namespace IBL
             {
 
             }
-            catch ()
+            catch (IDAL.DO.Excptions ex)
             {
-
+                throw new BO.Excptions(ex.Message);
             }
         }
 

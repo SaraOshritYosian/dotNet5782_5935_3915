@@ -64,7 +64,7 @@ namespace ConsoleUI_BL
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
                                         st.ChargeSlotsFree = ChargeSlots;
-                                        bL.AddStation(st);//יש
+                                        bL.AddStation(st);//v
                                         break;
                                     }
 
@@ -152,11 +152,9 @@ namespace ConsoleUI_BL
                                         if (ch == 2)
                                             pr.Priority = IBL.BO.Enums.Priority.emergency;
 
-                                        // pr.PichedUp = DateTime.Now;//איזה לעשות כאן
-                                        // pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
-                                        // id = d4.AddParcel(pr);
+                                        
                                         // Console.WriteLine("The number of the parcel is: " + id);
-                                        bL.addparcel(pr);//צריך להוסיף את הפו וכאן קלטנו ת"ז של שולח ומקבל ומשקל חבילה ועדיפות משלוח בביאל מאתחלים זמנים
+                                        bL.AddParcel(pr);//צריך להוסיף את הפו וכאן קלטנו ת"ז של שולח ומקבל ומשקל חבילה ועדיפות משלוח בביאל מאתחלים זמנים
                                         break;
 
                                     }
@@ -185,20 +183,30 @@ namespace ConsoleUI_BL
                                     string name = Console.ReadLine();
                                     bL.UpdateDrone(cod, name);//לבנות פונקציה מקבלת ת"ז של רחפן ושם ומעדכנת את השם
                                     break;
-                                case 2://Update customet
+                                case 2://Update station
+                                    Console.WriteLine("Enter The id of station");
+                                    b = int.TryParse(Console.ReadLine(), out cod);
+                                    int name1;
+                                    b = int.TryParse(Console.ReadLine(), out name1);
+                                    int slote ;
+                                    b = int.TryParse(Console.ReadLine(), out slote);
+                                    bL.UpdateStation(cod, name1, slote);//מעדכן או כמות טעינות או שם יכול להיות שהכניס נתונים ויכול להיות שלא
+                                    break;
+
+                                case 3://Update customet
                                     Console.WriteLine("Enter The id of customer");
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     name = Console.ReadLine();
-                                    int phone;
-                                    b = int.TryParse(Console.ReadLine(), out phone);
-                                    bL.UpdateCustomet(cod, phone, name);//מעדכן או טלפון או שם יכול להיות שהכניס נתונים ויכול להיות שלא
+                                    string phone=Console.ReadLine();
+                                    bL.UpdateCustomer(cod, name, phone);//מעדכן או טלפון או שם יכול להיות שהכניס נתונים ויכול להיות שלא
                                     break;
-                                case 3://Sending a Drone for charging
+
+                                case 4://Sending a Drone for charging
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     bL.SendingDroneToCharging(cod);//פונקציה שמקבל ת"ז רחפן ושולחת לטעינה
                                     break;
-                                case 4://Release Drone from charging
+                                case 5://Release Drone from charging
                                    
                                     Console.WriteLine("Enter The id drone and Charging time");
                                     b = int.TryParse(Console.ReadLine(), out cod);
@@ -206,19 +214,19 @@ namespace ConsoleUI_BL
                                     b = int.TryParse(Console.ReadLine(), out time);
                                     bL.ReleaseDrone(cod, time);//משחררת מטעינה
                                     break;
-                                case 5://Assign a package to a Drone
+                                case 6://Assign a package to a Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     bL.AssignPackageToDrone(cod);//
                                     break;
-                                case 6:// Package collection by Drone
+                                case 7:// Package collection by Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     bL.PickUpPackage(cod);//צריך לסדר יש באגים
                                     break;
-                                case 7://Package delivery by Drone
+                                case 8://Package delivery by Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);

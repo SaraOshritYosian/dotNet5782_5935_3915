@@ -67,7 +67,7 @@ namespace ConsoleUI
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
                                         st.ChargeSlots = ChargeSlots;
-                                        d1.AddStation(st);
+                                        d1.AddStation(st);//v
                                         break;
                                     }
 
@@ -91,7 +91,7 @@ namespace ConsoleUI
                                             dr.Weight = WeightCategories.Medium;
                                         if (ch == 2)
                                             dr.Weight = WeightCategories.Heavy;
-                                        d2.AddDrone(dr);
+                                        d2.AddDrone(dr);//v
                                         break;
 
                                     }
@@ -119,7 +119,7 @@ namespace ConsoleUI
                                         double Latitude;
                                         b = double.TryParse(Console.ReadLine(), out Latitude);
                                         cs.Lattitude = Latitude;
-                                        d3.AddCustomer(cs);
+                                        d3.AddCustomer(cs);//v
                                         break;
                                     }
 

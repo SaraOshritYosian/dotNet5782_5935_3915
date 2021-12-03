@@ -21,8 +21,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         //
         #region Drone
         //CRUD Drone
+        public IEnumerable<IDAL.DO.Drone> ListDroneInStation(int id)
+        {
+            return (IEnumerable<Drone>)(from Drone in DataSource.dronsList
+                   select GetStation(id));
+        }
 
-     
 
         public IDAL.DO.Drone GetDrone(int id)
         {
@@ -311,6 +315,18 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region DroneCharg
+        public int coutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
+        {
+            int mone = 0;
+            for(int i = 0; i < DataSource.droneChargeList.Count; i++)
+            {
+                   if (DataSource.droneChargeList[i].Stationld == id)
+                {
+                    mone++;
+                }
+            }
+            return mone;
+        }
         public IDAL.DO.DroneCharge GetDroneChargByDrone(int id)
         {
             IDAL.DO.DroneCharge? per = DataSource.droneChargeList.Find(p => p.Droneld == id);
