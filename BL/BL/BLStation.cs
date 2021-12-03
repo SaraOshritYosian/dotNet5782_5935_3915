@@ -22,6 +22,7 @@ namespace IBL
 
         public void UpdateStation(int idS, int names,int chargeSlote)
         {
+
             IDAL.DO.Station station1 = new IDAL.DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
             try
             {
@@ -32,10 +33,19 @@ namespace IBL
                 throw new AlreadyExistException();
             }
         }
-        public IEnumerable<BO.Station> StationList()
+        //public IEnumerable<BO.Station> StationList()
+        //{
+        //    return from item in accessIDal.sStationList()
+        //           select getStation(item.Id);
+        //}
+        public void PrindBaseStationList()
+        // הצגת רשימת תחנות-בסיס show base-station list
         {
-            return from item in accessIDal.sStationList()
-                   select getStation(item.Id);
+            foreach (Station station in accessIDal.DataSource.stationsList/*Drone dr in DataSource.dronsList*/)
+            {
+                Console.WriteLine(station.ToString());
+            }
+
         }
 
 

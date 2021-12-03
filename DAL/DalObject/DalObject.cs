@@ -22,10 +22,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #region Drone
         //CRUD Drone
 
-        public IEnumerable<IDAL.DO.Drone> ddroneList()
-        {
-            return DataSource.dronsList;
-        }
+     
 
         public IDAL.DO.Drone GetDrone(int id)
         {
@@ -53,7 +50,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
             if (per is null)
                 throw new IDAL.DO.DroneAlreadyExistException($"bad drone id: {drone.Id}");
-            DataSource.dronsList.Add(drone.Clone());//צריך ליצור קלון
+            DataSource.dronsList.Add(drone.Clone()); 
         }
 
         public void DeleteDrone(int id)
@@ -86,7 +83,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             throw new NotImplementedException();
         }
 
-
+        public IEnumerable<IDAL.DO.Drone> ddroneList()
+        {
+            return DataSource.dronsList;
+        }
 
 
 

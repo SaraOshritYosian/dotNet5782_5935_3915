@@ -11,21 +11,25 @@ namespace IBL
     public interface IBL
     {
         #region Customer
-        BO.Drone GetCustomerBL(int id);
-        IEnumerable<BO.Customer> GetAllCustomer();
-        IEnumerable<BO.Customer> GetAllCustomerForList(Predicate<BO.Customer> predicate);
+
+         void UpdateCustomer(int id, string name, string phone);
+         void AddCustomer(Customer customer);
+        //IEnumerable<BO.Customer> GetAllCustomer();
+        //IEnumerable<BO.Customer> GetAllCustomerForList(Predicate<BO.Customer> predicate);
         #endregion
 
         #region Drone
-        void SendDroneToCharge(int idDrone);
-        void AddDrone(Drone drone,int cod);//add
-        void UpdateDrone(Drone drone);
+        void SendingDroneforCharging(int droneId);
          BO.Drone GetDrone(int id);
          IEnumerable<BO.Drone> GetAllDrone();
-      
+        void AddDrone(Drone drone,int cod);//add
+        void UpdateDrone(Drone drone);
+        
         #endregion
 
         #region Station
+        void AddStation(Station station);
+         void UpdateStation(int idS, int names, int chargeSlote);
         //   BO.Station GetStationBL(int id);
         //  IEnumerable<BO.Station> GetAllStation();
         //   IEnumerable<BO.Station> GetAllStationForList(Predicate<BO.Station> predicate);
