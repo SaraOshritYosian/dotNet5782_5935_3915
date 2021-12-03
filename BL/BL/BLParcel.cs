@@ -45,8 +45,8 @@ namespace IBL
             IDAL.DO.Parcel p = new IDAL.DO.Parcel();
             p.Senderld = parcel.Senderld.Id;
             p.Targetld = parcel.Targetld.Id;
-            p.Weight = (WeightCategories)parcel.Weight;
-            p.Priority = (WeightCategories)parcel.Priority;
+            p.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
+            p.Priority = (IDAL.DO.Priority)(WeightCategories)parcel.Priority;
             p.Requested = DateTime.Now;
             p.Scheduled = new DateTime();
             p.PichedUp = new DateTime();
@@ -63,7 +63,7 @@ namespace IBL
 
         public IEnumerable<BO.Parcel> ParcelList() {
             return from item in accessIDal.pparcelList()
-                   select get(item.Id);
+                   select GetParcel(item.Id);
         }
 
         //איסוף חבילה ע"י רחפן
@@ -71,37 +71,41 @@ namespace IBL
         {
             if (id < 0)
                 throw new ArgumentOutOfRangeException("id", "The drone number must be greater or equal to 0");
-
-            DroneToList drone = BLDrones.Find(d => d.Id == id);
-            if (drone == default(DroneToList))
-                throw new ArgumentException("Drone with the given ID number doesn't exist");
-
-            if (drone.StatusDrone != StatusDrone.delivered)
-                throw new InvalidOperationException("The drone is not assigned to any package");
-
-            var parcel = accessIDal.GetParcel(drone.IdParcel);
-            if (parcel.Scheduled == default(DateTime) || parcel.PichedUp != default(DateTime))
-                throw new InvalidOperationException("The package is not ready to pick up");
-
-            try
+            for (int i = 0; i < BLDrones.Count; i++)
             {
-
-                var sender = accessIDal.GetCustomer(parcel.Senderld);
-                double distance = DistanceTo(drone.LocationDrone.Latitude, sender.Lattitude,
-                    drone.LocationDrone.Longitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
-                drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
+                if (BLDrones[i].Id == id)
                 {
-                    Latitude = sender.Lattitude,
-                    Longitude = sender.Longitude
-                };
-                
-                drone.StatusBatter -= BatteryConsumption(distance, drone.Weight);
-                accessIDal.PackageCollectionByDrone(parcel.Id);
+                    DroneToList drone = BLDrones[i];//.Find(d => d.Id == id);
+                    if (drone == default(DroneToList))
+                        throw new ArgumentException("Drone with the given ID number doesn't exist");
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception();
+                    if (drone.StatusDrone != StatusDrone.delivered)
+                        throw new InvalidOperationException("The drone is not assigned to any package");
+
+                    var parcel = accessIDal.GetParcel(drone.IdParcel);
+                    if (parcel.Scheduled == default(DateTime) || parcel.PichedUp != default(DateTime))
+                        throw new InvalidOperationException("The package is not ready to pick up");
+
+                    try
+                    {
+
+                        var sender = accessIDal.GetCustomer(parcel.Senderld);
+                        double distance = DistanceTo(drone.LocationDrone.Latitude, sender.Lattitude,
+                            drone.LocationDrone.Longitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
+                        drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
+                        {
+                            Latitude = sender.Lattitude,
+                            Longitude = sender.Longitude
+                        };
+                        drone.StatusBatter -= BatteryConsumption(distance, drone.Weight);
+                        accessIDal.PackageCollectionByDrone(parcel.Id);
+
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception();
+                    }
+                }
             }
         }
     }

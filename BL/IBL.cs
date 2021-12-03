@@ -17,11 +17,12 @@ namespace IBL
         #endregion
 
         #region Drone
+        void SendDroneToCharge(int idDrone);
         void AddDrone(Drone drone,int cod);//add
         void UpdateDrone(Drone drone);
          BO.Drone GetDrone(int id);
          IEnumerable<BO.Drone> GetAllDrone();
-        //  IEnumerable<BO.Drone> GetAllDroneForList(Predicate<BO.Drone> predicate);
+      
         #endregion
 
         #region Station
