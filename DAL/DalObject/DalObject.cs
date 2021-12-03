@@ -531,6 +531,30 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return new Customer();
         }
+        public IEnumerable<IDAL.DO.Parcel> ListSendParcel(int id)//return a list of packages of the sender
+        {
+            List<IDAL.DO.Parcel> a = new List<IDAL.DO.Parcel>();
+            foreach (Parcel item in DataSource.parcelList)
+            {
+                if (item.Senderld == id)
+                {
+                    a.Add(item);
+                }
+            }
+            return a;
+        }
+        public IEnumerable<IDAL.DO.Parcel> ListTargetParcel(int id)//return a list of packages of the recipient
+        {
+            List<IDAL.DO.Parcel> a = new List<IDAL.DO.Parcel>();
+            foreach (Parcel item in DataSource.parcelList)
+            {
+                if (item.Targetld == id)
+                {
+                    a.Add(item);
+                }
+            }
+            return a;
+        }
         #endregion
 
 

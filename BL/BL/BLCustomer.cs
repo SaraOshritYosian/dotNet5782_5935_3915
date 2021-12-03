@@ -25,20 +25,40 @@ namespace IBL
             }
             return per.Name;
         }
-        public Customer GetCustomer(int id)
+        //public Customer GetCustomer(int id)
+        //{
+        //    IDAL.DO.Customer per = new IDAL.DO.Customer();
+        //    try
+        //    {
+        //        per = accessIDal.GetCustomer(id);
+        //    }
+        //    catch (IDAL.DO.Excptions)
+        //    {
+        //        throw new BO.AlreadyExistException();
+        //    }
+        //    return per;
+        //}
+        public BO.Customer GetCustomer(int id)//return a customer
         {
-            IDAL.DO.Customer per = new IDAL.DO.Customer();
+            BO.Customer c = new BO.Customer();
             try
             {
-                per = accessIDal.GetCustomer(id);
-            }
-            catch (IDAL.DO.Excptions)
-            {
-                throw new BO.AlreadyExistException();
-            }
-            return per;
-        }
+                IDAL.DO.Customer customer = accessIDal.GetCustomer(id);
+                c.Id = customer.Id;
+                c.Name = customer.Name;
+                c.Pone = customer.Pone;
+                c.LocationOfCustomer.Latitude = customer.Lattitude;
+                c.LocationOfCustomer.Latitude = customer.Lattitude;
+                c.ListOfPackagesFromTheCustomer = (IEnumerable<Parcel>)accessIDal.ListSendParcel(id);
+                c.ListOfPackagesToTheCustomer = (IEnumerable<Parcel>)accessIDal.ListTargetParcel(id);
 
+            }
+            catch (IDAL.DO.BadCustomerIdException ex)
+            {
+                throw new BO.MissingIdException(ex.Id, ex.Message);
+            }
+            return c;
+        }
         public void UpdateCustomer(int id, string name, string phone)
         {
             BO.Customer c = new BO.Customer();
@@ -75,7 +95,7 @@ namespace IBL
                 throw new BO.AlreadyExistException();
             }
         }
-        public IEnumerable<BO.Customer> CustomerList()
+        public IEnumerable<BO.Customer> CustomerList()//להוסיף
         {
             return from item in accessIDal.ccustomerList()
                    select GetCustomer(item.Id);

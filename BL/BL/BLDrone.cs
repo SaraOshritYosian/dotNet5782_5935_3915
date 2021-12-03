@@ -24,21 +24,22 @@ namespace IBL
                 else
                 {
 
-                    minstation = min...(GetDroneToList(droneId).LocationDrone);
+                    minstation = minDistance...(GetDroneToList(droneId).LocationDrone);
                     //חישוב מרחק בין התחנה לרחפן
                     kilometer = DistanceTo(accessIDal.GetStation(minstation.Id).Latitude, accessIDal.GetStation(minstation.Id).Longitude, GetDroneToList(droneId).LocationDrone.Latitude, GetDroneToList(droneId).LocationDrone.Longitude);
                     battery = BatteryConsumption(kilometer, GetDroneToList(droneId).Weight);//שמירת כמות הבטריה שמתבזבזת
                     if (battery < GetDroneToList(droneId).StatusBatter)//צריך לבדוק אם הסוללה הנדרשת מספיקה לסוללה שיש לי ברחפן
                         accessIDal.SendDroneTpCharge(stationId, droneId);
                     DroneToList drone = GetDroneToList(droneId);//מכאן נשנה את המצב של הרחפן והבטריה ברשימה של ה bl
-                    drone.ButerryStatus -= battery;
-                    drone.DroneStatuses = DroneStatuses.maintenance;
+                    drone.StatusBatter -= battery;
+                    drone.StatusDrone = BO.Enums.StatusDrone.InMaintenance;
                     Location l = new Location();
-                    l.Lattitude = dl.GetStation(stationId).Lattitude;
-                    l.Longitude = dl.GetStation(stationId).Longitude;
-                    drone.ThisLocation = l;
-                    dronesBl.Add(drone);
-                    dronesBl.Remove(GetDroneToList(droneId));
+                 
+                    l.Latitude = accessIDal.GetStation(stationId).Latitude;
+                    l.Longitude = accessIDal.GetStation(stationId).Longitude;
+                    drone.LocationDrone = l;
+                    BLDrones.Add(drone);
+                    BLDrones.Remove(GetDroneToList(droneId));
                 }
             }
             catch (IDAL.DO.MissingIdException ex)//  חריגה לא נכונה !!!!!!!!! לעשות חדשה
@@ -121,7 +122,7 @@ namespace IBL
             {
                 throw new DroneDoesNotExistException();
             }
-            return bodrone;
+            return bodrone;//חסר
 
 
         }
