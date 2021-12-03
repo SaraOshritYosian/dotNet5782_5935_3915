@@ -41,7 +41,7 @@ namespace IDAL
         void AddDroneCharge(DO.DroneCharge droneCharge);//add
         void UpdetDroneCharge(DO.DroneCharge droneCharge);//updet
         void UpdetDroneCharge(int id,Action<DO.DroneCharge> action);//updet
-        void DeleteDroneCharge(int id);//delete
+      //  void DeleteDroneCharge(int id);//delete
 
 
         #endregion

@@ -11,34 +11,7 @@ namespace IBL
 {
     public partial class BL
     {
-        private string GetCustomer(int id)//return name
-        {
-
-            IDAL.DO.Customer per =new IDAL.DO.Customer();
-            try
-            {
-                per = accessIDal.GetCustomer(id);
-            }
-            catch (IDAL.DO.Excptions)
-            {
-                throw new BO.AlreadyExistException();
-            }
-            return per.Name;
-        }
-        public Customer GetCustomer(int id)
-        {
-            IDAL.DO.Customer per = new IDAL.DO.Customer();
-            try
-            {
-                per = accessIDal.GetCustomer(id);
-            }
-            catch (IDAL.DO.Excptions)
-            {
-                throw new BO.AlreadyExistException();
-            }
-            return per;
-        }
-
+        
         public void UpdateCustomer(int id, string name, string phone)
         {
             BO.Customer c = new BO.Customer();
@@ -75,11 +48,11 @@ namespace IBL
                 throw new BO.AlreadyExistException();
             }
         }
-        public IEnumerable<BO.Customer> CustomerList()
-        {
-            return from item in accessIDal.ccustomerList()
-                   select GetCustomer(item.Id);
-        }
+        //public IEnumerable<BO.Customer> CustomerList()
+        //{
+        //    return from item in accessIDal.ccustomerList()
+        //           select GetCustomer(item.Id);
+        //}
 
         public void PrintCustomer(int customerId)//תצוגת לקוח shoe customer details by id
         {
