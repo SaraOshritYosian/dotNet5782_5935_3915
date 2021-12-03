@@ -12,7 +12,7 @@ namespace IBL
     public partial class BL
     {
         //return a customer
-        public BO.Customer GetCustomer(int id)//
+        public BO.Customer GetCustomer(int id)//v x
         {
             BO.Customer c = new BO.Customer();
             try
@@ -23,13 +23,13 @@ namespace IBL
                 c.Pone = customer.Pone;
                 c.LocationOfCustomer.Latitude = customer.Lattitude;
                 c.LocationOfCustomer.Latitude = customer.Lattitude;
-                c.ListOfPackagesFromTheCustomer = (IEnumerable<Parcel>)accessIDal.ListSendParcel(id);
+                c.ListOfPackagesFromTheCustomer = (List<DroneInCharge>)(IEnumerable<Parcel>)accessIDal.ListSendParcel(id);
                 c.ListOfPackagesToTheCustomer = (IEnumerable<Parcel>)accessIDal.ListTargetParcel(id);
 
             }
             catch (IDAL.DO.Excptions ex)
             {
-                throw new BO.Excptions( ex.Message);
+                throw new BO.Excptions(ex.Message);
             }
             return c;
         }
@@ -72,11 +72,48 @@ namespace IBL
                 throw new BO.AlreadyExistException();
             }
         }
-        public IEnumerable<BO.Customer> CustomerList()//x
+
+
+        public IEnumerable<BO.CustomerToList> GetALLCostumerToList()
         {
-            return from item in accessIDal.ccustomerList()
-                   select GetCustomer(item.Id);
+            CustomerToList customer = new CustomerToList();
+            foreach (IDAL.DO.Customer item in accessIDal.GetAllCustomer())//מיוי הנתונים ב BL מתוך DAL
+            {
+                customer.Id = item.Id;
+                customer.Name = item.Name;
+                customer.Pone = item.Pone;
+                customer.NumberOfPackagesSentAndDelivered = 0;//Number Of Packages Sent And Delivered
+                customer.NumberOfPackagesSentAndNotDelivered = 0;//Number Of Packages SentAnd Not Delivered
+                customer.NumberOfPackagesGet = 0;//Number O fPackage sGet
+                customer.SeveralPackagesOnTheWayToTheCustomer = 0;//Several Packages On The WayTo The Customer
+                foreach (IDAL.DO.Parcel itemParcel in accessIDal.GetAllCustomer())
+                {
+                    if (itemParcel.Senderld == item.Id)//אם זאת חבילה שנשלחה עי הלקוח 
+                    {
+                        if (itemParcel.Delivered != default(DateTime))//החבילה כבר סופקה
+                            customer.NumberOfPackagesSentAndDelivered++;
+                        else
+                             if (itemParcel.PichedUp != default(DateTime))//החבילה באמצע משלוח
+                            customer.NumberOfPackagesSentAndNotDelivered++;
+                    }
+                    if (itemParcel.Targetld == item.Id)//חבילה שהתקבלה על ידי הלקוח
+                    {
+                        if (itemParcel.Delivered != default(DateTime))//החבילה כבר סופקה לו
+                            customer.NumberOfPackagesGet++;
+                        else
+                             if (itemParcel.PichedUp != default(DateTime))// אליו החבילה באמצע משלוח
+                            customer.SeveralPackagesOnTheWayToTheCustomer++;
+                    }
+                }
+
+                customerBl.Add(customer);
+            }
+            return customerBl;
         }
+
+
+
+
 
         public void PrintCustomer(int customerId)//תצוגת לקוח shoe customer details by id
         {
@@ -89,6 +126,6 @@ namespace IBL
                 }
             }
         }
-
-    }  
+    }
+    
 }

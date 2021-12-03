@@ -9,7 +9,9 @@ namespace IBL
     public partial class BL 
     {
 
-        public BO.Station GetStation(int id)//  לא בטוחה שזה טוב
+        
+
+        public BO.Station GetStation(int id)// v
         {
             BO.Station c = new BO.Station();
             try
@@ -20,7 +22,7 @@ namespace IBL
                 c.LocationStation.Latitude = station.Latitude;
                 c.LocationStation.Longitude = station.Longitude;
                 c.ChargeSlotsFree = station.ChargeSlots;
-                c.DroneInChargeList = (IEnumerable<DroneInCharge>)(IEnumerable<Station>)accessIDal.ListDroneInStation(id);
+                c.DroneInChargeList = ListDroneInStation(id);
 
             }
             catch (IDAL.DO.Excptions ex)
@@ -40,20 +42,18 @@ namespace IBL
                 throw new AlreadyExistException();
             }
         }
-
-
-        public void UpdateStation(int idS, int names,int chargeSlote)
+        public void UpdateStation(int idS, int names,int chargeSlote)//v
         {
 
             BO.Station c = new BO.Station();
             try
             {
                 c = GetStation(idS);
-                if (names != )
+                if (names !=-1 )
                 {
                     c.Name = names;
                 }
-                if (chargeSlote != )
+                if (chargeSlote !=-1 )
                 {
                     c.ChargeSlotsFree = chargeSlote-accessIDal.coutCharge(idS);
                 }
@@ -74,7 +74,32 @@ namespace IBL
             }
 
         }
+        private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
+        {
+            List<int> ListDroneId = new List<int>();//vv
+            ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
+            List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
+            for (int i = 0; i < ListDroneId.Count(); i++)
+            {
+                DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
+                a.Add(droneInCharge);
+            }
+            return a;
 
+        }
+        public IEnumerable<BO.Station> GetALLStationWithFreeStation()
+        {
+            List<Station> s = new List<Station>();
+            List<Station> news = new List<Station>();
+            s = GetALLStationWithFreeStation().ToList();
+            foreach (Station item in s)
+            {
+                if (item.ChargeSlotsFree > 0)
+                    news.Add(item);
+            }
+           
+            return news;
+        }
 
     }
 }

@@ -92,20 +92,6 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return DataSource.dronsList;
         }
 
-
-
-
-
-
-        //public void AddDrone(Drone dr)//מוסיף רחפן add a drone
-        //{
-        //    //
-        //    DataSource.dronsList.Add(dr);
-        //    DataSource.Config.amountDorneId++;
-
-        //}
-
-
         public Drone SearchDrone(int id)//מחפש רחפן ךפי ת"ז search drone by id
         {
             foreach (Drone dr in DataSource.dronsList)
@@ -115,23 +101,6 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return new Drone();
         }
-
-
-        //public void UpdetDrone()
-        //{
-        //    try
-        //    {
-
-
-        //        IDAL.DO.Customer customer = accessIdal.GetCustomer(id);
-        //        if (name != "")
-        //            customer.Name = neme;
-        //        if (name != "")
-        //            customer.Name = neme;
-        //        if (name != "")
-        //            customer.Name = neme;
-        //    }
-        //}
         #endregion
 
         #region Station
@@ -142,7 +111,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         public IDAL.DO.Station GetStation(int id)
         {
-            IDAL.DO.Station? per = DataSource.stationsList.Find(p => p.Id == id);
+            IDAL.DO.Station? per = DataSource.stationsList.FirstOrDefault(p => p.Id == id);
             if (per is null)
                 return (Station)per;
             else
@@ -315,6 +284,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region DroneCharg
+        public IEnumerable<IDAL.DO.Drone> droneChargeList()
+        {
+            return (IEnumerable<Drone>)DataSource.droneChargeList;
+        }
+
         public int coutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
         {
             int mone = 0;
@@ -327,9 +301,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return mone;
         }
+
         public IDAL.DO.DroneCharge GetDroneChargByDrone(int id)
         {
-            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.Find(p => p.Droneld == id);
+            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.FirstOrDefault(p => p.Droneld == id);
             if (per != null)
                 return (DroneCharge)per;
             else
@@ -337,11 +312,24 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         public IDAL.DO.DroneCharge GetDroneChargByStation(int id)
         {
-            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.Find(p => p.Stationld == id);
+            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.FirstOrDefault(p => p.Stationld == id);
             if (per != null)
                 return (DroneCharge)per;
             else
                 throw new IDAL.DO.StationDoesNotExistException($"bad station id: {id}");
+        }
+
+        public IEnumerable<int> GetDroneChargByStationListInt(int ids)//מחזיר רשימה של ת"ז של רחפנים שנימצאים בתחנה מסויימת
+        {
+            List<int> a = new List<int>();
+            for (int i = 0; i < DataSource.droneChargeList.Count(); i++)
+            {
+                if (DataSource.droneChargeList[i].Stationld == ids)
+                {
+                    a.Add(DataSource.droneChargeList[i].Droneld);
+                }
+            }
+            return a;
         }
 
         public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneCharge()
@@ -355,28 +343,9 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             throw new NotImplementedException();//זריקה
         }
 
-        //public void AddDroneCharge(IDAL.DO.DroneCharge droneCharge)
-        //{
-        //    if (DataSource.droneChargeList.FirstOrDefault(p => p.Id == drone.Id) != null)
-        //        throw new IDAL.DO.DroneChargDoesNotExistException($"bad drone id: {drone.Id}");
-        //    DataSource.dronsList.Add(drone.clone());//צריך ליצור קלון
-        //}
-
-        //public void deleteCDrone(int id)
-        //{
-        //    IDAL.DO.Drone? per = DataSource.dronsList.Find(p => p.Id == id);
-
-        //    if (per != null)
-        //        DataSource.dronsList.Remove(per);
-        //    else
-        //        throw new IDAL.DO.DroneChargDoesNotExistException($"bad drone id: {id}");
-
-
-        //}
-
         public void UpdetDroneCharge(IDAL.DO.DroneCharge droneCharge)
         {
-            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.Find(p => p.Stationld == droneCharge.Stationld);
+            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.FirstOrDefault(p => p.Stationld == droneCharge.Stationld);
             if (per != null)
             {
                 DataSource.droneChargeList.Remove((DroneCharge)per);//מחיקה
@@ -448,36 +417,36 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region Customer
+        //מחזיר רשימה של מששלוחים של id שולח
+        public IEnumerable<IDAL.DO.Parcel> ListTargetParcel(int id)//return a list of packages of the recipient
+        {
+            List<IDAL.DO.Parcel> a = new List<IDAL.DO.Parcel>();
+            foreach (Parcel item in DataSource.parcelList)
+            {
+                if (item.Targetld == id)
+                {
+                    a.Add(item);
+                }
+            }
+            return a;
+        }
+        public IEnumerable<IDAL.DO.Parcel> ListTargetParcel(int id)//return a list of packages of the recipient
+        {
+            List<IDAL.DO.Parcel> a = new List<IDAL.DO.Parcel>();
+            foreach (Parcel item in DataSource.Parcels)
+            {
+                if (item.Targetid == id)
+                {
+                    a.Add(item);
+                }
+            }
+            return a;
+        }
         public IEnumerable<IDAL.DO.Customer> ccustomerList()
         {
             return DataSource.customerList;
         }
-        //public void DeleteDroneCharge(int idDrone)//Release Drone from charging
-        //{
-        //    //צריך למחוק את הרחפן מרשימת טעינה
-        //    for (int i = 0; i < DataSource.droneChargeList.Count; i++)
-        //    {
-
-        //        if (DataSource.droneChargeList[i].Droneld == idDrone)
-        //        {
-        //            for (int j = 0; j < DataSource.stationsList.Count; j++)
-        //            {
-        //                if (DataSource.droneChargeList[i].Stationld == DataSource.stationsList[j].Id)
-        //                {
-
-        //                    Station s = DataSource.stationsList[j];
-        //                    s.ChargeSlots--;
-        //                    DataSource.stationsList[j] = s;//צריך לעלות את כמות המקומות הטעינה
-        //                    DroneCharge cc = new DroneCharge { Droneld = idDrone, Stationld = s.Id };
-        //                    DataSource.droneChargeList.Remove(cc);
-        //                    return;
-        //                }
-        //            }
-        //        }
-        //    }
-         
-        //}
-
+      
             public IDAL.DO.Customer GetCustomer(int id) { 
        
             IDAL.DO.Customer? per = DataSource.customerList.Find(p => p.Id == id);

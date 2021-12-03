@@ -19,8 +19,8 @@ namespace IBL
             public string Name { get; set; }
             public string Pone { get; set; }
             public Location LocationOfCustomer { get; set; }
-            public List<DroneInCharge> ListOfPackagesFromTheCustomer { get; set; }//רשימת חבילות אצל הלקוח -מהלקוח
-            public List<DroneInCharge> ListOfPackagesToTheCustomer { get; set; }//רשימת חבילות אצל הלקוח- ללקוח
+            public List<ParcelInCustomer> ListOfPackagesFromTheCustomer { get; set; }//רשימת חבילות אצל הלקוח -מהלקוח
+            public List<ParcelInCustomer> ListOfPackagesToTheCustomer { get; set; }//רשימת חבילות אצל הלקוח- ללקוח
             public override string ToString()
             { 
                  

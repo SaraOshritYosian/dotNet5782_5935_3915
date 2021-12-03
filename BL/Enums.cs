@@ -16,7 +16,7 @@ namespace IBL
        
             public enum WeightCategories { Light, Medium, Heavy }//סוג החבילה parcel type
             public enum Priority { simple, quick, emergency }//עדיפות למשלוח dellivery priority
-            public enum SituationParcel { Created, associated, collected, provided }//מצב חבילה נוצר, שוייך, נאסף,סןפק
+            public enum StatusParcel { Created, associated, collected, provided }//מצב חבילה נוצר, שוייך, נאסף,סןפק
             
         }
     }

@@ -29,7 +29,7 @@ namespace IBL
                     kilometer = DistanceTo(accessIDal.GetStation(minstation.Id).Latitude, accessIDal.GetStation(minstation.Id).Longitude, GetDroneToList(droneId).LocationDrone.Latitude, GetDroneToList(droneId).LocationDrone.Longitude);
                     battery = BatteryConsumption(kilometer, GetDroneToList(droneId).Weight);// כמות הבטריה שמתבזבזת
                     if (battery < GetDroneToList(droneId).StatusBatter)// לבדוק אם הסוללה הנדרשת מספיקה לסוללה שיש לי ברחפן
-                        accessIDal.SendDroneTpCharge(stationId, droneId);
+                        accessIDal.SendDroneToCharge(stationId, droneId);
                     DroneToList drone = GetDroneToList(droneId);//מכאן נשנה את המצב של הרחפן והבטריה ברשימה של ה bl
                     drone.StatusBatter -= battery;
                     drone.StatusDrone = BO.Enums.StatusDrone.InMaintenance;
@@ -42,11 +42,10 @@ namespace IBL
                     BLDrones.Remove(GetDroneToList(droneId));
                 }
             }
-            catch (IDAL.DO.Excptions)//  חריגה לא נכונה !!!!!!!!! לעשות חדשה
+            catch (IDAL.DO.Excptions)
             {
-                throw new Exception();
+                throw new BO.AlreadyExistException();
             }
-
         }
 
         //שיחרור רחפן מטעינה
@@ -63,28 +62,8 @@ namespace IBL
         }
 
         #endregion
-        public BO.DroneToList GetDroneToList(int id)//x
-        {
-            BO.DroneToList bodroneToList = new BO.DroneToList();
-            try
-            {
-                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);
-                bodroneToList.Id = dodrone.Id;
-                bodroneToList.Model = dodrone.Model;
-                bodroneToList.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
-                bodroneToList.StatusBatter =
-
-            }
-            catch (IDAL.DO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
-            }
-            return bodroneToList;
-
-
-        }
-
-        public BO.Drone GetDrone(int id)//v
+     
+        public BO.Drone GetDrone(int id)//v x
         {
             BO.Drone bodrone = new BO.Drone();
             try
@@ -104,35 +83,7 @@ namespace IBL
 
 
         }
-        public IEnumerable<BO.Drone> GetAllDrone()//v
-        {
-            return from doDrone in accessIDal.GetAllDrone()
-                   select new BO.Drone()
-                   {
-                       Id = doDrone.Id,
-                       Model = doDrone.Model,
-                       Weight = (BO.Enums.WeightCategories)doDrone.Weight
-                   };
-        }
-
-        public void PrintDronesList()//הצגת רשימת הרחפנים show drone list
-        {
-            foreach (Drone dr in accessIDal.GetAllDrone().ToList)
-            {
-                Console.WriteLine(dr.ToString());
-            }
-        }
-        public IEnumerable<BO.Drone> GetDroneToList()//x
-        {
-            return from doDrone in accessIDal.GetAllDrone()
-                   select new BO.Drone()
-                   {
-                       Id = doDrone.Id,
-                       Model = doDrone.Model,
-                       Weight = (BO.Enums.WeightCategories)doDrone.Weight
-                   };
-        }
-
+       
         public void AddDrone(BO.Drone d, int cod)//v
         {
             d.StatusBatter = rand.Next(20, 41);
@@ -163,7 +114,70 @@ namespace IBL
             }
 
         }
-       
+
+
+        public BO.DroneToList GetDroneToList(int id)//x
+        {
+            BO.DroneToList bodroneToList = new BO.DroneToList();
+            try
+            {
+                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);
+                bodroneToList.Id = dodrone.Id;
+                bodroneToList.Model = dodrone.Model;
+                bodroneToList.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
+                bodroneToList.StatusBatter =
+
+            }
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
+            return bodroneToList;
+
+
+        }
+
+
+        public IEnumerable<BO.Drone> GetDroneToList()//x
+        {
+            return from doDrone in accessIDal.GetAllDrone()
+                   select new BO.Drone()
+                   {
+                       Id = doDrone.Id,
+                       Model = doDrone.Model,
+                       Weight = (BO.Enums.WeightCategories)doDrone.Weight
+                   };
+        }
+
+        public IEnumerable<BO.DroneToList> GetALLDroneToList()//הצגת רשימת רחפנים
+        {
+            DroneToList drone = new DroneToList();
+            foreach (IDAL.DO.Drone item in accessIDal.GetAllDrone())
+            {
+
+                drone.Id = item.Id;
+                drone.Model = item.Model;
+                drone.Weight = (Enums.WeightCategories)item.Weight;
+                dronesBl.Add(drone);
+            }
+            return dronesBl;
+        }
+
+
+        public double BatteryConsumption(double kilometrs, Enums.WeightCategories weightcategories)// A function that gets a mileage and calculates how much battery it takes to get there
+        {
+            if (weightcategories == 0)
+                return kilometrs * LightWeight;
+            if (weightcategories == (Enums.WeightCategories)1)
+                return kilometrs * MediumWeight;
+            return kilometrs * HeavyWeight;
+
+        }
+        public double BatteryConsumption(double kilometrs)// Overrides the previous function in case the glider is free and no weight category enters
+        {
+            return kilometrs * Free;
+        }
+
     }
 
 }

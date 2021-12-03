@@ -11,7 +11,7 @@ namespace IBL.BO
         public int Id { get; set; }
         public WeightCategories Weight { get; set; }
         public Priority Priority { get; set; }
-        public SituationParcel situation { get; set; }
+        public StatusParcel StatusParcel { get; set; }
         public CustomerInParcel Senderld { get; set; }//לקוח בחבילה
     }
 }
