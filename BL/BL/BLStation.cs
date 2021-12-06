@@ -68,10 +68,7 @@ namespace IBL
         public void PrindBaseStationList()
         // הצגת רשימת תחנות-בסיס show base-station list
         {
-            foreach (Station station in accessIDal.DataSource.stationsList/*Drone dr in DataSource.dronsList*/)
-            {
-                Console.WriteLine(station.ToString());
-            }
+          
 
         }
         private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station

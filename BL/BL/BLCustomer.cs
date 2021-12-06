@@ -11,6 +11,61 @@ namespace IBL
 {
     public partial class BL
     {
+        private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מקור
+        {
+           
+            BO.ParcelInCustomer p = new BO.ParcelInCustomer()
+            {
+                Id = idp,
+                Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
+                Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Senderld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Senderld).Name }
+
+            };
+            return p;
+        }
+        private BO.ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//יעד
+        {
+
+            BO.ParcelInCustomer p = new BO.ParcelInCustomer()
+            {
+                Id = idp,
+                Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
+                Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Senderld).Name }
+
+            };
+            return p;
+        }
+
+
+
+        private IEnumerable<BO.DroneInCharge> ListParcelToCustomer(int idp)//return list of the parcel to customer
+        {
+            List<int> ListIdParcelTo = new List<int>();//vv
+            ListIdParcelTo = (List<int>)accessIDal.ListSendetParcel(idp);
+            List<BO.ParcelToLIst> a = new List<BO.ParcelToLIst>();
+            for (int i = 0; i < ListIdParcelTo.Count(); i++)
+            {
+                ParcelToLIst parcelToLIst = new ParcelToLIst() { Id = ListIdParcelTo[i], Senderld = GetParcel(ListIdParcelTo[i]).Senderld, Targetld = GetParcel(ListIdParcelTo[i]).Targetld,Priority = GetParcel(ListIdParcelTo[i]).Priority,Weight= GetParcel(ListIdParcelTo[i]).Weight,situatinOfParcel= GetParcel(ListIdParcelTo[i]).sis };
+                a.Add(parcelToLIst);
+            }
+            return a;
+
+        }
+        private IEnumerable<BO.DroneInCharge> ListParcelfromCustomer(int idS)//return list of the parcel from customer
+        {
+            List<int> ListDroneId = new List<int>();//vv
+            ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
+            List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
+            for (int i = 0; i < ListDroneId.Count(); i++)
+            {
+                DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
+                a.Add(droneInCharge);
+            }
+            return a;
+
+        }
         //return a customer
         public BO.Customer GetCustomer(int id)//v x
         {

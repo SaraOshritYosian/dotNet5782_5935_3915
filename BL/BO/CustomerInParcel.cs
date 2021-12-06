@@ -9,8 +9,7 @@ namespace IBL.BO
    public class CustomerInParcel
     {
         public int Id { get; set; }
-        public int Name { get; set; }
-        public string Pone { get; set; }
+        public string Name { get; set; }
         public override string ToString()
         {
 

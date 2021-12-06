@@ -10,7 +10,7 @@ namespace IBL
 {
     public partial class BL
     {
-        public BO.Parcel GetParcel(int id)//v
+        public BO.Parcel GetParcel(int id)//x
         {
             BO.Parcel bop = new BO.Parcel();
             try
@@ -132,7 +132,7 @@ namespace IBL
         public IEnumerable<BO.ParcelToLIst> GetALLParcelToList()
         {
             ParcelToLIst parcel = new ParcelToLIst();
-            foreach (IDAL.DO.Parcel item in accessIDal.GetALLParcel())//מיוי הנתונים ב BL מתוך DAL
+            foreach (IDAL.DO.Parcel item in accessIDal.GetAllParcel())
             {
                 parcel.Id = item.Id;
                 parcel.Priority = (Priority)item.Priority;
