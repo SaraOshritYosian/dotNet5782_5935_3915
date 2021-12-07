@@ -132,10 +132,12 @@ namespace ConsoleUI_BL
                                         int ids;
                                         b = int.TryParse(Console.ReadLine(), out ids);
                                         //pr.Senderld = id;
+                                        pr.CustomerInParcelSender.Id = ids;
                                         Console.WriteLine("Enter the Targetld of the Parcel");//לקוח מקבל
                                         int idt;
-                                        b = int.TryParse(Console.ReadLine(), out idt);       
-                                        Console.WriteLine("Enter the number of Weight of the Parcel: 0-Light, 1-Medium, 2-Heavy");
+                                        b = int.TryParse(Console.ReadLine(), out idt);
+                                        pr.CustomerInParcelTarget.Id = idt;
+                                        Console.WriteLine("Enter the number of Weight of the Parcel: 0-Light, 1-Medium, 2-Heavy");//משקל
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
                                             pr.Weight = IBL.BO.Enums.WeightCategories.Light;

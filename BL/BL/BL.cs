@@ -13,7 +13,7 @@ namespace IBL
     {
         public DalObject.DalObject accessIDal;
        // public IDAL.IDal accessIDal;אני חושבת שזה לא נכון
-        public List<Drone> BLDrones;
+        public List<DroneToList> BlDrone;
         public static double Free;
         public static double LightWeight;
         public static double MediumWeight;
@@ -21,26 +21,28 @@ namespace IBL
         public static double LoadingPrecents;
         public Random rand = new Random(DateTime.Now.Millisecond);
         public BL()
+
         {
             accessIDal = new DalObject.DalObject();
            // accessIDal = new DalObject();
-            double[] arr = new accessIDal.RequestPowerConsuption();//מה זו הפונקציה  הזו ? בקשת צריכת חשמל ע"י רחפן
+            double[] arr =  accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
             Free = arr[0];
             LightWeight = arr[1];
             MediumWeight = arr[2];
             HeavyWeight = arr[3];
             LoadingPrecents = arr[4];
-            BLDrones = new List<Drone>();
+             BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
+            //BLDrones = new List<Drone>();
             List<IDAL.DO.Drone> DALDrones = accessIDal.ddroneList().ToList();//רשימה של רחפנים מDAL
             foreach (var item in DALDrones)
             {
-                BLDrones.Add(new Drone { Id = item.Id, Model = item.Model, Weight = (Enums.WeightCategories)item.Weight });//weightcategories
+                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (Enums.WeightCategories)item.Weight });//weightcategories
             }
             List<Customer> BLCustomer = new List<Customer>();
             List<IDAL.DO.Customer> DALCustomer = accessIDal.ccustomerList().ToList();//רשימה של לקוחות מDAL
             foreach (var item in DALCustomer)
             {
-                BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
+                BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Lattitude } });//lattitud with one t
             }
             List<Station> BLStation = new List<Station>();
             List<IDAL.DO.Station> DALStation = accessIDal.sStationList().ToList();//?
@@ -49,7 +51,7 @@ namespace IBL
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
             List<IDAL.DO.Parcel> DALParcel = accessIDal.pparcelList().ToList();//רשימה של חביחות מ DAL
-            foreach (var item in BLDrones)
+            foreach (var item in BlDrone)
             {
                 int index = DALParcel.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
                 if (index != -1)
@@ -57,7 +59,7 @@ namespace IBL
                     item.StatusDrone = Enums.StatusDrone.delivered;
                     Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel[index].Targetld).LocationOfCustomer;//מיקום של השולח
                     double distanceBsenderAreciever = GetDis(senderLocation, recieverLocation);
-                    double distanceBrecieverAstation = minDistanceBetween....(BLStation, recieverLocation).item2;//?
+                    double distanceBrecieverAstation = minDistanceBetween....(BLStation, recieverLocation).item2;//
                     double electricityUse = distanceBrecieverAstation * Free;
                     switch ((Enums.WeightCategories)DALParcel[index].Weight)
                     {

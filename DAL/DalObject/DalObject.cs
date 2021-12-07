@@ -184,6 +184,15 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             else
                  return (Parcel)per;
         }
+        public IDAL.DO.Parcel GetParcelByDrone(int id)
+        {
+            IDAL.DO.Parcel? per = DataSource.parcelList.Find(p => p.Droneld == id);
+            if (per is null)
+                throw new DroneDoesNotExistException($"bad drone id: {id}");
+            else
+                return (Parcel)per;
+        }
+
 
         public IEnumerable<IDAL.DO.Parcel> GetAllParcel()
         {
@@ -322,7 +331,20 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 throw new IDAL.DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
 
         }
+        public void UpdetDroneCharge(int stationId)
+        {
+            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.FirstOrDefault(p => p.Stationld == droneCharge.Stationld);
+            if (per != null)
+            {
+                DataSource.droneChargeList.Remove((DroneCharge)per);//מחיקה
 
+                DataSource.droneChargeList.Add(droneCharge.Clone());//הוספה מעודכן
+            }
+
+            else
+                throw new IDAL.DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
+
+        }
         public void UpdetDroneCharge(int id, Action<IDAL.DO.DroneCharge> action)
         {
             throw new NotImplementedException();

@@ -62,17 +62,24 @@ namespace IBL
         }
 
         #endregion
-     
-        public BO.Drone GetDrone(int id)//v x
+
+        public BO.Drone GetDrone(int id)//v 
         {
-            BO.Drone bodrone = new BO.Drone();
+            BO.Drone bodrone;
             try
             {
-                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);
-                bodrone.Id = dodrone.Id;
-                bodrone.Model = dodrone.Model;
-                bodrone.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
-
+                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);//from dalObject
+                BO.DroneToList dotolist=BlDrone.Find(p => p.Id == id);//from BL
+                bodrone = new BO.Drone()
+                {
+                    Id = dodrone.Id,
+                    Model = dodrone.Model,
+                    Weight = (BO.Enums.WeightCategories)dodrone.Weight,
+                    StatusDrone = dotolist.StatusDrone,
+                    StatusBatter = dotolist.StatusBatter,
+                    LocationDrone = dotolist.LocationDrone,
+                    PackageInTransfe = GetParcelInTransfer(id)
+                };
 
             }
             catch (IDAL.DO.Excptions ex)
@@ -90,10 +97,17 @@ namespace IBL
             d.StatusDrone = BO.Enums.StatusDrone.InMaintenance;
             IDAL.DO.Station station = accessIDal.GetStation(cod);
             d.LocationDrone = new Location { Longitude = station.Longitude, Latitude = station.Latitude };
-            accessIDal.AddDrone(new IDAL.DO.Drone { Id = d.Id, Model = d.Model, Weight = (IDAL.DO.WeightCategories)d.Weight });
+           
             accessIDal.SendDroneToCharge(d.Id, cod);
-            BLDrones.Add(new DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter = d.StatusBatter, StatusDrone = d.StatusDrone, CurrentLocation = d.CurrentLocation, IdParcel = 0 });
-
+            BlDrone.Add(new DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter = d.StatusBatter, StatusDrone = d.StatusDrone, LocationDrone = d.LocationDrone, IdParcel = 0 });
+            try
+            {
+                accessIDal.AddDrone(new IDAL.DO.Drone { Id = d.Id, Model = d.Model, Weight = (IDAL.DO.WeightCategories)d.Weight });
+            }
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
 
         }
 
@@ -116,16 +130,22 @@ namespace IBL
         }
 
 
-        public BO.DroneToList GetDroneToList(int id)//x
+        public BO.DroneToList DroneToList(int id)//v
         {
             BO.DroneToList bodroneToList = new BO.DroneToList();
             try
             {
+                DroneToList bo = BlDrone.Find(p => p.Id == id);
                 IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);
                 bodroneToList.Id = dodrone.Id;
                 bodroneToList.Model = dodrone.Model;
                 bodroneToList.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
-                bodroneToList.StatusBatter =
+                bodroneToList.StatusBatter = bo.StatusBatter;
+                bodroneToList.StatusDrone = bo.StatusDrone;
+                bodroneToList.LocationDrone = bo.LocationDrone;
+                if (bo.StatusDrone == Enums.StatusDrone.delivered)//אם הוא במצב עסוק אז יש לו חבילה בעברה ומכניסה את מספר החבילה
+                    bodroneToList.IdParcel = GetDrone(id).PackageInTransfe.Id;
+
 
             }
             catch (IDAL.DO.Excptions ex)
@@ -135,32 +155,6 @@ namespace IBL
             return bodroneToList;
 
 
-        }
-
-
-        public IEnumerable<BO.Drone> GetDroneToList()//x
-        {
-            return from doDrone in accessIDal.GetAllDrone()
-                   select new BO.Drone()
-                   {
-                       Id = doDrone.Id,
-                       Model = doDrone.Model,
-                       Weight = (BO.Enums.WeightCategories)doDrone.Weight
-                   };
-        }
-
-        public IEnumerable<BO.DroneToList> GetALLDroneToList()//הצגת רשימת רחפנים
-        {
-            DroneToList drone = new DroneToList();
-            foreach (IDAL.DO.Drone item in accessIDal.GetAllDrone())
-            {
-
-                drone.Id = item.Id;
-                drone.Model = item.Model;
-                drone.Weight = (Enums.WeightCategories)item.Weight;
-                dronesBl.Add(drone);
-            }
-            return dronesBl;
         }
 
 

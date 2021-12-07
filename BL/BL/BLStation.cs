@@ -65,12 +65,7 @@ namespace IBL
                 throw new BO.Excptions(ex.Message);
             }
         }
-        public void PrindBaseStationList()
-        // הצגת רשימת תחנות-בסיס show base-station list
-        {
-          
-
-        }
+      
         private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
         {
             List<int> ListDroneId = new List<int>();//vv
@@ -84,19 +79,25 @@ namespace IBL
             return a;
 
         }
-        public IEnumerable<BO.Station> GetALLStationWithFreeStation()
-        {
-            List<Station> s = new List<Station>();
-            List<Station> news = new List<Station>();
-            s = GetALLStationWithFreeStation().ToList();
-            foreach (Station item in s)
-            {
-                if (item.ChargeSlotsFree > 0)
-                    news.Add(item);
-            }
-           
-            return news;
-        }
 
+        public BO.StationToList StationToList(int id)
+        {
+            BO.StationToList c = new BO.StationToList();
+            try
+            {
+                IDAL.DO.Station station = accessIDal.GetStation(id);
+                c.Id = station.Id;
+                c.Name = station.Name;
+                c.ChargeSlotsNotFree = accessIDal.coutCharge(id);
+                c.ChargeSlotsFree = station.ChargeSlots;
+               
+
+            }
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
+            return c;
+        }
     }
 }

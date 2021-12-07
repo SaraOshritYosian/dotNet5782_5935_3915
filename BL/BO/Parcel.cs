@@ -12,8 +12,8 @@ namespace IBL
         public class Parcel
         {
             public int Id { get; set; }
-            public CustomerInParcel Senderld { get; set; }//לקוח שולח
-            public CustomerInParcel Targetld { get; set; }//לקוח מקבל
+            public CustomerInParcel CustomerInParcelSender { get; set; }//לקוח שולח
+            public CustomerInParcel CustomerInParcelTarget { get; set; }//לקוח מקבל
             public WeightCategories Weight { get; set; }
             public Priority Priority { get; set; }
             public DroneInParcel DroneInParcel { get; set; }

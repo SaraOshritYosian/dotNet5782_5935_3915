@@ -10,15 +10,56 @@ namespace IBL
 {
     public partial class BL
     {
-        public BO.Parcel GetParcel(int id)//x
+
+        public BO.PackageInTransfer GetParcelInTransfer(int idD)//צריך מצב החבילה וזה בול וצריך לחשב מרחק
         {
-            BO.Parcel bop = new BO.Parcel();
+            BO.PackageInTransfer bop;
+            try
+            {
+                IDAL.DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
+
+                IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
+                bop = new BO.PackageInTransfer()
+                {
+                    Id = dop.Id,
+                    PriorityParcel = (Priority)dop.Priority,
+                    Weight = (WeightCategories)dop.Weight,
+                    CustomerInParcelSender = new CustomerInParcel() { Id = dop.Senderld, Name = GetCustomer(dop.Senderld).Name },
+                    CustomerInParcelTarget = new CustomerInParcel() { Id = dop.Targetld, Name = GetCustomer(dop.Targetld).Name },
+                    Collection = GetCustomer(dop.Senderld).LocationOfCustomer,
+                    DeliveryDestination = GetCustomer(dop.Targetld).LocationOfCustomer,
+                    far =//צריך לחשב את המרחק
+
+                };
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
+            return bop;
+
+        }
+
+        public BO.Parcel GetParcel(int id)//v
+        {
+            BO.Parcel bop;
             try
             {
                 IDAL.DO.Parcel dop = accessIDal.GetParcel(id);
-
+                DroneToList bo = BlDrone.Find(p => p.Id == dop.Droneld);
                 IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);
-
+                bop = new BO.Parcel()
+                {
+                    Id = dop.Id,
+                    CustomerInParcelSender = new CustomerInParcel() { Id = accessIDal.GetParcel(id).Senderld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(id).Senderld).Name },
+                    CustomerInParcelTarget = new CustomerInParcel() { Id = accessIDal.GetParcel(id).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(id).Targetld).Name },
+                    Weight = (WeightCategories)dop.Weight,
+                    Priority = (Priority)dop.Priority,
+                    Requested = dop.Requested,
+                    Delivered = dop.Delivered,
+                    PichedUp = dop.PichedUp,
+                    Scheduled = dop.Scheduled,
+                    DroneInParcel = new DroneInParcel() { Id = d.Id, StatusBatter = GetDrone(d.Id).StatusBatter, LocationDroneInParcel = bo.LocationDrone }
+                };
             }
             catch (IDAL.DO.Excptions ex)
             {
@@ -30,17 +71,18 @@ namespace IBL
         public void AddParcel(BO.Parcel parcel)//v
         {
             IDAL.DO.Parcel p = new IDAL.DO.Parcel();
-            p.Senderld = parcel.Senderld.Id;
-            p.Targetld = parcel.Targetld.Id;
+            p.Senderld = parcel.CustomerInParcelSender.Id;
+            p.Targetld = parcel.CustomerInParcelTarget.Id;
             p.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
             p.Priority = (IDAL.DO.Priority)(WeightCategories)parcel.Priority;
             p.Requested = DateTime.Now;
-            p.Scheduled = new DateTime();
-            p.PichedUp = new DateTime();
-            p.Delivered = new DateTime();
+            p.Scheduled = new DateTime(0);
+            p.PichedUp = new DateTime(0) ;
+            p.Delivered = new DateTime(0);
+           
             try
             {
-
+                accessIDal.AddParcel(p);
             }
             catch (IDAL.DO.Excptions ex)
             {
@@ -48,12 +90,7 @@ namespace IBL
             }
         }
 
-        public IEnumerable<BO.Parcel> ParcelList() {
-            return from item in accessIDal.pparcelList()
-                   select GetParcel(item.Id);
-        }
-
-        //איסוף חבילה ע"י רחפן
+        
         public void PickUpPackage(int id)//איסוף חבילה על ידי רחפן
         {
             if (id < 0)
@@ -129,20 +166,44 @@ namespace IBL
         }
 
 
-        public IEnumerable<BO.ParcelToLIst> GetALLParcelToList()
+        public BO.ParcelToLIst ParcelToList(int idp)//יש ליצור פונקציה שמחזירה מצב חבילה
         {
-            ParcelToLIst parcel = new ParcelToLIst();
-            foreach (IDAL.DO.Parcel item in accessIDal.GetAllParcel())
+            BO.ParcelToLIst bop;
+            try
             {
-                parcel.Id = item.Id;
-                parcel.Priority = (Priority)item.Priority;
-                parcel.Senderld = accessIDal.GetCustomer(item.Senderld).Name;
-                parcel.Targetld = accessIDal.GetCustomer(item.Targetld).Name;
-                parcel.Weight = (WeightCategories)(item.Weight);
-                parcelBl.Add(parcel);
+                IDAL.DO.Parcel dop = accessIDal.GetParcel(idp);
+                bop = new BO.ParcelToLIst()
+                {
+                    Id = dop.Id,
+                   SenderName=GetCustomer( dop.Senderld).Name,
+                   TargetName = GetCustomer(dop.Targetld).Name,
+                   Priority= (Priority)dop.Priority,
+                   Weight= (WeightCategories)dop.Weight,
+                   statusParcel=
+                   
+                };
 
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
             }
-            return parcelBl;
+            return bop;
+
+        }
+        private StatusParcel StatuseParcelKnow(int idP) {
+            IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
+
+            if (dop.Delivered.Date !=0)//סופק
+                return StatusParcel.provided;
+
+            if (dop.PichedUp != null)//נאסף
+                return StatusParcel.collected;
+
+            if (dop.Scheduled != null)//שוייך
+                return StatusParcel.associated;
+            return StatusParcel.Created;//נוצר
         }
     }
+
+    
 }

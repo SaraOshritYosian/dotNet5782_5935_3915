@@ -11,10 +11,23 @@ namespace IBL
 {
     public partial class BL
     {
-        private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מקור
+        private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
         {
            
-            BO.ParcelInCustomer p = new BO.ParcelInCustomer()
+            BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
+            {
+                Id = idp,
+                Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
+                Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Targetld).Name }
+
+            };
+            return p;
+        }
+        private BO.ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//מי שמקבל
+        {
+
+            BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי ששלח
             {
                 Id = idp,
                 Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
@@ -24,50 +37,35 @@ namespace IBL
             };
             return p;
         }
-        private BO.ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//יעד
-        {
-
-            BO.ParcelInCustomer p = new BO.ParcelInCustomer()
-            {
-                Id = idp,
-                Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
-                Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
-                Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Senderld).Name }
-
-            };
-            return p;
-        }
 
 
 
-        private IEnumerable<BO.DroneInCharge> ListParcelToCustomer(int idp)//return list of the parcel to customer
+        private IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ע"פ השולח 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
-            ListIdParcelTo = (List<int>)accessIDal.ListSendetParcel(idp);
-            List<BO.ParcelToLIst> a = new List<BO.ParcelToLIst>();
+            ListIdParcelTo = (List<int>)accessIDal.ListSendetParcel(idc);
+            List<BO.ParcelInCustomer> a = new List<BO.ParcelInCustomer>();
             for (int i = 0; i < ListIdParcelTo.Count(); i++)
             {
-                ParcelToLIst parcelToLIst = new ParcelToLIst() { Id = ListIdParcelTo[i], Senderld = GetParcel(ListIdParcelTo[i]).Senderld, Targetld = GetParcel(ListIdParcelTo[i]).Targetld,Priority = GetParcel(ListIdParcelTo[i]).Priority,Weight= GetParcel(ListIdParcelTo[i]).Weight,situatinOfParcel= GetParcel(ListIdParcelTo[i]).sis };
-                a.Add(parcelToLIst);
+                a.Add(ParcelInCustomeWhoSend(ListIdParcelTo[i]));
             }
             return a;
 
         }
-        private IEnumerable<BO.DroneInCharge> ListParcelfromCustomer(int idS)//return list of the parcel from customer
+        private IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//המקבל
         {
-            List<int> ListDroneId = new List<int>();//vv
-            ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
-            List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
-            for (int i = 0; i < ListDroneId.Count(); i++)
+            List<int> ListIdParcelTo = new List<int>();//vv
+            ListIdParcelTo = (List<int>)accessIDal.ListTargetParcel(idc);// מקבל רשימה של ת"ז של משלוחים מי שיקבל ע"פ ת"ז של לקוח מסויים
+            List<BO.ParcelInCustomer> a = new List<BO.ParcelInCustomer>();
+            for (int i = 0; i < ListIdParcelTo.Count(); i++)
             {
-                DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
-                a.Add(droneInCharge);
+                a.Add(ParcelInCustomeWhoGet(ListIdParcelTo[i]));//שולח את המספר של המשלוח
             }
             return a;
 
         }
         //return a customer
-        public BO.Customer GetCustomer(int id)//v x
+        public BO.Customer GetCustomer(int id)//v 
         {
             BO.Customer c = new BO.Customer();
             try
@@ -78,8 +76,8 @@ namespace IBL
                 c.Pone = customer.Pone;
                 c.LocationOfCustomer.Latitude = customer.Lattitude;
                 c.LocationOfCustomer.Latitude = customer.Lattitude;
-                c.ListOfPackagesFromTheCustomer = (List<DroneInCharge>)(IEnumerable<Parcel>)accessIDal.ListSendParcel(id);
-                c.ListOfPackagesToTheCustomer = (IEnumerable<Parcel>)accessIDal.ListTargetParcel(id);
+                c.ListOfPackagesFromTheCustomer = (List<ParcelInCustomer>)ListParcelFromCustomers(id);// רשימה של מישלוחים שמקבל
+                c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
             }
             catch (IDAL.DO.Excptions ex)
@@ -122,65 +120,36 @@ namespace IBL
                 accessIDal.AddCustomer(customer1);
             }
 
-            catch (IDAL.DO.Excptions)
+            catch (IDAL.DO.Excptions ex)
             {
-                throw new BO.AlreadyExistException();
+                throw new BO.Excptions(ex.Message);
             }
         }
 
 
-        public IEnumerable<BO.CustomerToList> GetALLCostumerToList()
+        public BO.CustomerToList CostumerToList(int idc)
         {
-            CustomerToList customer = new CustomerToList();
-            foreach (IDAL.DO.Customer item in accessIDal.GetAllCustomer())//מיוי הנתונים ב BL מתוך DAL
+            BO.CustomerToList c = new BO.CustomerToList();
+            try
             {
-                customer.Id = item.Id;
-                customer.Name = item.Name;
-                customer.Pone = item.Pone;
-                customer.NumberOfPackagesSentAndDelivered = 0;//Number Of Packages Sent And Delivered
-                customer.NumberOfPackagesSentAndNotDelivered = 0;//Number Of Packages SentAnd Not Delivered
-                customer.NumberOfPackagesGet = 0;//Number O fPackage sGet
-                customer.SeveralPackagesOnTheWayToTheCustomer = 0;//Several Packages On The WayTo The Customer
-                foreach (IDAL.DO.Parcel itemParcel in accessIDal.GetAllCustomer())
-                {
-                    if (itemParcel.Senderld == item.Id)//אם זאת חבילה שנשלחה עי הלקוח 
-                    {
-                        if (itemParcel.Delivered != default(DateTime))//החבילה כבר סופקה
-                            customer.NumberOfPackagesSentAndDelivered++;
-                        else
-                             if (itemParcel.PichedUp != default(DateTime))//החבילה באמצע משלוח
-                            customer.NumberOfPackagesSentAndNotDelivered++;
-                    }
-                    if (itemParcel.Targetld == item.Id)//חבילה שהתקבלה על ידי הלקוח
-                    {
-                        if (itemParcel.Delivered != default(DateTime))//החבילה כבר סופקה לו
-                            customer.NumberOfPackagesGet++;
-                        else
-                             if (itemParcel.PichedUp != default(DateTime))// אליו החבילה באמצע משלוח
-                            customer.SeveralPackagesOnTheWayToTheCustomer++;
-                    }
-                }
+                IDAL.DO.Customer customer = accessIDal.GetCustomer(idc);
+                c.Id = customer.Id;
+                c.Name = customer.Name;
+                c.Pone = customer.Pone;
+                c.LocationOfCustomer.Latitude = customer.Lattitude;
+                c.LocationOfCustomer.Latitude = customer.Lattitude;
+                c.ListOfPackagesFromTheCustomer = (List<ParcelInCustomer>)ListParcelFromCustomers(id);// רשימה של מישלוחים שמקבל
+                c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
-                customerBl.Add(customer);
             }
-            return customerBl;
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
+            return c;
         }
 
-
-
-
-
-        public void PrintCustomer(int customerId)//תצוגת לקוח shoe customer details by id
-        {
-            foreach (Customer customer in BL)
-            {
-                if (customer.Id == customerId)
-                {
-                    Console.WriteLine(customer.ToString());
-                    break;
-                }
-            }
-        }
+        
     }
     
 }

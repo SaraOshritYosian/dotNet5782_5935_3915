@@ -9,11 +9,11 @@ namespace IBL.BO
    public class ParcelToLIst
     {
         public int Id { get; set; }
-        public CustomerInParcel Senderld { get; set; }//לקוח שולח
-        public CustomerInParcel Targetld { get; set; }//לקוח מקבל
+        public string SenderName{ get; set; }//לקוח שולח
+        public string TargetName { get; set; }//לקוח מקבל
         public WeightCategories Weight { get; set; }
         public Priority Priority { get; set; }
-        public SituationParcel situatinOfParcel { get; set; }//מצב חבילה
+        public StatusParcel statusParcel { get; set; }//מצב חבילה
 
     }
 }

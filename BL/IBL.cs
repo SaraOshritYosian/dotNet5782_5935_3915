@@ -20,7 +20,7 @@ namespace IBL
         #region Drone
       
          BO.Drone GetDrone(int id);
-         IEnumerable<BO.Drone> GetAllDrone();
+      //   IEnumerable<BO.Drone> GetAllDrone();
         void AddDrone(Drone drone,int cod);//add
         void UpdateDrone(int id, string name);
         void SendingDroneToCharging(int droneId);
@@ -31,11 +31,11 @@ namespace IBL
         BO.Station GetStation(int id);
         void AddStation(Station station);
          void UpdateStation(int idS, int names, int chargeSlote);
-
+        BO.StationToList StationToList(int id);
         #endregion
 
         #region Parcel
-         BO.Parcel GetParcel(int id);
+        BO.Parcel GetParcel(int id);
          void AddParcel(BO.Parcel parcel);
          void PickUpPackage(int id);
 
