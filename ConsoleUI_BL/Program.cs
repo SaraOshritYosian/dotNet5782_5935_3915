@@ -257,22 +257,22 @@ namespace ConsoleUI_BL
                                 case 1://station תצוגת תחנת-בסיס 
                                     Console.WriteLine("Enter station Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintBaseStation(option);
+                                    bL.PrintStationById(option);
                                     break;
                                 case 2://drone  תצוגת רחפן
                                     Console.WriteLine("Enter drone Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintDrone(option);
+                                    bL.PrintDroneById(option);
                                     break;
                                 case 3: //customer תצוגת לקוח
                                     Console.WriteLine("Enter customer Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintCustomer(option);
+                                    bL.PrintCustomerById(option);
                                     break;
                                 case 4://parcel תצוגת חבילה
                                     Console.WriteLine("Enter parcel Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintParcel(option);
+                                    bL.PrintParcelById(option);
                                     break;
                                 default:
                                     break;
@@ -295,19 +295,19 @@ namespace ConsoleUI_BL
                             switch (option)
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
-                                    bL.StationList();
+                                    bL.PrintStationList();
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
-                                    bL.DroneList();
+                                    bL.PrintDroneList();
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
                                     bL.PrintCustomersList();
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
-                                   bL.ParcelList();
+                                   bL.PrintParcelList();
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
-                                   b.PrintUnconnectedParceslList();
+                                   bL.PrintUnconnectedParceslList();
                                     break;
                                 case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
                                     bL.PrintAvailableStationToChargeList();

@@ -11,7 +11,7 @@ namespace IBL
     {
 
         #region Dronecharge
-        public void SendingDroneToCharging(int droneId)//x
+        public void SendingDroneToCharging(int droneId)
         {
 
             double kilometer, battery = 0;
@@ -19,7 +19,7 @@ namespace IBL
             StationToList minstation;
             try
             {
-                if (GetDroneToList(droneId).StatusDrone != BO.Enums.StatusDrone.available)//אם הסטטוס שונה מפנוי יש חריגה
+                if (DroneToLisToPrint(droneId).StatusDrone != BO.Enums.StatusDrone.available)//אם הסטטוס שונה מפנוי יש חריגה
                     throw new Exception();//(GetDroneToList(droneId).DroneStatuses, "Drone");
                 else
                 {
@@ -49,7 +49,7 @@ namespace IBL
         }
 
         //שיחרור רחפן מטעינה
-        public void ReleaseDrone(int id, double time)//v
+        public void ReleaseDrone(int id, double time)//
         {
             int index = BLDrones.FindIndex(x => x.Id == id);
             BLDrones[index].StatusBatter += time * accessIDal.ElectricityUse().ElementAt(4);//4?
@@ -130,7 +130,7 @@ namespace IBL
         }
 
 
-        public BO.DroneToList DroneToList(int id)//v
+        public BO.DroneToList DroneToLisToPrint(int id)//v
         {
             BO.DroneToList bodroneToList = new BO.DroneToList();
             try
@@ -157,6 +157,18 @@ namespace IBL
 
         }
 
+        public void PrintDroneList()//print all dtone
+        {
+            IEnumerable<IDAL.DO.Drone> a = accessIDal.GetAllDrone();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                Console.WriteLine(DroneToLisToPrint(a.ElementAt(i).Id));
+            }
+        }
+        public void PrintDroneById(int ids)//print drone get id of drone
+        {
+            Console.WriteLine(GetDrone(ids).ToString());
+        }
 
         public double BatteryConsumption(double kilometrs, Enums.WeightCategories weightcategories)// A function that gets a mileage and calculates how much battery it takes to get there
         {

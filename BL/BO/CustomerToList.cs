@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class CustomerToList
+   public class CustomerToList
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Pone { get; set; }
-        public int NumberOfPackagesSentAndDelivered { get; set; }//NumberOfPackagesSentAndDelivered
-        public int NumberOfPackagesSentAndNotDelivered { get; set; }//NumberOfPackagesSentAndNotDelivered
-        public int NumberOfPackagesGet { get; set; }//NumberOfPackagesGet מספר חבילות קבל
-        public int SeveralPackagesOnTheWayToTheCustomer { get; set; }//SeveralPackagesOnTheWayToTheCustomer מספר חבילות בדרך ללקוח
+        public int NumberOfPackagesSentAndDeliveredCustomer { get; set; }//NumberOfPackagesSentAndDelivered
+        public int NumberOfPackagesSentAndNotDeliveredCustomer { get; set; }//NumberOfPackagesSentAndNotDelivered
+        public int NumberOfPackagesGetCustomer { get; set; }//NumberOfPackagesGet מספר חבילות קבל
+        public int SeveralPackagesOnTheWayToTheCustomerCustomer { get; set; }//SeveralPackagesOnTheWayToTheCustomer מספר חבילות בדרך ללקוח
         public override string ToString()
         {
 

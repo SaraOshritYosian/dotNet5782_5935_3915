@@ -80,7 +80,7 @@ namespace IBL
 
         }
 
-        public BO.StationToList StationToList(int id)
+        public BO.StationToList StationToListToPrint(int id)
         {
             BO.StationToList c = new BO.StationToList();
             try
@@ -90,8 +90,7 @@ namespace IBL
                 c.Name = station.Name;
                 c.ChargeSlotsNotFree = accessIDal.coutCharge(id);
                 c.ChargeSlotsFree = station.ChargeSlots;
-               
-
+             
             }
             catch (IDAL.DO.Excptions ex)
             {
@@ -99,5 +98,28 @@ namespace IBL
             }
             return c;
         }
+        public void PrintStationList()//print all station
+        {
+            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
+            for(int i=0;i<a.Count(); i++)
+            {
+                Console.WriteLine(StationToListToPrint(a.ElementAt(i).Id));
+            }
+        }
+        public void PrintStationById(int ids)//print station get id of station
+        {
+            Console.WriteLine(GetStation(ids).ToString());
+        }
+        public void PrintAvailableStationToChargeList()//ptint list station who have available to charge 
+        {
+            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                if (a.ElementAt(i).ChargeSlots>0)
+                    Console.WriteLine(StationToListToPrint(a.ElementAt(i).Id));
+
+            }
+        }
+
     }
 }
