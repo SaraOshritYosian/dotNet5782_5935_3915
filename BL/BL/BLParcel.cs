@@ -8,6 +8,7 @@ using static IBL.BO.Enums;
 
 namespace IBL
 {
+    //DataTime.now.addDay(rand.now(-150,50)
     public partial class BL
     {
 
@@ -130,7 +131,7 @@ namespace IBL
             }
         }
 
-        public static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
+        private static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
             double rlat1 = Math.PI * lat1 / 180;
             double rlat2 = Math.PI * lat2 / 180;

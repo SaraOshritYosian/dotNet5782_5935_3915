@@ -87,7 +87,7 @@ namespace IBL
                     }
 
                     item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
-                    item.PackageInTransfe = DALParcel[index].Id;
+                    item.IdParcel = DALParcel[index].Id;
 
                 }
                 else

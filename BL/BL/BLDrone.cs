@@ -11,35 +11,108 @@ namespace IBL
     {
 
         #region Dronecharge
+        private  double GetFarCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
+        {
+            DroneToList drone = DroneToLisToPrint(idDr);
+            IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
+            double chack=0, min = 0;
+            min = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+           
+            for (int i = 1; i < station.Count(); i++)
+            {
+                if (station.ElementAt(i).ChargeSlots > 0)
+                {
+                    chack = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    if (min > chack)
+                        min = chack;
+                }
+            }
+
+            return min;
+        }
+        private IDAL.DO.Station GetStationCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
+        {
+            DroneToList drone = DroneToLisToPrint(idDr);
+            IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
+            double chack = 0, min = 0;
+            IDAL.DO.Station s;
+            min = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            s = station.ElementAt(0);
+            for (int i = 1; i < station.Count(); i++)
+            {
+                if (station.ElementAt(i).ChargeSlots > 0)//אם יש מקום טעינה פנוי
+                {
+                    chack = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    if (min > chack)
+                    {
+                        min = chack;
+                        s = station.ElementAt(i);//שומרת את התחנה אם המרחק קטן יותר
+                    }
+                }
+                   
+            }
+
+            return s;
+        }
+        private static double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
+        {
+            
+            double rlat1 = Math.PI * lat1 / 180;
+            double rlat2 = Math.PI * lat2 / 180;
+            double theta = lon1 - lon2;
+            double rtheta = Math.PI * theta / 180;
+            double dist =
+                Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) *
+                Math.Cos(rlat2) * Math.Cos(rtheta);
+            dist = Math.Acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+
+            switch (unit)
+            {
+                case 'K': //Kilometers -> default
+                    return dist * 1.609344;
+                case 'N': //Nautical Miles 
+                    return dist * 0.8684;
+                case 'M': //Miles
+                    return dist;
+            }
+
+            return dist;
+        }
         public void SendingDroneToCharging(int droneId)
         {
-
-            double kilometer, battery = 0;
-            int stationId = 0;
-            StationToList minstation;
+            IDAL.DO.Station s;
+            double kilometerStationToDrone, battery = 0;
             try
             {
                 if (DroneToLisToPrint(droneId).StatusDrone != BO.Enums.StatusDrone.available)//אם הסטטוס שונה מפנוי יש חריגה
-                    throw new Exception();//(GetDroneToList(droneId).DroneStatuses, "Drone");
+                    throw new Exception();
                 else
                 {
 
-                    minstation = minDistance...(GetDroneToList(droneId).LocationDrone);
+                     kilometerStationToDrone = GetFarCalculatesTheSmallestDistance(droneId);//מקבל מרחק לתחנה קרובה
                     //חישוב מרחק בין התחנה לרחפן
-                    kilometer = DistanceTo(accessIDal.GetStation(minstation.Id).Latitude, accessIDal.GetStation(minstation.Id).Longitude, GetDroneToList(droneId).LocationDrone.Latitude, GetDroneToList(droneId).LocationDrone.Longitude);
-                    battery = BatteryConsumption(kilometer, GetDroneToList(droneId).Weight);// כמות הבטריה שמתבזבזת
-                    if (battery < GetDroneToList(droneId).StatusBatter)// לבדוק אם הסוללה הנדרשת מספיקה לסוללה שיש לי ברחפן
-                        accessIDal.SendDroneToCharge(stationId, droneId);
-                    DroneToList drone = GetDroneToList(droneId);//מכאן נשנה את המצב של הרחפן והבטריה ברשימה של ה bl
-                    drone.StatusBatter -= battery;
-                    drone.StatusDrone = BO.Enums.StatusDrone.InMaintenance;
-                    Location l = new Location();
+                    s = GetStationCalculatesTheSmallestDistance(droneId);//מקבל את התחנה הקרובה
+                    battery = BatteryConsumption(kilometerStationToDrone, DroneToLisToPrint(droneId).Weight);// The amount of battery wasted
+                    if (battery < DroneToLisToPrint(droneId).StatusBatter)// Check if the required battery is enough for the battery I have in the glider
+                    {
+                        accessIDal.SendDroneToCharge(s.Id, droneId);
+                        DroneToList drone = DroneToLisToPrint(droneId);//מעדכנת את הרחפן
+                        drone.StatusBatter -= battery;//עדכון בטריה
+                        drone.StatusDrone = BO.Enums.StatusDrone.InMaintenance;//עדכון מצב 
+                        Location l = new Location();
+                        l.Latitude = accessIDal.GetStation(s.Id).Latitude;//המיקום של התחנה שאיול נישלח הרחפן
+                        l.Longitude = accessIDal.GetStation(s.Id).Longitude;
+                        drone.LocationDrone = l;//עדכון מיקום רחפן
+                        BlDrone.Remove(DroneToLisToPrint(droneId));
+                        BlDrone.Add(drone);
 
-                    l.Latitude = accessIDal.GetStation(stationId).Latitude;
-                    l.Longitude = accessIDal.GetStation(stationId).Longitude;
-                    drone.LocationDrone = l;
-                    BLDrones.Add(drone);
-                    BLDrones.Remove(GetDroneToList(droneId));
+                    }
+                       else
+                        throw new Exception();
+
+
                 }
             }
             catch (IDAL.DO.Excptions)
@@ -49,16 +122,23 @@ namespace IBL
         }
 
         //שיחרור רחפן מטעינה
-        public void ReleaseDrone(int id, double time)//
+        public void ReleaseDrone(int id,TimeSpan time)//יש לשנות את המצב סוללה
         {
-            int index = BLDrones.FindIndex(x => x.Id == id);
-            BLDrones[index].StatusBatter += time * accessIDal.ElectricityUse().ElementAt(4);//4?
-            if (BLDrones[index].StatusBatter > 100)
-            {
-                BLDrones[index].StatusBatter = 100;
-            }
-            BLDrones[index].StatusDrone = BO.Enums.StatusDrone.available;
-            accessIDal.ReleaseDroneFromCharging(id);
+            
+            double time1;
+            time1= time.TotalMinutes;//זמן בדקות שהרחפן היה בטעינה
+          
+            if (DroneToLisToPrint(id).StatusDrone != BO.Enums.StatusDrone.InMaintenance)//אם הסטטוס שונה בתחזוקה יש חריגה
+                throw new Exception();
+            accessIDal.ReleaseDroneFromCharging(id);//שחרור רחפן מטעינה בשכבת הנתונים
+            DroneToList drone = DroneToLisToPrint(id);//מעדכנת את הרחפן
+            drone.StatusDrone = Enums.StatusDrone.available;
+
+            //מצב סוללה
+            BlDrone.Remove(DroneToLisToPrint(id));
+            BlDrone.Add(drone);
+
+
         }
 
         #endregion
@@ -184,6 +264,7 @@ namespace IBL
             return kilometrs * Free;
         }
 
+        
     }
 
 }

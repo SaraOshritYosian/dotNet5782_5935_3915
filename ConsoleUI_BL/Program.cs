@@ -215,8 +215,8 @@ namespace ConsoleUI_BL
                                    
                                     Console.WriteLine("Enter The id drone and Charging time");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    int time;
-                                    b = int.TryParse(Console.ReadLine(), out time);
+                                    TimeSpan time;
+                                    b = TimeSpan.TryParse(Console.ReadLine(), out time);
                                     bL.ReleaseDrone(cod, time);//משחררת מטעינה
                                     break;
                                 case 6://Assign a package to a Drone
