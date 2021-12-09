@@ -44,6 +44,7 @@ namespace IBL
         BO.Parcel GetParcel(int id);
          void AddParcel(BO.Parcel parcel);
          void PickUpPackage(int id);
+      
 
         #endregion
 
