@@ -91,10 +91,10 @@ namespace IBL
         //update customer by id or name or phone ot more
         public void UpdateCustomer(int id, string name, string phone)//v
         {
-            BO.Customer c = new BO.Customer();
+            IDAL.DO.Customer c; ;
             try
             {
-                c = GetCustomer(id);
+                c =accessIDal.GetCustomer(id);
                 if (name != "")
                 {
                     c.Name = name;

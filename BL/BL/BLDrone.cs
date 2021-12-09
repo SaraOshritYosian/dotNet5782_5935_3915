@@ -11,7 +11,7 @@ namespace IBL
     {
 
         #region Dronecharge
-        private  double GetFarCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
+        public  double GetFarCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
         {
             DroneToList drone = DroneToLisToPrint(idDr);
             IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
@@ -90,7 +90,7 @@ namespace IBL
                     throw new Exception();
                 else
                 {
-
+                    
                      kilometerStationToDrone = GetFarCalculatesTheSmallestDistance(droneId);//מקבל מרחק לתחנה קרובה
                     //חישוב מרחק בין התחנה לרחפן
                     s = GetStationCalculatesTheSmallestDistance(droneId);//מקבל את התחנה הקרובה
@@ -193,10 +193,10 @@ namespace IBL
 
         public void UpdateDrone(int id, string name)//v
         {
-            BO.Drone c = new BO.Drone();
+         //  c = new IDAL.DO.Drone();
             try
             {
-                c = GetDrone(id);
+                IDAL.DO.Drone c =accessIDal.GetDrone(id);
                 if (name != "")
                 {
                     c.Model = name;

@@ -45,17 +45,17 @@ namespace IBL
         public void UpdateStation(int idS, int names,int chargeSlote)//v
         {
 
-            BO.Station c = new BO.Station();
+            IDAL.DO.Station c;
             try
             {
-                c = GetStation(idS);
+                c =accessIDal.GetStation(idS);
                 if (names !=-1 )
                 {
                     c.Name = names;
                 }
                 if (chargeSlote !=-1 )
                 {
-                    c.ChargeSlotsFree = chargeSlote-accessIDal.coutCharge(idS);
+                    c.ChargeSlots = chargeSlote-accessIDal.coutCharge(idS);
                 }
 
 

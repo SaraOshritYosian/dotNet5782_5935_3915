@@ -12,7 +12,7 @@ namespace IBL
     public partial class BL
     {
 
-        public BO.PackageInTransfer GetParcelInTransfer(int idD)// וזה בול וצריך לחשב מרחק
+        public BO.PackageInTransfer GetParcelInTransfer(int idD)//  וצריך לחשב מרחק
         {
             BO.PackageInTransfer bop;
             try

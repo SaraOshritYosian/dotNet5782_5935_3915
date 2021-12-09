@@ -21,7 +21,17 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         //
         #region Drone
         //CRUD Drone
-
+        public int GetDroneDoSndByParcelId(int idp)//מחזיר את ת"ז של הרחפ ןשמבצע את המשלוח
+        {
+            for (int i = 0; i < DataSource.parcelList.Count(); i++)
+            {
+                if (DataSource.parcelList[i].Id == idp)
+                {
+                    return DataSource.parcelList[i].Droneld;
+                }
+            }
+            throw new ParcelDoesNotExistException($"bad Parcle id: {idp}");
+        }
         public IEnumerable<IDAL.DO.Drone> ListDroneInStation(int id)
         {
             return (IEnumerable<Drone>)(from Drone in DataSource.dronsList
@@ -295,17 +305,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return a;
         }
-        public int GetDroneDoSndByParcelId(int idp)//מחזיר את ת"ז של הרחפ ןשמבצע את המשלוח
-        {
-            for (int i = 0; i < DataSource.parcelList.Count(); i++)
-            {
-                if (DataSource.parcelList[i].Id == idp)
-                {
-                    return DataSource.parcelList[i].Droneld;
-                }
-            }
-            throw new ParcelDoesNotExistException($"bad Parcle id: {idp}");
-        }
+     
         public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneCharge()
         {
             return from DroneCharge in DataSource.droneChargeList
@@ -331,20 +331,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                 throw new IDAL.DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
 
         }
-        public void UpdetDroneCharge(int stationId)
-        {
-            IDAL.DO.DroneCharge? per = DataSource.droneChargeList.FirstOrDefault(p => p.Stationld == droneCharge.Stationld);
-            if (per != null)
-            {
-                DataSource.droneChargeList.Remove((DroneCharge)per);//מחיקה
-
-                DataSource.droneChargeList.Add(droneCharge.Clone());//הוספה מעודכן
-            }
-
-            else
-                throw new IDAL.DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
-
-        }
+       
         public void UpdetDroneCharge(int id, Action<IDAL.DO.DroneCharge> action)
         {
             throw new NotImplementedException();

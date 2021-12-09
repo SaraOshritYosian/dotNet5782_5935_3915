@@ -26,6 +26,7 @@ namespace ConsoleUI_BL
             bool b = int.TryParse(Console.ReadLine(), out option);
             while (ex == true)
             {
+                 
                 switch (option)//main menu תפריט בחירות ראשי
                 {
                     case 1://add הוספה
@@ -64,7 +65,14 @@ namespace ConsoleUI_BL
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
                                         st.ChargeSlotsFree = ChargeSlots;
-                                        bL.AddStation(st);//vv
+                                        try
+                                        {
+                                            bL.AddStation(st);//vv
+                                        }
+                                        catch (IDAL.DO.Excptions)
+                                        {
+                                            throw new Exception();
+                                        }
                                         break;
                                     }
 
