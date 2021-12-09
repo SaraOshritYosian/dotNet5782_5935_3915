@@ -25,7 +25,7 @@ namespace IBL
         void AddDrone(Drone drone,int cod);//add
         void UpdateDrone(int id, string name);
         void SendingDroneToCharging(int droneId);
-         void ReleaseDrone(int id, double time);
+         void ReleaseDrone(int id, TimeSpan time);
          void PrintDroneList();
          void PrintDroneById(int ids);
         #endregion

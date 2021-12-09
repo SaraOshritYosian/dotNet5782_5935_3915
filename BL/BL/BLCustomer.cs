@@ -77,7 +77,7 @@ namespace IBL
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
                 c.LocationOfCustomer.Latitude = customer.Lattitude;
-                c.LocationOfCustomer.Latitude = customer.Lattitude;
+                c.LocationOfCustomer.Longitude = customer.Longitude;
                 c.ListOfPackagesFromTheCustomer = (List<ParcelInCustomer>)ListParcelFromCustomers(id);// רשימה של מישלוחים שמקבל
                 c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 

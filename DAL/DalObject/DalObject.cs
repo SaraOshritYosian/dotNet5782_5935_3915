@@ -660,8 +660,8 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public IEnumerable<double> ElectricityUse()
         {
             double[] arr = new double[5];
-            arr[0] = DataSource.Config.Free;
-            arr[1] = DataSource.Config.HeavyWeight;
+            arr[0] = DataSource.Config.Free;//פנוי
+            arr[1] = DataSource.Config.LightWeight;
             arr[2] = DataSource.Config.MediumWeight;
             arr[3] = DataSource.Config.HeavyWeight;
             arr[4] = DataSource.Config.LoadingPrecents;
