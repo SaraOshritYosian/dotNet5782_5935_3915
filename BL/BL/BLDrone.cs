@@ -58,7 +58,7 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
             double chack = 0, min = 0;
-           // IDAL.DO.Station s;
+            IDAL.DO.Station s;
             min = DistanceToFromStationToDroneLocation(lo.Latitude, lo.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
             s = station.ElementAt(0);
             for (int i = 1; i < station.Count(); i++)
