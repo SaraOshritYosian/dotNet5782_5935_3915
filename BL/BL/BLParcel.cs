@@ -12,14 +12,14 @@ namespace IBL
     public partial class BL
     {
 
-        public BO.PackageInTransfer GetParcelInTransfer(int idD)//  וצריך לחשב מרחק
+        public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
         {
             BO.PackageInTransfer bop;
             try
             {
                 IDAL.DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
 
-               // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
+                // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
                 bop = new BO.PackageInTransfer()
                 {
                     Id = dop.Id,
@@ -30,8 +30,9 @@ namespace IBL
                     CustomerInParcelTarget = new CustomerInParcel() { Id = dop.Targetld, Name = GetCustomer(dop.Targetld).Name },
                     Collection = GetCustomer(dop.Senderld).LocationOfCustomer,
                     DeliveryDestination = GetCustomer(dop.Targetld).LocationOfCustomer,
-                    far =//צריך לחשב את המרחק
-                   
+                    far = DistanceTo(GetCustomer(dop.Senderld).LocationOfCustomer.Latitude, GetCustomer(dop.Senderld).LocationOfCustomer.Longitude, GetCustomer(dop.Targetld).LocationOfCustomer.Latitude, GetCustomer(dop.Targetld).LocationOfCustomer.Longitude)//צריך לחשב את המרחק
+
+
                 };
             }
             catch (IDAL.DO.Excptions ex)
@@ -82,7 +83,7 @@ namespace IBL
             p.Scheduled = default;
             p.PichedUp = default;
             p.Delivered = default;
-           
+
             try
             {
                 accessIDal.AddParcel(p);
@@ -92,44 +93,6 @@ namespace IBL
                 throw new BO.Excptions(ex.Message);
             }
         }
-
-        
-        //public void PickUpPackage(int id)//איסוף חבילה על ידי רחפן
-        //{
-        //    if (id < 0)
-        //        throw new ArgumentOutOfRangeException("id", "The drone number must be greater or equal to 0");
-
-        //    DroneToList drone = BlDrone.Find(d => d.Id == id);
-        //    if (drone == default(DroneToList))
-        //        throw new ArgumentException("Drone with the given ID number doesn't exist");
-
-        //    if (drone.StatusDrone != StatusDrone.delivered)
-        //        throw new InvalidOperationException("The drone is not assigned to any package");
-
-        //    var parcel = id.GetParcel(drone.IdParcel);
-        //    if (parcel.Scheduled == default(DateTime) || parcel.PickedUp != default(DateTime))//ביקשתי את החריגה הזאת
-        //        throw new InvalidOperationException("The package is not ready to pick up");
-
-        //    try
-        //    {
-
-        //        var sender = accessIDal.GetCustomer(parcel.Senderld);
-        //        double distance = DistanceTo(drone.LocationDrone.Latitude, sender.Lattitude,
-        //            drone.LocationDrone.Longitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
-        //        drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
-        //        {
-        //            Latitude = sender.Lattitude,
-        //            Longitude = sender.Longitude
-        //        };
-        //        drone.StatusBatter -= BatteryConsumption(distance, drone.Weight);
-        //        accessIDal.PackageCollectionByDrone(parcel.Id);
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new Exception();
-        //    }
-        //}
 
         private static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
@@ -156,7 +119,7 @@ namespace IBL
 
             return dist;
         }
-            private IDAL.DO.Parcel minDis(List<IDAL.DO.Parcel> parcels, Location location)
+        private IDAL.DO.Parcel minDis(List<IDAL.DO.Parcel> parcels, Location drone)            
         {
             List<double> listDis = new List<double>();
             foreach (var obj in parcels)
@@ -213,7 +176,7 @@ namespace IBL
             IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
-                if(GetParcel((a.ElementAt(i).Id)).Scheduled==default)
+                if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
                     Console.WriteLine(ParcelToListToPrint(a.ElementAt(i).Id));
 
             }
@@ -221,7 +184,7 @@ namespace IBL
         private StatusParcel StatuseParcelKnow(int idP) {//return the statuse of parcel
             IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
-            if (dop.Delivered.Date !=default)//סופק
+            if (dop.Delivered.Date != default)//סופק
                 return StatusParcel.provided;
 
             if (dop.PichedUp != default)//נאסף
@@ -236,7 +199,7 @@ namespace IBL
             IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
             //if (dop.Delivered.Date != default)//סופק
-               // return StatusParcel.provided;
+            // return StatusParcel.provided;
 
             if (dop.PichedUp != default)//נאסף
                 return true;
@@ -245,6 +208,7 @@ namespace IBL
                 return false;
             return false;//נוצר
         }
+        //איסוף חבילה לרחפן
         public void PickUpPackage(int id)//pick up package by drone
         {
             if (id < 0)
@@ -266,7 +230,7 @@ namespace IBL
                     {
 
                         var sender = accessIDal.GetCustomer(parcel.Senderld);
-                        double distance = Distance(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
+                        double distance = DistanceTo(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
                         drone.StatusBatter = drone.StatusBatter - BatteryConsumption(distance);
                         drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
                         {
@@ -282,6 +246,50 @@ namespace IBL
                     {
                         throw new Exception();//חריגה
                     }
+                }
+            }
+        }
+        
+        private IDAL.DO.Parcel mIUNParcelByGood(int idd)
+        {
+
+            DroneToList BlDronepp = DroneToLisToPrint(idd);//drone from BL
+            Location locationDrone = GetDrone(idd).LocationDrone;//Location drone
+            IEnumerable<IDAL.DO.Parcel> aa = accessIDal.GetAllParcel();
+            IDAL.DO.Parcel newGood;
+            var peoperty = aa.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight).
+                ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Targetld).Lattitude, accessIDal.GetCustomer(parcel.Targetld).Longitude));
+            for (int i = 0; i < peoperty.Count(); i++)
+            {
+                double far = DistanceTo(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);
+                double battery = BatteryConsumption(far, (WeightCategories)peoperty.ElementAt(i).Weight)- BatteryConsumption(far);
+                    if (BlDronepp.StatusBatter- battery>0)
+                
+
+               
+            }
+           
+
+
+        }
+        //שיוך חבילה לרחפן
+        public void AssignPackageToDrone(int id)
+        {
+            IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
+            if ((id != dronidal.Id) || id < 0)
+                throw new ArgumentOutOfRangeException("id", "The drone number is error");
+            for (int i = 0; i < BlDrone.Count; i++)
+            {
+                if (BlDrone[i].Id == id)
+                {
+                    DroneToList drone = BlDrone[i];
+                    IDAL.DO.Parcel pp = mIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
+                    pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
+                    drone.StatusDrone = StatusDrone.delivered;//שינוי מצב רחפן
+                    accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
+                    accessIDal.DeleteParcel(pp.Id);//קיבלנו עצם מועתק
+                    accessIDal.AddParcel(pp);
+                    BlDrone[i] = drone;//לשנות לאחר שינויים
                 }
             }
         }

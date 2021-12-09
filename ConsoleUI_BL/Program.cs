@@ -237,7 +237,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.PickUpPackage(cod);//צריך לסדר יש באגים
+                                    bL.PickUpPackage(cod);//
                                     break;
                                 case 8://Package delivery by Drone
 

@@ -57,9 +57,10 @@ namespace IBL
                 if (index != -1)
                 {
                     item.StatusDrone = Enums.StatusDrone.delivered;
-                    Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel[index].Targetld).LocationOfCustomer;//מיקום של השולח
-                    double distanceBsenderAreciever = GetDis(senderLocation, recieverLocation);
-                    double distanceBrecieverAstation = minDistanceBetween....(BLStation, recieverLocation).item2;//
+                    Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel[index].Senderld).LocationOfCustomer;
+                    Location targetLocation = BLCustomer.Find(x => x.Id == DALParcel[index].Targetld).LocationOfCustomer;//מיקום של השולח
+                    double distanceBsenderAreciever = DistanceTo(senderLocation.Latitude, senderLocation.Longitude, targetLocation.Latitude, targetLocation.Longitude);
+                    double distanceBrecieverAstation = returnMinDistancFromLicationToStation(targetLocation);//
                     double electricityUse = distanceBrecieverAstation * Free;
                     switch ((Enums.WeightCategories)DALParcel[index].Weight)
                     {
@@ -77,9 +78,9 @@ namespace IBL
                     }
                     if (DALParcel[index].PichedUp == DateTime.MinValue)
                     {
-                        item.LocationDrone = minDistanceBetween....(BLStation, senderLocation).item1;
+                        item.LocationDrone = senderLocation;
 
-                        electricityUse += GetDistance(item.LocationDrone, senderLocation) * Free;
+                        electricityUse += DistanceTo(item.LocationDrone.Latitude,item.LocationDrone.Longitude, targetLocation.Latitude, targetLocation.Longitude) * Free;
                     }
                     else
                     {
@@ -99,7 +100,7 @@ namespace IBL
                         item.LocationDrone = station.LocationStation;
                         accessIDal.SendDroneToCharge(station.Id, item.Id);
                         //IDAL.DO.DroneCharge  droneCharge= new IDAL.DO.DroneCharge();
-                        accessIDal.UpdetDroneCharge(station.Id);
+                       // accessIDal.UpdetDroneCharge(station.Id);
                         item.StatusBatter = rand.Next(0, 21);
                     }
                     else
@@ -108,7 +109,7 @@ namespace IBL
                         if (DeliveredBySameId.Any())
                         {
                             item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
-                            double electricityUse = min...(BLStation, item.CurrentLocation).item2 * Free;
+                            double electricityUse = returnMinDistancFromLicationToStation( item.LocationDrone)* Free;
                             item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
 
                         }

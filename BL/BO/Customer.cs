@@ -24,7 +24,7 @@ namespace IBL
             public override string ToString()
             { 
                  
-                   return base.ToString() + string.Format("location:{0,6},\n", LocationOfCustomer) + "the list of the parcels from this customer:\n" + string.Join("\t", ListOfPackagesFromTheCustomer) + "the list of parcels to this customer:\n" + string.Join("*).", ListOfPackagesToTheCustomer);
+                   return base.ToString() + string.Format(  "location:{0,6},\n", LocationOfCustomer) + "the list of the parcels from this customer:\n" + string.Join("\t", ListOfPackagesFromTheCustomer) + "the list of parcels to this customer:\n" + string.Join("*).", ListOfPackagesToTheCustomer);
             }
 
         }

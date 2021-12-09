@@ -30,7 +30,7 @@ namespace IBL
 
             return min;
         }
-        private IDAL.DO.Station GetStationCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
+        public IDAL.DO.Station GetStationCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
         {
             DroneToList drone = DroneToLisToPrint(idDr);
             IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
@@ -53,6 +53,29 @@ namespace IBL
             }
 
             return s;
+        }
+        public double returnMinDistancFromLicationToStation(Location lo)//check the min far station to drone
+        {
+            IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
+            double chack = 0, min = 0;
+           // IDAL.DO.Station s;
+            min = DistanceToFromStationToDroneLocation(lo.Latitude, lo.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            s = station.ElementAt(0);
+            for (int i = 1; i < station.Count(); i++)
+            {
+                if (station.ElementAt(i).ChargeSlots > 0)//אם יש מקום טעינה פנוי
+                {
+                    chack = DistanceToFromStationToDroneLocation(lo.Latitude, lo.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    if (min > chack)
+                    {
+                        min = chack;
+                      
+                    }
+                }
+
+            }
+
+            return min;
         }
         private static double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
@@ -133,8 +156,7 @@ namespace IBL
             accessIDal.ReleaseDroneFromCharging(id);//שחרור רחפן מטעינה בשכבת הנתונים
             DroneToList drone = DroneToLisToPrint(id);//מעדכנת את הרחפן
             drone.StatusDrone = Enums.StatusDrone.available;
-
-            //מצב סוללה
+            drone.StatusBatter += (time1 / 60) * LoadingPrecents;//מצב סוללה
             BlDrone.Remove(DroneToLisToPrint(id));
             BlDrone.Add(drone);
 
@@ -253,7 +275,7 @@ namespace IBL
         public double BatteryConsumption(double kilometrs, Enums.WeightCategories weightcategories)// A function that gets a mileage and calculates how much battery it takes to get there
         {
             if (weightcategories == 0)
-                return kilometrs * LightWeight;
+                return kilometrs *LightWeight;
             if (weightcategories == (Enums.WeightCategories)1)
                 return kilometrs * MediumWeight;
             return kilometrs * HeavyWeight;
