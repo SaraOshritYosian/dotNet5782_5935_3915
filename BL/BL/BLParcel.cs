@@ -94,42 +94,42 @@ namespace IBL
         }
 
         
-        public void PickUpPackage(int id)//איסוף חבילה על ידי רחפן
-        {
-            if (id < 0)
-                throw new ArgumentOutOfRangeException("id", "The drone number must be greater or equal to 0");
+        //public void PickUpPackage(int id)//איסוף חבילה על ידי רחפן
+        //{
+        //    if (id < 0)
+        //        throw new ArgumentOutOfRangeException("id", "The drone number must be greater or equal to 0");
 
-            DroneToList drone = BlDrone.Find(d => d.Id == id);
-            if (drone == default(DroneToList))
-                throw new ArgumentException("Drone with the given ID number doesn't exist");
+        //    DroneToList drone = BlDrone.Find(d => d.Id == id);
+        //    if (drone == default(DroneToList))
+        //        throw new ArgumentException("Drone with the given ID number doesn't exist");
 
-            if (drone.StatusDrone != StatusDrone.delivered)
-                throw new InvalidOperationException("The drone is not assigned to any package");
+        //    if (drone.StatusDrone != StatusDrone.delivered)
+        //        throw new InvalidOperationException("The drone is not assigned to any package");
 
-            var parcel = id.GetParcel(drone.IdParcel);
-            if (parcel.Scheduled == default(DateTime) || parcel.PickedUp != default(DateTime))//ביקשתי את החריגה הזאת
-                throw new InvalidOperationException("The package is not ready to pick up");
+        //    var parcel = id.GetParcel(drone.IdParcel);
+        //    if (parcel.Scheduled == default(DateTime) || parcel.PickedUp != default(DateTime))//ביקשתי את החריגה הזאת
+        //        throw new InvalidOperationException("The package is not ready to pick up");
 
-            try
-            {
+        //    try
+        //    {
 
-                var sender = accessIDal.GetCustomer(parcel.Senderld);
-                double distance = DistanceTo(drone.LocationDrone.Latitude, sender.Lattitude,
-                    drone.LocationDrone.Longitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
-                drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
-                {
-                    Latitude = sender.Lattitude,
-                    Longitude = sender.Longitude
-                };
-                drone.StatusBatter -= BatteryConsumption(distance, drone.Weight);
-                accessIDal.PackageCollectionByDrone(parcel.Id);
+        //        var sender = accessIDal.GetCustomer(parcel.Senderld);
+        //        double distance = DistanceTo(drone.LocationDrone.Latitude, sender.Lattitude,
+        //            drone.LocationDrone.Longitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
+        //        drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
+        //        {
+        //            Latitude = sender.Lattitude,
+        //            Longitude = sender.Longitude
+        //        };
+        //        drone.StatusBatter -= BatteryConsumption(distance, drone.Weight);
+        //        accessIDal.PackageCollectionByDrone(parcel.Id);
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception();
-            }
-        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception();
+        //    }
+        //}
 
         private static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
@@ -244,6 +244,46 @@ namespace IBL
             if (dop.Scheduled != default)//שוייך
                 return false;
             return false;//נוצר
+        }
+        public void PickUpPackage(int id)//pick up package by drone
+        {
+            if (id < 0)
+                throw new ArgumentOutOfRangeException("id", "The drone number must be greater or equal to 0");
+            for (int i = 0; i < BlDrone.Count; i++)
+            {
+                if (BlDrone[i].Id == id)
+                {
+                    DroneToList drone = BlDrone[i];
+                    //if (drone.Id != id)
+                    //    throw new BadDroneIdException(drone.Id);
+                    if (drone.StatusDrone != BO.Enums.StatusDrone.available)
+                        throw new InvalidOperationException("The drone is not assigned to any package");
+                    var parcel = accessIDal.GetParcel(drone.IdParcel);
+                    if ((parcel.Scheduled == default(DateTime)) || (parcel.PichedUp != default(DateTime)))
+                        throw new InvalidOperationException("The package is not ready to pick up");
+
+                    try
+                    {
+
+                        var sender = accessIDal.GetCustomer(parcel.Senderld);
+                        double distance = Distance(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
+                        drone.StatusBatter = drone.StatusBatter - BatteryConsumption(distance);
+                        drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
+                        {
+                            Latitude = sender.Lattitude,
+                            Longitude = sender.Longitude
+                        };
+                        BlDrone[i] = drone;
+                        parcel.PichedUp = DateTime.Now;
+                        accessIDal.DeleteParcel(parcel.Id);//קיבלנו עצם מועתק
+                        accessIDal.AddParcel(parcel);
+                    }
+                    catch (Exception)
+                    {
+                        throw new Exception();//חריגה
+                    }
+                }
+            }
         }
     }
 
