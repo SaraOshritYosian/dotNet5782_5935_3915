@@ -293,6 +293,14 @@ namespace IBL
                 }
             }
         }
+        public void PackageDeliveryByDrone(int Id)//אספקת חבילה ע"י רחפן
+        {
+            //רחפן שאסף ולא סיפק את החבילה
+            //IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
+            //if(StatuseParcelKnowBool(int idP))
+            IEnumerable<IDAL.DO>
+            if()
+        }
     }
 
     
