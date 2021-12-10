@@ -119,19 +119,7 @@ namespace IBL
 
             return dist;
         }
-        private IDAL.DO.Parcel minDis(List<IDAL.DO.Parcel> parcels, Location drone)            
-        {
-            List<double> listDis = new List<double>();
-            foreach (var obj in parcels)
-            {
-
-                Location locationSender = GetCustomer(obj.Senderld).LocationOfCustomer;//לסדר פעולתGetCustomer 
-                listDis.Add(getdis(location, locationSender));//getdisצריך פעולת 
-            }
-            return parcels[listDis.FindIndex(x => x == listDis.Min())];
-        }
-
-
+       
         public BO.ParcelToLIst ParcelToListToPrint(int idp)//v
         {
             BO.ParcelToLIst bop;
@@ -249,26 +237,37 @@ namespace IBL
             }
         }
         
-        private IDAL.DO.Parcel mIUNParcelByGood(int idd)
+        private IDAL.DO.Parcel MIUNParcelByGood(int idd)
         {
-
-            DroneToList BlDronepp = DroneToLisToPrint(idd);//drone from BL
-            Location locationDrone = GetDrone(idd).LocationDrone;//Location drone
-            IEnumerable<IDAL.DO.Parcel> aa = accessIDal.GetAllParcel();
-            IDAL.DO.Parcel newGood;
-            var peoperty = aa.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight).
-                ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Targetld).Lattitude, accessIDal.GetCustomer(parcel.Targetld).Longitude));
-            for (int i = 0; i < peoperty.Count(); i++)
+            try
             {
-                double far = DistanceTo(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);
-                double battery = BatteryConsumption(far, (WeightCategories)peoperty.ElementAt(i).Weight)- BatteryConsumption(far);
-                    if (BlDronepp.StatusBatter- battery>0)
-                
 
-               
+                DroneToList BlDronepp = DroneToLisToPrint(idd);//drone from BL
+                Location locationDrone = GetDrone(idd).LocationDrone;//Location drone
+                IEnumerable<IDAL.DO.Parcel> aa = accessIDal.GetAllParcel();
+                //IDAL.DO.Parcel newGood;
+                var peoperty = aa.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight).
+                    ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Targetld).Lattitude, accessIDal.GetCustomer(parcel.Targetld).Longitude));
+                for (int i = 0; i < peoperty.Count(); i++)
+                {
+
+                    double farToS = DistanceTo(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude);//מרחק ממקום של הרחפן למקום של ההזמנה
+                    double farFromSToT = DistanceTo(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);
+                    Location location = new Location() { Latitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, Longitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude };//מיקום של מי שצריך לקבל
+                    double fatToStationMinDis = returnMinDistancFromLicationToStation(location);//מרחק מהתחנה הקרובה לרחפן לאחר מישלוח
+                    double battery1 = BatteryConsumption(farFromSToT, (WeightCategories)peoperty.ElementAt(i).Weight) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקום של ולמקום המשלוח ועד שהוא הול
+                    double batteryToStation1 = BatteryConsumption(fatToStationMinDis);
+                    if (BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0)
+                    {
+                        return peoperty.ElementAt(i);
+                    }
+
+                }
             }
-           
-
+            catch (Exception)
+            {
+                throw new Exception();//חריגה
+            }
 
         }
         //שיוך חבילה לרחפן
@@ -282,7 +281,7 @@ namespace IBL
                 if (BlDrone[i].Id == id)
                 {
                     DroneToList drone = BlDrone[i];
-                    IDAL.DO.Parcel pp = mIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
+                    IDAL.DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
                     pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
                     drone.StatusDrone = StatusDrone.delivered;//שינוי מצב רחפן
                     accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
@@ -336,8 +335,9 @@ namespace IBL
                 }
             }
             
-        }
+        
+       
     }
+}
 
     
-}

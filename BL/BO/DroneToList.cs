@@ -18,5 +18,9 @@ namespace IBL.BO
 
         public int IdParcel { get; set; }//אם יש
         public Location LocationDrone { get; set; }
+        public override string ToString()
+        {
+            return this.ToStringProperty();
+        }
     }
 }

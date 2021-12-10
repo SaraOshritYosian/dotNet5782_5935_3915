@@ -58,7 +58,7 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Station> station = accessIDal.GetAllStation();
             double chack = 0, min = 0;
-           // IDAL.DO.Station s;
+            IDAL.DO.Station s;
             min = DistanceToFromStationToDroneLocation(lo.Latitude, lo.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
             s = station.ElementAt(0);
             for (int i = 1; i < station.Count(); i++)
@@ -258,8 +258,17 @@ namespace IBL
 
 
         }
-
-        public void PrintDroneList()//print all dtone
+        public IEnumerable<BO.DroneToList> PrintDroneList()//print all dtone
+        {
+            IEnumerable<IDAL.DO.Drone> a = accessIDal.GetAllDrone();
+            IEnumerable<BO.DroneToList> b = new IEnumerable<DroneToList>();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                b.Append(DroneToLisToPrint(a.ElementAt(i).Id));
+            }
+            return b;
+        }
+        public void PprintDroneList()//print all dtone
         {
             IEnumerable<IDAL.DO.Drone> a = accessIDal.GetAllDrone();
             for (int i = 0; i < a.Count(); i++)

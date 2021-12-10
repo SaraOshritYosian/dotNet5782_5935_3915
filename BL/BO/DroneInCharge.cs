@@ -11,6 +11,10 @@ namespace IBL {
         {
             public int Id { get; set; }
             public double StatusBatter { get; set; }
+            public override string ToString()
+            {
+                return this.ToStringProperty();
+            }
         }
     }
 

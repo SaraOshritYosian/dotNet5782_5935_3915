@@ -99,8 +99,16 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter the number of the station to charge");
                                         //int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        bL.AddDrone(dr, id);//v
+                                        try
+                                        {
+                                            bL.AddDrone(dr, id);//v
+                                        }
+                                        catch (IDAL.DO.Excptions)
+                                        {
+                                            throw new Exception();
+                                        }
                                         break;
+
 
                                     }
 
@@ -128,7 +136,15 @@ namespace ConsoleUI_BL
                                         b = double.TryParse(Console.ReadLine(), out Latitude);
                                         location.Latitude = Latitude;
                                         cs.LocationOfCustomer = location;
-                                        bL.AddCustomer(cs);//vv
+                                        try
+                                        {
+                                            bL.AddCustomer(cs);//vv
+                                        }
+                                        catch (IDAL.DO.Excptions)
+                                        {
+                                            throw new Exception();
+                                        }
+                                        
                                         break;
                                     }
 
@@ -163,10 +179,16 @@ namespace ConsoleUI_BL
                                             pr.Priority = IBL.BO.Enums.Priority.emergency;
 
                                         //צריך להוסיף את הפו וכאן קלטנו ת"ז של שולח ומקבל ומשקל חבילה ועדיפות משלוח בביאל מאתחלים זמנים
-                                        // Console.WriteLine("The number of the parcel is: " + id);
-                                        bL.AddParcel(pr);//vv
+                                        try
+                                        {
+                                            bL.AddParcel(pr);//vv
+                                        }
+                                        catch (IDAL.DO.Excptions)
+                                        {
+                                            throw new Exception();
+                                        }
                                         break;
-
+                                       
                                     }
                             }
 
@@ -192,7 +214,14 @@ namespace ConsoleUI_BL
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     string name = Console.ReadLine();
                                     //לבנות פונקציה מקבלת ת"ז של רחפן ושם ומעדכנת את השם
-                                    bL.UpdateDrone(cod, name);//vv
+                                    try
+                                    {
+                                        bL.UpdateDrone(cod, name);//vv
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 2://Update station
                                     Console.WriteLine("Enter The id of station");
@@ -202,7 +231,14 @@ namespace ConsoleUI_BL
                                     int slote ;
                                     b = int.TryParse(Console.ReadLine(), out slote);
                                     //מעדכן או כמות טעינות או שם יכול להיות שהכניס נתונים ויכול להיות שלא
-                                    bL.UpdateStation(cod, name1, slote);//vv
+                                    try
+                                    {
+                                        bL.UpdateStation(cod, name1, slote);//vv
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
 
                                 case 3://Update customet
@@ -211,39 +247,81 @@ namespace ConsoleUI_BL
                                     name = Console.ReadLine();
                                     string phone=Console.ReadLine();
                                     //מעדכן או טלפון או שם יכול להיות שהכניס נתונים ויכול להיות שלא
-                                    bL.UpdateCustomer(cod, name, phone);//vv
+                                    try
+                                    {
+                                        bL.UpdateCustomer(cod, name, phone);//vv
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
 
                                 case 4://Sending a Drone for charging
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.SendingDroneToCharging(cod);//פונקציה שמקבל ת"ז רחפן ושולחת לטעינה
-                                    break;
+                                    try
+                                    {
+                                        bL.SendingDroneToCharging(cod);//פונקציה שמקבל ת"ז רחפן ושולחת לטעינה
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
+                                    break; 
                                 case 5://Release Drone from charging
                                    
                                     Console.WriteLine("Enter The id drone and Charging time");
                                     b = int.TryParse(Console.ReadLine(), out cod);
                                     TimeSpan time;
                                     b = TimeSpan.TryParse(Console.ReadLine(), out time);
-                                    bL.ReleaseDrone(cod, time);//משחררת מטעינה
+                                    try
+                                    {
+                                        bL.ReleaseDrone(cod, time);//משחררת מטעינה
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 6://Assign a package to a Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.AssignPackageToDrone(cod);//
+                                    try
+                                    {
+                                        bL.AssignPackageToDrone(cod);//
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 7:// Package collection by Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.PickUpPackage(cod);//
+                                    try
+                                    {
+                                        bL.PickUpPackage(cod);//
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 8://Package delivery by Drone
 
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out cod);
-                                    bL.PackageDeliveryByDrone(cod);
+                                    try
+                                    {
+                                        bL.PackageDeliveryByDrone(cod);
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
 
                             }
@@ -265,22 +343,51 @@ namespace ConsoleUI_BL
                                 case 1://station תצוגת תחנת-בסיס 
                                     Console.WriteLine("Enter station Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintStationById(option);
+
+                                    try
+                                    {
+                                        bL.PrintStationById(option);
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 2://drone  תצוגת רחפן
                                     Console.WriteLine("Enter drone Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintDroneById(option);
+                                    try
+                                    {
+                                        bL.PrintDroneById(option);
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 3: //customer תצוגת לקוח
                                     Console.WriteLine("Enter customer Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintCustomerById(option);
+                                    try
+                                    {
+                                        bL.PrintCustomerById(option);
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 case 4://parcel תצוגת חבילה
                                     Console.WriteLine("Enter parcel Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    bL.PrintParcelById(option);
+                                    try
+                                    {
+                                        bL.PrintParcelById(option);
+                                    }
+                                    catch (IDAL.DO.Excptions)
+                                    {
+                                        throw new Exception();
+                                    }
                                     break;
                                 default:
                                     break;
@@ -303,6 +410,9 @@ namespace ConsoleUI_BL
                             switch (option)
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
+                                  
+
+                                    Console.WriteLine(bL.PrintStationList());
                                     bL.PrintStationList();
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים

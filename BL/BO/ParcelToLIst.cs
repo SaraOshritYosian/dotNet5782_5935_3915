@@ -14,6 +14,10 @@ namespace IBL.BO
         public WeightCategories Weight { get; set; }
         public Priority Priority { get; set; }
         public StatusParcel statusParcel { get; set; }//מצב חבילה
+        public override string ToString()
+        {
+            return this.ToStringProperty();
+        }
 
     }
 }
