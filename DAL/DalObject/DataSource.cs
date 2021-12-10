@@ -22,10 +22,10 @@ namespace DalObject
         internal class Config
         {
 
-            public static double Free;
-            public static double LightWeight;
-            public static double MediumWeight;
-            public static double HeavyWeight;
+            public static double Free=0.5;
+            public static double LightWeight=3;
+            public static double MediumWeight=4;
+            public static double HeavyWeight=15;
             public static double LoadingPrecents=20;//  הוספתי 20,קצב טעינת רחפן באחוזים לשעה
             internal static int amountDorneId = 0;//כמות הרחפנים
             internal static int amountStationId = 0;//כמות התחנות

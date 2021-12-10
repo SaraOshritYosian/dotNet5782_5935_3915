@@ -258,17 +258,8 @@ namespace IBL
 
 
         }
-        public IEnumerable<BO.DroneToList> PrintDroneList()//print all dtone
-        {
-            IEnumerable<IDAL.DO.Drone> a = accessIDal.GetAllDrone();
-            IEnumerable<BO.DroneToList> b = new IEnumerable<DroneToList>();
-            for (int i = 0; i < a.Count(); i++)
-            {
-                b.Append(DroneToLisToPrint(a.ElementAt(i).Id));
-            }
-            return b;
-        }
-        public void PprintDroneList()//print all dtone
+       
+        public void PrintDroneList()//print all dtone
         {
             IEnumerable<IDAL.DO.Drone> a = accessIDal.GetAllDrone();
             for (int i = 0; i < a.Count(); i++)

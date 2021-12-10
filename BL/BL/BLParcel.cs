@@ -169,6 +169,18 @@ namespace IBL
 
             }
         }
+
+        public BO.ParcelToLIst PrintUnconnectedParceslList(int pr)//ptint list parcel that not connection to drone
+        {
+            IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
+                   return ParcelToListToPrint(a.ElementAt(i).Id);
+
+            }
+            throw new Exception();
+        }
         private StatusParcel StatuseParcelKnow(int idP) {//return the statuse of parcel
             IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
@@ -237,7 +249,7 @@ namespace IBL
             }
         }
         
-        private IDAL.DO.Parcel MIUNParcelByGood(int idd)
+        private IDAL.DO.Parcel MIUNParcelByGood(int idd)//מחזיר את החבילה הכי טובה לביצוע
         {
             try
             {
@@ -264,10 +276,11 @@ namespace IBL
 
                 }
             }
-            catch (Exception)
+            catch (IDAL.DO.Excptions ex)
             {
-                throw new Exception();//חריגה
+                throw new BO.Excptions(ex.Message);
             }
+            throw new Exception();//חריגה
 
         }
         //שיוך חבילה לרחפן

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using IBL.BO;
 
 
@@ -18,7 +19,8 @@ namespace ConsoleUI_BL
         {
 
             IBL.BL bL = new IBL.BL();
-            
+            //IDAL.DO idal = new IDAL.DO();
+            DalObject.DalObject d1=new DalObject.DalObject();
             int option;
             // int a;
             bool ex = true;
@@ -409,30 +411,33 @@ namespace ConsoleUI_BL
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
-                                case 1://stations  הצגת רשימת תחנות-בסיס 
-                                  
-
-                                    Console.WriteLine(bL.PrintStationList());
-                                    bL.PrintStationList();
+                                case 1://stations  הצגת רשימת תחנות-בסיס  
+                                    foreach (IDAL.DO.Station station in d1.GetAllStation())
+                                        Console.WriteLine(bL.StationToListToPrint(station.Id).ToString());
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
-                                    bL.PrintDroneList();
+                                    foreach (IDAL.DO.Drone drone in d1.GetAllDrone())
+                                        Console.WriteLine(bL.DroneToLisToPrint(drone.Id).ToString());  
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
-                                    bL.PrintCustomersList();
+                                    foreach (IDAL.DO.Customer customer in d1.GetAllCustomer())
+                                        Console.WriteLine(bL.CostumerToListToPrint(customer.Id).ToString());
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
-                                   bL.PrintParcelList();
+                                    foreach (IDAL.DO.Parcel parcel in d1.GetAllParcel())
+                                        Console.WriteLine(bL.ParcelToListToPrint(parcel.Id).ToString());
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
-                                   bL.PrintUnconnectedParceslList();
+                                    foreach (IDAL.DO.Parcel parcel in d1.GetAllParcel())
+                                        Console.WriteLine(bL.PrintUnconnectedParceslList(parcel.Id).ToString());
+                                    bL.PrintUnconnectedParceslList();
                                     break;
                                 case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
+                                    foreach (IDAL.DO.Station station in d1.GetAllStation())
+                                        Console.WriteLine(bL.PrintAvailableStationToChargeList(station.Id).ToString());
                                     bL.PrintAvailableStationToChargeList();
                                     break;
-                                //case 7://רשימת רחפנים בטעינה
-                                //   bL.PrindDroneChargeList();
-                                //    break;
+                              
                                 default:
                                     break;
                             }

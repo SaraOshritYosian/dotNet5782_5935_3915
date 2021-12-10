@@ -120,6 +120,17 @@ namespace IBL
 
             }
         }
+        public BO.StationToList PrintAvailableStationToChargeList(int id)//ptint list station who have available to charge 
+        {
+            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                if (a.ElementAt(i).ChargeSlots > 0)
+                    return StationToListToPrint(a.ElementAt(i).Id);
+
+            }
+            throw new Exception();
+        }
 
     }
 }
