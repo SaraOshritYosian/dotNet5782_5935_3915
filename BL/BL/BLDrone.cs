@@ -180,8 +180,11 @@ namespace IBL
                     StatusDrone = dotolist.StatusDrone,
                     StatusBatter = dotolist.StatusBatter,
                     LocationDrone = dotolist.LocationDrone,
-                    PackageInTransfe = GetParcelInTransfer(id)
+
+                    //PackageInTransfe = GetParcelInTransfer(id)
                 };
+                if (bodrone.StatusDrone == Enums.StatusDrone.delivered)
+                    bodrone.PackageInTransfe = GetParcelInTransfer(id);
 
             }
             catch (IDAL.DO.Excptions ex)
@@ -215,10 +218,10 @@ namespace IBL
 
         public void UpdateDrone(int id, string name)//v
         {
-         //  c = new IDAL.DO.Drone();
+            IDAL.DO.Drone c;
             try
             {
-                IDAL.DO.Drone c =accessIDal.GetDrone(id);
+                 c =accessIDal.GetDrone(id);
                 if (name != "")
                 {
                     c.Model = name;
@@ -228,7 +231,7 @@ namespace IBL
             {
                 throw new BO.Excptions(ex.Message);
             }
-
+            accessIDal.UpdetDrone(c);
         }
 
 

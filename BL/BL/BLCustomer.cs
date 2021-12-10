@@ -103,7 +103,7 @@ namespace IBL
                 {
                     c.Pone = phone;
                 }
-
+                accessIDal.UpdetCustomer(c);
 
 
             }

@@ -10,7 +10,7 @@ namespace ConsoleUI_BL
     {
         enum menuOption { add = 1, update, show, showLists, exit };//תפריט ראשי
         enum add { staion = 1, drone, customer, parcel };//תפריט הוספה
-        enum update { connect = 1, collect, supply, charge, release };//תפריט עדכון
+        enum update { udrone = 1, ustaione, ucustomer, charge, release, Assign, collection, PackageDeliveryByDrone };//תפריט עדכון
         enum show { station = 1, drone, customer, parcel };//תפריט תצוגה
         enum showLists { station = 1, drones, customers, parcels, unconnectedParcel, availableStationToCharge };//תפריט הצגת הרשימות
         internal static Random rand = new Random(DateTime.Now.Millisecond);//add current time
@@ -22,7 +22,6 @@ namespace ConsoleUI_BL
             //IDAL.DO idal = new IDAL.DO();
             DalObject.DalObject d1=new DalObject.DalObject();
             int option;
-            // int a;
             bool ex = true;
             Console.WriteLine("Press 1 Add option Press 2 Update option Press 3 View option Press 4 View lists Press 5 Exit");
             bool b = int.TryParse(Console.ReadLine(), out option);
@@ -71,9 +70,9 @@ namespace ConsoleUI_BL
                                         {
                                             bL.AddStation(st);//vv
                                         }
-                                        catch (IDAL.DO.Excptions)
+                                        catch (IDAL.DO.Excptions e)
                                         {
-                                            throw new Exception();
+                                            Console.WriteLine(e);
                                         }
                                         break;
                                     }
@@ -201,12 +200,13 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Enter your choise:");
                             Console.WriteLine("1 Update Drone");
-                            Console.WriteLine("2 Update customet");
-                            Console.WriteLine("3 Sending a Drone for charging");//שליחת רחפן לטעינה
-                            Console.WriteLine("4 Release Drone from charging");//שחרור חפן מטעינה
-                            Console.WriteLine("5 Assign a package to a Drone");//שיוך חבילה לרחפן
-                            Console.WriteLine("6 Package collection by Drone");//איסוף חבילה ע"י רחפן
-                            Console.WriteLine("7 Package delivery by Drone");//הספקת חבילה ע"י רחפן
+                            Console.WriteLine("2 Update station");
+                            Console.WriteLine("3 Update customet");
+                            Console.WriteLine("4 Sending a Drone for charging");//שליחת רחפן לטעינה
+                            Console.WriteLine("5 Release Drone from charging");//שחרור חפן מטעינה
+                            Console.WriteLine("6 Assign a package to a Drone");//שיוך חבילה לרחפן
+                            Console.WriteLine("7 Package collection by Drone");//איסוף חבילה ע"י רחפן
+                            Console.WriteLine("8 Package delivery by Drone");//הספקת חבילה ע"י רחפן
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
@@ -228,8 +228,10 @@ namespace ConsoleUI_BL
                                 case 2://Update station
                                     Console.WriteLine("Enter The id of station");
                                     b = int.TryParse(Console.ReadLine(), out cod);
+                                    Console.WriteLine("Enter The name of station");
                                     int name1;
                                     b = int.TryParse(Console.ReadLine(), out name1);
+                                    Console.WriteLine("Enter The slote of station");
                                     int slote ;
                                     b = int.TryParse(Console.ReadLine(), out slote);
                                     //מעדכן או כמות טעינות או שם יכול להיות שהכניס נתונים ויכול להיות שלא

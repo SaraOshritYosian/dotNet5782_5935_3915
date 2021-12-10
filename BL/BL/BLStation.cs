@@ -48,7 +48,9 @@ namespace IBL
             IDAL.DO.Station c;
             try
             {
+               
                 c =accessIDal.GetStation(idS);
+                //Console.WriteLine(c.ToString());
                 if (names !=-1 )
                 {
                     c.Name = names;
@@ -57,7 +59,8 @@ namespace IBL
                 {
                     c.ChargeSlots = chargeSlote-accessIDal.coutCharge(idS);
                 }
-
+                //Console.WriteLine(c.ToString());
+                accessIDal.UpdetStation(c);
 
             }
             catch (IDAL.DO.Excptions ex)
@@ -85,6 +88,8 @@ namespace IBL
             BO.StationToList c = new BO.StationToList();
             try
             {
+                
+                Console.WriteLine(accessIDal.GetStation(id));
                 IDAL.DO.Station station = accessIDal.GetStation(id);
                 c.Id = station.Id;
                 c.Name = station.Name;

@@ -18,12 +18,7 @@ namespace ConsoleUI
         {
 
 
-            DalObject.DalObject d1 = new DalObject.DalObject();//station
-            DalObject.DalObject d2 = new DalObject.DalObject();//drone
-            DalObject.DalObject d3 = new DalObject.DalObject();//customer
-            DalObject.DalObject d4 = new DalObject.DalObject();//parcel
-            DalObject.DalObject d5 = new DalObject.DalObject();//DroneCharge
-            DalObject.DalObject d6 = new DalObject.DalObject();
+            DalObject.DalObject d1 = new DalObject.DalObject();//station 
             int option;
             // int a;
             bool ex = true;
@@ -54,20 +49,27 @@ namespace ConsoleUI
                                        Console.WriteLine("Enter the ChargeSlots of the station");
                                         int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        st.Id = id;
+                                        st.Id = id;//תז
                                         int name;
                                         b = int.TryParse(Console.ReadLine(), out name);
-                                        st.Name = name;
+                                        st.Name = name;//שם
                                         double Latitude;
                                         b = double.TryParse(Console.ReadLine(), out Latitude);
-                                        st.Latitude = Latitude;
+                                        st.Latitude = Latitude;//מיקום
                                         double Longitude;
                                         b = double.TryParse(Console.ReadLine(), out Longitude);
-                                        st.Longitude = Longitude;
+                                        st.Longitude = Longitude;//מיקום
                                         int ChargeSlots;
                                         b = int.TryParse(Console.ReadLine(), out ChargeSlots);
-                                        st.ChargeSlots = ChargeSlots;
-                                        d1.AddStation(st);//v
+                                        st.ChargeSlots = ChargeSlots;//כמות טעינה
+                                        try
+                                        {
+                                            d1.AddStation(st);//v
+                                        }
+                                         catch (IDAL.DO.Excptions )
+                                                 {
+                                               throw new Excptions();
+                                                 }
                                         break;
                                     }
 
@@ -77,21 +79,22 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter the ID of the Drone");
                                         int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        dr.Id = id;
+                                        dr.Id = id;//תז
                                         Console.WriteLine("Enter the Model of the Drone");
                                         string model = Console.ReadLine();
                                         
-                                        dr.Model = model;
+                                        dr.Model = model;//מודל
                                         Console.WriteLine("Enter the number of Weight of the Drone: 0-Light, 1-Medium, 2-Heavy");
                                         int ch;
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
-                                            dr.Weight = WeightCategories.Light;
+                                            dr.Weight = WeightCategories.Light;//מישקל
                                         if (ch == 1)
                                             dr.Weight = WeightCategories.Medium;
                                         if (ch == 2)
                                             dr.Weight = WeightCategories.Heavy;
-                                        d2.AddDrone(dr);//v
+                                        
+                                        d1.AddDrone(dr);//v
                                         break;
 
                                     }
@@ -102,24 +105,24 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter your ID ");
                                         int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        cs.Id =id;
+                                        cs.Id =id;//תז
                                         Console.WriteLine("Enter your Name");
                                         string name = Console.ReadLine();
                                         //b = TryParse(Console.ReadLine(), out name);//טעות 
-                                        cs.Name = name;
+                                        cs.Name = name;//שם
                                         Console.WriteLine("Enter your Pone");
                                         string phone = Console.ReadLine();
                                         //b = stTryParse(Console.ReadLine(), out phone);
-                                        cs.Pone =phone;
+                                        cs.Pone =phone;//טלפון
                                         Console.WriteLine("Enter the Longitude of the home");
                                         double Longitude;
                                         b = double.TryParse(Console.ReadLine(), out Longitude);
-                                        cs.Longitude = Longitude;
+                                        cs.Longitude = Longitude;//מיקום
                                         Console.WriteLine("Enter the latitude of the home");
-                                        double Latitude;
+                                        double Latitude;//מיקום
                                         b = double.TryParse(Console.ReadLine(), out Latitude);
                                         cs.Lattitude = Latitude;
-                                        d3.AddCustomer(cs);//v
+                                        d1.AddCustomer(cs);//v
                                         break;
                                     }
 
@@ -130,14 +133,14 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter the id of the Parcel");
                                         int id;
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        pr.Senderld = id;
+                                        pr.Senderld = id;//תז
                                         Console.WriteLine("Enter the Senderld of the Parcel");
                                         b = int.TryParse(Console.ReadLine(), out id);
-                                        pr.Senderld = id;
+                                        pr.Senderld = id;//תז שולח
                                         Console.WriteLine("Enter the Targetld of the Parcel");
                                         int target;
                                         b = int.TryParse(Console.ReadLine(), out target);
-                                        pr.Targetld = target;
+                                        pr.Targetld = target;//תז מקבל
                                         Console.WriteLine("Enter the number of Weight of the Parcel: 0-Light, 1-Medium, 2-Heavy");
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
@@ -145,11 +148,11 @@ namespace ConsoleUI
                                         if (ch == 1)
                                             pr.Weight = WeightCategories.Medium;
                                         if (ch == 2)
-                                            pr.Weight = WeightCategories.Heavy;
+                                            pr.Weight = WeightCategories.Heavy;//משקל
                                         Console.WriteLine("Enter the Priority of the Parcel: 0-simple, 1-quick, 2-emergency");
                                         b = int.TryParse(Console.ReadLine(), out ch);
                                         if (ch == 0)
-                                            pr.Priority = Priority.simple;
+                                            pr.Priority = Priority.simple;//סוג
                                         if (ch == 1)
                                             pr.Priority = Priority.quick;
                                         if (ch == 2)
@@ -160,7 +163,7 @@ namespace ConsoleUI
                                         //DateTime.AddMinutes(double(rand));
                                         pr.PichedUp = DateTime.Now;//איזה לעשות כאן
                                         pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
-                                        d4.AddParcel(pr);
+                                        d1.AddParcel(pr);
                                        // Console.WriteLine("The number of the parcel is: " + id);
                                         break;
 
@@ -186,7 +189,7 @@ namespace ConsoleUI
                                     int codp,codd;
                                     b = int.TryParse(Console.ReadLine(), out codp);
                                     b = int.TryParse(Console.ReadLine(), out codd);
-                                    bool a =d6.AssignPackageToDrone(codp, codd);
+                                    d1.AssignPackageToDrone(codp, codd);
 
 
 
@@ -194,12 +197,12 @@ namespace ConsoleUI
                                 case 2://collect  איסוף חבילה ע"י רחפ ן
                                     Console.WriteLine("Enter The id packago");
                                     b = int.TryParse(Console.ReadLine(), out codp);
-                                    d6.PackageCollectionByDrone(codp);
+                                    d1.PackageCollectionByDrone(codp);
                                     break;
                                 case 3://suplly אספקת חבילה ל-לקוח
                                     Console.WriteLine("Enter The id packago");
                                     b = int.TryParse(Console.ReadLine(), out codp);
-                                   d6.DeliveryOfPackageToTheCustomer(codp);
+                                   d1.DeliveryOfPackageToTheCustomer(codp);
                                     break;
                                 case 4://charge  שליחת רחפן לטעינה בתחנת -בסיס
                                     DroneCharge drc = new DroneCharge();
@@ -210,13 +213,13 @@ namespace ConsoleUI
                                     Console.WriteLine("Enter The id station");
                                     b = int.TryParse(Console.ReadLine(), out codp);
                                     drc.Stationld =codp;
-                                    d5.AddDroneCharge(drc);
+                                    d1.AddDroneCharge(drc);
                                     break;
                                 case 5://שיחרור רחפן מטעינה
                                     
                                     Console.WriteLine("Enter The id drone");
                                     b = int.TryParse(Console.ReadLine(), out codp);
-                                    d6.ReleaseDroneFromCharging(codp);
+                                    d1.ReleaseDroneFromCharging(codp);
                                     break;
 
 

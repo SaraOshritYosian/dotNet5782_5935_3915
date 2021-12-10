@@ -11,8 +11,8 @@ namespace IDAL
 
             public int Id { get; set; }
             public string Model { get; set; }
-            //public Status StatusDrone { get; set; }
             public WeightCategories Weight { get; set; }
+            //public Status StatusDrone { get; set; }
             //public double Battery { get; set; }
             //public override string ToString()
             //{

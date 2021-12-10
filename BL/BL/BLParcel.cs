@@ -330,15 +330,18 @@ namespace IBL
 
                             double distance = DistanceTo(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
                             drone.StatusBatter -= BatteryConsumption(distance, (WeightCategories)parcel.Weight);
-                            drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Senderld).Lattitude;
+                            drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Senderld).Lattitude;//שינוי מיקום
                             drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Senderld).Longitude;
-                            parcel.PichedUp = DateTime.Now;
+                            parcel.PichedUp = DateTime.Now;//שינוי זמן
                              accessIDal.DeleteParcel(parcel.Id);//קיבלנו עצם מועתק
                             accessIDal.AddParcel(parcel);
                             accessIDal.DeleteDrone(drone.Id);//קיבלנו עצם מועתק
-                            Drone dr=GetDrone(id)
-                            accessIDal.AddDrone();
-                            drone.StatusDrone= BO.Enums.StatusDrone.available;
+                            Drone dr = GetDrone(Id);
+                            drone.StatusDrone = BO.Enums.StatusDrone.available;//שינוי סטטוס
+                            BlDrone[j] = drone;
+
+                            accessIDal.AddDrone(accessIDal.GetDrone(dr.Id));
+                            
                         }
                             
 
