@@ -307,7 +307,7 @@ namespace IBL
 
                     if(parcel.Delivered!=default)//אספו
                    
-                        throw new Exception();
+                        throw new Exception();//להוסיף חריגה
                     
                        for (int j = 0; j < BlDrone.Count; j++)
                         {
@@ -321,6 +321,12 @@ namespace IBL
                             drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Senderld).Lattitude;
                             drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Senderld).Longitude;
                             parcel.PichedUp = DateTime.Now;
+                             accessIDal.DeleteParcel(parcel.Id);//קיבלנו עצם מועתק
+                            accessIDal.AddParcel(parcel);
+                            accessIDal.DeleteDrone(drone.Id);//קיבלנו עצם מועתק
+                            Drone dr=GetDrone(id)
+                            accessIDal.AddDrone();
+                            drone.StatusDrone= BO.Enums.StatusDrone.available;
                         }
                             
 
