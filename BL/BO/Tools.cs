@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Collections;
 
-namespace BL.BO
+namespace IBL.BO
 {
    static class Tools
         

@@ -18,6 +18,10 @@ namespace IBL.BO
         public Location Collection { get; set; }
         public Location DeliveryDestination { get; set; }
         public double far { get; set; }
+        public override string ToString()
+        {
+            return this.ToStringProperty();
+        }
 
     }
 }

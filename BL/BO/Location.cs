@@ -11,6 +11,10 @@ namespace IBL
         {
             public Double Longitude { get; set; }
             public Double Latitude { get; set; }
+            public override string ToString()
+            {
+                return this.ToStringProperty();
+            }
         }
     }
 }

@@ -17,9 +17,13 @@ namespace IBL.BO
         public int SeveralPackagesOnTheWayToTheCustomerCustomer { get; set; }//SeveralPackagesOnTheWayToTheCustomer מספר חבילות בדרך ללקוח
         public override string ToString()
         {
-
-            return base.ToString() + string.Format("the id is:{0,6},\t name is:{1,-3})\n", Id, Name);
+            return this.ToStringProperty();
         }
+        //public override string ToString()
+        //{
+
+        //    return base.ToString() + string.Format("the id is:{0,6},\t name is:{1,-3})\n", Id, Name);
+        //}
 
     }
 }

@@ -13,5 +13,9 @@ namespace IBL.BO
         public Priority Priority { get; set; }
         public StatusParcel StatusParcel { get; set; }
         public CustomerInParcel Senderld { get; set; }//לקוח בחבילה
+        public override string ToString()
+        {
+            return this.ToStringProperty();
+        }
     }
 }
