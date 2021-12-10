@@ -196,7 +196,6 @@ namespace IBL
                 return false;
             return false;//נוצר
         }
-        //איסוף חבילה לרחפן
         public void PickUpPackage(int id)//pick up package by drone
         {
             if (id < 0)
@@ -291,6 +290,45 @@ namespace IBL
                     BlDrone[i] = drone;//לשנות לאחר שינויים
                 }
             }
+        }
+        public void PackageDeliveryByDrone(int Id)//אספקת חבילה ע"י רחפן
+        {
+            //רחפן שאסף ולא סיפק את החבילה
+            //IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
+            //if(StatuseParcelKnowBool(int idP))
+            IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
+           
+            for(int i=0;i<a.Count();i++)
+            {
+                if(a.ElementAt(i).Droneld== Id)
+                {
+                    IDAL.DO.Parcel parcel = a.ElementAt(i);
+
+                    if(parcel.Delivered!=default)//אספו
+                   
+                        throw new Exception();
+                    
+                       for (int j = 0; j < BlDrone.Count; j++)
+                        {
+                        if (BlDrone[j].Id == Id)
+                        {
+                            DroneToList drone = BlDrone[j];
+
+
+                            double distance = DistanceTo(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
+                            drone.StatusBatter -= BatteryConsumption(distance, (WeightCategories)parcel.Weight);
+                            drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Senderld).Lattitude;
+                            drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Senderld).Longitude;
+                            parcel.PichedUp = DateTime.Now;
+                        }
+                            
+
+                        }
+                        }
+
+                }
+            }
+            
         }
        
     }
