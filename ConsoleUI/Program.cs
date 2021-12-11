@@ -17,7 +17,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-
+            int idPaecel = 0;
             DalObject.DalObject d1 = new DalObject.DalObject();//station 
             int option;
             // int a;
@@ -66,10 +66,10 @@ namespace ConsoleUI
                                         {
                                             d1.AddStation(st);//v
                                         }
-                                         catch (IDAL.DO.Excptions )
-                                                 {
-                                               throw new Excptions();
-                                                 }
+                                        catch (Exception e)
+                                               {
+                                             Console.WriteLine(e);
+                                               }
                                         break;
                                     }
 
@@ -93,8 +93,15 @@ namespace ConsoleUI
                                             dr.Weight = WeightCategories.Medium;
                                         if (ch == 2)
                                             dr.Weight = WeightCategories.Heavy;
-                                        
-                                        d1.AddDrone(dr);//v
+                                        try
+                                        {
+                                            d1.AddDrone(dr);//v
+                                        }
+                                      catch (Exception e)
+                                        {
+                                            Console.WriteLine(e);
+                                        }
+                                       
                                         break;
 
                                     }
@@ -130,13 +137,13 @@ namespace ConsoleUI
                                     {
                                         int ch;
                                         Parcel pr = new Parcel();
-                                        Console.WriteLine("Enter the id of the Parcel");
-                                        int id;
-                                        b = int.TryParse(Console.ReadLine(), out id);
-                                        pr.Senderld = id;//תז
+                                        
+                                        pr.Id = idPaecel;
+                                        idPaecel++;
+                                        int idSander;
                                         Console.WriteLine("Enter the Senderld of the Parcel");
-                                        b = int.TryParse(Console.ReadLine(), out id);
-                                        pr.Senderld = id;//תז שולח
+                                        b = int.TryParse(Console.ReadLine(), out idSander);
+                                        pr.Senderld = idSander;//תז שולח
                                         Console.WriteLine("Enter the Targetld of the Parcel");
                                         int target;
                                         b = int.TryParse(Console.ReadLine(), out target);
@@ -157,14 +164,8 @@ namespace ConsoleUI
                                             pr.Priority = Priority.quick;
                                         if (ch == 2)
                                             pr.Priority = Priority.emergency;
-
-                                        pr.Droneld = 0;
-                                        pr.Requested = DateTime.Now;
-                                        //DateTime.AddMinutes(double(rand));
-                                        pr.PichedUp = DateTime.Now;//איזה לעשות כאן
-                                        pr.Delivered = DateTime.Now;//איזה שעה עושים כאן?
                                         d1.AddParcel(pr);
-                                       // Console.WriteLine("The number of the parcel is: " + id);
+                                       
                                         break;
 
                                     }  
@@ -242,22 +243,22 @@ namespace ConsoleUI
                                 case 1://station תצוגת תחנת-בסיס 
                                     Console.WriteLine("Enter station Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    d1.PrintBaseStation(option);
+                                    Console.WriteLine(d1.GetStation(option));
                                  break;
                                 case 2://drone  תצוגת רחפן
                                     Console.WriteLine("Enter drone Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                   d1.PrintDrone(option);
+                                    Console.WriteLine(d1.GetDrone(option)) ;
                                     break;
                                 case 3: //customer תצוגת לקוח
                                     Console.WriteLine("Enter customer Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                   d1.PrintCustomer(option);
+                                    Console.WriteLine(d1.GetCustomer(option));
                                     break;
                                 case 4://parcel תצוגת חבילה
                                     Console.WriteLine("Enter parcel Id:");
                                     b = int.TryParse(Console.ReadLine(), out option);
-                                    d1.PrintParcel(option);
+                                    Console.WriteLine( d1.GetParcel(option));
                                     break;
                                 default:
                                     break;
@@ -280,16 +281,20 @@ namespace ConsoleUI
                             switch (option)
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
-                                    d1.PrindBaseStationList();
+                                    foreach (IDAL.DO.Station station in d1.GetAllStation())
+                                        Console.WriteLine(d1.GetStation(option));
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
-                                   d1.PrintDronesList();
+                                    foreach (IDAL.DO.Drone drone in d1.GetAllDrone())
+                                        Console.WriteLine(d1.GetDrone(option));
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
-                                   d1.PrintCustomersList();
+                                    foreach (IDAL.DO.Customer customer in d1.GetAllCustomer())
+                                        Console.WriteLine(d1.GetCustomer(option));
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
-                                    d1.PrintParcelsList();
+                                    foreach (IDAL.DO.Parcel parcel in d1.GetAllParcel())
+                                        Console.WriteLine(d1.GetStation(option));
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
                                     d1.PrintUnconnectedParceslList();
@@ -298,7 +303,8 @@ namespace ConsoleUI
                                    d1.PrintAvailableStationToChargeList();
                                     break;
                                 case 7://רשימת רחפנים בטעינה
-                                   d1.PrindDroneChargeList();
+                                    foreach (IDAL.DO.Drone drone in d1.PrindDroneChargeList())
+                                        Console.WriteLine(d1.GetDrone(option));
                                     break;
                                 default:
                                     break;

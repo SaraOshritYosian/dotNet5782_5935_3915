@@ -76,8 +76,8 @@ namespace IBL
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
-                c.LocationOfCustomer.Latitude = customer.Lattitude;
-                c.LocationOfCustomer.Longitude = customer.Longitude;
+                Location newC = new Location() { Latitude = customer.Lattitude, Longitude = customer.Longitude };
+                c.LocationOfCustomer=newC;
                 c.ListOfPackagesFromTheCustomer = (List<ParcelInCustomer>)ListParcelFromCustomers(id);// רשימה של מישלוחים שמקבל
                 c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
@@ -129,7 +129,7 @@ namespace IBL
         }
 
 
-        public BO.CustomerToList CostumerToListToPrint(int idc)
+        public BO.CustomerToList CostumerToListToPrint(int idc)//למה לא מדפיס את השם והטלפון
         {
             BO.CustomerToList c = new BO.CustomerToList();
             try
@@ -150,18 +150,6 @@ namespace IBL
             return c;
         }//v
 
-        public void PrintCustomersList()//print all dtone
-        {
-            IEnumerable<IDAL.DO.Customer> a = accessIDal.GetAllCustomer();
-            for (int i = 0; i < a.Count(); i++)
-            {
-                Console.WriteLine(CostumerToListToPrint(a.ElementAt(i).Id));
-            }
-        }
-        public void PrintCustomerById(int ids)//print drone get id of drone
-        {
-            Console.WriteLine(GetCustomer(ids).ToString());
-        }
         private int NumberOfPackagesSentAndDelivered(int idc)//מחזיר מספר חבילות ששלח וסופקו מקבל ת"ז של הלקוח ששלח
         {
             int mone = 0;

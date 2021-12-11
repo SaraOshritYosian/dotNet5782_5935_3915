@@ -8,22 +8,40 @@ namespace IBL
 {
     public partial class BL 
     {
+        private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
+        {
+            int moneDroneInCharge= accessIDal.MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
+            if (moneDroneInCharge > 0)
+            {
+                List<int> ListDroneId = new List<int>();//vv
+                ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
+                List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
+                for (int i = 0; i < ListDroneId.Count(); i++)
+                {
+                    DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
+                    a.Add(droneInCharge);
+                }
+                return a;
 
-        
+            }
+            return null;
+
+        }
+
 
         public BO.Station GetStation(int id)// v
         {
             BO.Station c = new BO.Station();
             try
             {
-                IDAL.DO.Station station = accessIDal.GetStation(id);
+                IDAL.DO.Station station = accessIDal.GetStation(id); 
+
                 c.Id = station.Id;
                 c.Name = station.Name;
-                c.LocationStation.Latitude = station.Latitude;
-                c.LocationStation.Longitude = station.Longitude;
-                c.ChargeSlotsFree = station.ChargeSlots;
+                Location newBo = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                c.LocationStation = newBo;
+                c.ChargeSlotsFree = station.ChargeSlots; 
                 c.DroneInChargeList = ListDroneInStation(id);
-
             }
             catch (IDAL.DO.Excptions ex)
             {
@@ -41,6 +59,7 @@ namespace IBL
             catch(IDAL.DO.Excptions) {
                 throw new AlreadyExistException();
             }
+           
         }
         public void UpdateStation(int idS, int names,int chargeSlote)//v
         {
@@ -69,27 +88,13 @@ namespace IBL
             }
         }
       
-        private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
-        {
-            List<int> ListDroneId = new List<int>();//vv
-            ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
-            List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
-            for (int i = 0; i < ListDroneId.Count(); i++)
-            {
-                DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
-                a.Add(droneInCharge);
-            }
-            return a;
-
-        }
+       
 
         public BO.StationToList StationToListToPrint(int id)
         {
             BO.StationToList c = new BO.StationToList();
             try
             {
-                
-                Console.WriteLine(accessIDal.GetStation(id));
                 IDAL.DO.Station station = accessIDal.GetStation(id);
                 c.Id = station.Id;
                 c.Name = station.Name;
@@ -103,38 +108,21 @@ namespace IBL
             }
             return c;
         }
-        public void PrintStationList()//print all station
+  
+  
+     
+        public IEnumerable <IDAL.DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
+           
             IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
-            for(int i=0;i<a.Count(); i++)
-            {
-                Console.WriteLine(StationToListToPrint(a.ElementAt(i).Id));
-            }
-        }
-        public void PrintStationById(int ids)//print station get id of station
-        {
-            Console.WriteLine(GetStation(ids).ToString());
-        }
-        public void PrintAvailableStationToChargeList()//ptint list station who have available to charge 
-        {
-            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
-            for (int i = 0; i < a.Count(); i++)
-            {
-                if (a.ElementAt(i).ChargeSlots>0)
-                    Console.WriteLine(StationToListToPrint(a.ElementAt(i).Id));
-
-            }
-        }
-        public BO.StationToList PrintAvailableStationToChargeList(int id)//ptint list station who have available to charge 
-        {
-            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
+            List < IDAL.DO.Station > b= new List<IDAL.DO.Station>();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).ChargeSlots > 0)
-                    return StationToListToPrint(a.ElementAt(i).Id);
-
+                     b.Add(a.ElementAt(i));
+                 
             }
-            throw new Exception();
+            return b;
         }
 
     }

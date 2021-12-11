@@ -72,13 +72,15 @@ namespace IBL
             return bop;
 
         }
-        public void AddParcel(BO.Parcel parcel)//v
+        public void AddParcel(Parcel parcel)//v
         {
             IDAL.DO.Parcel p = new IDAL.DO.Parcel();
+            p.Id = parcel.Id;
             p.Senderld = parcel.CustomerInParcelSender.Id;
             p.Targetld = parcel.CustomerInParcelTarget.Id;
             p.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
             p.Priority = (IDAL.DO.Priority)(WeightCategories)parcel.Priority;
+            p.Droneld = 0;
             p.Requested = DateTime.Now;
             p.Scheduled = default;
             p.PichedUp = default;
@@ -146,18 +148,7 @@ namespace IBL
 
         }
 
-        public void PrintParcelList()//print all parcel
-        {
-            IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
-            for (int i = 0; i < a.Count(); i++)
-            {
-                Console.WriteLine(ParcelToListToPrint(a.ElementAt(i).Id));
-            }
-        }
-        public void PrintParcelById(int ids)//print parcel get id of parcel
-        {
-            Console.WriteLine(GetParcel(ids).ToString());
-        }
+     
 
         public void PrintUnconnectedParceslList()//ptint list parcel that not connection to drone
         {

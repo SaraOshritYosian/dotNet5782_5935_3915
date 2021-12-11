@@ -14,37 +14,35 @@ namespace IBL
          BO.Customer GetCustomer(int id);
          void UpdateCustomer(int id, string name, string phone);
          void AddCustomer(Customer customer);
-        void PrintCustomersList();
-         void PrintCustomerById(int ids);
+      
+        
         #endregion
 
         #region Drone
 
         BO.Drone GetDrone(int id);
-      //   IEnumerable<BO.Drone> GetAllDrone();
         void AddDrone(Drone drone,int cod);//add
         void UpdateDrone(int id, string name);
         void SendingDroneToCharging(int droneId);
          void ReleaseDrone(int id, TimeSpan time);
-         void PrintDroneList();
-         void PrintDroneById(int ids);
+       
+       
         #endregion
 
         #region Station
         BO.Station GetStation(int id);
         void AddStation(Station station);
          void UpdateStation(int idS, int names, int chargeSlote);
-         void PrintStationList();
-        void PrintStationById(int ids);
-         void PrintAvailableStationToChargeList();
+     
 
         #endregion
 
         #region Parcel
         BO.Parcel GetParcel(int id);
          void AddParcel(BO.Parcel parcel);
-         void PickUpPackage(int id);
-      
+        public void PackageDeliveryByDrone(int Id);//הספקה
+         void PickUpPackage(int id);//איסוף
+        void AssignPackageToDrone(int id);//שיוך
 
         #endregion
 

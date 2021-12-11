@@ -262,19 +262,7 @@ namespace IBL
 
         }
        
-        public void PrintDroneList()//print all dtone
-        {
-            IEnumerable<IDAL.DO.Drone> a = accessIDal.GetAllDrone();
-            for (int i = 0; i < a.Count(); i++)
-            {
-                Console.WriteLine(DroneToLisToPrint(a.ElementAt(i).Id));
-            }
-        }
-        public void PrintDroneById(int ids)//print drone get id of drone
-        {
-            Console.WriteLine(GetDrone(ids).ToString());
-        }
-
+      
         public double BatteryConsumption(double kilometrs, Enums.WeightCategories weightcategories)// A function that gets a mileage and calculates how much battery it takes to get there
         {
             if (weightcategories == 0)
