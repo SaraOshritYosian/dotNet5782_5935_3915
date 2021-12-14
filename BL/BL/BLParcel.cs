@@ -244,7 +244,7 @@ namespace IBL
         {
             try
             {
-
+                WeightCategories weight = GetDrone(idd).Weight;
                 DroneToList BlDronepp = DroneToLisToPrint(idd);//drone from BL
                 Location locationDrone = GetDrone(idd).LocationDrone;//Location drone
                 IEnumerable<IDAL.DO.Parcel> aa = accessIDal.GetAllParcel();
@@ -260,7 +260,8 @@ namespace IBL
                     double fatToStationMinDis = returnMinDistancFromLicationToStation(location);//מרחק מהתחנה הקרובה לרחפן לאחר מישלוח
                     double battery1 = BatteryConsumption(farFromSToT, (WeightCategories)peoperty.ElementAt(i).Weight) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקום של ולמקום המשלוח ועד שהוא הול
                     double batteryToStation1 = BatteryConsumption(fatToStationMinDis);
-                    if (BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0)
+                    WeightCategories weightPa = (WeightCategories)peoperty.ElementAt(i).Weight;
+                    if ((BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0)&&(weightPa <= weight))//המשב בסדר וגם הסוללה תספיק כדי להגיע לתחנה הקרובה אם יצטרך
                     {
                         return peoperty.ElementAt(i);
                     }
