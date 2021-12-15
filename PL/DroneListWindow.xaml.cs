@@ -23,5 +23,11 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void AddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            DronWindow dr = new DronWindow();
+            dr.Show();
+        }
     }
 }

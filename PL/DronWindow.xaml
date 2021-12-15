@@ -6,25 +6,24 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DronWindow" Height="640" Width="800">
-    
+
     <Grid>
-        <Grid Name="MainGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="400*"/>
-            </Grid.RowDefinitions>
-            <Grid/>
+        <Grid Name="MainGrid0">
+            
             <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                     VerticalAlignment="Stretch" Width="auto">
-                    <Grid.ColumnDefinitions>
+                   VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
             </Grid>
-            <Grid/>
-            
+            <Label Content="Label" HorizontalAlignment="Left" Margin="215,82,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="227,160,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="240,254,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Height="1600" Margin="331,160,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+
 
         </Grid>
 

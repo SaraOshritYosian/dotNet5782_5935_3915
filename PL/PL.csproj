@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="drone-delivery-supply-chain-1200px-1024x690.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="drone-delivery-supply-chain-1200px-1024x690.jpg" />
   </ItemGroup>
 
 </Project>

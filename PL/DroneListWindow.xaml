@@ -9,8 +9,8 @@
     <Grid>
         <Grid Name="MainGrid">
             <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
                 <RowDefinition Height="45*"/>
-                <RowDefinition Height="59*"/>
             </Grid.RowDefinitions>
             <Grid/>
             <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,0,0,4">
@@ -21,6 +21,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
             </Grid>
+            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="638,20,0,0" VerticalAlignment="Top" Height="47" Width="101" Click="AddDrone_Click"/>
 
         </Grid>
 

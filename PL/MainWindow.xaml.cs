@@ -24,5 +24,12 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DroneListWindow we = new DroneListWindow();
+            we.Show();
+            this.Close();
+        }
     }
 }
