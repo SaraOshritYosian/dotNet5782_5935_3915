@@ -276,8 +276,13 @@ namespace IBL
         {
             return kilometrs * Free;
         }
+        public IEnumerable< BO.DroneToList> GetDrons()
+        {
+            return from Drone in BlDrone
+                   select Drone;
+        }
 
-        
+
     }
 
 }
