@@ -8,11 +8,12 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid x:Name="Back">
+            
             <Grid.Background>
                 <ImageBrush/>
             </Grid.Background>
-            <Image HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="735" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="31,-4,0,0"/>
-            <Button Content="Enter" HorizontalAlignment="Left" Margin="284,317,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
+            <Image HorizontalAlignment="Center" Height="450" VerticalAlignment="Top" Width="800" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill"/>
+            <Button Content="Enter" HorizontalAlignment="Left" Margin="300,300,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
                 <Button.Background>
                     <ImageBrush/>
                 </Button.Background>

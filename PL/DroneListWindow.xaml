@@ -9,19 +9,29 @@
     <Grid>
         <Grid Name="MainGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="45*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <Grid/>
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,0,0,4">
+
+            <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+                    VerticalAlignment="Stretch" Width="auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
+                <Button x:Name="Add_Drone" Content="Add_Drone" Grid.Column="3" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="58" Width="129" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
             </Grid>
-            <Button x:Name="AddDrone" Content="Add Drone" HorizontalAlignment="Left" Margin="638,20,0,0" VerticalAlignment="Top" Height="47" Width="101" Click="AddDrone_Click"/>
+            <ListView x:Name="DronesListView"  Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
 
         </Grid>
 

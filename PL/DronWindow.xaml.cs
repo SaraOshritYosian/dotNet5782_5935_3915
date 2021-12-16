@@ -19,9 +19,28 @@ namespace PL
     /// </summary>
     public partial class DronWindow : Window
     {
-        public DronWindow()
+        IBL.BL accseccBL2;
+        public DronWindow(IBL.BL accseccBL1)
         {
             InitializeComponent();
+        accseccBL2=accseccBL1;
+    }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+           // DroneListWindow we = new DroneListWindow(accseccBL2);
+           // we.Show();
+            this.Close();
+        }
+
+        private void ComboBoxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
