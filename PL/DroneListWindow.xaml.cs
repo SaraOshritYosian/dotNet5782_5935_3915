@@ -24,11 +24,20 @@ namespace PL
         {
             InitializeComponent();
             accseccBL1 = accseccBL;
-            DronesListView.ItemsSource = accseccBL1.GetDrons();
+            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(IBL.BO.Enums.StatusDrone));
+            ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
         }
         private void Add_Drone_Click(object sender, RoutedEventArgs e)
         {
             DronWindow dr = new DronWindow(accseccBL1);
+            dr.Show();
+        }
+
+        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DroneToList drne = DronesListView.SelectedItem as DroneToList;
+           DronWindow dr = new DronWindow(accseccBL1);
             dr.Show();
         }
     }

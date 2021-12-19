@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="680" Width="800">
     <Grid>
         <Grid>
-            
+
             <Grid.Background>
                 <ImageBrush/>
             </Grid.Background>
-            <Image HorizontalAlignment="Center" Height="450" VerticalAlignment="Top" Width="800" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill"/>
-            <Button Content="Enter" HorizontalAlignment="Left" Margin="300,300,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
+            <Image HorizontalAlignment="Center" Height="680" VerticalAlignment="Top" Width="800" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill"/>
+            <Button Content="Enter" HorizontalAlignment="Center" Margin="0,500,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
                 <Button.Background>
                     <ImageBrush/>
                 </Button.Background>

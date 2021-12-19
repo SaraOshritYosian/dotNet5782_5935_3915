@@ -12,15 +12,15 @@
 
         <Grid x:Name="MainGrid0">
 
-            <Grid x:Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
+            <Grid x:Name="GridAddDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+                   VerticalAlignment="Stretch" Width="auto" d:IsLocked="True" d:IsHidden="True">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="211*"/>
                     <ColumnDefinition Width="189*"/>
                     <ColumnDefinition Width="200*"/>
                     <ColumnDefinition Width="200*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Label x:Name="LabelModel" Content="Model" HorizontalAlignment="Left" Margin="92,74,0,0" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="18" Height="31" Width="69"/>
                 <Label x:Name="LabelWeight" Content="Weight" HorizontalAlignment="Left" Margin="92,135,0,0" VerticalAlignment="Top" Height="38" Width="110" FontFamily="Arial Black" FontSize="18"/>
                 <Label x:Name="LabelStationId" Content="Station To Charge" HorizontalAlignment="Left" Margin="92,210,0,0" VerticalAlignment="Top" Height="45" Width="113" FontFamily="Arial Black" FontSize="18"/>
@@ -31,9 +31,52 @@
                 <Button x:Name="ButtonAdd" Content="Add" Grid.Column="3" HorizontalAlignment="Left" Margin="22,488,0,0" VerticalAlignment="Top" Width="140" Height="73" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click"/>
             </Grid>
 
+            <Grid x:Name="GridUpDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+                   VerticalAlignment="Stretch" Width="auto">
+                <Grid Name="MainGrid">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF94ACB8" Offset="0"/>
+                            <GradientStop Color="#FFFBEED2" Offset="0.515"/>
+                            <GradientStop Color="#FF897051" Offset="0.858"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="17*"/>
+                        <RowDefinition Height="35*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="217*"/>
+                        <ColumnDefinition Width="236*"/>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="334*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="LabelId1" Content="Id" HorizontalAlignment="Left" Margin="0,37,152,0" VerticalAlignment="Top" RenderTransformOrigin="-0.5,0.599" Height="28" Width="38" FontSize="18" FontFamily="Arial Black"/>
+                    <Label x:Name="LabelId2" Content="" HorizontalAlignment="Left" Margin="71,37,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,-0.287" Height="28" Width="38" FontSize="18" FontFamily="Arial Black"/>
+                    <Label x:Name="LabelModel1" Content="Model" Grid.Column="1" HorizontalAlignment="Left" Margin="7,37,0,0" VerticalAlignment="Top" Height="35" Width="95" FontSize="18" FontFamily="Arial Black"/>
+                    <TextBox x:Name="TexBoxModel" Grid.Column="1" HorizontalAlignment="Left" Margin="82,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" Height="35"/>
+                    <Label x:Name="LabelWeight1" Content="Weight" HorizontalAlignment="Left" Margin="13,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.605,-0.326" Height="34" Width="86" FontSize="18" FontFamily="Arial Black"/>
+                    <Label x:Name="LabelWeight2" Content="" HorizontalAlignment="Left" Margin="113,0,0,0" VerticalAlignment="Center" Height="26" Width="38" RenderTransformOrigin="0.579,2.636" FontSize="18" FontFamily="Arial Black"/>
+                    <Label Content="Location" HorizontalAlignment="Left" Margin="9,160,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Arial Black" Height="31" Width="96"/>
+                    <Label Content="" HorizontalAlignment="Left" Margin="112,161,0,0" VerticalAlignment="Top" Width="70" Height="26"/>
+                    <Button x:Name="ButtonUpdate" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="42,136,0,0" VerticalAlignment="Top" Width="105" Height="40" FontSize="18" FontFamily="Arial Black"/>
+                    <Label x:Name="LabelStatuseDrone1" Content="Statuse Drone" Grid.Column="3" HorizontalAlignment="Left" Margin="65,15,0,0" VerticalAlignment="Top" Height="44" Width="150" FontSize="18" FontFamily="Arial Black"/>
+                    <Label Content="" Grid.Column="3" HorizontalAlignment="Left" Margin="57,146,0,0" VerticalAlignment="Top" Width="156" Height="59" Grid.RowSpan="2"/>
+                    <Label x:Name="LabelStatuseDrone2" Content="" Grid.Column="3" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" Width="84" FontSize="18" FontFamily="Arial Black" Height="31"/>
+                    <Label Content="Battary" Grid.Column="3" HorizontalAlignment="Left" Margin="111,14,0,0" Grid.Row="1" VerticalAlignment="Top" Width="98" Height="56" FontSize="18" FontFamily="Arial Black"/>
+                   
+                    <Label Content="" HorizontalAlignment="Left" Margin="24,30,0,0" Grid.Row="1" VerticalAlignment="Top" Width="99" Height="25"/>
+                    <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Left" Margin="43,139,0,0" Grid.Row="1" VerticalAlignment="Top" Width="137" Height="103"/>
+
+                </Grid>
 
 
+
+
+
+            </Grid>
         </Grid>
-
+        <Label Content="Label" HorizontalAlignment="Left" Margin="914,345,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

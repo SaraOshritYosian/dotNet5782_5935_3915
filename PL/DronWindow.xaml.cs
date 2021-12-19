@@ -25,10 +25,7 @@ namespace PL
         {
             InitializeComponent();
             accseccBL2 = accseccBL1;
-            ComboBoxWeight.Items.Add("Light");
-            //ComboBoxWeight.ItemsSource(accseccBL2.)
-            ComboBoxWeight.Items.Add("Medium");
-            ComboBoxWeight.Items.Add("Heavy");
+            ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
             List<int> aa = new List<int>();
            for(int i = 0; i < accseccBL2.AvailableStationToChargeList().Count(); i++)
             {
@@ -36,7 +33,10 @@ namespace PL
             }
             
         }
-   
+        private void ComboBoxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //שומר את הבחירה
+        }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -45,14 +45,14 @@ namespace PL
             idDrone++;
             drone1.Model = (Int32.Parse(TexModel.Text)).ToString();//model
             drone1.Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedIndex;//weight
-            try
-            {
+           // try
+           // {
                 accseccBL2.AddDrone(drone1, ComboBoxStation.SelectedIndex);//station
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+          //  }
+          //  catch (Exception ex)
+          //  {
+               // MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+           // }
 
             // this.Close();
         }
@@ -64,11 +64,6 @@ namespace PL
             this.Close();
         }
 
-        private void ComboBoxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBoxWeight.Items.Add("Light");
-            ComboBoxWeight.Items.Add("Medium");
-            ComboBoxWeight.Items.Add("Heavy");
-        }
+      
     }
 }
