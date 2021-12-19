@@ -21,9 +21,12 @@ namespace PL
     {
         static int idDrone = 0;
         IBL.BL accseccBL2;
-        public DronWindow(IBL.BL accseccBL1)
+        public DronWindow(IBL.BL accseccBL1)//add
         {
+            
             InitializeComponent();
+            GridAddDrone.IsEnabled = true;
+            GridUpDrone.IsEnabled = false;
             accseccBL2 = accseccBL1;
             ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
             List<int> aa = new List<int>();
@@ -32,6 +35,40 @@ namespace PL
                 ComboBoxStation.Items.Add(accseccBL2.AvailableStationToChargeList().ElementAt(i).Id);
             }
             
+        }
+        public DronWindow( IBL.BL accseccBL1,IBL.BO.DroneToList drone)//update
+        {
+            GridUpDrone.IsEnabled = true;
+            GridAddDrone.IsEnabled = false;
+            InitializeComponent();
+            accseccBL2 = accseccBL1;
+            IBL.BO.DroneToList dd = drone;
+            LabelId2.DataContext = Convert.ToString(dd.Id);
+            LabelWeight2.DataContext = dd.Weight;//משקל
+            LabeLocation2.DataContext = dd.LocationDrone;//מיקופ
+            TexBoxModel.DataContext = dd.Model;//מודל
+            //אם יש שינוי
+            statuse.DataContext = dd.StatusDrone;//מצב
+            TexBattery.DataContext = dd.StatusBatter;//בטריה
+            
+            LinearGradientBrush myBrush = new LinearGradientBrush();//צבע בטריה
+            myBrush.GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
+            myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
+            myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
+            if(dd.StatusDrone==enum)
+            TexBattery.Background = myBrush;
+            //if (dd.StatusBatter < 21)
+
+            //    if (dd.StatusBatter < 21)
+            //        TexBattery.Background = System.Drawing.Color.Red;
+            //if ((dd.StatusBatter > 21)& (dd.StatusBatter<80))
+            //    TexBattery.Background = System.Drawing.Color.Red;
+            //if (dd.StatusBatter < 100& dd.StatusBatter>80)
+            //    TexBattery.Background = #FF60F2A1;
+
+       
+        
+        
         }
         private void ComboBoxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

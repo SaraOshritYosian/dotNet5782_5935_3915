@@ -37,7 +37,7 @@ namespace PL
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneToList drne = DronesListView.SelectedItem as DroneToList;
-           DronWindow dr = new DronWindow(accseccBL1);
+            DronWindow dr = new DronWindow(accseccBL1, drne);
             dr.Show();
         }
     }
