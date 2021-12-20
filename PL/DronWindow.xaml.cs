@@ -20,13 +20,16 @@ namespace PL
     public partial class DronWindow : Window
     {
         static int idDrone = 0;
+        IBL.BO.DroneToList droneTo;
         IBL.BL accseccBL2;
+        TimeSpan timee;
         public DronWindow(IBL.BL accseccBL1)//add
         {
             
             InitializeComponent();
-            GridAddDrone.IsEnabled = true;
-            GridUpDrone.IsEnabled = false;
+            GridUpDrone.Visibility = Visibility.Hidden;//עדכון מופעל
+            //GridAddDrone.IsEnabled = true;//מופעל
+           // GridUpDrone.IsEnabled = false;
             accseccBL2 = accseccBL1;
             ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
             List<int> aa = new List<int>();
@@ -38,37 +41,81 @@ namespace PL
         }
         public DronWindow( IBL.BL accseccBL1,IBL.BO.DroneToList drone)//update
         {
-            GridUpDrone.IsEnabled = true;
-            GridAddDrone.IsEnabled = false;
+           // GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
+           // GridAddDrone.IsEnabled = false;
             InitializeComponent();
             accseccBL2 = accseccBL1;
-            IBL.BO.DroneToList dd = drone;
-            LabelId2.DataContext = Convert.ToString(dd.Id);
-            LabelWeight2.DataContext = dd.Weight;//משקל
-            LabeLocation2.DataContext = dd.LocationDrone;//מיקופ
-            TexBoxModel.DataContext = dd.Model;//מודל
+            droneTo = drone;
+            LabelId2.Content = Convert.ToString(droneTo.Id);
+            LabelWeight2.Content = droneTo.Weight;//משקל
+            LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
+            //TexBoxModel.IsVisibleChanged +=true;
+            TexBoxModel.Text = droneTo.Model;//מודל
             //אם יש שינוי
-            statuse.DataContext = dd.StatusDrone;//מצב
-            TexBattery.DataContext = dd.StatusBatter;//בטריה
             
+            if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)
+                statuse.Content = " הרחפן בטעינה";
+            if (droneTo.StatusDrone == Enums.StatusDrone.available)
+                statuse.Content = " הרחפן  זמין";
+            if (droneTo.StatusDrone == Enums.StatusDrone.delivered)
+            {
+                int a = droneTo.IdParcel;
+                if (a != 0)
+                {
+                    Enums.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
+
+                    if (pp == Enums.StatusParcel.collected)//סופק
+                        statuse.Content = "הרחפן בדרך לספק את המשלוח ללקוח";
+                    else
+                        statuse.Content = " הרחפן  בדרך לאסוף את המשלוח מהלקוח";
+                }
+                
+            }  
+            TexBattery.Text = droneTo.StatusBatter.ToString()+"%";//בטריה
+            TexBoxModel.IsReadOnly = true;//טקסט מודל רק לקריאה
             LinearGradientBrush myBrush = new LinearGradientBrush();//צבע בטריה
-            myBrush.GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
-            myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
-            myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
-            if(dd.StatusDrone==enum)
+            if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
+            {
+                BottonToFun.Content = "Release from charging";
+                BottonToFun2.IsEnabled =true ;
+            }
+            if (droneTo.StatusDrone == Enums.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
+            {
+                BottonToFun.Content = "Send for loading";
+                BottonToFun2.Content = "Assignment to the package";
+            }
+            if (droneTo.StatusDrone == Enums.StatusDrone.delivered)//אם במצב משלוח אז יש אפשרות או לאסוף חבילה או לספק
+            {
+                BottonToFun.Content = "Collect a package";
+                BottonToFun2.Content = "Provide package";
+            }
             TexBattery.Background = myBrush;
-            //if (dd.StatusBatter < 21)
+            if (droneTo.StatusBatter < 21)
+            {
+                myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
+                TexBattery.Background = myBrush;
+                int i = 0;
+                while (i == 1)
+                {
+                    TexBattery.Width += 10;
+                    TexBattery.Height += 10;
+                    TexBattery.Width -= 10;
+                    TexBattery.Height -= 10;
+                }
+            }
+                
+            if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
+            {
+                myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
+                TexBattery.Background = myBrush;
+            }
+                
+            if (droneTo.StatusBatter < 100 & droneTo.StatusBatter > 80)
+            {
+                myBrush.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
+                TexBattery.Background = myBrush;
+            }     
 
-            //    if (dd.StatusBatter < 21)
-            //        TexBattery.Background = System.Drawing.Color.Red;
-            //if ((dd.StatusBatter > 21)& (dd.StatusBatter<80))
-            //    TexBattery.Background = System.Drawing.Color.Red;
-            //if (dd.StatusBatter < 100& dd.StatusBatter>80)
-            //    TexBattery.Background = #FF60F2A1;
-
-       
-        
-        
         }
         private void ComboBoxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -101,6 +148,63 @@ namespace PL
             this.Close();
         }
 
-      
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
+        }
+
+        private void BottonToFun_Click(object sender, RoutedEventArgs e)
+        {
+            if(BottonToFun.Content == ("Release from charging"))//שחרור
+            {
+                
+                accseccBL2.ReleaseDrone(droneTo.Id, timee);
+            }
+            if (BottonToFun.Content == ("Send for loading"))//שליחה
+            {
+
+                accseccBL2.SendingDroneToCharging(droneTo.Id);
+            }
+            if (BottonToFun.Content == ("Collect a package"))//לאסוף
+            {
+
+                accseccBL2.PickUpPackage(droneTo.Id);
+            }
+        }
+
+        private void BottonToFun2_Click(object sender, RoutedEventArgs e)
+        {
+            if (BottonToFun2.Content == ("Assignment to the package"))//שיוך
+            {
+
+                accseccBL2.AssignPackageToDrone(droneTo.Id);
+            }
+            if (BottonToFun2.Content == ("Provide package"))
+            {
+
+                accseccBL2.PackageDeliveryByDrone(droneTo.Id);//לספק
+            }
+        }
+
+        private void ButtoneMod_Click(object sender, RoutedEventArgs e)
+        {
+
+           string model = TexBoxModel.Text;
+            TexBoxModel.Clear();
+        }
+
+        private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            TexBoxModel.IsReadOnly = false;
+            string modelnew = TexBoxModel.Text;
+            try { accseccBL2.UpdateDrone(droneTo.Id, modelnew); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+
+        }
     }
 }

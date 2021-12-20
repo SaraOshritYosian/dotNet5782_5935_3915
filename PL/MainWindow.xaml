@@ -25,7 +25,7 @@
                     </LinearGradientBrush>
                 </Image.OpacityMask>
             </Image>
-            <Button Content="Enter" HorizontalAlignment="Center" Margin="0,500,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
+            <Button x:Name="Button1" Content="Enter" HorizontalAlignment="Center" Margin="0,500,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
                 <Button.Background>
                     <ImageBrush/>
                 </Button.Background>

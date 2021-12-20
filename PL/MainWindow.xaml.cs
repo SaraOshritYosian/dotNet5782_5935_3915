@@ -26,6 +26,7 @@ namespace PL
         {
             InitializeComponent();
             accsessBL = new IBL.BL();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -281,7 +281,18 @@ namespace IBL
             return from Drone in BlDrone
                    select Drone;
         }
+        public IEnumerable<BO.DroneToList> GetDronsByWeight(Enums.WeightCategories weightcategories)
+        {
 
+            List < BO.DroneToList > dd= new List<BO.DroneToList>();
+            
+            for (int i = 0; i < BlDrone.Count(); i++)
+            {
+                if (BlDrone.ElementAt(i).Weight == weightcategories)
+                    dd.Add(BlDrone.ElementAt(i));
+            }
+            return dd;
+        }
 
     }
 

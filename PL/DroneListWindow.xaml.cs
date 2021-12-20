@@ -40,5 +40,10 @@ namespace PL
             DronWindow dr = new DronWindow(accseccBL1, drne);
             dr.Show();
         }
+
+        private void ComboBoxMaxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+         //   DronesListView.ItemsSource = accseccBL1.GetDronsByWeight(sender as ComboBoxMaxWeight.SelectedItem);
+        }
     }
 }
