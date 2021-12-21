@@ -19,13 +19,13 @@ namespace PL
     /// </summary>
     public partial class DronWindow : Window
     {
-        static int idDrone = 0;
+        static int idDrone = 11;
         IBL.BO.DroneToList droneTo;
         IBL.BL accseccBL2;
         TimeSpan timee;
         public DronWindow(IBL.BL accseccBL1)//add
         {
-            
+           
             InitializeComponent();
             GridUpDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             //GridAddDrone.IsEnabled = true;//מופעל
@@ -41,9 +41,13 @@ namespace PL
         }
         public DronWindow( IBL.BL accseccBL1,IBL.BO.DroneToList drone)//update
         {
-           // GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
-           // GridAddDrone.IsEnabled = false;
+            
+            
             InitializeComponent();
+            GridAddDrone.IsEnabled = true;
+            GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
+            comoboxTime.Visibility = Visibility.Hidden;
+            LabelTime.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL1;
             droneTo = drone;
             LabelId2.Content = Convert.ToString(droneTo.Id);
@@ -72,12 +76,12 @@ namespace PL
                 
             }  
             TexBattery.Text = droneTo.StatusBatter.ToString()+"%";//בטריה
-            TexBoxModel.IsReadOnly = true;//טקסט מודל רק לקריאה
+           // TexBoxModel.IsReadOnly = true;//טקסט מודל רק לקריאה
             LinearGradientBrush myBrush = new LinearGradientBrush();//צבע בטריה
             if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
                 BottonToFun.Content = "Release from charging";
-                BottonToFun2.IsEnabled =true ;
+                BottonToFun2.Visibility =Visibility.Hidden ;
             }
             if (droneTo.StatusDrone == Enums.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
@@ -128,17 +132,19 @@ namespace PL
             drone1.Id = idDrone;//id
             idDrone++;
             drone1.Model = (Int32.Parse(TexModel.Text)).ToString();//model
-            drone1.Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedIndex;//weight
-           // try
-           // {
-                accseccBL2.AddDrone(drone1, ComboBoxStation.SelectedIndex);//station
-          //  }
-          //  catch (Exception ex)
-          //  {
-               // MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-           // }
+            drone1.Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedItem;//weight
+            
+            try
+            {
+              //  accseccBL2.AddDrone(drone1, ComboBoxStation.SelectedItem);//station
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            MessageBox.Show("add drone OK");
 
-            // this.Close();
+             this.Close();
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -156,54 +162,98 @@ namespace PL
 
         private void BottonToFun_Click(object sender, RoutedEventArgs e)
         {
-            if(BottonToFun.Content == ("Release from charging"))//שחרור
-            {
-                
-                accseccBL2.ReleaseDrone(droneTo.Id, timee);
-            }
-            if (BottonToFun.Content == ("Send for loading"))//שליחה
+            try
             {
 
-                accseccBL2.SendingDroneToCharging(droneTo.Id);
-            }
-            if (BottonToFun.Content == ("Collect a package"))//לאסוף
-            {
 
-                accseccBL2.PickUpPackage(droneTo.Id);
+                if (BottonToFun.Content == ("Release from charging"))//שחרור
+                {
+                    comoboxTime.Visibility = Visibility.Visible;
+                    LabelTime.Visibility = Visibility.Visible;
+                    comoboxTime.ItemsSource = "1";
+                    comoboxTime.ItemsSource = "2";
+                    comoboxTime.ItemsSource = "5";
+                    comoboxTime.ItemsSource = "10";
+                    if (comoboxTime.SelectedItem != null)
+                    {
+                        //timee = comoboxTime.SelectedItem();
+                        accseccBL2.ReleaseDrone(droneTo.Id, timee);
+                    }
+                   
+                }
+                if (BottonToFun.Content == ("Send for loading"))//שליחה
+                {
+
+                    accseccBL2.SendingDroneToCharging(droneTo.Id);
+
+                }
+                if (BottonToFun.Content == ("Collect a package"))//לאסוף
+                {
+
+                    accseccBL2.PickUpPackage(droneTo.Id);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("fun Succeeded");
         }
 
         private void BottonToFun2_Click(object sender, RoutedEventArgs e)
         {
-            if (BottonToFun2.Content == ("Assignment to the package"))//שיוך
+            try
             {
+                if (BottonToFun2.Content == ("Assignment to the package"))//שיוך
+                {
 
-                accseccBL2.AssignPackageToDrone(droneTo.Id);
+                    accseccBL2.AssignPackageToDrone(droneTo.Id);
+                }
+                if (BottonToFun2.Content == ("Provide package"))
+                {
+
+                    accseccBL2.PackageDeliveryByDrone(droneTo.Id);//לספק
+                }
             }
-            if (BottonToFun2.Content == ("Provide package"))
+            catch (Exception ex)
             {
-
-                accseccBL2.PackageDeliveryByDrone(droneTo.Id);//לספק
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            MessageBox.Show("fun Succeeded");
+
+
         }
 
         private void ButtoneMod_Click(object sender, RoutedEventArgs e)
         {
 
            string model = TexBoxModel.Text;
+            //TexBoxModel.Visibility = Visibility.Hidden;
             TexBoxModel.Clear();
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            TexBoxModel.IsReadOnly = false;
+            //TexBoxModel.IsReadOnly = false;
             string modelnew = TexBoxModel.Text;
-            try { accseccBL2.UpdateDrone(droneTo.Id, modelnew); }
+            try { 
+                accseccBL2.UpdateDrone(droneTo.Id, modelnew); 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            
+
+            MessageBox.Show("update drone OK");
+        }
+
+        private void ComboBoxWeight_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }
