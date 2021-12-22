@@ -23,6 +23,7 @@ namespace PL
         IBL.BO.DroneToList droneTo;
         IBL.BL accseccBL2;
         TimeSpan timee;
+        #region Add
         public DronWindow(IBL.BL accseccBL1)//add
         {
            
@@ -32,18 +33,68 @@ namespace PL
            // GridUpDrone.IsEnabled = false;
             accseccBL2 = accseccBL1;
             ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
+            Label2.Visibility = Visibility.Hidden;
+            Label3.Visibility = Visibility.Hidden;
+            Label1.Visibility = Visibility.Hidden;
+            
             List<int> aa = new List<int>();
            for(int i = 0; i < accseccBL2.AvailableStationToChargeList().Count(); i++)
             {
                 ComboBoxStation.Items.Add(accseccBL2.AvailableStationToChargeList().ElementAt(i).Id);
             }
-            
         }
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            Label3.Content
+            if (TexModel.Text == "")
+                Label3.Visibility = Visibility.Visible;
+            if (ComboBoxWeight.SelectedItem == null)
+                Label2.Visibility = Visibility.Visible;
+            if (ComboBoxStation.SelectedItem == null)
+                Label1.Visibility = Visibility.Visible;
+            if (TexModel.Text != "")
+                Label3.Visibility = Visibility.Hidden;
+            if (ComboBoxWeight.SelectedItem != null)
+                Label2.Visibility = Visibility.Hidden;
+            if (ComboBoxStation.SelectedItem != null)
+                Label1.Visibility = Visibility.Hidden;
+            if ((ComboBoxWeight.SelectedItem != null) & (ComboBoxStation.SelectedItem != null) & TexModel.Text != "")
+            {
+                Drone drone1 = new Drone();
+                drone1.Id = idDrone;//id
+                idDrone++;
+                drone1.Model = TexModel.Text;//model
+                drone1.Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedItem;//weight
+                int station = Convert.ToInt32(ComboBoxStation.SelectedItem);
+                try
+                {
+                    accseccBL2.AddDrone(drone1, (int)ComboBoxStation.SelectedItem);//station
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("add drone OK");
+
+                this.Close();
+            }
+        }
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            // DroneListWindow we = new DroneListWindow(accseccBL2);
+            // we.Show();
+            this.Close();
+        }
+        #endregion
+
+
         public DronWindow( IBL.BL accseccBL1,IBL.BO.DroneToList drone)//update
         {
             
             
             InitializeComponent();
+            ButtonUpdate.Visibility = Visibility.Hidden;
             GridAddDrone.IsEnabled = true;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             comoboxTime.Visibility = Visibility.Hidden;
@@ -54,7 +105,7 @@ namespace PL
             LabelWeight2.Content = droneTo.Weight;//משקל
             LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
             //TexBoxModel.IsVisibleChanged +=true;
-            TexBoxModel.Text = droneTo.Model;//מודל
+            //TexBoxModel.Text = droneTo.Model;//מודל
             //אם יש שינוי
             
             if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)
@@ -81,6 +132,10 @@ namespace PL
             if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
                 BottonToFun.Content = "Release from charging";
+                comoboxTime.Visibility = Visibility.Visible;
+                LabelTime.Visibility = Visibility.Visible;
+                int[] a = { 1, 2, 5, 7, 10 };
+                comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility =Visibility.Hidden ;
             }
             if (droneTo.StatusDrone == Enums.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
@@ -98,14 +153,7 @@ namespace PL
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
                 TexBattery.Background = myBrush;
-                int i = 0;
-                while (i == 1)
-                {
-                    TexBattery.Width += 10;
-                    TexBattery.Height += 10;
-                    TexBattery.Width -= 10;
-                    TexBattery.Height -= 10;
-                }
+                //TexBattery
             }
                 
             if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
@@ -126,35 +174,9 @@ namespace PL
             //שומר את הבחירה
         }
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
-            Drone drone1=new Drone();
-            drone1.Id = idDrone;//id
-            idDrone++;
-            drone1.Model = (Int32.Parse(TexModel.Text)).ToString();//model
-            drone1.Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedItem;//weight
-            
-            try
-            {
-              //  accseccBL2.AddDrone(drone1, ComboBoxStation.SelectedItem);//station
-            }
-            catch (Exception ex)
-            {
-               MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            MessageBox.Show("add drone OK");
+       
 
-             this.Close();
-        }
-
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-           // DroneListWindow we = new DroneListWindow(accseccBL2);
-           // we.Show();
-            this.Close();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)//
         {
 
             this.Close();
@@ -168,15 +190,11 @@ namespace PL
 
                 if (BottonToFun.Content == ("Release from charging"))//שחרור
                 {
-                    comoboxTime.Visibility = Visibility.Visible;
-                    LabelTime.Visibility = Visibility.Visible;
-                    comoboxTime.ItemsSource = "1";
-                    comoboxTime.ItemsSource = "2";
-                    comoboxTime.ItemsSource = "5";
-                    comoboxTime.ItemsSource = "10";
+                   
+
                     if (comoboxTime.SelectedItem != null)
                     {
-                        //timee = comoboxTime.SelectedItem();
+                       // timee = comoboxTime.SelectedItem();
                         accseccBL2.ReleaseDrone(droneTo.Id, timee);
                     }
                    
@@ -230,10 +248,11 @@ namespace PL
 
         private void ButtoneMod_Click(object sender, RoutedEventArgs e)
         {
-
+            ButtonUpdate.Visibility = Visibility.Visible;
            string model = TexBoxModel.Text;
             //TexBoxModel.Visibility = Visibility.Hidden;
             TexBoxModel.Clear();
+            ButtoneMod.Visibility = Visibility.Hidden;
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
@@ -250,6 +269,8 @@ namespace PL
             }
 
             MessageBox.Show("update drone OK");
+            ButtoneMod.Visibility = Visibility.Visible;
+            ButtonUpdate.Visibility = Visibility.Hidden;
         }
 
         private void ComboBoxWeight_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
