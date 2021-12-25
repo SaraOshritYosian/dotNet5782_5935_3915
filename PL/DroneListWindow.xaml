@@ -22,6 +22,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
                 <Button x:Name="Add_Drone" Content="Add_Drone" Grid.Column="3" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="58" Width="129" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
+                <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" Width="144" Height="34"/>
             </Grid>
             <ListView x:Name="DronesListView"  Grid.Row="1">
                 <ListView.View>
