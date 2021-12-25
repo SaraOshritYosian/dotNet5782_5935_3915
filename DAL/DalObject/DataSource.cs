@@ -39,15 +39,12 @@ namespace DalObject
             dronsList.Add(new Drone() { Id = 1, Model = "V78K",Weight = WeightCategories.Heavy });
             dronsList.Add(new Drone() { Id = 2, Model = "5TD7", Weight = WeightCategories.Medium });
             dronsList.Add(new Drone() { Id = 3, Model = "FS001", Weight = WeightCategories.Medium });
+            
             stationsList.Add(new Station() { Name = 1222, Id = 1, ChargeSlots = 6, Longitude = 0.3340, Latitude = 9.33340 });
             stationsList.Add(new Station() { Name = 77834, Id = 2, ChargeSlots = 30, Longitude = 111.23, Latitude = 43.99 });
+            
             customerList.Add(new Customer() { Id = 32424593, Name = "chana", Lattitude = 33.44, Longitude = 544.554, Pone = "0504378982" });
             customerList.Add(new Customer() { Id = 3246663, Name = "avi", Lattitude = 33.44, Longitude = 544.5443, Pone = "0566558982" });
-            //  parcelList.Add(new Parcel() { Id = Config.amountParcelId++, Senderld = 0, Targetld = 0, Weight = 0, Priority = 0, Droneld = 0, Requested = DateTime.Now, Scheduled = DateTime.Now, PichedUp = DateTime.Now, Delivered = DateTime.Now });
-            //Config.amountStationId++;
-            // Config.amountStationId++;
-            // Config.amountCustomerId++;
-            // Config.amountDorneId+=4;
 
         }
 

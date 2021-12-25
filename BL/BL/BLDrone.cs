@@ -235,10 +235,10 @@ namespace IBL
             //    throw new BO.Excptions(ex.Message);
             //} 
             DroneToList dds = DroneToLisToPrint(id);
-            DroneToList dd = new DroneToList() { Id = dds.Id, LocationDrone = dds.LocationDrone, StatusDrone = dds.StatusDrone, IdParcel = dds.IdParcel, Model = dds.Model, StatusBatter = dds.StatusBatter, Weight = dds.Weight };
+            DroneToList dd = new DroneToList() { Id = dds.Id, LocationDrone = dds.LocationDrone, StatusDrone = dds.StatusDrone, IdParcel = dds.IdParcel, Model = name, StatusBatter = dds.StatusBatter, Weight = dds.Weight };
             BlDrone.Remove(dds);
             BlDrone.Add(dd);
-           // accessIDal.UpdetDrone(cc);
+            accessIDal.UpdetDrone(cc);
         }
 
 

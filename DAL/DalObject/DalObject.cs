@@ -16,8 +16,6 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         {
             DataSource.Initialize();
         }
-
-
         //
         #region Drone
         //CRUD Drone

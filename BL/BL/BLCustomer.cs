@@ -96,9 +96,9 @@ namespace IBL
             cc.Id = c.Id;
             cc.Lattitude = c.Lattitude;
             cc.Longitude = c.Longitude;
-            //try
-            //{
-            //    c =accessIDal.GetCustomer(id);
+            try
+            {
+                c =accessIDal.GetCustomer(id);
                 if (name != "")
             {
                 cc.Name = name;
@@ -110,11 +110,11 @@ namespace IBL
                 accessIDal.UpdetCustomer(cc);
 
 
-            //}
-            //catch (IDAL.DO.Excptions ex)
-            //{
-            //    throw new BO.Excptions(ex.Message);
-            //}
+            }
+            catch (IDAL.DO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
 
         }
         //add customer
