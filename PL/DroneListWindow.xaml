@@ -36,7 +36,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
                 <Label x:Name="DroneStatus" Content="Drone Statuse" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="18" Width="164" Height="37"/>
-                <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Margin="0,0,0,0"/>
+                <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Margin="0,0,0,0" SelectionChanged="ComboBoxStatuse_SelectionChanged"/>
                 <Label x:Name="DroneMaxWeight" Content="Drone Max Weight" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="194" FontSize="18" FontFamily="Arial Black" Height="37"/>
                 <ComboBox x:Name="ComboBoxMaxWeight" Grid.Column="3" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Height="50" SelectionChanged="ComboBoxMaxWeight_SelectionChanged"/>
                 <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="127,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152"/>
@@ -52,6 +52,7 @@
             </ListView>
             <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="1" HorizontalAlignment="Left" Margin="600,470,0,0" VerticalAlignment="Center" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
         </Grid>
+        <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,6,574" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5"/>
 
 
 

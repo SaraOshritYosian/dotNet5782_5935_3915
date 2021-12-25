@@ -263,7 +263,7 @@ namespace PL
         private void BottonToFun_Click(object sender, RoutedEventArgs e)
         {
 
-            if (BottonToFun.Content == "Release from charging")//שחרור
+            if ((string)BottonToFun.Content == "Release from charging")//שחרור
             {
 
 
@@ -293,7 +293,7 @@ namespace PL
 
 
             }
-            if (BottonToFun.Content == ("Send for loading"))//שליחה
+            if ((string)BottonToFun.Content == "Send for loading")//שליחה
             {
                 try
                 {
@@ -311,7 +311,7 @@ namespace PL
                 this.Close();
 
             }
-            if (BottonToFun.Content == ("Collect a package"))//לאסוף
+            if ((string)BottonToFun.Content == ("Collect a package"))//לאסוף
             {
                 try
                 {
@@ -337,7 +337,7 @@ namespace PL
         private void BottonToFun2_Click(object sender, RoutedEventArgs e)
         {
 
-            if (BottonToFun2.Content == ("Assignment to the package"))//שיוך
+            if ((string)BottonToFun2.Content == ("Assignment to the package"))//שיוך
             {
                 try
                 {
@@ -355,7 +355,7 @@ namespace PL
                 this.Close();
             }
 
-            if (BottonToFun2.Content == ("Provide package"))
+            if ((string)BottonToFun2.Content == ("Provide package"))
             {
                 try
                 {

@@ -54,5 +54,15 @@ namespace PL
         {
          //   DronesListView.ItemsSource = accseccBL1.GetDronsByWeight(sender as ComboBoxMaxWeight.SelectedItem);
         }
+
+        private void Cancell_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ComboBoxStatuse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {//
+        //    if
+        }
     }
 }
