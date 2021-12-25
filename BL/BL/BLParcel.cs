@@ -281,6 +281,8 @@ namespace IBL
             IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
             if ((id != dronidal.Id) || id < 0)
                 throw new ArgumentOutOfRangeException("id", "The drone number is error");
+            if (accessIDal.GetAllParcel().Count() == 0)
+                throw new Exception("No have parcel to Assign");
             for (int i = 0; i < BlDrone.Count; i++)
             {
                 if (BlDrone[i].Id == id)

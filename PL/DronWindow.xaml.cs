@@ -394,10 +394,9 @@ namespace PL
                 {
                     accseccBL2.UpdateDrone(droneTo.Id, modelnew);
                     MessageBox.Show("update drone OK");
-                    //ButtoneMod.Visibility = Visibility.Visible;
-                    //ButtonUpdate.Visibility = Visibility.Hidden;
                     DroneListWindow win = new DroneListWindow(accseccBL2);
-                    win.Refresh(accseccBL2);
+                    win.Refresh(accseccBL2);//לפתוח חלון חדש של רשימת רחפנים
+                    droneListWindow11.Close();//לסגור את החלון השני
                     this.Refresh(accseccBL2, accseccBL2.DroneToLisToPrint(droneTo.Id));
                     droneListWindow11.Close();
                 }
