@@ -33,7 +33,7 @@ namespace IBL
             LoadingPrecents = arr[4];
              BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
             //BLDrones = new List<Drone>();
-            List<IDAL.DO.Drone> DALDrones = accessIDal.ddroneList().ToList();//רשימה של רחפנים מDAL
+            List<IDAL.DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             foreach (var item in DALDrones)
             {
                 BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (Enums.WeightCategories)item.Weight });//weightcategories
@@ -45,9 +45,9 @@ namespace IBL
                 BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Lattitude } });//lattitud with one t
             }
             List<Station> BLStation = new List<Station>();
-            List<IDAL.DO.Station> DALStation = accessIDal.sStationList().ToList();//?
+            List<IDAL.DO.Station> DALStation = accessIDal.sStationList().ToList();
             foreach (var item in DALStation)
-            {
+            { 
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
             List<IDAL.DO.Parcel> DALParcel = accessIDal.pparcelList().ToList();//רשימה של חביחות מ DAL

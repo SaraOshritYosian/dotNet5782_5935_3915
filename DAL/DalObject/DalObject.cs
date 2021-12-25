@@ -152,6 +152,15 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public IEnumerable<IDAL.DO.Station> GetAllStation()
         {
+           //Console.WriteLine(DataSource.stationsList.Count());
+            //IEnumerable<IDAL.DO.Station> a = DataSource.stationsList;
+            //List<IDAL.DO.Station> b = new List<IDAL.DO.Station>();
+            //for (int i = 0; i < a.Count(); i++)
+            //{ 
+            //        b.Add(a.ElementAt(i));
+            //}
+            //return b;
+
             return from Station in DataSource.stationsList
                    select Station;
         }

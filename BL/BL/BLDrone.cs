@@ -220,20 +220,25 @@ namespace IBL
 
         public void UpdateDrone(int id, string name)//v
         {
-            IDAL.DO.Drone c;
-            try
-            {
-                 c =accessIDal.GetDrone(id);
-                if (name != "")
-                {
-                    c.Model = name;
-                }
-            }
-            catch (IDAL.DO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
-            }
-            accessIDal.UpdetDrone(c);
+            IDAL.DO.Drone c=accessIDal.GetDrone(id);
+            IDAL.DO.Drone cc = new IDAL.DO.Drone() {Id=c.Id,Model=name,Weight=c.Weight };
+            //try
+            //{
+            //     c =accessIDal.GetDrone(id);
+            //    if (name != "0")
+            //    {
+            //        c.Model = name;
+            //    }
+            //}
+            //catch (IDAL.DO.Excptions ex)
+            //{
+            //    throw new BO.Excptions(ex.Message);
+            //} 
+            DroneToList dds = DroneToLisToPrint(id);
+            DroneToList dd = new DroneToList() { Id = dds.Id, LocationDrone = dds.LocationDrone, StatusDrone = dds.StatusDrone, IdParcel = dds.IdParcel, Model = dds.Model, StatusBatter = dds.StatusBatter, Weight = dds.Weight };
+            BlDrone.Remove(dds);
+            BlDrone.Add(dd);
+           // accessIDal.UpdetDrone(cc);
         }
 
 
