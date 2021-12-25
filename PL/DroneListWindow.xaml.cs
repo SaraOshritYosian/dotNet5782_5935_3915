@@ -17,9 +17,11 @@ namespace PL
     /// <summary>
     /// Interaction logic for DroneListWindow.xaml
     /// </summary>
+    /// 
     public partial class DroneListWindow : Window
     {
        private IBL.BL accseccBL1;
+        
         public DroneListWindow(IBL.BL accseccBL)
         {
             InitializeComponent();
@@ -28,16 +30,23 @@ namespace PL
             ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(IBL.BO.Enums.StatusDrone));
             ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
         }
+        public void Refresh(IBL.BL accseccBL)
+        {
+            accseccBL1 = accseccBL;
+            DroneListWindow we = new DroneListWindow(accseccBL1);
+            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            we.Show();
+        }
         private void Add_Drone_Click(object sender, RoutedEventArgs e)
         {
-            DronWindow dr = new DronWindow(accseccBL1);
+            DronWindow dr = new DronWindow(accseccBL1,this);//מקבל גם גישה וגם את החלון כדי שיוכל לסגור אותו
             dr.Show();
         }
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneToList drne = DronesListView.SelectedItem as DroneToList;
-            DronWindow dr = new DronWindow(accseccBL1, drne);
+            DronWindow dr = new DronWindow(accseccBL1, drne,this);
             dr.Show();
         }
 

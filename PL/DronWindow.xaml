@@ -34,12 +34,12 @@
             <ComboBox x:Name="ComboBoxStation" Grid.Column="1" HorizontalAlignment="Left" Margin="0,212,0,0" VerticalAlignment="Top" Width="120"/>
             <Button x:Name="ButtonCancel" Content="X" Grid.Column="3" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Height="26" Width="31" FontSize="18" FontFamily="Arial Black" Click="ButtonCancel_Click" Background="#FFFB1C1C"/>
             <Button x:Name="ButtonAdd" Content="Add" Grid.Column="3" HorizontalAlignment="Right" Margin="0,488,7,0" VerticalAlignment="Top" Width="140" Height="73" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click"/>
-            <Label x:Name="Label3" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,91,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.382,2.679" Background="Transparent"/>
-            <Label x:Name="Label2" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,155,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="Label1" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,227,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="Label3" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,91,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.382,2.679" Background="Transparent" Foreground="#FFF71616"/>
+            <Label x:Name="Label2" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,155,0,0" VerticalAlignment="Top" Foreground="#FFF11010"/>
+            <Label x:Name="Label1" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,227,0,0" VerticalAlignment="Top" Foreground="#FFF31111"/>
         </Grid>
         <Grid x:Name="GridUpDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
 
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -66,7 +66,7 @@
             <Label x:Name="LabelWeight2" Content="" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Height="49" Width="122" RenderTransformOrigin="0.579,2.636" FontSize="18" FontFamily="Arial Black"/>
             <Label x:Name="LabeLocation2" Content="" HorizontalAlignment="Left" Margin="120,170,0,0" VerticalAlignment="Top" Width="166" Height="141" FontSize="16" FontFamily="Arial Black" Grid.RowSpan="2" FontWeight="Medium" FontStretch="Condensed" FontStyle="Oblique"/>
 
-            <TextBox x:Name="TexBoxModel" Text="{Binding Model, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" Height="35" Grid.Row="1"/>
+            <TextBox x:Name="TexBoxModel" HorizontalAlignment="Left" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" Height="35" Grid.Row="1"/>
             <Label x:Name="LabelModel1" Content="Model:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="35" Width="95" FontSize="18" FontFamily="Arial Black" Grid.Row="1"/>
             <Button x:Name="ButtoneMod" Content="Change" HorizontalAlignment="Left" Margin="120,130,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="100" FontSize="16" FontFamily="Arial Black" Click="ButtoneMod_Click"/>
 
@@ -80,9 +80,11 @@
 
             <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Right" Margin="0,120,15,0" VerticalAlignment="Top" Width="190" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
             <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,200,15,0" Grid.Row="1" VerticalAlignment="Top" Width="190" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
-            <Button Content="X" Grid.Column="1" HorizontalAlignment="Right" Margin="0,11,10,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Button_Click"/>
+            <Button x:Name="Cancell" Content="X" Grid.Column="1" HorizontalAlignment="Right" Margin="0,11,10,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click"/>
             <Label x:Name="LabelTime" Content="Enter Time To Charge" Grid.Column="1" HorizontalAlignment="Right" Margin="0,27,15,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14"/>
             <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,74,15,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
+            <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="358,91,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717"/>
+            <Label x:Name="LabelErrorMode"  Content="Please fill in" HorizontalAlignment="Left" Margin="130,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="82" Foreground="#FFF50C0C"/>
 
 
         </Grid>

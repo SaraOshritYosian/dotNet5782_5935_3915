@@ -111,6 +111,8 @@ namespace IBL
             {
                 if (DroneToLisToPrint(droneId).StatusDrone != BO.Enums.StatusDrone.available)//אם הסטטוס שונה מפנוי יש חריגה
                     throw new Exception();
+                if(accessIDal.ReturnStationHaveFreeCharde().Count()==0)
+                    throw new Exception();
                 else
                 {
                     
@@ -167,7 +169,7 @@ namespace IBL
 
         public BO.Drone GetDrone(int id)//v 
         {
-            BO.Drone bodrone;
+            BO.Drone bodrone=new BO.Drone();
             try
             {
                 IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);//from dalObject
@@ -175,7 +177,8 @@ namespace IBL
                 bodrone = new BO.Drone()
                 {
                     Id = dodrone.Id,
-                    Model = dodrone.Model,
+                     Model = dodrone.Model,
+                   // Model = "ffff",
                     Weight = (BO.Enums.WeightCategories)dodrone.Weight,
                     StatusDrone = dotolist.StatusDrone,
                     StatusBatter = dotolist.StatusBatter,
@@ -202,7 +205,6 @@ namespace IBL
             d.StatusDrone = BO.Enums.StatusDrone.InMaintenance;
             IDAL.DO.Station station = accessIDal.GetStation(cod);
             d.LocationDrone = new Location { Longitude = station.Longitude, Latitude = station.Latitude };
-           
             accessIDal.SendDroneToCharge(d.Id, cod);
             BlDrone.Add(new DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter = d.StatusBatter, StatusDrone = d.StatusDrone, LocationDrone = d.LocationDrone, IdParcel = 0 });
             try
