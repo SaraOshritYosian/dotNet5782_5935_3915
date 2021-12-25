@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using IBL.BO;
 
 
@@ -17,7 +18,7 @@ namespace ConsoleUI_BL
 
         static void Main(string[] args)
         {
-
+            List<int> bee;
             IBL.BL bL = new IBL.BL();
             //IDAL.DO idal = new IDAL.DO();
             DalObject.DalObject d1=new DalObject.DalObject();
@@ -439,8 +440,11 @@ namespace ConsoleUI_BL
                                     break;
                                 case 6:
                                     {//availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
-                                        foreach (IDAL.DO.Station station in bL.AvailableStationToChargeList())
-                                            Console.WriteLine(bL.StationToListToPrint(station.Id).ToString());
+                                        bee = (List<int>)bL.AvailableStationToChargeListt();
+                                        for (int i = 0; i < bee.Count; i++)
+                                        {
+                                            Console.WriteLine(bL.StationToListToPrint(bee.ElementAt(i)).ToString());
+                                        }
                                     }
                                     break;
                                 default:

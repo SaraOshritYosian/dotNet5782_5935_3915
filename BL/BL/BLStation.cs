@@ -92,6 +92,7 @@ namespace IBL
 
         public BO.StationToList StationToListToPrint(int id)
         {
+            
             BO.StationToList c = new BO.StationToList();
             try
             {
@@ -118,21 +119,20 @@ namespace IBL
             {
                 if (a.ElementAt(i).ChargeSlots > 0)
                     b.Add(a.ElementAt(i).Id);
-
+               
             }
             return b;
 
         }
             public IEnumerable <IDAL.DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
-           
+            
             IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
             List < IDAL.DO.Station > b= new List<IDAL.DO.Station>();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).ChargeSlots > 0)
-                     b.Add(a.ElementAt(i));
-                 
+                    b.Add(a.ElementAt(i));
             }
             return b;
         }

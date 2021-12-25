@@ -91,26 +91,30 @@ namespace IBL
         //update customer by id or name or phone ot more
         public void UpdateCustomer(int id, string name, string phone)//v
         {
-            IDAL.DO.Customer c; ;
-            try
-            {
-                c =accessIDal.GetCustomer(id);
+            IDAL.DO.Customer c=accessIDal.GetCustomer(id);
+            IDAL.DO.Customer cc= new IDAL.DO.Customer();
+            cc.Id = c.Id;
+            cc.Lattitude = c.Lattitude;
+            cc.Longitude = c.Longitude;
+            //try
+            //{
+            //    c =accessIDal.GetCustomer(id);
                 if (name != "")
-                {
-                    c.Name = name;
-                }
-                if (phone != "")
-                {
-                    c.Pone = phone;
-                }
-                accessIDal.UpdetCustomer(c);
-
-
-            }
-            catch (IDAL.DO.Excptions ex)
             {
-                throw new BO.Excptions(ex.Message);
+                cc.Name = name;
             }
+            if (phone != "")
+            {
+                cc.Pone = phone;
+            }
+                accessIDal.UpdetCustomer(cc);
+
+
+            //}
+            //catch (IDAL.DO.Excptions ex)
+            //{
+            //    throw new BO.Excptions(ex.Message);
+            //}
 
         }
         //add customer
