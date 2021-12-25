@@ -108,10 +108,22 @@ namespace IBL
             }
             return c;
         }
-  
-  
-     
-        public IEnumerable <IDAL.DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
+
+
+        public IEnumerable<int> AvailableStationToChargeListt()//return list station who have available to charge 
+        {
+            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
+            List<int> b = new List<int>();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                if (a.ElementAt(i).ChargeSlots > 0)
+                    b.Add(a.ElementAt(i).Id);
+
+            }
+            return b;
+
+        }
+            public IEnumerable <IDAL.DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
            
             IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();

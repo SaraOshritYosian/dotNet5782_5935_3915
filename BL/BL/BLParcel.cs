@@ -172,7 +172,7 @@ namespace IBL
             }
             throw new Exception();
         }
-        private StatusParcel StatuseParcelKnow(int idP) {//return the statuse of parcel
+        public StatusParcel StatuseParcelKnow(int idP) {//return the statuse of parcel
             IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
             if (dop.Delivered.Date != default)//סופק

@@ -120,7 +120,17 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         #region Station
         //CRU
-       
+        public IEnumerable<IDAL.DO.Station> ReturnStationHaveFreeCharde()//מחזיר רשימה של תחנות שיש להם כמות טעינה גדולה מ0
+        {
+            List<IDAL.DO.Station> ss = new List<Station>();
+            List<IDAL.DO.Station> pp = DataSource.stationsList;
+            for (int i = 0; i < pp.Count(); i++)
+            {
+                if (pp[i].ChargeSlots > 0)
+                    ss.Add(pp[i]);
+            }
+            return ss;
+        }
         public IEnumerable<IDAL.DO.Station> sStationList()
         {
             return DataSource.stationsList;

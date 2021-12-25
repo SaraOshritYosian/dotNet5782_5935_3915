@@ -129,7 +129,7 @@ namespace IBL
         }
 
 
-        public BO.CustomerToList CostumerToListToPrint(int idc)//למה לא מדפיס את השם והטלפון
+        public BO.CustomerToList CostumerToListToPrint(int idc)//
         {
             BO.CustomerToList c = new BO.CustomerToList();
             try

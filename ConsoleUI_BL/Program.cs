@@ -415,9 +415,11 @@ namespace ConsoleUI_BL
                             b = int.TryParse(Console.ReadLine(), out option);
                             switch (option)
                             {
-                                case 1://stations  הצגת רשימת תחנות-בסיס  
-                                    foreach (IDAL.DO.Station station in d1.GetAllStation())
-                                        Console.WriteLine(bL.StationToListToPrint(station.Id).ToString());
+                                case 1:
+                                    {//stations  הצגת רשימת תחנות-בסיס  
+                                        foreach (IDAL.DO.Station station in d1.GetAllStation())
+                                            Console.WriteLine(bL.StationToListToPrint(station.Id).ToString());
+                                    }
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
                                     foreach (IDAL.DO.Drone drone in d1.GetAllDrone())
@@ -435,12 +437,12 @@ namespace ConsoleUI_BL
                                     foreach (IDAL.DO.Parcel parcel in d1.GetAllParcel())
                                         Console.WriteLine(bL.PrintUnconnectedParceslList(parcel.Id).ToString());
                                     break;
-                                case 6://availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
-                                    foreach (IDAL.DO.Station station in bL.AvailableStationToChargeList())
-                                        Console.WriteLine(bL.StationToListToPrint(station.Id).ToString());
-                                 
+                                case 6:
+                                    {//availableStationToCharge הצגת תחנות-בסיס עם עמדות טעינה פנויות
+                                        foreach (IDAL.DO.Station station in bL.AvailableStationToChargeList())
+                                            Console.WriteLine(bL.StationToListToPrint(station.Id).ToString());
+                                    }
                                     break;
-                              
                                 default:
                                     break;
                             }

@@ -282,19 +282,19 @@ namespace ConsoleUI
                             {
                                 case 1://stations  הצגת רשימת תחנות-בסיס 
                                     foreach (IDAL.DO.Station station in d1.GetAllStation())
-                                        Console.WriteLine(d1.GetStation(option));
+                                        Console.WriteLine(d1.GetStation(station.Id));
                                     break;
                                 case 2://drones הצגת רשימת הרחפנים
                                     foreach (IDAL.DO.Drone drone in d1.GetAllDrone())
-                                        Console.WriteLine(d1.GetDrone(option));
+                                        Console.WriteLine(d1.GetDrone(drone.Id));
                                     break;
                                 case 3://customers הצגת רשימת הלקוחות
                                     foreach (IDAL.DO.Customer customer in d1.GetAllCustomer())
-                                        Console.WriteLine(d1.GetCustomer(option));
+                                        Console.WriteLine(d1.GetCustomer(customer.Id));
                                     break;
                                 case 4://parcels  הצגת רשימת החבילות 
                                     foreach (IDAL.DO.Parcel parcel in d1.GetAllParcel())
-                                        Console.WriteLine(d1.GetStation(option));
+                                        Console.WriteLine(d1.GetStation(parcel.Id));
                                     break;
                                 case 5://unconnectedParcel הצגת רשימת חבילות שעוד לא שויכו לרחפן
                                     d1.PrintUnconnectedParceslList();
@@ -304,7 +304,7 @@ namespace ConsoleUI
                                     break;
                                 case 7://רשימת רחפנים בטעינה
                                     foreach (IDAL.DO.Drone drone in d1.PrindDroneChargeList())
-                                        Console.WriteLine(d1.GetDrone(option));
+                                        Console.WriteLine(d1.GetDrone(drone.Id));
                                     break;
                                 default:
                                     break;

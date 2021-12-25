@@ -21,16 +21,11 @@ namespace IBL
             public Location LocationOfCustomer { get; set; }
             public List<ParcelInCustomer> ListOfPackagesFromTheCustomer { get; set; }//רשימת חבילות אצל הלקוח -מהלקוח
             public List<ParcelInCustomer> ListOfPackagesToTheCustomer { get; set; }//רשימת חבילות אצל הלקוח- ללקוח
-            public override string ToString()
-            {
-                return this.ToStringProperty();
-            }
             //public override string ToString()
-            //{ 
-
-            //       return base.ToString() + string.Format(  "location:{0,6},\n", LocationOfCustomer) + "the list of the parcels from this customer:\n" + string.Join("\t", ListOfPackagesFromTheCustomer) + "the list of parcels to this customer:\n" + string.Join("*).", ListOfPackagesToTheCustomer);
-            //}
-
+          //  {
+         //       return this.ToStringProperty();
+         //   }
+            public override string ToString() => this.ToStringProperty();
         }
     }
 }
