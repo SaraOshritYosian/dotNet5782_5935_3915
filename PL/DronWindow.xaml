@@ -39,7 +39,7 @@
             <Label x:Name="Label1" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,227,0,0" VerticalAlignment="Top" Foreground="#FFF31111"/>
         </Grid>
         <Grid x:Name="GridUpDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
 
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
