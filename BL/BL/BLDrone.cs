@@ -147,7 +147,7 @@ namespace IBL
         }
 
         //שיחרור רחפן מטעינה
-        public void ReleaseDrone(int id,TimeSpan time)//יש לשנות את המצב סוללה
+        public void ReleaseDrone(int id,TimeSpan time)
         {
             
             double time1;
