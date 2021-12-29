@@ -101,7 +101,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IDAL.DO.Drone> ddroneList()
+        public IEnumerable<IDAL.DO.Drone> DdroneList()
         {
             return DataSource.dronsList;
         }
@@ -129,7 +129,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return ss;
         }
-        public IEnumerable<IDAL.DO.Station> sStationList()
+        public IEnumerable<IDAL.DO.Station> SStationList()
         {
             return DataSource.stationsList;
         }
@@ -203,7 +203,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region Parcel
-        public IEnumerable<IDAL.DO.Parcel> pparcelList()//return list
+        public IEnumerable<IDAL.DO.Parcel> PparcelList()//return list
         {
             return DataSource.parcelList;
         }
@@ -284,12 +284,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region DroneCharg
-        public IEnumerable<IDAL.DO.Drone> droneChargeList()
+        public IEnumerable<IDAL.DO.Drone> DroneChargeList()
         {
             return (IEnumerable<Drone>)DataSource.droneChargeList;
         }
 
-        public int coutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
+        public int CoutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
         {
             int mone = 0;
             for(int i = 0; i < DataSource.droneChargeList.Count; i++)
@@ -441,7 +441,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return a;
         }
-        public IEnumerable<IDAL.DO.Customer> ccustomerList()
+        public IEnumerable<IDAL.DO.Customer> CcustomerList()
         {
             return DataSource.customerList;
         }

@@ -25,18 +25,22 @@ namespace PL
         public DroneListWindow(IBL.BL accseccBL)
         {
             InitializeComponent();
+            //ניצרו רשימה של הרחפני ואז נכניס בדתה את הרשימה ואז כשעושים עוספת רחפן חדש אז עושים לרשימה שיצרנו אדד
+            //List<Drone> dd = new List<Drone>();
+            
             accseccBL1 = accseccBL;
+           // DronesListView.DataContext= accseccBL1.GetDrons();
             DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
             ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(IBL.BO.Enums.StatusDrone));
             ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
         }
-        public void Refresh(IBL.BL accseccBL)
-        {
-            accseccBL1 = accseccBL;
-            DroneListWindow we = new DroneListWindow(accseccBL1);
-            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
-            we.Show();
-        }
+        //public void Refresh(IBL.BL accseccBL)
+        //{
+        //    accseccBL1 = accseccBL;
+        //    DroneListWindow we = new DroneListWindow(accseccBL1);
+        //    DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+        //    we.Show();
+        //}
         private void Add_Drone_Click(object sender, RoutedEventArgs e)
         {
             DronWindow dr = new DronWindow(accseccBL1,this);//מקבל גם גישה וגם את החלון כדי שיוכל לסגור אותו

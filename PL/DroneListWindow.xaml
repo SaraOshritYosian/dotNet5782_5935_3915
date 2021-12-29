@@ -52,7 +52,7 @@
             </ListView>
             <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="1" HorizontalAlignment="Left" Margin="600,470,0,0" VerticalAlignment="Center" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
         </Grid>
-        <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,6,574" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5"/>
+        <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,8,603" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5"/>
 
 
 

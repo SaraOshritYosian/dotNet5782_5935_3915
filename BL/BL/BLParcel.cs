@@ -300,7 +300,7 @@ namespace IBL
             IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
             IDAL.DO.Parcel parcel = accessIDal.GetParcel(drone.IdParcel);
             if (fal == false || id < 0)
-                throw new ArgumentOutOfRangeException("id", "The drone number is error");
+                throw new ArgumentOutOfRangeException( "The drone number is error");
             if (parcel.Delivered != default)//אספו
 
                 throw new Exception();//להוסיף חריגה
@@ -310,7 +310,7 @@ namespace IBL
             drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Targetld).Longitude;
             parcel.PichedUp = DateTime.Now;//שינוי זמן
             accessIDal.UpdetParcel(parcel);//קיבלנו עצם מועתק
-            drone.StatusDrone = BO.Enums.StatusDrone.available;//שינוי סטטוס
+            drone.StatusDrone = StatusDrone.available;//שינוי סטטוס
             BlDrone.Remove(BlDrone.Find(p => p.Id == id));
             BlDrone.Add(drone);
 

@@ -39,18 +39,18 @@ namespace IBL
                 BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (Enums.WeightCategories)item.Weight });//weightcategories
             }
             List<Customer> BLCustomer = new List<Customer>();
-            List<IDAL.DO.Customer> DALCustomer = accessIDal.ccustomerList().ToList();//רשימה של לקוחות מDAL
+            List<IDAL.DO.Customer> DALCustomer = accessIDal.CcustomerList().ToList();//רשימה של לקוחות מDAL
             foreach (var item in DALCustomer)
             {
                 BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Lattitude } });//lattitud with one t
             }
             List<Station> BLStation = new List<Station>();
-            List<IDAL.DO.Station> DALStation = accessIDal.sStationList().ToList();
+            List<IDAL.DO.Station> DALStation = accessIDal.SStationList().ToList();
             foreach (var item in DALStation)
             { 
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
-            List<IDAL.DO.Parcel> DALParcel = accessIDal.pparcelList().ToList();//רשימה של חביחות מ DAL
+            List<IDAL.DO.Parcel> DALParcel = accessIDal.PparcelList().ToList();//רשימה של חביחות מ DAL
             foreach (var item in BlDrone)
             {
                 int index = DALParcel.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
