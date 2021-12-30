@@ -21,7 +21,7 @@ namespace PL
     public partial class DronWindow : Window
     {
         private readonly DroneListWindow droneListWindow11;
-        static int idDrone = 11;
+       // static int idDrone = 11;
         DroneToList droneTo;
         IBL.BL accseccBL2;
         
@@ -37,8 +37,8 @@ namespace PL
             Label2.Visibility = Visibility.Hidden;
             Label3.Visibility = Visibility.Hidden;
             Label1.Visibility = Visibility.Hidden;
-
-           //List<int> aa = new List<int>();
+            Label4.Visibility = Visibility.Hidden;
+            //List<int> aa = new List<int>();
             for (int i = 0; i < accseccBL2.AvailableStationToChargeList().Count(); i++)
             {
                 ComboBoxStation.Items.Add(accseccBL2.AvailableStationToChargeList().ElementAt(i).Id);
@@ -46,10 +46,14 @@ namespace PL
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
+           // bool de = true;
             GridAddDrone.Visibility = Visibility.Visible;
             GridUpDrone.Visibility = Visibility.Hidden;
+            
             if (TexModel.Text == "")
                 Label3.Visibility = Visibility.Visible;
+            if (TextId.Text == "")
+                Label4.Visibility = Visibility.Visible;
             if (ComboBoxWeight.SelectedItem == null)
                 Label2.Visibility = Visibility.Visible;
             if (ComboBoxStation.SelectedItem == null)
@@ -60,25 +64,29 @@ namespace PL
                 Label2.Visibility = Visibility.Hidden;
             if (ComboBoxStation.SelectedItem != null)
                 Label1.Visibility = Visibility.Hidden;
-            if ((ComboBoxWeight.SelectedItem != null) & (ComboBoxStation.SelectedItem != null) & TexModel.Text != "")
+            if (TextId.Text != "")
+                Label4.Visibility = Visibility.Hidden;
+            if ((TextId.Text != "")&(ComboBoxWeight.SelectedItem != null) & (ComboBoxStation.SelectedItem != null) & TexModel.Text != "")
             {
-                Drone drone1 = new() {Id=idDrone,Model= TexModel.Text,Weight= (Enums.WeightCategories)ComboBoxWeight.SelectedItem };
-                idDrone++;
+                Drone drone1;
+
                 try
                 {
+                    drone1 = new() { Id = Convert.ToInt32(TextId.Text), Model = TexModel.Text, Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedItem };
                     accseccBL2.AddDrone(drone1, (int)ComboBoxStation.SelectedItem);//station
-                    MessageBox.Show("Adding a Drone number: "+ drone1.Id+ " was successful");
+                    MessageBox.Show("Adding a Drone number: " + drone1.Id + " was successful");
                     droneListWindow11.DronesListView.ItemsSource = accseccBL2.GetDrons();
                     Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
+                    Label4.Visibility = Visibility.Visible;
+                    Label4.Content = "drone is exsist";
+                    Close();
                 }
-               
-               
-              
+                
+                
             }
         }
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
