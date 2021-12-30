@@ -16,12 +16,11 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="400*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="173*"/>
             </Grid.RowDefinitions>
 
-            <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                    VerticalAlignment="Stretch" Width="auto">
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF9FB5BC"/>
@@ -39,9 +38,9 @@
                 <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Margin="0,0,0,0" SelectionChanged="ComboBoxStatuse_SelectionChanged"/>
                 <Label x:Name="DroneMaxWeight" Content="Drone Max Weight" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="194" FontSize="18" FontFamily="Arial Black" Height="37"/>
                 <ComboBox x:Name="ComboBoxMaxWeight" Grid.Column="3" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Height="50" SelectionChanged="ComboBoxMaxWeight_SelectionChanged"/>
-                <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="127,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152"/>
-                <Button Content="clear" Grid.Column="3" HorizontalAlignment="Left" Margin="129,29,0,0" VerticalAlignment="Top"/>
-
+                <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="130,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152"/>
+                <Button Content="clear" Grid.Column="3" HorizontalAlignment="Left" Margin="128,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.655,1.73"/>
+                <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,9,77" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" Grid.Column="3"/>
             </Grid>
             <ListView x:Name="DronesListView"  Grid.Row="1" Margin="0,16,0,96" MouseDoubleClick="DronesListView_MouseDoubleClick">
                 <ListView.View>
@@ -50,9 +49,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="1" HorizontalAlignment="Left" Margin="600,470,0,0" VerticalAlignment="Center" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
+            <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="1" HorizontalAlignment="Right" Margin="0,455,10,0" VerticalAlignment="Top" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
         </Grid>
-        <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,8,603" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5"/>
+
 
 
 
