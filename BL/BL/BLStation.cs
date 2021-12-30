@@ -13,7 +13,7 @@ namespace IBL
             int moneDroneInCharge= accessIDal.MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
             if (moneDroneInCharge > 0)
             {
-                List<int> ListDroneId = new List<int>();//vv
+                List<int> ListDroneId;//vv
                 ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
                 List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
                 for (int i = 0; i < ListDroneId.Count(); i++)
@@ -76,7 +76,7 @@ namespace IBL
                 }
                 if (chargeSlote !=-1 )
                 {
-                    c.ChargeSlots = chargeSlote-accessIDal.coutCharge(idS);
+                    c.ChargeSlots = chargeSlote-accessIDal.CoutCharge(idS);
                 }
                 //Console.WriteLine(c.ToString());
                 accessIDal.UpdetStation(c);
@@ -93,13 +93,13 @@ namespace IBL
         public BO.StationToList StationToListToPrint(int id)
         {
             
-            BO.StationToList c = new BO.StationToList();
+            StationToList c = new StationToList();
             try
             {
                 IDAL.DO.Station station = accessIDal.GetStation(id);
                 c.Id = station.Id;
                 c.Name = station.Name;
-                c.ChargeSlotsNotFree = accessIDal.coutCharge(id);
+                c.ChargeSlotsNotFree = accessIDal.CoutCharge(id);
                 c.ChargeSlotsFree = station.ChargeSlots;
              
             }

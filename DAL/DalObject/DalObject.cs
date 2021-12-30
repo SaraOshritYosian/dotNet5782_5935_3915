@@ -101,7 +101,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IDAL.DO.Drone> ddroneList()
+        public IEnumerable<IDAL.DO.Drone> DdroneList()
         {
             return DataSource.dronsList;
         }
@@ -129,7 +129,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return ss;
         }
-        public IEnumerable<IDAL.DO.Station> sStationList()
+        public IEnumerable<IDAL.DO.Station> SStationList()
         {
             return DataSource.stationsList;
         }
@@ -150,15 +150,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public IEnumerable<IDAL.DO.Station> GetAllStation()
         {
-           //Console.WriteLine(DataSource.stationsList.Count());
-            //IEnumerable<IDAL.DO.Station> a = DataSource.stationsList;
-            //List<IDAL.DO.Station> b = new List<IDAL.DO.Station>();
-            //for (int i = 0; i < a.Count(); i++)
-            //{ 
-            //        b.Add(a.ElementAt(i));
-            //}
-            //return b;
-
+           
             return from Station in DataSource.stationsList
                    select Station;
         }
@@ -211,7 +203,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region Parcel
-        public IEnumerable<IDAL.DO.Parcel> pparcelList()//return list
+        public IEnumerable<IDAL.DO.Parcel> PparcelList()//return list
         {
             return DataSource.parcelList;
         }
@@ -292,12 +284,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region DroneCharg
-        public IEnumerable<IDAL.DO.Drone> droneChargeList()
+        public IEnumerable<IDAL.DO.Drone> DroneChargeList()
         {
             return (IEnumerable<Drone>)DataSource.droneChargeList;
         }
 
-        public int coutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
+        public int CoutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
         {
             int mone = 0;
             for(int i = 0; i < DataSource.droneChargeList.Count; i++)
@@ -389,38 +381,28 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public void SendDroneToCharge(int station, int drone)//Drone a skimmer for charging
         {
-          for (int j = 0; j < DataSource.stationsList.Count; j++)
-          {
-                if (DataSource.stationsList[j].Id == station)
-                {
-                            Station s = DataSource.stationsList[j];
-                            s.ChargeSlots--;
-
-                            DataSource.stationsList[j]=s;
-                            DataSource.droneChargeList.Add(new DroneCharge { Droneld = drone, Stationld = station });
-                            return;
-                }
-          }
+            bool fal1 = DataSource.stationsList.Any(p => p.Id == station);
+            bool fal2 = DataSource.dronsList.Any(p => p.Id == drone);
+            Drone drone1 = DataSource.dronsList.Find(p => p.Id == drone);
+            Station station1= DataSource.stationsList.Find(p => p.Id == station);
+                        
+            if (fal1 == true& fal2==true)//שתיה  נימצאו
+            {
+                station1.ChargeSlots--;
+                UpdetStation(station1);//update
+                DataSource.droneChargeList.Add(new DroneCharge { Droneld = drone, Stationld = station });//add to list
+            } 
         }
         public void ReleaseDroneFromCharging(int drone)//Drone a skimmer from charging
         {
-            for (int j = 0; j < DataSource.droneChargeList.Count; j++)
+            bool fal2 = DataSource.droneChargeList.Any(p => p.Droneld == drone);
+            DroneCharge drone1 = DataSource.droneChargeList.Find(p => p.Droneld == drone);
+            if (fal2 == true)
             {
-                if (DataSource.droneChargeList[j].Droneld == drone)
-                {
-                    for (int i = 0; i < DataSource.stationsList.Count; i++)
-                    {
-                        if (DataSource.stationsList[i].Id == DataSource.droneChargeList[j].Stationld)
-                        {
-                            Station ss = DataSource.stationsList[i];
-                            ss.ChargeSlots++;//לעלות את כמות ההטאינה
-                            DataSource.stationsList[i] = ss; 
-                            DataSource.droneChargeList.Remove(DataSource.droneChargeList[j]);
-                           
-                            return;
-                        }
-                    }
-                }
+                Station station1 = DataSource.stationsList.Find(p => p.Id == drone1.Stationld);
+                station1.ChargeSlots++;
+                UpdetStation(station1);
+                DataSource.droneChargeList.Remove(drone1);
             }
         }
 
@@ -459,7 +441,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return a;
         }
-        public IEnumerable<IDAL.DO.Customer> ccustomerList()
+        public IEnumerable<IDAL.DO.Customer> CcustomerList()
         {
             return DataSource.customerList;
         }
@@ -525,71 +507,45 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
         #endregion
 
-        public void AssignPackageToDrone(int idParcel,int idDrone)//Assign a Package To Drone
+        public void AssignPackageToDrone(int idParcel, int idDrone)//Assign a Package To Drone
         {
+            Parcel per1 = DataSource.parcelList.Find(p => p.Id == idParcel);
+            bool fal1 = DataSource.parcelList.Any(p => p.Id == idParcel);
+            bool fal2 = DataSource.dronsList.Any(p => p.Id == idDrone);
+            Drone per2 = DataSource.dronsList.Find(p => p.Id == idDrone);
             //לבדוק אם קיים
-            for (int i = 0; i < DataSource.parcelList.Count; i++)//שיוך החבילה לרחפן אני מחפשתאת החבילה ואת הרחפן שרני רוצה ומשנה באתאם את הנתונים
+            if (fal2 == true & fal1 == true)
             {
-                if (DataSource.parcelList[i].Id == idParcel)
-                {
-                    for (int j = 0; j < DataSource.dronsList.Count; j++)
-                    {
-                        if (DataSource.dronsList[j].Id == idDrone)//אם מצאתי רחפן 
-                        {
-                            Parcel p = DataSource.parcelList[i];
-                            p.Droneld = DataSource.dronsList[j].Id;//הכנסה ת"ז של הרחפן 
-                            p.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
-                            DataSource.parcelList[i] = p;
-                        }
-                        
-                           
-                            return;
-                        
-                    }
-
-                }
+                per1.Droneld = per2.Id;//הכנסה ת"ז של הרחפן
+                per1.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
+                UpdetParcel(per1);
             }
-            throw new Exception("error id");
+            else
+                throw new Exception("error id");
 
         }
+            
+
         public void PackageCollectionByDrone(int idParcel)//Package collection by Drone
         {
-            for (int i = 0; i < DataSource.parcelList.Count; i++)
+            Parcel per1 = DataSource.parcelList.Find(p => p.Id == idParcel);
+            bool fal1 = DataSource.parcelList.Any(p => p.Id == idParcel);
+            if (fal1 == true)
             {
-                if (DataSource.parcelList[i].Id == idParcel)
-                {
-                    Parcel p = DataSource.parcelList[i];
-                    p.PichedUp = DateTime.Now;
-                    DataSource.parcelList[i]=p;//עדכון זמן הגעת הרחפן לשולח חבילה
-                    return;
-                }
+                per1.PichedUp= DateTime.Now;
+                UpdetParcel(per1);
             }
         }
 
         public void DeliveryOfPackageToTheCustomer(int idParcel)//Delivery of a package to the customer
         {
-            //לבדוק תקינות
-            for (int i = 0; i < DataSource.parcelList.Count; i++)//לחפש את החבילה
+            Parcel per1 = DataSource.parcelList.Find(p => p.Id == idParcel);
+            bool fal1 = DataSource.parcelList.Any(p => p.Id == idParcel);
+            if (fal1 == true)
             {
-                if (DataSource.parcelList[i].Id == idParcel)
-                {
-                    for (int j = 0; j < DataSource.dronsList.Count; j++)
-                    {
-                        if (DataSource.dronsList[j].Id == DataSource.parcelList[i].Droneld)//אם מצאתי רחפן לפי ת"ז של רחפן בחבילה
-                        {
-                            // DataSource.dronsList[j].StatusDrone = IDAL.Status.available;//להעביר את הרחפן למצב שהוא זמין
-                            Parcel p = DataSource.parcelList[i];
-                            p.Delivered = DateTime.Now;//עדכון זמן שיוך חבילה
-                             
-                            DataSource.parcelList[i] = p;
-                            return;
-                        }
-                        
-                    }
-                   
-                }
+                per1.Delivered = DateTime.Now;
+                UpdetParcel(per1);
             }
-           
         }
 
        

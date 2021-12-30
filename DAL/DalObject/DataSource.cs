@@ -22,8 +22,8 @@ namespace DalObject
         {
 
             public static double Free=0.5;
-            public static double LightWeight=3;
-            public static double MediumWeight=4;
+            public static double LightWeight=30;
+            public static double MediumWeight=20;
             public static double HeavyWeight=15;
             public static double LoadingPrecents=20;//  הוספתי 20,קצב טעינת רחפן באחוזים לשעה
             internal static int amountDorneId = 0;//כמות הרחפנים

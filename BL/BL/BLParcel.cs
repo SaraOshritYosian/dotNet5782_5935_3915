@@ -121,7 +121,7 @@ namespace IBL
 
             return dist;
         }
-       
+
         public BO.ParcelToLIst ParcelToListToPrint(int idp)//v
         {
             BO.ParcelToLIst bop;
@@ -148,7 +148,7 @@ namespace IBL
 
         }
 
-     
+
 
         public void PrintUnconnectedParceslList()//ptint list parcel that not connection to drone
         {
@@ -167,12 +167,13 @@ namespace IBL
             for (int i = 0; i < a.Count(); i++)
             {
                 if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
-                   return ParcelToListToPrint(a.ElementAt(i).Id);
+                    return ParcelToListToPrint(a.ElementAt(i).Id);
 
             }
             throw new Exception();
         }
-        public StatusParcel StatuseParcelKnow(int idP) {//return the statuse of parcel
+        public StatusParcel StatuseParcelKnow(int idP)
+        {//return the statuse of parcel
             IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
             if (dop.Delivered.Date != default)//סופק
@@ -203,43 +204,41 @@ namespace IBL
         {
             if (id < 0)
                 throw new ArgumentOutOfRangeException("id", "The drone number must be greater or equal to 0");
-            for (int i = 0; i < BlDrone.Count; i++)
+            bool fal = BlDrone.Any(p => p.Id == id);
+            DroneToList drone = BlDrone.Find(p => p.Id == id);
+            if (fal == true)//exsist
             {
-                if (BlDrone[i].Id == id)
+                if (drone.StatusDrone != BO.Enums.StatusDrone.available)
+                    throw new InvalidOperationException("The drone is not assigned to any package");
+                var parcel = accessIDal.GetParcel(drone.IdParcel);
+                if ((parcel.Scheduled == default(DateTime)) || (parcel.PichedUp != default(DateTime)))
+                    throw new InvalidOperationException("The package is not ready to pick up");
+                try
                 {
-                    DroneToList drone = BlDrone[i];
-                    //if (drone.Id != id)
-                    //    throw new BadDroneIdException(drone.Id);
-                    if (drone.StatusDrone != BO.Enums.StatusDrone.available)
-                        throw new InvalidOperationException("The drone is not assigned to any package");
-                    var parcel = accessIDal.GetParcel(drone.IdParcel);
-                    if ((parcel.Scheduled == default(DateTime)) || (parcel.PichedUp != default(DateTime)))
-                        throw new InvalidOperationException("The package is not ready to pick up");
 
-                    try
+                    var sender = accessIDal.GetCustomer(parcel.Senderld);
+                    double distance = DistanceTo(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
+                    drone.StatusBatter = drone.StatusBatter - BatteryConsumption(distance);
+                    drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
                     {
-
-                        var sender = accessIDal.GetCustomer(parcel.Senderld);
-                        double distance = DistanceTo(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
-                        drone.StatusBatter = drone.StatusBatter - BatteryConsumption(distance);
-                        drone.LocationDrone = new Location//עדכון מיקום למיקום שולח
-                        {
-                            Latitude = sender.Lattitude,
-                            Longitude = sender.Longitude
-                        };
-                        BlDrone[i] = drone;
-                        parcel.PichedUp = DateTime.Now;
-                        accessIDal.DeleteParcel(parcel.Id);//קיבלנו עצם מועתק
-                        accessIDal.AddParcel(parcel);
-                    }
-                    catch (Exception)
-                    {
-                        throw new Exception();//חריגה
-                    }
+                        Latitude = sender.Lattitude,
+                        Longitude = sender.Longitude
+                    };
+                    BlDrone.Remove(BlDrone.Find(p => p.Id == id));
+                    BlDrone.Add(drone);
+                    accessIDal.UpdetParcel(parcel); //קיבלנו עצם מועתק
                 }
+                catch (Exception)
+                {
+                    throw new Exception();//חריגה
+                }
+
             }
+            else
+                throw new Exception();//חריגה
+
         }
-        
+
         private IDAL.DO.Parcel MIUNParcelByGood(int idd)//מחזיר את החבילה הכי טובה לביצוע
         {
             try
@@ -261,7 +260,7 @@ namespace IBL
                     double battery1 = BatteryConsumption(farFromSToT, (WeightCategories)peoperty.ElementAt(i).Weight) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקום של ולמקום המשלוח ועד שהוא הול
                     double batteryToStation1 = BatteryConsumption(fatToStationMinDis);
                     WeightCategories weightPa = (WeightCategories)peoperty.ElementAt(i).Weight;
-                    if ((BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0)&&(weightPa <= weight))//המשב בסדר וגם הסוללה תספיק כדי להגיע לתחנה הקרובה אם יצטרך
+                    if ((BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0) && (weightPa <= weight))//המשב בסדר וגם הסוללה תספיק כדי להגיע לתחנה הקרובה אם יצטרך
                     {
                         return peoperty.ElementAt(i);
                     }
@@ -278,75 +277,44 @@ namespace IBL
         //שיוך חבילה לרחפן
         public void AssignPackageToDrone(int id)
         {
+            bool fal = BlDrone.Any(p => p.Id == id);
+            DroneToList drone = BlDrone.Find(p => p.Id == id);
             IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
-            if ((id != dronidal.Id) || id < 0)
+            if (fal == false || id < 0)
                 throw new ArgumentOutOfRangeException("id", "The drone number is error");
             if (accessIDal.GetAllParcel().Count() == 0)
                 throw new Exception("No have parcel to Assign");
-            for (int i = 0; i < BlDrone.Count; i++)
-            {
-                if (BlDrone[i].Id == id)
-                {
-                    DroneToList drone = BlDrone[i];
-                    IDAL.DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
-                    pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
-                    drone.StatusDrone = StatusDrone.delivered;//שינוי מצב רחפן
-                    accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
-                    accessIDal.DeleteParcel(pp.Id);//קיבלנו עצם מועתק
-                    accessIDal.AddParcel(pp);
-                    BlDrone[i] = drone;//לשנות לאחר שינויים
-                }
-            }
+
+            IDAL.DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
+                                                           //pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
+            drone.StatusDrone = StatusDrone.delivered;//שינוי מצב רחפן
+            accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
+            BlDrone.Remove(BlDrone.Find(p => p.Id == id));
+            BlDrone.Add(drone);
+
         }
-        public void PackageDeliveryByDrone(int Id)//אספקת חבילה ע"י רחפן
+        public void PackageDeliveryByDrone(int id)//אספקת חבילה ע"י רחפן
         {
-            //רחפן שאסף ולא סיפק את החבילה
-            //IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
-            //if(StatuseParcelKnowBool(int idP))
-            IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
-           
-            for(int i=0;i<a.Count();i++)
-            {
-                if(a.ElementAt(i).Droneld== Id)
-                {
-                    IDAL.DO.Parcel parcel = a.ElementAt(i);
+            bool fal = BlDrone.Any(p => p.Id == id);
+            DroneToList drone = BlDrone.Find(p => p.Id == id);
+            IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
+            IDAL.DO.Parcel parcel = accessIDal.GetParcel(drone.IdParcel);
+            if (fal == false || id < 0)
+                throw new ArgumentOutOfRangeException( "The drone number is error");
+            if (parcel.Delivered != default)//אספו
 
-                    if(parcel.Delivered!=default)//אספו
-                   
-                        throw new Exception();//להוסיף חריגה
-                    
-                       for (int j = 0; j < BlDrone.Count; j++)
-                        {
-                        if (BlDrone[j].Id == Id)
-                        {
-                            DroneToList drone = BlDrone[j];
+                throw new Exception();//להוסיף חריגה
+            double distance = DistanceTo(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
+            drone.StatusBatter -= BatteryConsumption(distance, (WeightCategories)parcel.Weight);
+            drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Targetld).Lattitude;//שינוי מיקום
+            drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Targetld).Longitude;
+            parcel.PichedUp = DateTime.Now;//שינוי זמן
+            accessIDal.UpdetParcel(parcel);//קיבלנו עצם מועתק
+            drone.StatusDrone = StatusDrone.available;//שינוי סטטוס
+            BlDrone.Remove(BlDrone.Find(p => p.Id == id));
+            BlDrone.Add(drone);
 
-
-                            double distance = DistanceTo(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
-                            drone.StatusBatter -= BatteryConsumption(distance, (WeightCategories)parcel.Weight);
-                            drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Senderld).Lattitude;//שינוי מיקום
-                            drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Senderld).Longitude;
-                            parcel.PichedUp = DateTime.Now;//שינוי זמן
-                             accessIDal.DeleteParcel(parcel.Id);//קיבלנו עצם מועתק
-                            accessIDal.AddParcel(parcel);
-                            accessIDal.DeleteDrone(drone.Id);//קיבלנו עצם מועתק
-                            Drone dr = GetDrone(Id);
-                            drone.StatusDrone = BO.Enums.StatusDrone.available;//שינוי סטטוס
-                            BlDrone[j] = drone;
-
-                            accessIDal.AddDrone(accessIDal.GetDrone(dr.Id));
-                            
-                        }
-                            
-
-                        }
-                        }
-
-                }
-            }
-            
-        
-       
+        }
     }
 }
 
