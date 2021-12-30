@@ -298,17 +298,18 @@ namespace PL
                 try
                 {
                     accseccBL2.SendingDroneToCharging(droneTo.Id);
+                    MessageBox.Show("fun Succeeded");
+                    DroneListWindow win = new DroneListWindow(accseccBL2);
+                    win.Refresh(accseccBL2);
+                    droneListWindow11.Close();
+                    this.Close();
                 }
                  catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show("fun Succeeded");
-                DroneListWindow win = new DroneListWindow(accseccBL2);
-                win.Refresh(accseccBL2);
-                droneListWindow11.Close();
-                this.Close();
+               
 
             }
             if ((string)BottonToFun.Content == ("Collect a package"))//לאסוף
@@ -316,17 +317,18 @@ namespace PL
                 try
                 {
                     accseccBL2.PickUpPackage(droneTo.Id);
+                    MessageBox.Show("fun Succeeded");
+                    DroneListWindow win = new DroneListWindow(accseccBL2);
+                    win.Refresh(accseccBL2);
+                    droneListWindow11.Close();
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show("fun Succeeded");
-                DroneListWindow win = new DroneListWindow(accseccBL2);
-                win.Refresh(accseccBL2);
-                droneListWindow11.Close();
-                this.Close();
+               
 
             }
         }
@@ -342,17 +344,18 @@ namespace PL
                 try
                 {
                     accseccBL2.AssignPackageToDrone(droneTo.Id);
+                    MessageBox.Show("fun Succeeded");
+                    DroneListWindow win = new DroneListWindow(accseccBL2);
+                    win.Refresh(accseccBL2);
+                    droneListWindow11.Close();
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show("fun Succeeded");
-                DroneListWindow win = new DroneListWindow(accseccBL2);
-                win.Refresh(accseccBL2);
-                droneListWindow11.Close();
-                this.Close();
+                
             }
 
             if ((string)BottonToFun2.Content == ("Provide package"))
@@ -360,17 +363,18 @@ namespace PL
                 try
                 {
                     accseccBL2.PackageDeliveryByDrone(droneTo.Id);//לספק
+                    MessageBox.Show("fun Succeeded");
+                    DroneListWindow win = new DroneListWindow(accseccBL2);
+                    win.Refresh(accseccBL2);
+                    droneListWindow11.Close();
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show("fun Succeeded");
-                DroneListWindow win = new DroneListWindow(accseccBL2);
-                win.Refresh(accseccBL2);
-                droneListWindow11.Close();
-                this.Close();
+               
             }
           
         }
