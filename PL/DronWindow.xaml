@@ -9,7 +9,7 @@
 
     <Grid x:Name="GridMainDrone">
 
-
+        
         <Grid x:Name="GridAddDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
                    VerticalAlignment="Stretch" Width="auto">
             <Grid.Background>
