@@ -1,15 +1,15 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL;
+using DalApi;
 
 
-namespace IBL
+namespace BlApi
 {
-    public partial class BL : IBL
+    public partial class BL : BlApi
     {
         public DalObject.DalObject accessIDal;
        // public IDAL.IDal accessIDal;אני חושבת שזה לא נכון
@@ -33,24 +33,24 @@ namespace IBL
             LoadingPrecents = arr[4];
              BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
             //BLDrones = new List<Drone>();
-            List<IDAL.DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
+            List<DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             foreach (var item in DALDrones)
             {
                 BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (Enums.WeightCategories)item.Weight });//weightcategories
             }
             List<Customer> BLCustomer = new List<Customer>();
-            List<IDAL.DO.Customer> DALCustomer = accessIDal.CcustomerList().ToList();//רשימה של לקוחות מDAL
+            List<DO.Customer> DALCustomer = accessIDal.CcustomerList().ToList();//רשימה של לקוחות מDAL
             foreach (var item in DALCustomer)
             {
                 BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Lattitude } });//lattitud with one t
             }
             List<Station> BLStation = new List<Station>();
-            List<IDAL.DO.Station> DALStation = accessIDal.SStationList().ToList();
+            List<DO.Station> DALStation = accessIDal.SStationList().ToList();
             foreach (var item in DALStation)
             { 
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
-            List<IDAL.DO.Parcel> DALParcel = accessIDal.PparcelList().ToList();//רשימה של חביחות מ DAL
+            List<DO.Parcel> DALParcel = accessIDal.PparcelList().ToList();//רשימה של חביחות מ DAL
             foreach (var item in BlDrone)
             {
                 int index = DALParcel.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
@@ -105,7 +105,7 @@ namespace IBL
                     }
                     else
                     {
-                        List<IDAL.DO.Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
+                        List<DO.Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
                         if (DeliveredBySameId.Any())
                         {
                             item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;

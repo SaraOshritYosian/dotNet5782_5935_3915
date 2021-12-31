@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-//using DAL.DO;
+using /*DAL.*/DO;
 /// <summary>
 //,,,,
 /// </summary>
 
-namespace IDAL
+namespace DalApi
 {
-    public interface IDal 
+    public interface DalApi
     {
         // public static double [] ElectricityUse();
         #region Customer

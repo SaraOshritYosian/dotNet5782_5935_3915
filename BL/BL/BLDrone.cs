@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL
     {
@@ -178,7 +178,7 @@ namespace IBL
             BO.Drone bodrone=new BO.Drone();
             try
             {
-                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);//from dalObject
+               DO.Drone dodrone = accessIDal.GetDrone(id);//from dalObject
                 BO.DroneToList dotolist=BlDrone.Find(p => p.Id == id);//from BL
                 bodrone = new BO.Drone()
                 {
@@ -196,7 +196,7 @@ namespace IBL
                     bodrone.PackageInTransfe = GetParcelInTransfer(id);
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -209,15 +209,15 @@ namespace IBL
         {
             d.StatusBatter = rand.Next(20, 41);
             d.StatusDrone = BO.Enums.StatusDrone.InMaintenance;
-            IDAL.DO.Station station = accessIDal.GetStation(cod);
+            DO.Station station = accessIDal.GetStation(cod);
             d.LocationDrone = new Location { Longitude = station.Longitude, Latitude = station.Latitude };
             accessIDal.SendDroneToCharge(d.Id, cod);
             BlDrone.Add(new DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter = d.StatusBatter, StatusDrone = d.StatusDrone, LocationDrone = d.LocationDrone, IdParcel = 0 });
             try
             {
-                accessIDal.AddDrone(new IDAL.DO.Drone { Id = d.Id, Model = d.Model, Weight = (IDAL.DO.WeightCategories)d.Weight });
+                accessIDal.AddDrone(new DO.Drone { Id = d.Id, Model = d.Model, Weight = (DO.WeightCategories)d.Weight });
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -226,19 +226,19 @@ namespace IBL
 
         public void UpdateDrone(int id, string name)//v
         {
-            IDAL.DO.Drone c;
-            IDAL.DO.Drone cc;
+           DO.Drone c;
+            DO.Drone cc;
             try
             {
                 c = accessIDal.GetDrone(id);
                 if (name != "")
                 {
-                    cc = new IDAL.DO.Drone() { Id = c.Id, Model = name, Weight = c.Weight };
+                    cc = new DO.Drone() { Id = c.Id, Model = name, Weight = c.Weight };
                 }
                 else
-                    cc = new IDAL.DO.Drone() { Id = c.Id, Model = c.Model, Weight = c.Weight };
+                    cc = new DO.Drone() { Id = c.Id, Model = c.Model, Weight = c.Weight };
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -256,7 +256,7 @@ namespace IBL
             try
             {
                 DroneToList bo = BlDrone.Find(p => p.Id == id);
-                IDAL.DO.Drone dodrone = accessIDal.GetDrone(id);
+                DO.Drone dodrone = accessIDal.GetDrone(id);
                 bodroneToList.Id = dodrone.Id;
                 bodroneToList.Model = dodrone.Model;
                 bodroneToList.Weight = (BO.Enums.WeightCategories)dodrone.Weight;
@@ -268,7 +268,7 @@ namespace IBL
 
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }

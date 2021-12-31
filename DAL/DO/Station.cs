@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IDAL
+//namespace IDAL
+//{
+namespace DO
 {
-    namespace DO
-    {
         public struct Station//תחנה להטעין
         {
             public int Name { get; set; }
@@ -27,6 +27,6 @@ namespace IDAL
 
 
         }
-    }
+    //}
    
 }

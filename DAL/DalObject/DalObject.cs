@@ -1,16 +1,17 @@
-﻿using IDAL;
+﻿using DAL;//
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using IDAL.DO;
+//using /*IDAL.*/DO;
+using DO;
 using DAL.DalObject;
 
 namespace DalObject//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
 
-    public partial class DalObject : IDal
+    internal partial class DalObject : DalApi
     {
         public DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {

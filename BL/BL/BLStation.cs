@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-namespace IBL
+using BO;
+namespace BlApi
 {
     public partial class BL 
     {
@@ -34,7 +34,7 @@ namespace IBL
             BO.Station c = new BO.Station();
             try
             {
-                IDAL.DO.Station station = accessIDal.GetStation(id); 
+               DO.Station station = accessIDal.GetStation(id); 
 
                 c.Id = station.Id;
                 c.Name = station.Name;
@@ -43,7 +43,7 @@ namespace IBL
                 c.ChargeSlotsFree = station.ChargeSlots; 
                 c.DroneInChargeList = ListDroneInStation(id);
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -51,12 +51,12 @@ namespace IBL
         }
         public void AddStation(Station station)//v
         {
-            IDAL.DO.Station station1 = new IDAL.DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
+            DO.Station station1 = new IDAL.DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
             try
             {
                 accessIDal.AddStation(station1);
             }
-            catch(IDAL.DO.Excptions) {
+            catch(DO.Excptions) {
                 throw new AlreadyExistException();
             }
            
@@ -64,7 +64,7 @@ namespace IBL
         public void UpdateStation(int idS, int names,int chargeSlote)//v
         {
 
-            IDAL.DO.Station c;
+            DO.Station c;
             try
             {
                
@@ -82,7 +82,7 @@ namespace IBL
                 accessIDal.UpdetStation(c);
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -96,14 +96,14 @@ namespace IBL
             StationToList c = new StationToList();
             try
             {
-                IDAL.DO.Station station = accessIDal.GetStation(id);
+                DO.Station station = accessIDal.GetStation(id);
                 c.Id = station.Id;
                 c.Name = station.Name;
                 c.ChargeSlotsNotFree = accessIDal.CoutCharge(id);
                 c.ChargeSlotsFree = station.ChargeSlots;
              
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -113,7 +113,7 @@ namespace IBL
 
         public IEnumerable<int> AvailableStationToChargeListt()//return list station who have available to charge 
         {
-            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
+            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
             List<int> b = new List<int>();
             for (int i = 0; i < a.Count(); i++)
             {
@@ -124,11 +124,11 @@ namespace IBL
             return b;
 
         }
-            public IEnumerable <IDAL.DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
+            public IEnumerable <DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
             
-            IEnumerable<IDAL.DO.Station> a = accessIDal.GetAllStation();
-            List < IDAL.DO.Station > b= new List<IDAL.DO.Station>();
+            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
+            List < DO.Station > b= new List<DO.Station>();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).ChargeSlots > 0)

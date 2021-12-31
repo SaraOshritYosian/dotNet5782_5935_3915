@@ -4,8 +4,8 @@ using System.Text;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
-namespace IDAL
-{
+//namespace IDAL
+//{
     namespace DO
     {
         public struct Customer//מייצג לקוח
@@ -29,5 +29,5 @@ namespace IDAL
         }
        
 
-    }
+    //}
 }
