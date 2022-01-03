@@ -20,7 +20,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        public IBL.BL accsessBL;
+        public BL accsessBL;
       
         public MainWindow()
         {

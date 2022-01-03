@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL
     {
@@ -72,7 +72,7 @@ namespace IBL
             BO.Customer c = new BO.Customer();
             try
             {
-                IDAL.DO.Customer customer = accessIDal.GetCustomer(id);
+               DO.Customer customer = accessIDal.GetCustomer(id);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
@@ -82,7 +82,7 @@ namespace IBL
                 c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -91,8 +91,8 @@ namespace IBL
         //update customer by id or name or phone ot more
         public void UpdateCustomer(int id, string name, string phone)//v
         {
-            IDAL.DO.Customer c=accessIDal.GetCustomer(id);
-            IDAL.DO.Customer cc= new IDAL.DO.Customer();
+           DO.Customer c=accessIDal.GetCustomer(id);
+            DO.Customer cc= new DO.Customer();
             cc.Id = c.Id;
             cc.Lattitude = c.Lattitude;
             cc.Longitude = c.Longitude;
@@ -111,7 +111,7 @@ namespace IBL
 
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -120,13 +120,13 @@ namespace IBL
         //add customer
         public void AddCustomer(Customer customer)//v
         {
-            IDAL.DO.Customer customer1 = new IDAL.DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
+           DO.Customer customer1 = new DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
             try
             {
                 accessIDal.AddCustomer(customer1);
             }
 
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -138,7 +138,7 @@ namespace IBL
             BO.CustomerToList c = new BO.CustomerToList();
             try
             {
-                IDAL.DO.Customer customer = accessIDal.GetCustomer(idc);
+                DO.Customer customer = accessIDal.GetCustomer(idc);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
@@ -147,7 +147,7 @@ namespace IBL
                 c.NumberOfPackagesGetCustomer = NumberOfPackagesHeReceived(idc);
                 c.SeveralPackagesOnTheWayToTheCustomerCustomer = SeveralPackagesOnTheWayToTheCustomer(idc);
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }

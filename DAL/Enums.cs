@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IDAL.DO
+namespace /*IDAL.*/DO
 {
    //enums סדרות של 
    public enum WeightCategories { Light,Medium,Heavy}//סוג החבילה parcel type
