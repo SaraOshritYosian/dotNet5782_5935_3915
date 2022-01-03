@@ -40,6 +40,7 @@
             <Label x:Name="Label2" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,212,0,0" VerticalAlignment="Top" Foreground="#FFF11010"/>
             <Label x:Name="Label1" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,278,0,0" VerticalAlignment="Top" Foreground="#FFF31111"/>
             <Label x:Name="Label4" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" VerticalAlignment="Top" Foreground="#FFF31111"/>
+            <Label x:Name="Label5" Content="drone is exsist" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" Foreground="#FFF31111" VerticalAlignment="Top"/>
 
 
         </Grid>
@@ -90,7 +91,7 @@
             <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,74,15,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
             <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="358,91,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717"/>
             <Label x:Name="LabelErrorMode"  Content="Please fill in" HorizontalAlignment="Left" Margin="130,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="82" Foreground="#FFF50C0C"/>
-
+            
 
         </Grid>
 
