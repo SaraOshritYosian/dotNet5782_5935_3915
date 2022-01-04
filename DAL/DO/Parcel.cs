@@ -4,8 +4,8 @@ using System.Text;
 
 //namespace IDAL
 //{
-    namespace DO
-    {
+    namespace IDAL.DO
+{
         public struct  Parcel//משלוח
         {
             public int Id { get; set; }

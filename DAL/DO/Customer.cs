@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
 //{
-    namespace DO
+    namespace IDAL.DO
     {
         public struct Customer//מייצג לקוח
         {

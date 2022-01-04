@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 
 namespace DalApi
@@ -7,7 +8,7 @@ namespace DalApi
     {
 
         #region Customer
-        IEnumerable<DO.Customer> GetAllCustomer();
+        IEnumerable<Customer> GetAllCustomer();
         IEnumerable<DO.Customer> GetAllCustomerBy(Predicate<DO.Customer> predicate);
         DO.Customer GetCustomer(int id);//get
         void AddCustomer(DO.Customer customer);//add

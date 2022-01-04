@@ -4,8 +4,8 @@ using System.Text;
 
 //namespace IDAL
 //{
-    namespace DO
-    {
+    namespace IDAL.DO
+{
         public struct  DroneCharge//הטענת רחפן
         {
             public int Droneld { get; set; }

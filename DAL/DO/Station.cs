@@ -4,7 +4,7 @@ using System.Text;
 
 //namespace IDAL
 //{
-namespace DO
+namespace IDAL.DO
 {
         public struct Station//תחנה להטעין
         {

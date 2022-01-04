@@ -15,11 +15,7 @@ using System.Threading.Tasks;
             {
                 return this.ToStringProperty();
             }
-            //public override string ToString()
-            //{
-
-            //    return base.ToString() + string.Format("the id is:{0,6},\t name is:{1,-3})\n", Id, Name);
-            //}
+           
         }
    
 }

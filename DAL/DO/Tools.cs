@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace /*IDAL.*/DO//למה זה שונה מהמורה?
+namespace IDAL.DO//למה זה שונה מהמורה?
 {
    public static class Tools
     {

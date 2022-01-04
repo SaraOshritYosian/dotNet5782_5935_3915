@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace /*enums*/ BO
+namespace IBL.BO
 {
     public static class Tools
         

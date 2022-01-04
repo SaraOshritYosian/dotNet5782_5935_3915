@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 //using IDAL;
 using DO;
 
-namespace /*IDAL.*/DO
+namespace IDAL.DO
 {
     [Serializable]
    public class Excptions:Exception

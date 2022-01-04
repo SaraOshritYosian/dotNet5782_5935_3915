@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 
-namespace BlApi
+namespace IBL
 {
     public interface IBL
     {
