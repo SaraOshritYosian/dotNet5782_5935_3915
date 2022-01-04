@@ -316,6 +316,12 @@ namespace BlApi
             }
             return dd;
         }
+        public IEnumerable<DroneToList> GetDronesByPerdicate(Predicate<DroneToList> predicate)
+        {
+            return from drone in this.GetDrons()
+                   where predicate(drone)
+                   select drone;
+        }
 
     }
 

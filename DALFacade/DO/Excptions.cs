@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
-using IDAL;
-namespace IDAL.DO
+namespace DO
 {
     [Serializable]
    public class Excptions:Exception

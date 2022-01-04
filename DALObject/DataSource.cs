@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using IDAL.DO;
-using static BL.Enums;
+using DO;
 
 namespace DalObject
 {

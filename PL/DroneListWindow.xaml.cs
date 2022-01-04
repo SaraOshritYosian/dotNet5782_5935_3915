@@ -33,6 +33,7 @@ namespace PL
             DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
             ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(IBL.BO.Enums.StatusDrone));
             ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
+
         }
         //public void Refresh(IBL.BL accseccBL)
         //{

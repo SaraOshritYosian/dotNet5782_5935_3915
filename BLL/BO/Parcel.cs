@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enums;
 
-namespace IBL
-{
+
     namespace BO
     {
         public class Parcel
@@ -23,6 +21,6 @@ namespace IBL
             public DateTime Delivered { get; set; }//זמן הגעת חבילה למקבל parcel dellivery time
 
         }
-    }
+   
     
 }

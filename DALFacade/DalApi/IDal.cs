@@ -1,6 +1,8 @@
-﻿namespace DALFacade.DalApi
+﻿using System;
+
+namespace DalApi
 {
-    internal interface IDal
+    public interface IDal
     {
 
     }

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using BlApi;
 namespace PL
 {
     /// <summary>
@@ -20,6 +20,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        internal readonly IBL bl = BlFactory.GetBl();
         public BL accsessBL;
       
         public MainWindow()
