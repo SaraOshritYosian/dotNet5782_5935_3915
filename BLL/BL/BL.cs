@@ -57,7 +57,7 @@ namespace BL
             { 
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
-            List<Parcel> DALParcel = (List<Parcel>)accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
+            List<DO.Parcel> DALParcel = (List<DO.Parcel>)accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
             foreach (var item in BlDrone)
             {
                 
@@ -72,13 +72,13 @@ namespace BL
                     double electricityUse = distanceBrecieverAstation * Free;
                     switch (DALParcel[index].Weight)
                     {
-                        case WeightCategories.Light:
+                        case (DO.WeightCategories)WeightCategories.Light:
                             electricityUse += distanceBsenderAreciever * LightWeight;
                             break;
-                        case WeightCategories.Medium:
+                        case (DO.WeightCategories)WeightCategories.Medium:
                             electricityUse += distanceBsenderAreciever * MediumWeight;
                             break;
-                        case WeightCategories.Heavy:
+                        case (DO.WeightCategories)WeightCategories.Heavy:
                             electricityUse += distanceBsenderAreciever * HeavyWeight;
                             break;
 
@@ -113,7 +113,7 @@ namespace BL
                     }
                     else
                     {
-                        List<Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
+                        List<DO.Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
                         if (DeliveredBySameId.Any())
                         {
                             item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;

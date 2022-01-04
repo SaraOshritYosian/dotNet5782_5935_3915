@@ -11,10 +11,10 @@ namespace BL
 {
     sealed partial class BL :IBL
     {
-        private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
+        private ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
         {
            
-            BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
+            ParcelInCustomer p = new ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
             {
                 Id = idp,
                 Weight = (WeightCategories)accessIDal.GetParcel(idp).Weight,
@@ -25,10 +25,10 @@ namespace BL
             };
             return p;
         }
-        private BO.ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//מי שמקבל
+        private ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//מי שמקבל
         {
 
-            BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי ששלח
+            ParcelInCustomer p = new ParcelInCustomer()//לקוח בחבילה זה מי ששלח
             {
                 Id = idp,
                 Weight = (WeightCategories)accessIDal.GetParcel(idp).Weight,
@@ -42,7 +42,7 @@ namespace BL
         //
 
 
-        private IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
+        private IEnumerable<ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
             ListIdParcelTo = (List<int>)accessIDal.ListSendetParcel(idc);
@@ -54,7 +54,7 @@ namespace BL
             return a;
 
         }
-        private IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
+        private IEnumerable<ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
             ListIdParcelTo = (List<int>)accessIDal.ListTargetParcel(idc);// מקבל רשימה של ת"ז של משלוחים מי שיקבל ע"פ ת"ז של לקוח מסויים
@@ -67,9 +67,9 @@ namespace BL
 
         }
         //return a customer
-        public BO.Customer GetCustomer(int id)//v 
+        public Customer GetCustomer(int id)//v 
         {
-            BO.Customer c = new BO.Customer();
+            Customer c = new Customer();
             try
             {
                 Customer customer = accessIDal.GetCustomer(id);

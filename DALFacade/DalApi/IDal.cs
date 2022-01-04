@@ -25,6 +25,7 @@ namespace DalApi
         void UpdetDrone(DO.Drone drone);//updet
         void UpdetDrone(int id, Action<DO.Drone> action);//updet
         void DeleteDrone(int id);//delete
+        double[] RequestPowerConsuption();
         public IEnumerable<double> ElectricityUse();
         ///.
         #endregion
