@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
+using enums;
 namespace BlApi
 {
     public partial class BL 
     {
         private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
         {
-            int moneDroneInCharge= accessIDal.MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
+            int moneDroneInCharge= /*accessIDal.*/MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
             if (moneDroneInCharge > 0)
             {
                 List<int> ListDroneId;//vv
@@ -29,12 +29,12 @@ namespace BlApi
         }
 
 
-        public BO.Station GetStation(int id)// v
+        public /*BO.*/Station GetStation(int id)// v
         {
-            BO.Station c = new BO.Station();
+            /*BO.*/Station c = new /*BO.*/Station();
             try
             {
-               DO.Station station = accessIDal.GetStation(id); 
+              /* DO.*/Station station = /*accessIDal.*/GetStation(id); 
 
                 c.Id = station.Id;
                 c.Name = station.Name;
@@ -51,10 +51,10 @@ namespace BlApi
         }
         public void AddStation(Station station)//v
         {
-            DO.Station station1 = new IDAL.DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
+            DO.Station station1 = new /*IDAL.*/DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
             try
             {
-                accessIDal.AddStation(station1);
+                /*accessIDal.*/AddStation(station1);
             }
             catch(DO.Excptions) {
                 throw new AlreadyExistException();
@@ -68,7 +68,7 @@ namespace BlApi
             try
             {
                
-                c =accessIDal.GetStation(idS);
+                c =/*accessIDal.*/GetStation(idS);
                 //Console.WriteLine(c.ToString());
                 if (names !=-1 )
                 {
@@ -79,7 +79,7 @@ namespace BlApi
                     c.ChargeSlots = chargeSlote-accessIDal.CoutCharge(idS);
                 }
                 //Console.WriteLine(c.ToString());
-                accessIDal.UpdetStation(c);
+               /* accessIDal.*/UpdetStation(c);
 
             }
             catch (DO.Excptions ex)
@@ -90,16 +90,16 @@ namespace BlApi
       
        
 
-        public BO.StationToList StationToListToPrint(int id)
+        public /*BO.*/StationToList StationToListToPrint(int id)
         {
             
             StationToList c = new StationToList();
             try
             {
-                DO.Station station = accessIDal.GetStation(id);
+               /* DO.*/Station station =/* accessIDal.*/GetStation(id);
                 c.Id = station.Id;
                 c.Name = station.Name;
-                c.ChargeSlotsNotFree = accessIDal.CoutCharge(id);
+                c.ChargeSlotsNotFree = /*accessIDal.*/CoutCharge(id);
                 c.ChargeSlotsFree = station.ChargeSlots;
              
             }
@@ -113,7 +113,7 @@ namespace BlApi
 
         public IEnumerable<int> AvailableStationToChargeListt()//return list station who have available to charge 
         {
-            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
+            IEnumerable<DO.Station> a = /*accessIDal.*/GetAllStation();
             List<int> b = new List<int>();
             for (int i = 0; i < a.Count(); i++)
             {
@@ -127,7 +127,7 @@ namespace BlApi
             public IEnumerable <DO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
             
-            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
+            IEnumerable<DO.Station> a =/* accessIDal.*/GetAllStation();
             List < DO.Station > b= new List<DO.Station>();
             for (int i = 0; i < a.Count(); i++)
             {

@@ -1,10 +1,10 @@
-﻿using BO;
+﻿using enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BO;
 
 namespace BlApi
 {
@@ -30,7 +30,7 @@ namespace BlApi
         #endregion
 
         #region Station
-        BO.Station GetStation(int id);
+        /*BO.*/Station GetStation(int id);
         void AddStation(Station station);
          void UpdateStation(int idS, int names, int chargeSlote);
      

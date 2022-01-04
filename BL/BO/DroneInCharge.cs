@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace BlApi
+namespace enums
 {
-    namespace BO
-    {
-
+   
       public  class DroneInCharge
         {
             public int Id { get; set; }
@@ -20,4 +18,4 @@ namespace BlApi
     }
 
    
-}
+

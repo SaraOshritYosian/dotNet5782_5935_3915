@@ -1,10 +1,12 @@
 ﻿
+using BlApi.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BO.Enums;
+using static BL.Enums;
+
 namespace BO
 {
    public class PackageInTransfer

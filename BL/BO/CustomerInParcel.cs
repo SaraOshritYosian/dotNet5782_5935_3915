@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlApi
+namespace enums
 {
-    namespace BO
-    {
         public class CustomerInParcel
         {
             public int Id { get; set; }
@@ -21,6 +19,6 @@ namespace BlApi
 
             //    return base.ToString() + string.Format("the id is:{0,6},\t name is:{1,-3})\n", Id, Name);
             //}
-        }
+       
     }
 }

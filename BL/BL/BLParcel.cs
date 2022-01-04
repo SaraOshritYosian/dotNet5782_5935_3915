@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
-using static BO.Enums;
+using enums;
+using static enums.Enums;
 
 namespace BlApi
 {
@@ -12,15 +12,15 @@ namespace BlApi
     public partial class BL
     {
 
-        public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
+        public PackageInTransfer GetParcelInTransfer(int idD)// 
         {
-            BO.PackageInTransfer bop;
+            PackageInTransfer bop;
             try
             {
-                DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
+                DO.Parcel dop = /*accessIDal.*/GetParcelByDrone(idD);//parcel from dalObect
 
                 // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
-                bop = new BO.PackageInTransfer()
+                bop = new PackageInTransfer()
                 {
                     Id = dop.Id,
                     PackageMode = StatuseParcelKnowBool(dop.Id),
@@ -122,7 +122,7 @@ namespace BlApi
             return dist;
         }
 
-        public BO.ParcelToLIst ParcelToListToPrint(int idp)//v
+        public ParcelToLIst ParcelToListToPrint(int idp)//v
         {
             BO.ParcelToLIst bop;
             try
@@ -152,7 +152,7 @@ namespace BlApi
 
         public void PrintUnconnectedParceslList()//ptint list parcel that not connection to drone
         {
-            IEnumerable<DO.Parcel> a = accessIDal.GetAllParcel();
+            IEnumerable<DO.Parcel> a = /*accessIDal.*/GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
@@ -161,9 +161,9 @@ namespace BlApi
             }
         }
 
-        public BO.ParcelToLIst PrintUnconnectedParceslList(int pr)//ptint list parcel that not connection to drone
+        public /*BO.*/ParcelToLIst PrintUnconnectedParceslList(int pr)//ptint list parcel that not connection to drone
         {
-            IEnumerable<DO.Parcel> a = accessIDal.GetAllParcel();
+            IEnumerable<DO.Parcel> a = /*accessIDal.*/GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
@@ -174,7 +174,7 @@ namespace BlApi
         }
         public StatusParcel StatuseParcelKnow(int idP)
         {//return the statuse of parcel
-            DO.Parcel dop = accessIDal.GetParcel(idP);
+            DO.Parcel dop = /*accessIDal.*/GetParcel(idP);
 
             if (dop.Delivered.Date != default)//סופק
                 return StatusParcel.provided;
@@ -188,7 +188,7 @@ namespace BlApi
         }
         private bool StatuseParcelKnowBool(int idP)// מחזיר לא נכון אם ממתין לאיסוף מחזיר נכון אם בדרך ליעד 
         {//return the statuse of parcel
-            DO.Parcel dop = accessIDal.GetParcel(idP);
+            DO.Parcel dop = /*accessIDal*/.GetParcel(idP);
 
             //if (dop.Delivered.Date != default)//סופק
             // return StatusParcel.provided;

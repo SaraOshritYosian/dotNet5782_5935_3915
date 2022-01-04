@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
-
+using enums;
+using BL;
 
 
 namespace BlApi
@@ -133,9 +133,9 @@ namespace BlApi
         }
 
 
-        public BO.CustomerToList CostumerToListToPrint(int idc)//
+        public /*BO.*/CustomerToList CostumerToListToPrint(int idc)//
         {
-            BO.CustomerToList c = new BO.CustomerToList();
+           /* BO.*/CustomerToList c = new/* BO.*/CustomerToList();
             try
             {
                 DO.Customer customer = accessIDal.GetCustomer(idc);

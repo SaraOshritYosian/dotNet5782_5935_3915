@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace BlApi
+namespace enums
 {
-    namespace BO
-    {
+   
         public class Location
         {
             public Double Longitude { get; set; }
@@ -16,5 +15,5 @@ namespace BlApi
                 return this.ToStringProperty();
             }
         }
-    }
+   
 }

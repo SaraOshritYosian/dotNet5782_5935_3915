@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IBL.BO.Enums;
-namespace BO
+using BO;
+using static BL.Enums;
+
+namespace BO /*enums*/
 {
    public class ParcelToLIst
     {

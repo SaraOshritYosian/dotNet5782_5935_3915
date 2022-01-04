@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using static IBL.BO.Enums;
+using static BL.Enums;
 
 namespace IBL
 {
@@ -51,13 +51,13 @@ namespace IBL
                 IDAL.DO.Parcel dop = accessIDal.GetParcel(id);
                 DroneToList bo = BlDrone.Find(p => p.Id == dop.Droneld);
                 IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);
-                bop = new BO.Parcel()
+                bop = new Parcel()
                 {
                     Id = dop.Id,
                     CustomerInParcelSender = new CustomerInParcel() { Id = accessIDal.GetParcel(id).Senderld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(id).Senderld).Name },
                     CustomerInParcelTarget = new CustomerInParcel() { Id = accessIDal.GetParcel(id).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(id).Targetld).Name },
-                    Weight = (WeightCategories)dop.Weight,
-                    Priority = (Priority)dop.Priority,
+                    Weight =dop.Weight,
+                    Priority = dop.Priority,
                     Requested = dop.Requested,
                     Delivered = dop.Delivered,
                     PichedUp = dop.PichedUp,
@@ -67,7 +67,7 @@ namespace IBL
             }
             catch (IDAL.DO.Excptions ex)
             {
-                throw new BO.Excptions(ex.Message);
+                throw new Excptions(ex.Message);
             }
             return bop;
 
@@ -78,8 +78,8 @@ namespace IBL
             p.Id = parcel.Id;
             p.Senderld = parcel.CustomerInParcelSender.Id;
             p.Targetld = parcel.CustomerInParcelTarget.Id;
-            p.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
-            p.Priority = (IDAL.DO.Priority)(WeightCategories)parcel.Priority;
+            p.Weight = parcel.Weight;
+            p.Priority =parcel.Priority;
             p.Droneld = 0;
             p.Requested = DateTime.Now;
             p.Scheduled = default;
@@ -122,13 +122,13 @@ namespace IBL
             return dist;
         }
 
-        public BO.ParcelToLIst ParcelToListToPrint(int idp)//v
+        public ParcelToLIst ParcelToListToPrint(int idp)//v
         {
-            BO.ParcelToLIst bop;
+            ParcelToLIst bop;
             try
             {
                 IDAL.DO.Parcel dop = accessIDal.GetParcel(idp);
-                bop = new BO.ParcelToLIst()
+                bop = new ParcelToLIst()
                 {
                     Id = dop.Id,
                     SenderName = GetCustomer(dop.Senderld).Name,
@@ -208,7 +208,7 @@ namespace IBL
             DroneToList drone = BlDrone.Find(p => p.Id == id);
             if (fal == true)//exsist
             {
-                if (drone.StatusDrone != BO.Enums.StatusDrone.available)
+                if (drone.StatusDrone != StatusDrone.available)
                     throw new InvalidOperationException("The drone is not assigned to any package");
                 var parcel = accessIDal.GetParcel(drone.IdParcel);
                 if ((parcel.Scheduled == default(DateTime)) || (parcel.PichedUp != default(DateTime)))
@@ -257,9 +257,9 @@ namespace IBL
                     double farFromSToT = DistanceTo(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);
                     Location location = new Location() { Latitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, Longitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude };//מיקום של מי שצריך לקבל
                     double fatToStationMinDis = returnMinDistancFromLicationToStation(location);//מרחק מהתחנה הקרובה לרחפן לאחר מישלוח
-                    double battery1 = BatteryConsumption(farFromSToT, (WeightCategories)peoperty.ElementAt(i).Weight) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקום של ולמקום המשלוח ועד שהוא הול
+                    double battery1 = BatteryConsumption(farFromSToT, peoperty.ElementAt(i).Weight) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקום של ולמקום המשלוח ועד שהוא הול
                     double batteryToStation1 = BatteryConsumption(fatToStationMinDis);
-                    WeightCategories weightPa = (WeightCategories)peoperty.ElementAt(i).Weight;
+                    WeightCategories weightPa = peoperty.ElementAt(i).Weight;
                     if ((BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0) && (weightPa <= weight))//המשב בסדר וגם הסוללה תספיק כדי להגיע לתחנה הקרובה אם יצטרך
                     {
                         return peoperty.ElementAt(i);

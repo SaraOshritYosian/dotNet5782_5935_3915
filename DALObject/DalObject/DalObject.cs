@@ -303,15 +303,15 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return mone;
         }
 
-        public IDAL.DO.DroneCharge GetDroneChargByDrone(int id)
+        public DroneCharge GetDroneChargByDrone(int id)
         {
             bool fal = DataSource.droneChargeList.Any(p => p.Droneld == id);
             if (fal == true)//Bימצא
                 return DataSource.droneChargeList.Find(p => p.Droneld == id);
             else
-                throw new IDAL.DO.DroneChargDoesNotExistException($"bad Drone id: {id}");
+                throw new DroneChargDoesNotExistException($"bad Drone id: {id}");
         }
-        public IDAL.DO.DroneCharge GetDroneChargByStation(int id)
+        public DroneCharge GetDroneChargByStation(int id)
         {
             bool fal = DataSource.droneChargeList.Any(p => p.Stationld == id);
             if (fal == true)//Bימצא
@@ -353,7 +353,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                    select DroneCharge;
         }
 
-        public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneChargeBy(Predicate<IDAL.DO.DroneCharge> predicate)
+        public IEnumerable<DroneCharge> GetAllDroneChargeBy(Predicate<IDAL.DO.DroneCharge> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
@@ -441,7 +441,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return a;
         }
-        public IEnumerable<IDAL.DO.Customer> CcustomerList()
+        public IEnumerable<Customer> CcustomerList()
         {
             return DataSource.customerList;
         }
@@ -462,12 +462,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
                    select Customer;
         }
 
-        public IEnumerable<IDAL.DO.Customer> GetAllCustomerBy(Predicate<IDAL.DO.Customer> predicate)
+        public IEnumerable<Customer> GetAllCustomerBy(Predicate<Customer> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void AddCustomer(IDAL.DO.Customer customer)
+        public void AddCustomer(Customer customer)
         {
             if (DataSource.parcelList.Any(p => p.Id == customer.Id))
             {
@@ -488,7 +488,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public void UpdetCustomer(IDAL.DO.Customer customer)
+        public void UpdetCustomer(Customer customer)
         {
             bool fal = DataSource.customerList.Any(p => p.Id == customer.Id);
             if (fal == false)
@@ -501,7 +501,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
         }
 
-        public void UpdetCustomer(int id, Action<IDAL.DO.Customer> action)
+        public void UpdetCustomer(int id, Action<Customer> action)
         {
             throw new NotImplementedException();
         }

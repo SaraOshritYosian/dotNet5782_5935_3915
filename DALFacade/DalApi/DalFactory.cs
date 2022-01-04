@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL;
 
 namespace DALFacade.DalApi
 {
     class DalFactory
     {
-        public static IDal GetDal()
+        public static IDAL /*IDal*/ GetDal()
         {
             string dalType = DalConfig.DalName;
             string dalPkg = DalConfig.DalPackages[dalType];

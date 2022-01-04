@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BO
+namespace /*enums*/ BO
 {
     public static class Tools
         

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
-
+using static BL.Enums;
 
 namespace IBL
 {
@@ -36,7 +36,7 @@ namespace IBL
             List<IDAL.DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             foreach (var item in DALDrones)
             {
-                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (Enums.WeightCategories)item.Weight });//weightcategories
+                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = item.Weight });//weightcategories
             }
             List<Customer> BLCustomer = new List<Customer>();
             List<IDAL.DO.Customer> DALCustomer = accessIDal.CcustomerList().ToList();//רשימה של לקוחות מDAL
@@ -56,21 +56,21 @@ namespace IBL
                 int index = DALParcel.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
                 if (index != -1)
                 {
-                    item.StatusDrone = Enums.StatusDrone.delivered;
+                    item.StatusDrone = StatusDrone.delivered;
                     Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel[index].Senderld).LocationOfCustomer;
                     Location targetLocation = BLCustomer.Find(x => x.Id == DALParcel[index].Targetld).LocationOfCustomer;//מיקום של השולח
                     double distanceBsenderAreciever = DistanceTo(senderLocation.Latitude, senderLocation.Longitude, targetLocation.Latitude, targetLocation.Longitude);
                     double distanceBrecieverAstation = returnMinDistancFromLicationToStation(targetLocation);//
                     double electricityUse = distanceBrecieverAstation * Free;
-                    switch ((Enums.WeightCategories)DALParcel[index].Weight)
+                    switch (DALParcel[index].Weight)
                     {
-                        case Enums.WeightCategories.Light:
+                        case WeightCategories.Light:
                             electricityUse += distanceBsenderAreciever * LightWeight;
                             break;
-                        case Enums.WeightCategories.Medium:
+                        case WeightCategories.Medium:
                             electricityUse += distanceBsenderAreciever * MediumWeight;
                             break;
-                        case Enums.WeightCategories.Heavy:
+                        case WeightCategories.Heavy:
                             electricityUse += distanceBsenderAreciever * HeavyWeight;
                             break;
 
@@ -93,8 +93,8 @@ namespace IBL
                 }
                 else
                 {
-                    item.StatusDrone = (BO.Enums.StatusDrone)rand.Next(0, 2);
-                    if (item.StatusDrone == BO.Enums.StatusDrone.InMaintenance)
+                    item.StatusDrone = rand.Next(0, 2);
+                    if (item.StatusDrone ==StatusDrone.InMaintenance)
                     {
                         Station station = BLStation[rand.Next(0, BLStation.Count)];
                         item.LocationDrone = station.LocationStation;

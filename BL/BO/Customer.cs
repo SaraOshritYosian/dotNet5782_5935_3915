@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
+using enums;
 
 
 
-namespace BlApi
+namespace enums
 
 {
-    namespace BO
-    {
+  
         public class Customer
 
         {
@@ -27,5 +26,5 @@ namespace BlApi
          //   }
             public override string ToString() => this.ToStringProperty();
         }
-    }
+   
 }

@@ -31,39 +31,39 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             throw new ParcelDoesNotExistException($"bad Parcle id: {idp}");
         }
-        public IEnumerable<IDAL.DO.Drone> ListDroneInStation(int id)
+        public IEnumerable<DO.Drone> ListDroneInStation(int id)
         {
             return (IEnumerable<Drone>)(from Drone in DataSource.dronsList
                    select GetStation(id));
         }
 
 
-        public IDAL.DO.Drone GetDrone(int id)
+        public DO.Drone GetDrone(int id)
         {
             bool fal = DataSource.dronsList.Any(p => p.Id == id);
-           IDAL.DO.Drone per= DataSource.dronsList.Find(p => p.Id == id);
+           DO.Drone per= DataSource.dronsList.Find(p => p.Id == id);
             if (fal==false)
                 throw new DroneDoesNotExistException($"bad drone id: {id}");
             else
                 return per;
         }
 
-        public IEnumerable<IDAL.DO.Drone> GetAllDrone()
+        public IEnumerable</*IDAL.*/DO.Drone> GetAllDrone()
         {
             return from Drone in DataSource.dronsList
                    select Drone;
         }
 
-        public IEnumerable<IDAL.DO.Drone> GetAllDroneBy(Predicate<IDAL.DO.Drone> predicate)
+        public IEnumerable</*IDAL.*/DO.Drone> GetAllDroneBy(Predicate</*IDAL.*/DO.Drone> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void AddDrone(IDAL.DO.Drone drone)
+        public void AddDrone(/*IDAL.*/DO.Drone drone)
         {
             if (DataSource.dronsList.Any(p => p.Id == drone.Id))
             {
-                throw new IDAL.DO.DroneAlreadyExistException($"bad drone id: {drone.Id}");
+                throw new /*IDAL.*/DO.DroneAlreadyExistException($"bad drone id: {drone.Id}");
             }
             DataSource.dronsList.Add(drone);
            }
@@ -71,23 +71,23 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         public void DeleteDrone(int id)
         {
             bool fal = DataSource.dronsList.Any(p => p.Id == id);
-            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
+            /*IDAL.*/DO.Drone per = DataSource.dronsList.Find(p => p.Id == id);
             //IDAL.DO.Drone? per = DataSource.dronsList.Find(p => p.Id == id);
 
             if (fal==false)
-                throw new IDAL.DO.DroneDoesNotExistException($"bad drone id: {id}");
+                throw new /*IDAL.*/DO.DroneDoesNotExistException($"bad drone id: {id}");
             else
                 DataSource.dronsList.Remove(per);
             
 
         }
 
-        public void UpdetDrone(IDAL.DO.Drone drone)
+        public void UpdetDrone(/*IDAL.*/DO.Drone drone)
         {
-            IDAL.DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
+            /*IDAL.*/DO.Drone per = DataSource.dronsList.Find(p => p.Id == drone.Id);
             bool fal = DataSource.dronsList.Any(p => p.Id == drone.Id);
             if (fal == false)
-                throw new IDAL.DO.DroneDoesNotExistException($"bad drone id: {drone.Id}");
+                throw new /*IDAL.*/DO.DroneDoesNotExistException($"bad drone id: {drone.Id}");
             else
             {
                 DataSource.dronsList.Remove(per);//מחיקה
@@ -97,12 +97,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public void UpdetDrone(int id, Action<IDAL.DO.Drone> action)
+        public void UpdetDrone(int id, Action</*IDAL.*/DO.Drone> action)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IDAL.DO.Drone> DdroneList()
+        public IEnumerable</*IDAL.*/DO.Drone> DdroneList()
         {
             return DataSource.dronsList;
         }
@@ -119,10 +119,10 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         #region Station
         //CRU
-        public IEnumerable<IDAL.DO.Station> ReturnStationHaveFreeCharde()//מחזיר רשימה של תחנות שיש להם כמות טעינה גדולה מ0
+        public IEnumerable</*IDAL.*/DO.Station> ReturnStationHaveFreeCharde()//מחזיר רשימה של תחנות שיש להם כמות טעינה גדולה מ0
         {
-            List<IDAL.DO.Station> ss = new List<Station>();
-            List<IDAL.DO.Station> pp = DataSource.stationsList;
+            List</*IDAL.*/DO.Station> ss = new List<Station>();
+            List</*IDAL.*/DO.Station> pp = DataSource.stationsList;
             for (int i = 0; i < pp.Count(); i++)
             {
                 if (pp[i].ChargeSlots > 0)
@@ -130,15 +130,15 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return ss;
         }
-        public IEnumerable<IDAL.DO.Station> SStationList()
+        public IEnumerable</*IDAL.*/DO.Station> SStationList()
         {
             return DataSource.stationsList;
         }
         
-        public IDAL.DO.Station GetStation(int id)
+        public /*IDAL.*/DO.Station GetStation(int id)
         {
             bool fal= DataSource.stationsList.Any(p => p.Id == id);
-            IDAL.DO.Station per= DataSource.stationsList.Find(p => p.Id == id);
+            /*IDAL.*/DO.Station per= DataSource.stationsList.Find(p => p.Id == id);
             if (fal == true)//נימצא
             {
                 return per;
@@ -149,40 +149,40 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public IEnumerable<IDAL.DO.Station> GetAllStation()
+        public IEnumerable</*IDAL.*/DO.Station> GetAllStation()
         {
            
             return from Station in DataSource.stationsList
                    select Station;
         }
 
-        public IEnumerable<IDAL.DO.Station> GetAllStationBy(Predicate<IDAL.DO.Station> predicate)
+        public IEnumerable</*IDAL.*/DO.Station> GetAllStationBy(Predicate</*IDAL.*/DO.Station> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void AddStation(IDAL.DO.Station station)
+        public void AddStation(/*IDAL.*/DO.Station station)
         {
             if(DataSource.stationsList.Any(p => p.Id == station.Id)){//נימצא
-                throw new IDAL.DO.StationAlreadyExistsException($"bad station id: {station.Id}");
+                throw new /*IDAL.*/DO.StationAlreadyExistsException($"bad station id: {station.Id}");
             }
             DataSource.stationsList.Add(station);
         }
 
         public void DeleteStation(int id)
         {
-            IDAL.DO.Station per= DataSource.stationsList.Find(p => p.Id == id);
+            /*IDAL.*/DO.Station per= DataSource.stationsList.Find(p => p.Id == id);
             bool fal = DataSource.stationsList.Any(p => p.Id == id);
             if (fal == true)//נימצא
               DataSource.stationsList.Remove(per);
             else
-                throw new IDAL.DO.StationDoesNotExistException($"bad station id: {id}");
+                throw new /*IDAL.*/DO.StationDoesNotExistException($"bad station id: {id}");
 
         }
 
-        public void UpdetStation(IDAL.DO.Station station)
+        public void UpdetStation(/*IDAL.*/DO.Station station)
         {
-            IDAL.DO.Station per = DataSource.stationsList.Find(p => p.Id == station.Id);
+            /*IDAL.*/DO.Station per = DataSource.stationsList.Find(p => p.Id == station.Id);
             bool fal = DataSource.stationsList.Any(p => p.Id == station.Id);
            // IDAL.DO.Station per = DataSource.stationsList.Find(p => p.Id == station.Id);
             if (fal==true)//נימצא
@@ -196,7 +196,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public void UpdetStation(int id, Action<IDAL.DO.Station> action)
+        public void UpdetStation(int id, Action</*IDAL.*/DO.Station> action)
         {
             throw new NotImplementedException();
         }
@@ -204,22 +204,22 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region Parcel
-        public IEnumerable<IDAL.DO.Parcel> PparcelList()//return list
+        public IEnumerable</*IDAL.*/DO.Parcel> PparcelList()//return list
         {
             return DataSource.parcelList;
         }
-        public IDAL.DO.Parcel GetParcel(int id)
+        public /*IDAL.*/DO.Parcel GetParcel(int id)
         {
-            IDAL.DO.Parcel per = DataSource.parcelList.Find(p => p.Id == id);
+            /*IDAL.*/DO.Parcel per = DataSource.parcelList.Find(p => p.Id == id);
             bool fal= DataSource.parcelList.Any(p => p.Id == id);
             if (fal==false)
                 throw new ParcelDoesNotExistException($"bad Parcle id: {id}");
             else
                  return per;
         }
-        public IDAL.DO.Parcel GetParcelByDrone(int id)
+        public /*IDAL.*/DO.Parcel GetParcelByDrone(int id)
         {
-            IDAL.DO.Parcel per = DataSource.parcelList.Find(p => p.Droneld == id);
+            /*IDAL.*/DO.Parcel per = DataSource.parcelList.Find(p => p.Droneld == id);
             bool fal = DataSource.parcelList.Any(p => p.Droneld == id);
             if (fal == false)
                 throw new DroneDoesNotExistException($"bad drone id: {id}");
@@ -228,22 +228,22 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         }
 
 
-        public IEnumerable<IDAL.DO.Parcel> GetAllParcel()
+        public IEnumerable</*IDAL.*/DO.Parcel> GetAllParcel()
         {
             return from Parcel in DataSource.parcelList
                    select Parcel;
         }
 
-        public IEnumerable<IDAL.DO.Parcel> GetAllParcelBy(Predicate<IDAL.DO.Parcel> predicate)
+        public IEnumerable</*IDAL.*/DO.Parcel> GetAllParcelBy(Predicate</*IDAL.*/DO.Parcel> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void AddParcel(IDAL.DO.Parcel parcel)
+        public void AddParcel(/*IDAL.*/DO.Parcel parcel)
         {
             if (DataSource.parcelList.Any(p => p.Id == parcel.Id))
             {
-                throw new IDAL.DO.ParcelAlreadyExistsException($"bad parcel id: {parcel.Id}");
+                throw new /*IDAL.*/DO.ParcelAlreadyExistsException($"bad parcel id: {parcel.Id}");
             }
             DataSource.parcelList.Add(parcel);
         }
@@ -251,20 +251,20 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         public void DeleteParcel(int id)
         {
-            IDAL.DO.Parcel per = DataSource.parcelList.Find(p => p.Droneld == id);
+            /*IDAL.*/DO.Parcel per = DataSource.parcelList.Find(p => p.Droneld == id);
             bool fal = DataSource.parcelList.Any(p => p.Id == id);
 
             if (fal == true)//Bימצא
                 DataSource.parcelList.Remove(per);
             else
-                throw new IDAL.DO.ParcelDoesNotExistException($"bad Parcel id: {id}");
+                throw new /*IDAL.*/DO.ParcelDoesNotExistException($"bad Parcel id: {id}");
 
 
         }
 
-        public void UpdetParcel(IDAL.DO.Parcel parcel)
+        public void UpdetParcel(/*IDAL.*/DO.Parcel parcel)
         {
-            IDAL.DO.Parcel per = DataSource.parcelList.Find(p => p.Droneld == parcel.Id);
+            /*IDAL.*/DO.Parcel per = DataSource.parcelList.Find(p => p.Droneld == parcel.Id);
             bool fal = DataSource.parcelList.Any(p => p.Id == parcel.Id);
             if (fal == true)//Bימצא
             {
@@ -273,11 +273,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
             else
-                throw new IDAL.DO.ParcelDoesNotExistException($"bad parcel id: {parcel.Id}");
+                throw new /*IDAL.*/DO.ParcelDoesNotExistException($"bad parcel id: {parcel.Id}");
 
         }
 
-        public void UpdetParcel(int id, Action<IDAL.DO.Parcel> action)
+        public void UpdetParcel(int id, Action</*IDAL.*/DO.Parcel> action)
         {
             throw new NotImplementedException();
         }
@@ -285,7 +285,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
         #endregion
 
         #region DroneCharg
-        public IEnumerable<IDAL.DO.Drone> DroneChargeList()
+        public IEnumerable</*IDAL.*/DO.Drone> DroneChargeList()
         {
             return (IEnumerable<Drone>)DataSource.droneChargeList;
         }
@@ -304,21 +304,21 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return mone;
         }
 
-        public IDAL.DO.DroneCharge GetDroneChargByDrone(int id)
+        public /*IDAL.*/DO.DroneCharge GetDroneChargByDrone(int id)
         {
             bool fal = DataSource.droneChargeList.Any(p => p.Droneld == id);
             if (fal == true)//Bימצא
                 return DataSource.droneChargeList.Find(p => p.Droneld == id);
             else
-                throw new IDAL.DO.DroneChargDoesNotExistException($"bad Drone id: {id}");
+                throw new /*IDAL.*/DO.DroneChargDoesNotExistException($"bad Drone id: {id}");
         }
-        public IDAL.DO.DroneCharge GetDroneChargByStation(int id)
+        public /*IDAL.*/DO.DroneCharge GetDroneChargByStation(int id)
         {
             bool fal = DataSource.droneChargeList.Any(p => p.Stationld == id);
             if (fal == true)//Bימצא
                 return DataSource.droneChargeList.Find(p => p.Stationld == id);
             else
-                throw new IDAL.DO.StationDoesNotExistException($"bad station id: {id}");
+                throw new /*IDAL.*/DO.StationDoesNotExistException($"bad station id: {id}");
         }
 
         public IEnumerable<int> GetDroneChargByStationListInt(int ids)//מחזיר רשימה של ת"ז של רחפנים שנימצאים בתחנה מסויימת
@@ -348,18 +348,18 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             return mone;
         }
 
-        public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneCharge()
+        public IEnumerable</*IDAL.*/DO.DroneCharge> GetAllDroneCharge()
         {
             return from DroneCharge in DataSource.droneChargeList
                    select DroneCharge;
         }
 
-        public IEnumerable<IDAL.DO.DroneCharge> GetAllDroneChargeBy(Predicate<IDAL.DO.DroneCharge> predicate)
+        public IEnumerable</*IDAL.*/DO.DroneCharge> GetAllDroneChargeBy(Predicate</*IDAL.*/DO.DroneCharge> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void UpdetDroneCharge(IDAL.DO.DroneCharge droneCharge)
+        public void UpdetDroneCharge(/*IDAL.*/DO.DroneCharge droneCharge)
         {
             bool fal = DataSource.droneChargeList.Any(p => p.Stationld == droneCharge.Stationld);
           
@@ -371,11 +371,11 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
 
             else
-                throw new IDAL.DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
+                throw new /*IDAL.*/DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
 
         }
        
-        public void UpdetDroneCharge(int id, Action<IDAL.DO.DroneCharge> action)
+        public void UpdetDroneCharge(int id, Action</*IDAL.*/DO.DroneCharge> action)
         {
             throw new NotImplementedException();
         }
@@ -442,12 +442,12 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
             return a;
         }
-        public IEnumerable<IDAL.DO.Customer> CcustomerList()
+        public IEnumerable</*IDAL.*/DO.Customer> CcustomerList()
         {
             return DataSource.customerList;
         }
       
-            public IDAL.DO.Customer GetCustomer(int id)
+            public/* IDAL.*/DO.Customer GetCustomer(int id)
              {
             bool fal = DataSource.customerList.Any(p => p.Id == id);
             if (fal==false)//לא נימצא
@@ -457,22 +457,22 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
              }
 
-        public IEnumerable<IDAL.DO.Customer> GetAllCustomer()
+        public IEnumerable</*IDAL.*/DO.Customer> GetAllCustomer()
         {
             return from Customer in DataSource.customerList
                    select Customer;
         }
 
-        public IEnumerable<IDAL.DO.Customer> GetAllCustomerBy(Predicate<IDAL.DO.Customer> predicate)
+        public IEnumerable</*IDAL.*/DO.Customer> GetAllCustomerBy(Predicate</*IDAL.*/DO.Customer> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
 
-        public void AddCustomer(IDAL.DO.Customer customer)
+        public void AddCustomer(/*IDAL.*/DO.Customer customer)
         {
             if (DataSource.parcelList.Any(p => p.Id == customer.Id))
             {
-                throw new IDAL.DO.CustomerAlreadyExistsException($"bad customer id: {customer.Id}");
+                throw new /*IDAL.*/DO.CustomerAlreadyExistsException($"bad customer id: {customer.Id}");
             }
             DataSource.customerList.Add(customer);
         }
@@ -489,7 +489,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
 
         }
 
-        public void UpdetCustomer(IDAL.DO.Customer customer)
+        public void UpdetCustomer(/*IDAL.*/DO.Customer customer)
         {
             bool fal = DataSource.customerList.Any(p => p.Id == customer.Id);
             if (fal == false)
@@ -502,7 +502,7 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
             }
         }
 
-        public void UpdetCustomer(int id, Action<IDAL.DO.Customer> action)
+        public void UpdetCustomer(int id, Action</*IDAL.*/DO.Customer> action)
         {
             throw new NotImplementedException();
         }
@@ -552,9 +552,9 @@ namespace DalObject//במיין בהוספה את מקבלת את הנתונים
        
      
         // .אפשרויות הצגת הרשימות
-        public IEnumerable<IDAL.DO.Drone> PrindDroneChargeList()//הדפסת רשימת הרחפנים בטעינה print the list of drones in charging
+        public IEnumerable</*IDAL.*/DO.Drone> PrindDroneChargeList()//הדפסת רשימת הרחפנים בטעינה print the list of drones in charging
         {
-            List<IDAL.DO.Drone> b = new List<IDAL.DO.Drone>();
+            List</*IDAL.*/DO.Drone> b = new List</*IDAL.*/DO.Drone>();
             foreach (DroneCharge dr in DataSource.droneChargeList)
             {
                 {

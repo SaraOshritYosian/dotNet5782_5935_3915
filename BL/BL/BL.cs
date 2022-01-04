@@ -1,17 +1,21 @@
-﻿using BO;
+﻿using enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DalApi;//
+using DO;
+using static BL.Enums;
+//using DalObject;
 
 
-namespace BlApi
+
+namespace BL
 {
-    public partial class BL : BlApi
+    public partial class BL : IBL
     {
-        public DalObject.DalObject accessIDal;
+        public DalObject accessIDal;
        // public IDAL.IDal accessIDal;אני חושבת שזה לא נכון
         public List<DroneToList> BlDrone;
         public static double Free;
@@ -24,8 +28,8 @@ namespace BlApi
 
         {
             accessIDal = new DalObject.DalObject();
-           // accessIDal = new DalObject();
-            double[] arr =  accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
+            // accessIDal = new DalObject();
+            double[] arr = accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
             Free = arr[0];
             LightWeight = arr[1];
             MediumWeight = arr[2];
@@ -93,12 +97,12 @@ namespace BlApi
                 }
                 else
                 {
-                    item.StatusDrone = (BO.Enums.StatusDrone)rand.Next(0, 2);
-                    if (item.StatusDrone == BO.Enums.StatusDrone.InMaintenance)
+                    item.StatusDrone = rand.Next(0, 2);
+                    if (item.StatusDrone == StatusDrone.InMaintenance)
                     {
                         Station station = BLStation[rand.Next(0, BLStation.Count)];
                         item.LocationDrone = station.LocationStation;
-                        accessIDal.SendDroneToCharge(station.Id, item.Id);
+                        /*accessIDal.*/SendDroneToCharge(station.Id, item.Id);
                         //IDAL.DO.DroneCharge  droneCharge= new IDAL.DO.DroneCharge();
                        // accessIDal.UpdetDroneCharge(station.Id);
                         item.StatusBatter = rand.Next(0, 21);
