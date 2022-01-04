@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DO;
 
-namespace DalObject
+namespace Dal
 {
     public class DataSource//זה כל המערכים או שנעשה רשימות לא ידוע
     {

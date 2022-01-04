@@ -9,7 +9,7 @@ using DalApi;//
 
 namespace BlApi
 {
-    public partial class BL : BlApi
+    public partial class BL : IBL
     {
         public DalObject.DalObject accessIDal;
        // public IDAL.IDal accessIDal;אני חושבת שזה לא נכון
