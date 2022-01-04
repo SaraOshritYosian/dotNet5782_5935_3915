@@ -1,15 +1,13 @@
 ﻿
-using BlApi.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BL.Enums;
-
-namespace BO
+using static IBL.BO.Enums;
+namespace IBL.BO
 {
-   public class PackageInTransfer
+    public class PackageInTransfer
     {
         public int Id { get; set; }
         public bool PackageMode { get; set; }
@@ -27,3 +25,4 @@ namespace BO
 
     }
 }
+

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace enums
+namespace IBL
 {
-   
+    namespace BO
+    {
         public class Location
         {
             public Double Longitude { get; set; }
@@ -15,5 +16,5 @@ namespace enums
                 return this.ToStringProperty();
             }
         }
-   
+    }
 }

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
-using static BL.Enums;
-
-namespace BO /*enums*/
+using static IBL.BO.Enums;
+namespace IBL.BO
 {
-   public class ParcelToLIst
+    public class ParcelToLIst
     {
         public int Id { get; set; }
-        public string SenderName{ get; set; }//לקוח שולח
+        public string SenderName { get; set; }//לקוח שולח
         public string TargetName { get; set; }//לקוח מקבל
         public WeightCategories Weight { get; set; }
         public Priority Priority { get; set; }

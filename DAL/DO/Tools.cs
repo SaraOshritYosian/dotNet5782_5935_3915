@@ -5,11 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace /*IDAL.*/DO//למה זה שונה מהמורה?
+namespace IDAL.DO//למה זה שונה מהמורה?
 {
-   public static class Tools
+    public static class Tools
     {
-        public static string  ToStringProperty<T>(this T t)
+        public static string ToStringProperty<T>(this T t)
         {
             string str = "";
             foreach (PropertyInfo item in typeof(T).GetProperties())

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-//namespace IDAL
-//{
+namespace IDAL
+{
     namespace DO
     {
-        public struct  DroneCharge//הטענת רחפן
+        public struct DroneCharge//הטענת רחפן
         {
             public int Droneld { get; set; }
             public int Stationld { get; set; }
@@ -21,5 +21,5 @@ using System.Text;
                 return this.ToStringProperty();
             }
         }
-    //}
+    }
 }

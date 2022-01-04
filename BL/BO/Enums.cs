@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using enums;
-using BL;
+using IBL.BO;
 
-
-namespace enums
-
+namespace IBL
 {
-  
+    namespace BO
+    {
+
         public class Enums
         {
             public enum StatusDrone { available, InMaintenance, delivered }//מצב הרחפן drone ststus
@@ -20,6 +19,5 @@ namespace enums
             public enum StatusParcel { Created, associated, collected, provided }//מצב חבילה נוצר, שוייך, נאסף,סןפק
 
         }
-    
+    }
 }
-

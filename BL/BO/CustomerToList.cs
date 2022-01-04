@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace enums
+namespace IBL.BO
 {
-   public class CustomerToList
+    public class CustomerToList
     {
         public int Id { get; set; }
         public string Name { get; set; }

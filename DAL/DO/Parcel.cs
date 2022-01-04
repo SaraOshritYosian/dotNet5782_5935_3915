@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-//namespace IDAL
-//{
+namespace IDAL
+{
     namespace DO
     {
-        public struct  Parcel//משלוח
+        public struct Parcel//משלוח
         {
             public int Id { get; set; }
             public int Senderld { get; set; }//לקוח שולח
@@ -30,5 +30,5 @@ using System.Text;
                 return this.ToStringProperty();
             }
         }
-    //}
+    }
 }

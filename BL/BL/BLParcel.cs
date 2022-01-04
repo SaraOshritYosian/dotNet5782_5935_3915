@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using enums;
-using static enums.Enums;
+using IBL.BO;
+using static IBL.BO.Enums;
 
-namespace BlApi
+namespace IBL
 {
     //DataTime.now.addDay(rand.now(-150,50)
     public partial class BL
     {
 
-        public PackageInTransfer GetParcelInTransfer(int idD)// 
+        public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
         {
-            PackageInTransfer bop;
+            BO.PackageInTransfer bop;
             try
             {
-                DO.Parcel dop = /*accessIDal.*/GetParcelByDrone(idD);//parcel from dalObect
+                IDAL.DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
 
                 // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
-                bop = new PackageInTransfer()
+                bop = new BO.PackageInTransfer()
                 {
                     Id = dop.Id,
                     PackageMode = StatuseParcelKnowBool(dop.Id),
@@ -35,7 +35,7 @@ namespace BlApi
 
                 };
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -48,9 +48,9 @@ namespace BlApi
             BO.Parcel bop;
             try
             {
-                DO.Parcel dop = accessIDal.GetParcel(id);
+                IDAL.DO.Parcel dop = accessIDal.GetParcel(id);
                 DroneToList bo = BlDrone.Find(p => p.Id == dop.Droneld);
-                DO.Drone d = accessIDal.GetDrone(dop.Droneld);
+                IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);
                 bop = new BO.Parcel()
                 {
                     Id = dop.Id,
@@ -65,7 +65,7 @@ namespace BlApi
                     DroneInParcel = new DroneInParcel() { Id = d.Id, StatusBatter = GetDrone(d.Id).StatusBatter, LocationDroneInParcel = bo.LocationDrone }
                 };
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -74,12 +74,12 @@ namespace BlApi
         }
         public void AddParcel(Parcel parcel)//v
         {
-            DO.Parcel p = new DO.Parcel();
+            IDAL.DO.Parcel p = new IDAL.DO.Parcel();
             p.Id = parcel.Id;
             p.Senderld = parcel.CustomerInParcelSender.Id;
             p.Targetld = parcel.CustomerInParcelTarget.Id;
-            p.Weight = (DO.WeightCategories)parcel.Weight;
-            p.Priority = (DO.Priority)(WeightCategories)parcel.Priority;
+            p.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
+            p.Priority = (IDAL.DO.Priority)(WeightCategories)parcel.Priority;
             p.Droneld = 0;
             p.Requested = DateTime.Now;
             p.Scheduled = default;
@@ -90,7 +90,7 @@ namespace BlApi
             {
                 accessIDal.AddParcel(p);
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -122,12 +122,12 @@ namespace BlApi
             return dist;
         }
 
-        public ParcelToLIst ParcelToListToPrint(int idp)//v
+        public BO.ParcelToLIst ParcelToListToPrint(int idp)//v
         {
             BO.ParcelToLIst bop;
             try
             {
-                DO.Parcel dop = accessIDal.GetParcel(idp);
+                IDAL.DO.Parcel dop = accessIDal.GetParcel(idp);
                 bop = new BO.ParcelToLIst()
                 {
                     Id = dop.Id,
@@ -140,7 +140,7 @@ namespace BlApi
                 };
             }
 
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -152,7 +152,7 @@ namespace BlApi
 
         public void PrintUnconnectedParceslList()//ptint list parcel that not connection to drone
         {
-            IEnumerable<DO.Parcel> a = /*accessIDal.*/GetAllParcel();
+            IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
@@ -161,9 +161,9 @@ namespace BlApi
             }
         }
 
-        public /*BO.*/ParcelToLIst PrintUnconnectedParceslList(int pr)//ptint list parcel that not connection to drone
+        public BO.ParcelToLIst PrintUnconnectedParceslList(int pr)//ptint list parcel that not connection to drone
         {
-            IEnumerable<DO.Parcel> a = /*accessIDal.*/GetAllParcel();
+            IEnumerable<IDAL.DO.Parcel> a = accessIDal.GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
@@ -174,7 +174,7 @@ namespace BlApi
         }
         public StatusParcel StatuseParcelKnow(int idP)
         {//return the statuse of parcel
-            DO.Parcel dop = /*accessIDal.*/GetParcel(idP);
+            IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
             if (dop.Delivered.Date != default)//סופק
                 return StatusParcel.provided;
@@ -188,7 +188,7 @@ namespace BlApi
         }
         private bool StatuseParcelKnowBool(int idP)// מחזיר לא נכון אם ממתין לאיסוף מחזיר נכון אם בדרך ליעד 
         {//return the statuse of parcel
-            DO.Parcel dop = /*accessIDal*/.GetParcel(idP);
+            IDAL.DO.Parcel dop = accessIDal.GetParcel(idP);
 
             //if (dop.Delivered.Date != default)//סופק
             // return StatusParcel.provided;
@@ -239,14 +239,14 @@ namespace BlApi
 
         }
 
-        private DO.Parcel MIUNParcelByGood(int idd)//מחזיר את החבילה הכי טובה לביצוע
+        private IDAL.DO.Parcel MIUNParcelByGood(int idd)//מחזיר את החבילה הכי טובה לביצוע
         {
             try
             {
                 WeightCategories weight = GetDrone(idd).Weight;
                 DroneToList BlDronepp = DroneToLisToPrint(idd);//drone from BL
                 Location locationDrone = GetDrone(idd).LocationDrone;//Location drone
-                IEnumerable<DO.Parcel> aa = accessIDal.GetAllParcel();
+                IEnumerable<IDAL.DO.Parcel> aa = accessIDal.GetAllParcel();
                 //IDAL.DO.Parcel newGood;
                 var peoperty = aa.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight).
                     ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Targetld).Lattitude, accessIDal.GetCustomer(parcel.Targetld).Longitude));
@@ -267,7 +267,7 @@ namespace BlApi
 
                 }
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -279,13 +279,13 @@ namespace BlApi
         {
             bool fal = BlDrone.Any(p => p.Id == id);
             DroneToList drone = BlDrone.Find(p => p.Id == id);
-            DO.Drone dronidal = accessIDal.GetDrone(id);
+            IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
             if (fal == false || id < 0)
                 throw new ArgumentOutOfRangeException("id", "The drone number is error");
             if (accessIDal.GetAllParcel().Count() == 0)
                 throw new Exception("No have parcel to Assign");
 
-            DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
+            IDAL.DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
                                                            //pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
             drone.StatusDrone = StatusDrone.delivered;//שינוי מצב רחפן
             accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
@@ -297,10 +297,10 @@ namespace BlApi
         {
             bool fal = BlDrone.Any(p => p.Id == id);
             DroneToList drone = BlDrone.Find(p => p.Id == id);
-            DO.Drone dronidal = accessIDal.GetDrone(id);
-            DO.Parcel parcel = accessIDal.GetParcel(drone.IdParcel);
+            IDAL.DO.Drone dronidal = accessIDal.GetDrone(id);
+            IDAL.DO.Parcel parcel = accessIDal.GetParcel(drone.IdParcel);
             if (fal == false || id < 0)
-                throw new ArgumentOutOfRangeException( "The drone number is error");
+                throw new ArgumentOutOfRangeException("id", "The drone number is error");
             if (parcel.Delivered != default)//אספו
 
                 throw new Exception();//להוסיף חריגה
@@ -310,7 +310,7 @@ namespace BlApi
             drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Targetld).Longitude;
             parcel.PichedUp = DateTime.Now;//שינוי זמן
             accessIDal.UpdetParcel(parcel);//קיבלנו עצם מועתק
-            drone.StatusDrone = StatusDrone.available;//שינוי סטטוס
+            drone.StatusDrone = BO.Enums.StatusDrone.available;//שינוי סטטוס
             BlDrone.Remove(BlDrone.Find(p => p.Id == id));
             BlDrone.Add(drone);
 
@@ -318,4 +318,4 @@ namespace BlApi
     }
 }
 
-    
+

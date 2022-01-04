@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-//namespace IDAL
-//{
+namespace IDAL
+{
     namespace DO
     {
         public struct Drone//מייצג רחפן
@@ -26,5 +26,5 @@ using System.Text;
             }
 
         }
-    //}
+    }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using /*DAL.*/DO;
+//using DAL.DO;
 /// <summary>
 //,,,,
 /// </summary>
 
-namespace DalApi
+namespace IDAL
 {
-    public interface DalApi
+    public interface IDal
     {
         // public static double [] ElectricityUse();
         #region Customer
@@ -40,8 +40,8 @@ namespace DalApi
         DO.DroneCharge GetDroneChargByDrone(int id);//get
         void AddDroneCharge(DO.DroneCharge droneCharge);//add
         void UpdetDroneCharge(DO.DroneCharge droneCharge);//updet
-        void UpdetDroneCharge(int id,Action<DO.DroneCharge> action);//updet
-      //  void DeleteDroneCharge(int id);//delete
+        void UpdetDroneCharge(int id, Action<DO.DroneCharge> action);//updet
+                                                                     //  void DeleteDroneCharge(int id);//delete
 
 
         #endregion

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace enums
+namespace IBL.BO
 {
-  public  class DroneInParcel
+    public class DroneInParcel
     {
         public int Id { get; set; }
         public double StatusBatter { get; set; }

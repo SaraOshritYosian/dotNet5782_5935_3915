@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-namespace BlApi
+namespace IBL
 {
     namespace BO
     {
-       public class Excptions : Exception
+        public class Excptions : Exception
         {
             public Excptions() : base() { }
             public Excptions(string message) : base(message) { }

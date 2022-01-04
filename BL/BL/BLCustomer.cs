@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using enums;
-using BL;
+using IBL.BO;
 
 
-namespace BlApi
+
+namespace IBL
 {
     public partial class BL
     {
         private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
         {
-           
+
             BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
             {
                 Id = idp,
                 Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
                 Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
-                StatusParcel=StatuseParcelKnow(idp),
+                StatusParcel = StatuseParcelKnow(idp),
                 Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Targetld).Name }
-                
+
             };
             return p;
         }
@@ -72,17 +72,17 @@ namespace BlApi
             BO.Customer c = new BO.Customer();
             try
             {
-               DO.Customer customer = accessIDal.GetCustomer(id);
+                IDAL.DO.Customer customer = accessIDal.GetCustomer(id);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
                 Location newC = new Location() { Latitude = customer.Lattitude, Longitude = customer.Longitude };
-                c.LocationOfCustomer=newC;
+                c.LocationOfCustomer = newC;
                 c.ListOfPackagesFromTheCustomer = (List<ParcelInCustomer>)ListParcelFromCustomers(id);// רשימה של מישלוחים שמקבל
                 c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -91,27 +91,27 @@ namespace BlApi
         //update customer by id or name or phone ot more
         public void UpdateCustomer(int id, string name, string phone)//v
         {
-           DO.Customer c=accessIDal.GetCustomer(id);
-            DO.Customer cc= new DO.Customer();
+            IDAL.DO.Customer c = accessIDal.GetCustomer(id);
+            IDAL.DO.Customer cc = new IDAL.DO.Customer();
             cc.Id = c.Id;
             cc.Lattitude = c.Lattitude;
             cc.Longitude = c.Longitude;
             try
             {
-                c =accessIDal.GetCustomer(id);
+                c = accessIDal.GetCustomer(id);
                 if (name != "")
-            {
-                cc.Name = name;
-            }
-            if (phone != "")
-            {
-                cc.Pone = phone;
-            }
+                {
+                    cc.Name = name;
+                }
+                if (phone != "")
+                {
+                    cc.Pone = phone;
+                }
                 accessIDal.UpdetCustomer(cc);
 
 
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -120,25 +120,25 @@ namespace BlApi
         //add customer
         public void AddCustomer(Customer customer)//v
         {
-           DO.Customer customer1 = new DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
+            IDAL.DO.Customer customer1 = new IDAL.DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
             try
             {
                 accessIDal.AddCustomer(customer1);
             }
 
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
         }
 
 
-        public /*BO.*/CustomerToList CostumerToListToPrint(int idc)//
+        public BO.CustomerToList CostumerToListToPrint(int idc)//
         {
-           /* BO.*/CustomerToList c = new/* BO.*/CustomerToList();
+            BO.CustomerToList c = new BO.CustomerToList();
             try
             {
-                DO.Customer customer = accessIDal.GetCustomer(idc);
+                IDAL.DO.Customer customer = accessIDal.GetCustomer(idc);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
@@ -147,7 +147,7 @@ namespace BlApi
                 c.NumberOfPackagesGetCustomer = NumberOfPackagesHeReceived(idc);
                 c.SeveralPackagesOnTheWayToTheCustomerCustomer = SeveralPackagesOnTheWayToTheCustomer(idc);
             }
-            catch (DO.Excptions ex)
+            catch (IDAL.DO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -159,7 +159,7 @@ namespace BlApi
             int mone = 0;
             BO.Customer c = GetCustomer(idc);
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesToTheCustomer;//רשימה של משלוחים ששלח
-            for(int i = 0; i < a.Count(); i++)
+            for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).StatusParcel == Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
                     mone++;
@@ -183,7 +183,7 @@ namespace BlApi
             int mone = 0;
             BO.Customer c = GetCustomer(idc);
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesFromTheCustomer;//רשימה של משלוחים שצריך לקבל
-            
+
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).StatusParcel == Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
@@ -196,7 +196,7 @@ namespace BlApi
             int mone = 0;
             BO.Customer c = GetCustomer(idc);
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesFromTheCustomer;//
-            
+
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).StatusParcel != Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
@@ -205,5 +205,5 @@ namespace BlApi
             return mone;
         }
     }
-    
+
 }

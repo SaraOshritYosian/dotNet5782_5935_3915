@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlApi;
+using static IBL.BO.Enums;
 
-namespace enums
+namespace IBL.BO
 {
 
     public class Drone

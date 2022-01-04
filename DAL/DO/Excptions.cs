@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
-//using IDAL;
-using DO;
-
-namespace /*IDAL.*/DO
+using IDAL;
+namespace IDAL.DO
 {
     [Serializable]
-   public class Excptions:Exception
+    public class Excptions : Exception
     {
-        public Excptions() : base() {}
+        public Excptions() : base() { }
         public Excptions(string message) : base(message) { }
         public Excptions(string message, Exception inner) : base(message, inner) { }
-        protected Excptions(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected Excptions(SerializationInfo info, StreamingContext context) : base(info, context) { }
         //BadDronIdException
 
     }
-    [Serializable] 
-    class DoesNotExistException:Exception
+    [Serializable]
+    class DoesNotExistException : Exception
     {
         public DoesNotExistException() : base() { }
         public DoesNotExistException(string message) : base(message) { }
