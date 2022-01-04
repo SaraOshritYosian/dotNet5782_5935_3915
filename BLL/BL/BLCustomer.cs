@@ -17,8 +17,8 @@ namespace BL
             BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
             {
                 Id = idp,
-                Weight = accessIDal.GetParcel(idp).Weight,
-                Priority = accessIDal.GetParcel(idp).Priority,
+                Weight = (WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Priority)accessIDal.GetParcel(idp).Priority,
                 StatusParcel=StatuseParcelKnow(idp),
                 Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Targetld).Name }
                 
@@ -31,8 +31,8 @@ namespace BL
             BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי ששלח
             {
                 Id = idp,
-                Weight = accessIDal.GetParcel(idp).Weight,
-                Priority = accessIDal.GetParcel(idp).Priority,
+                Weight = (WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Priority)accessIDal.GetParcel(idp).Priority,
                 StatusParcel = StatuseParcelKnow(idp),
                 Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Senderld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Senderld).Name }
 

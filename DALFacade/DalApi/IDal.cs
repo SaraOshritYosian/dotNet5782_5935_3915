@@ -61,6 +61,7 @@ namespace DalApi
         void UpdetStation(DO.Station station);//updet
         void UpdetStation(int id, Action<DO.Station> action);//updet
         void DeleteStation(int id);//delete
+        void SendDroneToCharge(int id1, int id2);
 
         #endregion
     }

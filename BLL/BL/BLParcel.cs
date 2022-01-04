@@ -12,12 +12,12 @@ namespace BL
     {
 
 
-        public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
+        public PackageInTransfer GetParcelInTransfer(int idD)// 
         {
-            BO.PackageInTransfer bop;
+            PackageInTransfer bop;
             try
             {
-                Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
+                DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
 
                 // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
                 bop = new BO.PackageInTransfer()
@@ -43,12 +43,12 @@ namespace BL
 
         }
 
-        public BO.Parcel GetParcel(int id)//v
+        public Parcel GetParcel(int id)//v
         {
-            BO.Parcel bop;
+            Parcel bop;
             try
             {
-                Parcel dop = accessIDal.GetParcel(id);
+                DO.Parcel dop = accessIDal.GetParcel(id);
                 DroneToList bo = BlDrone.Find(p => p.Id == dop.Droneld);
                Drone d = accessIDal.GetDrone(dop.Droneld);
                 bop = new BO.Parcel()

@@ -27,7 +27,7 @@ namespace BL
         static readonly IBL instance = new BL();
         public static IBL Instance { get => instance; }
        
-        public BL()
+         BL()
 
         {
             //accessIDal = new DalObject.DalObject();
@@ -40,26 +40,27 @@ namespace BL
             LoadingPrecents = arr[4];
              BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
             //BLDrones = new List<Drone>();
-            List<Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
+            IEnumerable<DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             foreach (var item in DALDrones)
             {
-                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = item.Weight });//weightcategories
+                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (WeightCategories)item.Weight });//weightcategories
             }
             List<Customer> BLCustomer = new List<Customer>();
-            List<Customer> DALCustomer = accessIDal.CcustomerList().ToList();//רשימה של לקוחות מDAL
+            IEnumerable<DO.Customer> DALCustomer = accessIDal.GetAllCustomer();//רשימה של לקוחות מDAL
             foreach (var item in DALCustomer)
             {
                 BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Lattitude } });//lattitud with one t
             }
             List<Station> BLStation = new List<Station>();
-            List<Station> DALStation = accessIDal.SStationList().ToList();
+            IEnumerable<DO.Station> DALStation = accessIDal.GetAllStation();
             foreach (var item in DALStation)
             { 
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
-            List<Parcel> DALParcel = accessIDal.PparcelList().ToList();//רשימה של חביחות מ DAL
+            List<Parcel> DALParcel = (List<Parcel>)accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
             foreach (var item in BlDrone)
             {
+                
                 int index = DALParcel.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
                 if (index != -1)
                 {
