@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
-using Dal;
 
 namespace Dal//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {

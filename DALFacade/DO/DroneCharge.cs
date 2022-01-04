@@ -9,12 +9,7 @@ using System.Text;
         {
             public int Droneld { get; set; }
             public int Stationld { get; set; }
-            //public override string ToString()
-            //{
-            //    return $"DroneCharge: Droneld={Droneld}, Stationld={Stationld}";
-
-
-            //}
+           
             public override string ToString()
             {
                 return this.ToStringProperty();

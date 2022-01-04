@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace DO//למה זה שונה מהמורה?
+namespace DO
 {
    public static class Tools
     {

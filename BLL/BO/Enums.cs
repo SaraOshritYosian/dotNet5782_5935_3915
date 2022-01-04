@@ -7,8 +7,6 @@ using enums;
 using BL;
 
 
-namespace /*enums*/ IBL
-{
 
  namespace BO
     {
