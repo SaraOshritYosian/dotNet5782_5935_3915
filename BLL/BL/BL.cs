@@ -1,17 +1,25 @@
-﻿using IBL.BO;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL;
+using BlApi;
+using BO;
+using DalApi;
 
 
-namespace IBL
+namespace BL
 {
-    public partial class BL : IBL
+   public sealed partial class BL : IBL
     {
-        public DalObject.DalObject accessIDal;
+        static readonly IBL instance = new BL();
+        public static IBL Instance { get => instance; }
+
+        internal IDal dal = DalFactory.GetDal();
+       
+
+      //  public DalObject.DalObject accessIDal;
        // public IDAL.IDal accessIDal;אני חושבת שזה לא נכון
         public List<DroneToList> BlDrone;
         public static double Free;

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-namespace IBL
-{
+
+
     namespace BO
     {
        public class Excptions : Exception
@@ -160,5 +160,5 @@ namespace IBL
                 return "ERROR";
             }
         }
-    }
+   
 }

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 namespace IBL
 {
     public partial class BL 
     {
-        private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
+        private IEnumerable<DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
         {
             int moneDroneInCharge= accessIDal.MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
             if (moneDroneInCharge > 0)
             {
                 List<int> ListDroneId;//vv
                 ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
-                List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
+                List<DroneInCharge> a = new List<DroneInCharge>();
                 for (int i = 0; i < ListDroneId.Count(); i++)
                 {
                     DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
