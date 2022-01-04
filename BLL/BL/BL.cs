@@ -7,33 +7,32 @@ using System.Threading.Tasks;
 using BlApi;
 using BO;
 using DalApi;
+using BlApi;
 
 
 namespace BL
 {
-   public sealed partial class BL : IBL
+    sealed partial class BL : IBL
     {
-        static readonly IBL instance = new BL();
-        public static IBL Instance { get => instance; }
-
-        internal IDal dal = DalFactory.GetDal();
-       
-
-      //  public DalObject.DalObject accessIDal;
-       // public IDAL.IDal accessIDal;אני חושבת שזה לא נכון
-        public List<DroneToList> BlDrone;
+        internal IDal accessIDal = DalFactory.GetDal();//access to dalobject
+        private List<DroneToList> BlDrone;
         public static double Free;
         public static double LightWeight;
         public static double MediumWeight;
         public static double HeavyWeight;
         public static double LoadingPrecents;
         public Random rand = new Random(DateTime.Now.Millisecond);
-        public BL()
+        
+
+        static readonly IBL instance = new BL();
+        public static IBL Instance { get => instance; }
+       
+         BL()
 
         {
-            accessIDal = new DalObject.DalObject();
+            //accessIDal = new DalObject.DalObject();
            // accessIDal = new DalObject();
-            double[] arr =  accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
+            double[] arr = accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
             Free = arr[0];
             LightWeight = arr[1];
             MediumWeight = arr[2];
@@ -41,26 +40,27 @@ namespace BL
             LoadingPrecents = arr[4];
              BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
             //BLDrones = new List<Drone>();
-            List<IDAL.DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
+            IEnumerable<DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             foreach (var item in DALDrones)
             {
-                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = item.Weight });//weightcategories
+                BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (WeightCategories)item.Weight });//weightcategories
             }
             List<Customer> BLCustomer = new List<Customer>();
-            List<IDAL.DO.Customer> DALCustomer = accessIDal.CcustomerList().ToList();//רשימה של לקוחות מDAL
+            IEnumerable<DO.Customer> DALCustomer = accessIDal.GetAllCustomer();//רשימה של לקוחות מDAL
             foreach (var item in DALCustomer)
             {
                 BLCustomer.Add(new Customer { Id = item.Id, Name = item.Name, Pone = item.Pone, LocationOfCustomer = new Location() { Longitude = item.Longitude, Latitude = item.Lattitude } });//lattitud with one t
             }
             List<Station> BLStation = new List<Station>();
-            List<IDAL.DO.Station> DALStation = accessIDal.SStationList().ToList();
+            IEnumerable<DO.Station> DALStation = accessIDal.GetAllStation();
             foreach (var item in DALStation)
             { 
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
             }
-            List<IDAL.DO.Parcel> DALParcel = accessIDal.PparcelList().ToList();//רשימה של חביחות מ DAL
+            List<DO.Parcel> DALParcel = (List<DO.Parcel>)accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
             foreach (var item in BlDrone)
             {
+                
                 int index = DALParcel.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
                 if (index != -1)
                 {
@@ -72,13 +72,13 @@ namespace BL
                     double electricityUse = distanceBrecieverAstation * Free;
                     switch (DALParcel[index].Weight)
                     {
-                        case WeightCategories.Light:
+                        case (DO.WeightCategories)WeightCategories.Light:
                             electricityUse += distanceBsenderAreciever * LightWeight;
                             break;
-                        case WeightCategories.Medium:
+                        case (DO.WeightCategories)WeightCategories.Medium:
                             electricityUse += distanceBsenderAreciever * MediumWeight;
                             break;
-                        case WeightCategories.Heavy:
+                        case (DO.WeightCategories)WeightCategories.Heavy:
                             electricityUse += distanceBsenderAreciever * HeavyWeight;
                             break;
 
@@ -101,8 +101,8 @@ namespace BL
                 }
                 else
                 {
-                    item.StatusDrone = rand.Next(0, 2);
-                    if (item.StatusDrone ==StatusDrone.InMaintenance)
+                    item.StatusDrone = (StatusDrone)rand.Next(0, 2);
+                    if (item.StatusDrone == StatusDrone.InMaintenance)
                     {
                         Station station = BLStation[rand.Next(0, BLStation.Count)];
                         item.LocationDrone = station.LocationStation;
@@ -113,7 +113,7 @@ namespace BL
                     }
                     else
                     {
-                        List<IDAL.DO.Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
+                        List<DO.Parcel> DeliveredBySameId = DALParcel.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
                         if (DeliveredBySameId.Any())
                         {
                             item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;

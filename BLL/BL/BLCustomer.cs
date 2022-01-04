@@ -4,35 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using BlApi;
 
 
-
-namespace IBL
+namespace BL
 {
-    public partial class BL
+    sealed partial class BL :IBL
     {
-        private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
+        private ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
         {
            
-            BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
+            ParcelInCustomer p = new ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
             {
                 Id = idp,
-                Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
-                Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
+                Weight = (WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Priority)accessIDal.GetParcel(idp).Priority,
                 StatusParcel=StatuseParcelKnow(idp),
                 Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Targetld).Name }
                 
             };
             return p;
         }
-        private BO.ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//מי שמקבל
+        private ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//מי שמקבל
         {
 
-            BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי ששלח
+            ParcelInCustomer p = new ParcelInCustomer()//לקוח בחבילה זה מי ששלח
             {
                 Id = idp,
-                Weight = (Enums.WeightCategories)accessIDal.GetParcel(idp).Weight,
-                Priority = (Enums.Priority)accessIDal.GetParcel(idp).Priority,
+                Weight = (WeightCategories)accessIDal.GetParcel(idp).Weight,
+                Priority = (Priority)accessIDal.GetParcel(idp).Priority,
                 StatusParcel = StatuseParcelKnow(idp),
                 Senderld = new CustomerInParcel() { Id = accessIDal.GetParcel(idp).Senderld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Senderld).Name }
 
@@ -42,7 +42,7 @@ namespace IBL
         //
 
 
-        private IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
+        private IEnumerable<ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
             ListIdParcelTo = (List<int>)accessIDal.ListSendetParcel(idc);
@@ -54,7 +54,7 @@ namespace IBL
             return a;
 
         }
-        private IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
+        private IEnumerable<ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
             ListIdParcelTo = (List<int>)accessIDal.ListTargetParcel(idc);// מקבל רשימה של ת"ז של משלוחים מי שיקבל ע"פ ת"ז של לקוח מסויים
@@ -67,12 +67,12 @@ namespace IBL
 
         }
         //return a customer
-        public BO.Customer GetCustomer(int id)//v 
+        public Customer GetCustomer(int id)//v 
         {
-            BO.Customer c = new BO.Customer();
+            Customer c = new Customer();
             try
             {
-                IDAL.DO.Customer customer = accessIDal.GetCustomer(id);
+                Customer customer = accessIDal.GetCustomer(id);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
@@ -82,7 +82,7 @@ namespace IBL
                 c.ListOfPackagesToTheCustomer = (List<ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -91,8 +91,8 @@ namespace IBL
         //update customer by id or name or phone ot more
         public void UpdateCustomer(int id, string name, string phone)//v
         {
-            IDAL.DO.Customer c=accessIDal.GetCustomer(id);
-            IDAL.DO.Customer cc= new IDAL.DO.Customer();
+            Customer c=accessIDal.GetCustomer(id);
+            Customer cc= new Customer();
             cc.Id = c.Id;
             cc.Lattitude = c.Lattitude;
             cc.Longitude = c.Longitude;
@@ -111,7 +111,7 @@ namespace IBL
 
 
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -120,13 +120,13 @@ namespace IBL
         //add customer
         public void AddCustomer(Customer customer)//v
         {
-            IDAL.DO.Customer customer1 = new IDAL.DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
+            Customer customer1 = new Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
             try
             {
                 accessIDal.AddCustomer(customer1);
             }
 
-            catch (IDAL.DO.Excptions ex)
+            catch (Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -138,7 +138,7 @@ namespace IBL
             BO.CustomerToList c = new BO.CustomerToList();
             try
             {
-                IDAL.DO.Customer customer = accessIDal.GetCustomer(idc);
+               Customer customer = accessIDal.GetCustomer(idc);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
@@ -147,7 +147,7 @@ namespace IBL
                 c.NumberOfPackagesGetCustomer = NumberOfPackagesHeReceived(idc);
                 c.SeveralPackagesOnTheWayToTheCustomerCustomer = SeveralPackagesOnTheWayToTheCustomer(idc);
             }
-            catch (IDAL.DO.Excptions ex)
+            catch (Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -161,7 +161,7 @@ namespace IBL
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesToTheCustomer;//רשימה של משלוחים ששלח
             for(int i = 0; i < a.Count(); i++)
             {
-                if (a.ElementAt(i).StatusParcel == Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
+                if (a.ElementAt(i).StatusParcel == StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
                     mone++;
             }
             return mone;
@@ -173,7 +173,7 @@ namespace IBL
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesToTheCustomer;//רשימה של משלוחים ששלח
             for (int i = 0; i < a.Count(); i++)
             {
-                if (a.ElementAt(i).StatusParcel != Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
+                if (a.ElementAt(i).StatusParcel != StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
                     mone++;
             }
             return mone;
@@ -186,7 +186,7 @@ namespace IBL
             
             for (int i = 0; i < a.Count(); i++)
             {
-                if (a.ElementAt(i).StatusParcel == Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
+                if (a.ElementAt(i).StatusParcel == StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
                     mone++;
             }
             return mone;
@@ -199,7 +199,7 @@ namespace IBL
             
             for (int i = 0; i < a.Count(); i++)
             {
-                if (a.ElementAt(i).StatusParcel != Enums.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
+                if (a.ElementAt(i).StatusParcel != StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
                     mone++;
             }
             return mone;

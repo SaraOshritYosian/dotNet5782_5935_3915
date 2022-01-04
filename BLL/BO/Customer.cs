@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-
-
     namespace BO
     {
         public class Customer

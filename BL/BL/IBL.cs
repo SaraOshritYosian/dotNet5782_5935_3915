@@ -8,7 +8,7 @@ using BO;
 
 namespace BlApi
 {
-    public interface BlApi
+    public interface IBL
     {
         #region Customer
          BO.Customer GetCustomer(int id);

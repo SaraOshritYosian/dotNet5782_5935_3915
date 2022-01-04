@@ -14,8 +14,8 @@ namespace DO
         //BadDronIdException
 
     }
-    [Serializable] 
-    class DoesNotExistException:Exception
+    [Serializable]
+    public class DoesNotExistException:Exception
     {
         public DoesNotExistException() : base() { }
         public DoesNotExistException(string message) : base(message) { }
@@ -27,7 +27,7 @@ namespace DO
         }
     }
     [Serializable]
-    class AlreadyExistException : Exception
+    public class AlreadyExistException : Exception
     {
         public AlreadyExistException() : base() { }
         public AlreadyExistException(string message) : base(message) { }
@@ -38,9 +38,9 @@ namespace DO
             return "Already exist";
         }
     }//
-    class DroneDoesNotExistException : Exception
+    public class DroneDoesNotExistException : Exception
     {
-        public DroneDoesNotExistException() : base() { }
+         public DroneDoesNotExistException() : base() { }
         public DroneDoesNotExistException(string message) : base(message) { }
         public DroneDoesNotExistException(string message, Exception inner) : base(message, inner) { }
         protected DroneDoesNotExistException(SerializationInfo info, StreamingContext context) : base(info, context) { }
@@ -51,7 +51,7 @@ namespace DO
     }
 
     [Serializable]
-    class DroneAlreadyExistException : Exception
+    public class DroneAlreadyExistException : Exception
     {
         public DroneAlreadyExistException() : base() { }
         public DroneAlreadyExistException(string message) : base(message) { }
@@ -63,7 +63,7 @@ namespace DO
         }
     }
     [Serializable]
-    class StationDoesNotExistException : Exception
+    public class StationDoesNotExistException : Exception
     {
         public StationDoesNotExistException() : base() { }
         public StationDoesNotExistException(string message) : base(message) { }
@@ -75,7 +75,7 @@ namespace DO
         }
     }
     [Serializable]
-    class StationAlreadyExistsException : Exception
+    public class StationAlreadyExistsException : Exception
     {
         public StationAlreadyExistsException() : base() { }
         public StationAlreadyExistsException(string message) : base(message) { }
@@ -87,7 +87,7 @@ namespace DO
         }
     }
     [Serializable]
-    class ParcelDoesNotExistException : Exception
+    public class ParcelDoesNotExistException : Exception
     {
         public ParcelDoesNotExistException() : base() { }
         public ParcelDoesNotExistException(string message) : base(message) { }
@@ -99,7 +99,7 @@ namespace DO
         }
     }
     [Serializable]
-    class ParcelAlreadyExistsException : Exception
+    public class ParcelAlreadyExistsException : Exception
     {
         public ParcelAlreadyExistsException() : base() { }
         public ParcelAlreadyExistsException(string message) : base(message) { }
@@ -111,7 +111,7 @@ namespace DO
         }
     }
     [Serializable]
-    class DroneChargDoesNotExistException : Exception
+    public class DroneChargDoesNotExistException : Exception
     {
         public DroneChargDoesNotExistException() : base() { }
         public DroneChargDoesNotExistException(string message) : base(message) { }
@@ -123,7 +123,7 @@ namespace DO
         }
     }
     [Serializable]
-    class CsustomerDoesNotExistException : Exception
+    public class CsustomerDoesNotExistException : Exception
     {
         public CsustomerDoesNotExistException() : base() { }
         public CsustomerDoesNotExistException(string message) : base(message) { }
@@ -135,7 +135,7 @@ namespace DO
         }
     }
     [Serializable]
-    class CustomerAlreadyExistsException : Exception
+    public class CustomerAlreadyExistsException : Exception
     {
         public CustomerAlreadyExistsException() : base() { }
         public CustomerAlreadyExistsException(string message) : base(message) { }
