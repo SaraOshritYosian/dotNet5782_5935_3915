@@ -18,21 +18,30 @@ namespace BlApi
         #endregion
 
         #region Drone
-
+        IEnumerable<BO.DroneToList> GetDrons();
+        
         Drone GetDrone(int id);
         void AddDrone(Drone drone, int cod);//add
         void UpdateDrone(int id, string name);
         void SendingDroneToCharging(int droneId);
         void ReleaseDrone(int id, TimeSpan time);
+        double GetFarCalculatesTheSmallestDistance(int idDr);
+        DO.Station GetStationCalculatesTheSmallestDistance(int idDr);
+        double returnMinDistancFromLicationToStation(BO.Location lo);
+        double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K');
+        BO.DroneToList DroneToLisToPrint(int id);
+        int BatteryConsumption(double kilometrs, DO.WeightCategories weightcategories);
+        double BatteryConsumption(double kilometrs);
 
-
+        IEnumerable<BO.DroneToList> GetDronsByWeight(WeightCategories weightcategories);
         #endregion
 
         #region Station
         Station GetStation(int id);
         void AddStation(Station station);
         void UpdateStation(int idS, int names, int chargeSlote);
-
+        IEnumerable<int> AvailableStationToChargeListt();
+        IEnumerable<BO.Station> AvailableStationToChargeList();
 
         #endregion
 
@@ -42,6 +51,7 @@ namespace BlApi
         public void PackageDeliveryByDrone(int Id);//הספקה
         void PickUpPackage(int id);//איסוף
         void AssignPackageToDrone(int id);//שיוך
+        BO.StatusParcel StatuseParcelKnow(int idP);
 
         #endregion
 

@@ -23,14 +23,12 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
         //CRUD Drone
         public int GetDroneDoSndByParcelId(int idp)//מחזיר את ת"ז של הרחפ ןשמבצע את המשלוח
         {
-            for (int i = 0; i < DataSource.parcelList.Count(); i++)
-            {
-                if (DataSource.parcelList[i].Id == idp)
-                {
-                    return DataSource.parcelList[i].Droneld;
-                }
-            }
-            throw new ParcelDoesNotExistException($"bad Parcle id: {idp}");
+            bool fal = DataSource.parcelList.Any(p => p.Id == idp);
+            if (fal == false)
+                throw new ParcelDoesNotExistException($"bad Parcle id: {idp}");
+            else
+                return DataSource.parcelList.Find(p => p.Id == idp).Droneld;
+          
         }
         public IEnumerable<DO.Drone> ListDroneInStation(int id)
         {
@@ -335,13 +333,13 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
             }
             return a;
         }
-        public int MoneDroneChargByStationListInt(int ids)//מחזיר רשימה של ת"ז של רחפנים שנימצאים בתחנה מסויימת
+        public int MoneDroneChargByStationListInt(int ids)//מחזיר כמוצ של ת"ז של רחפנים שנימצאים בתחנה מסויימת
         {
             int mone = 0;
 
             for (int i = 0; i < DataSource.droneChargeList.Count(); i++)
             {
-                if (DataSource.droneChargeList[i].Stationld == ids)
+                if (DataSource.droneChargeList[i].Stationld == ids)//כמה רחפנים יש בטעינה סתחנה מסויימת
                 {
                     mone++;
                 }
@@ -417,8 +415,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
         #endregion
 
         #region Customer
-        
-       
+
         public IEnumerable<int> ListTargetParcel(int idta)//return a list of parcek by target
         {
             List<int> a = new List<int>();
@@ -550,47 +547,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
             }
         }
 
-       
-     
-        // .אפשרויות הצגת הרשימות
-        public IEnumerable<Drone> PrindDroneChargeList()//הדפסת רשימת הרחפנים בטעינה print the list of drones in charging
-        {
-            List<Drone> b = new List<Drone>();
-            foreach (DroneCharge dr in DataSource.droneChargeList)
-            {
-                {
-                    b.Add(GetDrone(dr.Droneld));
-                }
-            }
-            return b;
-
-        }
-        public void PrintUnconnectedParceslList()// הצגת רשימת חבילות שעוד לא שויכו לרחפן  show unconnected parcesl list
-        {
-            foreach (Parcel parcel in DataSource.parcelList)
-            {
-                if (parcel.Id == 0)
-                {
-                    Console.WriteLine(parcel.ToString());
-                }
-
-            }
-        }
-        public void PrintAvailableStationToChargeList()//הצגת תחנות-בסיס עם עמדות טעינה פנויות show stations with available charge slots
-        {
-            foreach (Station station in DataSource.stationsList)
-            {
-                if (station.ChargeSlots > 0)
-                {
-                    Console.WriteLine(station.ToString());
-                }
-            }
-        }
-
-     
-
-       
-
+      
         public IEnumerable<double> ElectricityUse()
         {
             double[] arr = new double[5];

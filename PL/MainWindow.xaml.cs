@@ -20,13 +20,10 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        internal readonly IBL bl = BlFactory.GetBl();
-        public BL accsessBL;
-      
+        internal readonly IBL accsessBL = BlFactory.GetBl();
         public MainWindow()
         {
             InitializeComponent();
-            accsessBL = new IBL.BL();
             
         }
 

@@ -1,4 +1,4 @@
-﻿using DO;
+﻿
 using System;
 using System.Collections.Generic;
 
@@ -8,17 +8,21 @@ namespace DalApi
     {
 
         #region Customer
-        IEnumerable<Customer> GetAllCustomer();
+        IEnumerable<int> ListTargetParcel(int idta);
+        IEnumerable<int> ListSendetParcel(int idse);
+        IEnumerable<DO.Customer> GetAllCustomer();
         IEnumerable<DO.Customer> GetAllCustomerBy(Predicate<DO.Customer> predicate);
         DO.Customer GetCustomer(int id);//get
         void AddCustomer(DO.Customer customer);//add
         void UpdetCustomer(DO.Customer customer);//updet
         void UpdetCustomer(int id, Action<DO.Customer> action);//updet
         void DeleteCustomer(int id);//delete
-
+        IEnumerable<DO.Customer> CcustomerList();
         #endregion
 
         #region Drone
+        IEnumerable<DO.Drone> DdroneList();
+        int GetDroneDoSndByParcelId(int idp);
         IEnumerable<DO.Drone> GetAllDrone();
         IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate);
         DO.Drone GetDrone(int id);//get
@@ -27,7 +31,11 @@ namespace DalApi
         void UpdetDrone(int id, Action<DO.Drone> action);//updet
         void DeleteDrone(int id);//delete
         double[] RequestPowerConsuption();
-        public IEnumerable<double> ElectricityUse();
+         int MoneDroneChargByStationListInt(int ids);
+        IEnumerable<int> GetDroneChargByStationListInt(int ids);
+        IEnumerable<int> GetListDrone();
+        int CoutCharge(int id);
+         IEnumerable<double> ElectricityUse();
         ///.
         #endregion
 
@@ -38,7 +46,10 @@ namespace DalApi
         void AddDroneCharge(DO.DroneCharge droneCharge);//add
         void UpdetDroneCharge(DO.DroneCharge droneCharge);//updet
         void UpdetDroneCharge(int id, Action<DO.DroneCharge> action);//updet
-                                                                     //  void DeleteDroneCharge(int id);//delete
+        IEnumerable<DO.Drone> DroneChargeList();                                                            //  void DeleteDroneCharge(int id);//delete
+        DO.DroneCharge GetDroneChargByStation(int id);
+        void SendDroneToCharge(int station, int drone);
+        void ReleaseDroneFromCharging(int drone);
 
 
         #endregion
@@ -51,7 +62,12 @@ namespace DalApi
         void UpdetParcel(DO.Parcel parcel);//updet
         void UpdetParcel(int id, Action<DO.Parcel> action);//updet
         void DeleteParcel(int id);//delete
-
+        void AssignPackageToDrone(int idParcel, int idDrone);
+       
+        DO.Parcel GetParcelByDrone(int id);
+       
+        void PackageCollectionByDrone(int idParcel);
+        IEnumerable<DO.Parcel> PparcelList();
 
         #endregion
 
@@ -62,8 +78,11 @@ namespace DalApi
         void AddStation(DO.Station station);//add
         void UpdetStation(DO.Station station);//updet
         void UpdetStation(int id, Action<DO.Station> action);//updet
-        void DeleteStation(int id);//delete
-        void SendDroneToCharge(int id1, int id2);
+        void DeleteStation(int id);//delete 
+        void DeliveryOfPackageToTheCustomer(int idParcel);
+        IEnumerable<DO.Drone> ListDroneInStation(int id);
+        IEnumerable<DO.Station> ReturnStationHaveFreeCharde();
+        IEnumerable<DO.Station> SStationList();
 
         #endregion
     }

@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BlApi;
 namespace PL
 {
     /// <summary>
@@ -20,9 +20,9 @@ namespace PL
     /// 
     public partial class DroneListWindow : Window
     {
-       private IBL.BL accseccBL1;
+       private IBL accseccBL1;
         
-        public DroneListWindow(IBL.BL accseccBL)
+        public DroneListWindow(IBL accseccBL)
         {
             InitializeComponent();
             //ניצרו רשימה של הרחפני ואז נכניס בדתה את הרשימה ואז כשעושים עוספת רחפן חדש אז עושים לרשימה שיצרנו אדד
@@ -31,8 +31,8 @@ namespace PL
             accseccBL1 = accseccBL;
            // DronesListView.DataContext= accseccBL1.GetDrons();
             DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
-            ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(IBL.BO.Enums.StatusDrone));
-            ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
+            ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(BO.StatusDrone));
+            ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
 
         }
         //public void Refresh(IBL.BL accseccBL)
@@ -50,7 +50,7 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DroneToList drne = DronesListView.SelectedItem as DroneToList;
+            BO.DroneToList drne = DronesListView.SelectedItem as BO.DroneToList;
             DronWindow dr = new DronWindow(accseccBL1, drne,this);
             dr.Show();
         }
