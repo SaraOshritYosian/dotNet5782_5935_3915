@@ -12,7 +12,7 @@ namespace BL
 {
     sealed partial class BL : IBL
     {
-        internal IDal accessIDal = DalFactory.GetDal();//access to dalobject
+        internal IDal accessIDal = DalFactory.GetDL();//access to dalobject
         private List<DroneToList> BlDrone;
         public static double Free;
         public static double LightWeight;
@@ -28,8 +28,7 @@ namespace BL
          BL()
 
         {
-            //accessIDal = new DalObject.DalObject();
-           // accessIDal = new DalObject();
+           
             double[] arr = accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
             Free = arr[0];
             LightWeight = arr[1];
