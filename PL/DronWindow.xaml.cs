@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BlApi;
 namespace PL
 {
     /// <summary>
@@ -22,18 +22,18 @@ namespace PL
     {
         private readonly DroneListWindow droneListWindow11;
        // static int idDrone = 11;
-        DroneToList droneTo;
-        IBL.BL accseccBL2;
+        BO.DroneToList droneTo;
+        IBL accseccBL2;
         
         #region Add
-        public DronWindow(IBL.BL accseccBL1,DroneListWindow dd)//add
+        public DronWindow(IBL accseccBL1,DroneListWindow dd)//add
         {
            
             InitializeComponent();
             GridUpDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             droneListWindow11 = dd;//מקבל חלון של דרון ליסט
             accseccBL2 = accseccBL1;
-            ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(Enums.WeightCategories));
+            ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             Label2.Visibility = Visibility.Hidden;
             Label3.Visibility = Visibility.Hidden;
             Label1.Visibility = Visibility.Hidden;
@@ -44,6 +44,7 @@ namespace PL
             {
                 ComboBoxStation.Items.Add(accseccBL2.AvailableStationToChargeList().ElementAt(i).Id);
             }
+            
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -68,8 +69,10 @@ namespace PL
                 Label1.Visibility = Visibility.Hidden;
             if (TextId.Text != "")
             {
+                
+               
                 Label4.Visibility = Visibility.Hidden;
-                if (accseccBL2.BlDrone.Any(p => p.Id == Convert.ToInt32(TextId.Text)))//קיים
+                if (accseccBL2.GetDrons().Any(p => p.Id == Convert.ToInt32(TextId.Text)))//קיים
                 {
                     Label5.Visibility = Visibility.Visible;
                 }
@@ -79,13 +82,13 @@ namespace PL
 
             if (TextId.Text != "")
             {
-                if ((TextId.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxStation.SelectedItem != null) & (TexModel.Text != "") & (accseccBL2.BlDrone.Any(p => p.Id == Convert.ToInt32(TextId.Text)) == false))
+                if ((TextId.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxStation.SelectedItem != null) & (TexModel.Text != "") & (accseccBL2.GetDrons().Any(p => p.Id == Convert.ToInt32(TextId.Text)) == false))
                 {
-                    Drone drone1;
+                    BO.Drone drone1;
                     //bool dds = accseccBL2.BlDrone.Any(p => p.Id == Convert.ToInt32(TextId.Text));
                     //try
                     //{ 
-                    drone1 = new() { Id = Convert.ToInt32(TextId.Text), Model = TexModel.Text, Weight = (Enums.WeightCategories)ComboBoxWeight.SelectedItem };
+                    drone1 = new() { Id = Convert.ToInt32(TextId.Text), Model = TexModel.Text, Weight = (BO.WeightCategories)ComboBoxWeight.SelectedItem };
                     accseccBL2.AddDrone(drone1, (int)ComboBoxStation.SelectedItem);//station
                     MessageBox.Show("Adding a Drone number: " + drone1.Id + " was successful");
                     droneListWindow11.DronesListView.ItemsSource = accseccBL2.GetDrons();
@@ -107,7 +110,7 @@ namespace PL
             this.Close();
         }
         #endregion
-        public void Refresh(IBL.BL accseccBL1,DroneToList drone)//מרענן את הדף
+        public void Refresh(IBL accseccBL1,BO.DroneToList drone)//מרענן את הדף
         {
 
             LabelErrorTime.Visibility = Visibility.Hidden;
@@ -123,7 +126,7 @@ namespace PL
             TexBoxModel.Text = droneTo.Model;//מודל
                                              //אם יש שינוי
 
-            if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
+            if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
                 statuse.Content = " הרחפן בטעינה";
                 BottonToFun.Content = "Release from charging";
@@ -134,7 +137,7 @@ namespace PL
                 BottonToFun2.Visibility = Visibility.Hidden;
             }
                 
-            if (droneTo.StatusDrone == Enums.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
+            if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
@@ -143,20 +146,20 @@ namespace PL
                 BottonToFun2.Content = "Assignment to the package";
             }
                 
-            if (droneTo.StatusDrone == Enums.StatusDrone.delivered)//אם בהבלה
+            if (droneTo.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
             {
                 int a = droneTo.IdParcel;
                 if (a != 0)
                 {
-                    Enums.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
+                    BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
 
-                    if (pp == Enums.StatusParcel.collected)//זה נאסף נישאר לספק
+                    if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
                         statuse.Content = "הרחפן אסף את החבילה";
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;
                     }
-                    if (pp == Enums.StatusParcel.associated)//זה שוייך צריך לאסוף
+                    if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
                         statuse.Content = " הרחפן  שוייך לחבילה";
                         BottonToFun.Visibility = Visibility.Visible;
@@ -190,7 +193,7 @@ namespace PL
 
         }
 
-        public DronWindow(IBL.BL accseccBL1, DroneToList drone,DroneListWindow droneList)//update
+        public DronWindow(IBL accseccBL1,BO.DroneToList drone,DroneListWindow droneList)//update
         {
             InitializeComponent();
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
@@ -208,7 +211,7 @@ namespace PL
             TexBoxModel.Text = droneTo.Model;//מודל
                                              //אם יש שינוי
 
-            if (droneTo.StatusDrone == Enums.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
+            if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
                 statuse.Content = " הרחפן בטעינה";
                 BottonToFun.Content = "Release from charging";
@@ -219,7 +222,7 @@ namespace PL
                 BottonToFun2.Visibility = Visibility.Hidden;
             }
 
-            if (droneTo.StatusDrone == Enums.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
+            if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
@@ -228,20 +231,20 @@ namespace PL
                 BottonToFun2.Content = "Assignment to the package";
             }
 
-            if (droneTo.StatusDrone == Enums.StatusDrone.delivered)//אם בהבלה
+            if (droneTo.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
             {
                 int a = droneTo.IdParcel;
                 if (a != 0)
                 {
-                    Enums.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
+                    BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
 
-                    if (pp == Enums.StatusParcel.collected)//זה נאסף נישאר לספק
+                    if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
                         statuse.Content = "הרחפן אסף את החבילה";
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;
                     }
-                    if (pp == Enums.StatusParcel.associated)//זה שוייך צריך לאסוף
+                    if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
                         statuse.Content = " הרחפן  שוייך לחבילה";
                         BottonToFun.Visibility = Visibility.Visible;

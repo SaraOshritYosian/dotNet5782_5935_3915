@@ -5,7 +5,7 @@ namespace DalApi
 {
     public class DalFactory
     {
-        public static IDAL /*IDal*/ GetDal()
+        public static IDal GetDal()
         {
             string dalType = DalConfig.DalName;
             string dalPkg = DalConfig.DalPackages[dalType];

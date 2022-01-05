@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
 using BlApi;
 
 namespace BL
@@ -11,17 +10,17 @@ namespace BL
     sealed partial class BL : IBL
     {
 
-        private IEnumerable<DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
+        private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
         {
             int moneDroneInCharge= accessIDal.MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
             if (moneDroneInCharge > 0)
             {
                 List<int> ListDroneId;//vv
                 ListDroneId = (List<int>)accessIDal.GetDroneChargByStationListInt(idS);
-                List<DroneInCharge> a = new List<DroneInCharge>();
+                List<BO.DroneInCharge> a = new List<BO.DroneInCharge>();
                 for (int i = 0; i < ListDroneId.Count(); i++)
                 {
-                    DroneInCharge droneInCharge = new DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
+                    BO.DroneInCharge droneInCharge = new BO.DroneInCharge() { Id = ListDroneId[i], StatusBatter = GetDrone(ListDroneId[i]).StatusBatter };
                     a.Add(droneInCharge);
                 }
                 return a;
@@ -37,37 +36,37 @@ namespace BL
             BO.Station c = new BO.Station();
             try
             {
-                Station station = accessIDal.GetStation(id); 
+                DO.Station station = accessIDal.GetStation(id); 
 
                 c.Id = station.Id;
                 c.Name = station.Name;
-                Location newBo = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                BO.Location newBo = new BO.Location() { Longitude = station.Longitude, Latitude = station.Latitude };
                 c.LocationStation = newBo;
                 c.ChargeSlotsFree = station.ChargeSlots; 
                 c.DroneInChargeList = ListDroneInStation(id);
             }
-            catch (Excptions ex)
+            catch (BO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
             return c;
         }
-        public void AddStation(Station station)//v
+        public void AddStation(BO.Station station)//v
         {
-            Station station1 = new Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
+            DO.Station station1 = new DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
             try
             {
                 accessIDal.AddStation(station1);
             }
-            catch(Excptions) {
-                throw new AlreadyExistException();
+            catch(BO.Excptions) {
+                throw new BO.AlreadyExistException();
             }
            
         }
         public void UpdateStation(int idS, int names,int chargeSlote)//v
         {
 
-            Station c;
+            DO.Station c;
             try
             {
                
@@ -85,7 +84,7 @@ namespace BL
                 accessIDal.UpdetStation(c);
 
             }
-            catch (Excptions ex)
+            catch (BO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -96,17 +95,17 @@ namespace BL
         public BO.StationToList StationToListToPrint(int id)
         {
             
-            StationToList c = new StationToList();
+            BO.StationToList c = new BO.StationToList();
             try
             {
-                Station station = accessIDal.GetStation(id);
+                DO.Station station = accessIDal.GetStation(id);
                 c.Id = station.Id;
                 c.Name = station.Name;
                 c.ChargeSlotsNotFree = accessIDal.CoutCharge(id);
                 c.ChargeSlotsFree = station.ChargeSlots;
              
             }
-            catch (Excptions ex)
+            catch (BO.Excptions ex)
             {
                 throw new BO.Excptions(ex.Message);
             }
@@ -116,7 +115,7 @@ namespace BL
 
         public IEnumerable<int> AvailableStationToChargeListt()//return list station who have available to charge 
         {
-            IEnumerable<Station> a = accessIDal.GetAllStation();
+            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
             List<int> b = new List<int>();
             for (int i = 0; i < a.Count(); i++)
             {
@@ -127,15 +126,15 @@ namespace BL
             return b;
 
         }
-            public IEnumerable <Station> AvailableStationToChargeList()//ptint list station who have available to charge 
+            public IEnumerable <BO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
             
-            IEnumerable<Station> a = (IEnumerable<Station>)accessIDal.GetAllStation();
-            List < Station > b= new List<Station>();
+            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
+            List < BO.Station > b= new List<BO.Station>();
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).ChargeSlots > 0)
-                    b.Add(a.ElementAt(i));
+                    b.Add(GetStation( a.ElementAt(i).Id));
             }
             return b;
         }
