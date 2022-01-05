@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Targil0", "Targil0\Targil0.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12C3ED1D-E867-4E5B-97F9-D9E7F0EC3ED6}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -29,6 +30,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalObject", "DALObject\DalObject.csproj", "{719AEC7C-9EDF-47CE-908E-AA665009CBE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DALXML\DalXml.csproj", "{DF97B721-D95A-4B60-B937-A543C10AD891}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{715D0D94-5F4F-491B-99FA-1D6C5E5272DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
