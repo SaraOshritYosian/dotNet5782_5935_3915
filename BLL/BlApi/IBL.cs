@@ -13,6 +13,7 @@ namespace BlApi
         Customer GetCustomer(int id);
         void UpdateCustomer(int id, string name, string phone);
         void AddCustomer(Customer customer);
+        IEnumerable<BO.Customer> GetCustomers();
 
 
         #endregion
