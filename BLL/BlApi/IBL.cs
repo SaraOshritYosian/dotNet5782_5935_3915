@@ -15,6 +15,7 @@ namespace BlApi
         void UpdateCustomer(int id, string name, string phone);
         void AddCustomer(Customer customer);
         IEnumerable<BO.ParcelToLIst> GetParcels();
+        IEnumerable<BO.Customer> GetCustomers();
 
 
         #endregion

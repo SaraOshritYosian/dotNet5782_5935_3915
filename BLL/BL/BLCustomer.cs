@@ -8,19 +8,19 @@ using BlApi;
 
 namespace BL
 {
-    sealed partial class BL :IBL
+    sealed partial class BL : IBL
     {
         private BO.ParcelInCustomer ParcelInCustomeWhoSend(int idp)//return parcel to  customer//מי ששלח-מקור
         {
-           
+
             BO.ParcelInCustomer p = new BO.ParcelInCustomer()//לקוח בחבילה זה מי שמקבל
             {
                 Id = idp,
                 Weight = (BO.WeightCategories)accessIDal.GetParcel(idp).Weight,
                 Priority = (BO.Priority)accessIDal.GetParcel(idp).Priority,
-                StatusParcel=StatuseParcelKnow(idp),
+                StatusParcel = StatuseParcelKnow(idp),
                 Senderld = new BO.CustomerInParcel() { Id = accessIDal.GetParcel(idp).Targetld, Name = accessIDal.GetCustomer(accessIDal.GetParcel(idp).Targetld).Name }
-                
+
             };
             return p;
         }
@@ -76,7 +76,7 @@ namespace BL
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
                 BO.Location newC = new BO.Location() { Latitude = customer.Lattitude, Longitude = customer.Longitude };
-                c.LocationOfCustomer=newC;
+                c.LocationOfCustomer = newC;
                 c.ListOfPackagesFromTheCustomer = (List<BO.ParcelInCustomer>)ListParcelFromCustomers(id);// רשימה של מישלוחים שמקבל
                 c.ListOfPackagesToTheCustomer = (List<BO.ParcelInCustomer>)ListParcelToCustomer(id);//רשימה של משלוחים ששולח
 
@@ -137,7 +137,7 @@ namespace BL
             BO.CustomerToList c = new BO.CustomerToList();
             try
             {
-               DO.Customer customer = accessIDal.GetCustomer(idc);
+                DO.Customer customer = accessIDal.GetCustomer(idc);
                 c.Id = customer.Id;
                 c.Name = customer.Name;
                 c.Pone = customer.Pone;
@@ -158,7 +158,7 @@ namespace BL
             int mone = 0;
             BO.Customer c = GetCustomer(idc);
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesToTheCustomer;//רשימה של משלוחים ששלח
-            for(int i = 0; i < a.Count(); i++)
+            for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).StatusParcel == BO.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
                     mone++;
@@ -182,7 +182,7 @@ namespace BL
             int mone = 0;
             BO.Customer c = GetCustomer(idc);
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesFromTheCustomer;//רשימה של משלוחים שצריך לקבל
-            
+
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).StatusParcel == BO.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
@@ -195,7 +195,7 @@ namespace BL
             int mone = 0;
             BO.Customer c = GetCustomer(idc);
             IEnumerable<BO.ParcelInCustomer> a = c.ListOfPackagesFromTheCustomer;//
-            
+
             for (int i = 0; i < a.Count(); i++)
             {
                 if (a.ElementAt(i).StatusParcel != BO.StatusParcel.provided)//אם מצב החבילה נוצר אז להוסיף את הכצות של המונה
@@ -203,6 +203,19 @@ namespace BL
             }
             return mone;
         }
+        public IEnumerable<BO.CustomerToList> GetCustomers()
+        {
+            List<BO.CustomerToList> list = new List<BO.CustomerToList>();
+            IEnumerable<DO.Customer> a = accessIDal.GetAllCustomer();
+
+        for (int i = 0; i < a.Count(); i++)
+            {
+                list.Add(CostumerToListToPrint(a.ElementAt(i).Id));
+            }
+            return list;
+        }
     }
     
 }
+
+
