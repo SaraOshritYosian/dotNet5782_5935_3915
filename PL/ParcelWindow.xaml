@@ -8,6 +8,7 @@
         Title="ParcelWindow" Height="450" Width="800">
     <Grid x:Name="GridMainParcel">
         <Grid  x:Name="GridAddParcel">
+            <Button Content="Button" HorizontalAlignment="Left" Margin="749,23,0,0" VerticalAlignment="Top"/>
 
 
 
