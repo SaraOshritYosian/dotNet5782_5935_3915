@@ -154,7 +154,7 @@ namespace BL
             IEnumerable<DO.Parcel> a = accessIDal.GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
-                if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
+                if (GetParcel(a.ElementAt(i).Id).Scheduled == default)
                     Console.WriteLine(ParcelToListToPrint(a.ElementAt(i).Id));
 
             }
@@ -165,7 +165,7 @@ namespace BL
             IEnumerable<DO.Parcel> a = accessIDal.GetAllParcel();
             for (int i = 0; i < a.Count(); i++)
             {
-                if (GetParcel((a.ElementAt(i).Id)).Scheduled == default)
+                if (GetParcel(a.ElementAt(i).Id).Scheduled == default)
                     return ParcelToListToPrint(a.ElementAt(i).Id);
 
             }
