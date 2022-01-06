@@ -138,6 +138,17 @@ namespace BL
             }
             return b;
         }
+        public IEnumerable<BO.StationToList> GetStations()
+        {
+            List<BO.StationToList> b = new List<BO.StationToList>();
+            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
+            for (int i = 0; i < a.Count(); i++)
+            { 
+                    b.Add(StationToListToPrint(a.ElementAt(i).Id));
+            }
+            return b;
+        }
+
 
     }
 }

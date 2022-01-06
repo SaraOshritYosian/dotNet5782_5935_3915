@@ -50,6 +50,11 @@
                 </ListView.View>
             </ListView>
             <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="1" HorizontalAlignment="Right" Margin="0,455,10,0" VerticalAlignment="Top" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
+            <Button x:Name="back" Content="" HorizontalAlignment="Left" Margin="0,425,0,0" Grid.Row="1" VerticalAlignment="Top" Height="93" Width="168" Click="back_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/back-arrow_1f519.png" Stretch="Fill" TileMode="None"/>
+                </Button.Background>
+            </Button>
         </Grid>
 
 

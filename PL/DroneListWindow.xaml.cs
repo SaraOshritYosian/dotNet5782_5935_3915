@@ -69,5 +69,12 @@ namespace PL
         {//
         //    if
         }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            ListsWindow we = new ListsWindow(accseccBL1);
+            we.Show();
+            Close();
+        }
     }
 }

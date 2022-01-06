@@ -319,6 +319,17 @@ namespace BL
             BlDrone.Add(drone);
 
         }
+
+        public IEnumerable<BO.ParcelToLIst> GetParcels()
+        {
+            List<BO.ParcelToLIst> b = new List<BO.ParcelToLIst>();
+            IEnumerable<DO.Parcel> a = accessIDal.GetAllParcel();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                b.Add(ParcelToListToPrint(a.ElementAt(i).Id));
+            }
+            return b;
+        }
     }
 }
 

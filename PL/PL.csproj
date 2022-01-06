@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="back-arrow_1f519.png" />
     <None Remove="drone-delivery-supply-chain-1200px-1024x690.jpg" />
   </ItemGroup>
 
@@ -15,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="back-arrow_1f519.png" />
     <Resource Include="drone-delivery-supply-chain-1200px-1024x690.jpg" />
   </ItemGroup>
 

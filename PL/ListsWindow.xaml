@@ -1,0 +1,25 @@
+﻿<Window x:Class="PL.ListsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ListsWindow" Height="500" Width="800">
+    <Grid x:Name="DroneList">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9BB7BB"/>
+                <GradientStop Color="#FF7B674F" Offset="0.944"/>
+                <GradientStop Color="#FFF7E2C7" Offset="0.479"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Image HorizontalAlignment="Center" Height="500" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" Margin="-2,-10,0,0" VerticalAlignment="Top" Width="800"/>
+        <Button x:Name="DroneList1" Content="Drons display" HorizontalAlignment="Center" Margin="500,40,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="DroneList1_Click"/>
+        <Button x:Name="CostumerList" Content="Costumers display" HorizontalAlignment="Center" Margin="350,140,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="CostumerList_Click"/>
+        <Button x:Name="StationList" Content="Stations display" HorizontalAlignment="Center" Margin="200,240,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="StationList_Click"/>
+        <Button x:Name="ParcelList" Content="Parcels display" HorizontalAlignment="Center" Margin="0,340,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="ParcelList_Click"/>
+
+
+    </Grid>
+</Window>

@@ -1,5 +1,6 @@
 ﻿using BO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace BlApi
         Customer GetCustomer(int id);
         void UpdateCustomer(int id, string name, string phone);
         void AddCustomer(Customer customer);
+        IEnumerable<BO.ParcelToLIst> GetParcels();
 
 
         #endregion
@@ -26,6 +28,7 @@ namespace BlApi
         void SendingDroneToCharging(int droneId);
         void ReleaseDrone(int id, TimeSpan time);
         double GetFarCalculatesTheSmallestDistance(int idDr);
+       // IEnumerable GetParcels();
         DO.Station GetStationCalculatesTheSmallestDistance(int idDr);
         double returnMinDistancFromLicationToStation(BO.Location lo);
         double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K');

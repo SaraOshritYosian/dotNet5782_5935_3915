@@ -6,32 +6,65 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="680" Width="800">
-    <Grid>
-        <Grid>
-
-            <Grid.Background>
+    <Grid x:Name="main">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFA8C0C4"/>
+                <GradientStop Color="#FFA99584" Offset="0.936"/>
+                <GradientStop Color="#FFEEE7D6" Offset="0.5"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Image HorizontalAlignment="Center" Height="680" VerticalAlignment="Top" Width="800" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill">
+            <Image.OpacityMask>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFA8C0C4"/>
-                    <GradientStop Color="#FFA99584" Offset="0.936"/>
-                    <GradientStop Color="#FFEEE7D6" Offset="0.5"/>
+                    <GradientStop Color="#FFADC2C4" Offset="0.012"/>
+                    <GradientStop Color="#FFA08870" Offset="0.954"/>
+                    <GradientStop Color="#FFF8EEDC" Offset="0.503"/>
                 </LinearGradientBrush>
-            </Grid.Background>
-            <Image HorizontalAlignment="Center" Height="680" VerticalAlignment="Top" Width="800" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill">
-                <Image.OpacityMask>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFADC2C4" Offset="0.012"/>
-                        <GradientStop Color="#FFA08870" Offset="0.954"/>
-                        <GradientStop Color="#FFF8EEDC" Offset="0.503"/>
-                    </LinearGradientBrush>
-                </Image.OpacityMask>
-            </Image>
-            <Button x:Name="Button1" Content="Enter" HorizontalAlignment="Center" Margin="0,500,0,0" VerticalAlignment="Top" Height="67" Width="171" Click="Button_Click" FontFamily="Cooper Black" FontSize="48">
-                <Button.Background>
-                    <ImageBrush/>
-                </Button.Background>
-            </Button>
+            </Image.OpacityMask>
+        </Image>
+
+
+        <Grid x:Name="masengerOrCustomer">
+            <Label Content="Enter as:" HorizontalAlignment="Center" Margin="0,299,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Arial Black" Height="63" Width="194"/>
+            <Button x:Name="Manager" Content="Manager" HorizontalAlignment="Center" Margin="0,406,200,0" VerticalAlignment="Top"  Height="50" Width="140" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" RenderTransformOrigin="33,33" Click="Manager_Click"/>
+
+            <Button x:Name="Costumer" Content="Costumer" HorizontalAlignment="Center" Margin="0,406,-200,0" VerticalAlignment="Top" Height="50" Width="140" Background="{x:Null}" FontSize="22" FontFamily="Arial Black" RenderTransformOrigin="33,0" Click="Costumer_Click"/>
+
 
         </Grid>
+        <Grid x:Name="enterM">
+            <Rectangle HorizontalAlignment="Center" Height="300" Margin="-0,200,0,0" Stroke="Black" VerticalAlignment="Top" Width="300" Fill="#FFFCF5E5"/>
+            <Label x:Name="passwordm" Content="password" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial Black" Width="136" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
+            <TextBox x:Name="passwordTextm" HorizontalAlignment="Center" Margin="0,300,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="22"/>
+            <Button Content="ENTER" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top" Height="54" Width="174" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" Click="Button_Click"/>
+
+
+
+        </Grid>
+        <Grid x:Name="enterC">
+            <Label Content="New Customer" HorizontalAlignment="Center" Margin="400,252,0,0" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="18" RenderTransformOrigin="0.377,1.239"/>
+            <Rectangle HorizontalAlignment="Center" Height="300" Margin="400,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="300" Fill="#FFFCF5E5"/>
+            <Label x:Name="name" Content="Enter Your Phone:" HorizontalAlignment="Left" Margin="453,392,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Width="169" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
+            <TextBox x:Name="nameTextc" HorizontalAlignment="Left" Margin="508,515,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" Height="27"/>
+            <Label x:Name="pone" Content="Enter Your Name:" HorizontalAlignment="Left" Margin="458,0,0,0" VerticalAlignment="Center" FontSize="16" FontFamily="Arial Black" Width="167" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
+            <TextBox x:Name="poneTextc" HorizontalAlignment="Left" Margin="626,400,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="27"/>
+            <Label x:Name="passwordcn" Content="Enter New password" HorizontalAlignment="Left" Margin="500,469,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Width="201" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
+            <TextBox x:Name="passwordTextcn" HorizontalAlignment="Left" Margin="628,0,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" Height="27"/>
+            <Button Content="SAVE" HorizontalAlignment="Left" Margin="541,551,0,0" VerticalAlignment="Top" Height="36" Width="126" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" Click="Button_Click_2"/>
+
+            <Label Content="Existing Customer" HorizontalAlignment="Center" Margin="-400,252,0,0" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" FontSize="18"/>
+            <Rectangle HorizontalAlignment="Center" Height="300" Margin="-400,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="300" Fill="#FFFCF5E5"/>
+            <Label x:Name="passwordc" Content="password" HorizontalAlignment="Center" Margin="-400,354,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial Black" Width="136" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
+            <TextBox x:Name="passwordTextc" HorizontalAlignment="Center" Margin="-400,403,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="27"/>
+            <Button Content="ENTER" HorizontalAlignment="Center" Margin="-400,498,0,0" VerticalAlignment="Top" Height="54" Width="174" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" Click="Button_Click_1"/>
+
+
+
+
+        </Grid>
+
+
 
 
     </Grid>

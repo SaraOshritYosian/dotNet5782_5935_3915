@@ -7,18 +7,32 @@
         mc:Ignorable="d"
         Title="ParcelWindow" Height="450" Width="800">
     <Grid x:Name="GridMainParcel">
+        <Button x:Name="close" Content="x" HorizontalAlignment="Right" Margin="750,4,0,0" VerticalAlignment="Top" Height="29" Width="29" Background="#FFF31414" FontSize="22" FontWeight="Bold" FontFamily="Arial Black"/>
         <Grid  x:Name="GridAddParcel">
-            <Button Content="Button" HorizontalAlignment="Left" Margin="749,23,0,0" VerticalAlignment="Top"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="211*"/>
+                <ColumnDefinition Width="189*"/>
+                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
 
 
 
         </Grid>
         <Grid  x:Name="GridUpParcel" d:IsHidden="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="93*"/>
+                <RowDefinition Height="115*"/>
+            </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="71*"/>
+                <ColumnDefinition Width="89*"/>
+            </Grid.ColumnDefinitions>
 
 
         </Grid>
 
 
-            </Grid>
+    </Grid>
 </Window>
