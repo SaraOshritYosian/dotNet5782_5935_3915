@@ -53,6 +53,7 @@ namespace PL
             //dr.Show();
             BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
             CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
+            cw.Show();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)//הוספת לקוח בלחיצה אחת

@@ -15,9 +15,9 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Image HorizontalAlignment="Center" Height="500" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" Margin="-2,-10,0,0" VerticalAlignment="Top" Width="800"/>
-        <Button x:Name="DroneList1" Content="Drons display" HorizontalAlignment="Center" Margin="500,40,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="DroneList1_Click"/>
+        <Button x:Name="DroneList1" Content="Drons display" HorizontalAlignment="Center" Margin="500,40,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="DroneList1_Click" Background="#FF8B7769"/>
         <Button x:Name="CostumerList" Content="Costumers display" HorizontalAlignment="Center" Margin="350,140,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="CostumerList_Click"/>
-        <Button x:Name="StationList" Content="Stations display" HorizontalAlignment="Center" Margin="200,240,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="StationList_Click"/>
+        <Button x:Name="StationList" Content="Stations display" HorizontalAlignment="Center" Margin="200,240,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="StationList_Click" Background="#FFA2B9BF"/>
         <Button x:Name="ParcelList" Content="Parcels display" HorizontalAlignment="Center" Margin="0,340,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="ParcelList_Click"/>
 
 

@@ -9,7 +9,7 @@
     <Grid>
 
 
-        <DataGrid x:Name="CustomerListView" SelectionChanged="CustomerListView_SelectionChanged" RenderTransformOrigin="0.495,0.59" Margin="10,54,10,47" MouseDoubleClick="CustomerListView_MouseDoubleClick"/>
+        <DataGrid x:Name="CustomerListView"  RenderTransformOrigin="0.495,0.59" Margin="-844,1682,864,-1581" MouseDoubleClick="CustomerListView_MouseDoubleClick"/>
         <Label x:Name="TitleLable" Content="רשימת לקוחות" HorizontalAlignment="Left" Margin="351,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="125">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -20,7 +20,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,10,402" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" MouseDoubleClick="Cancell_MouseDoubleClick"/>
+        <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,10,402" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" />
         <Button x:Name="AddButton" Content="הוספת לקוח" HorizontalAlignment="Left" Margin="363,392,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.304,1.036" Width="95" Click="AddButton_Click"/>
 
 

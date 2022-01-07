@@ -46,7 +46,7 @@ namespace BlApi
         void UpdateStation(int idS, int names, int chargeSlote);
         IEnumerable<int> AvailableStationToChargeListt();
         IEnumerable<BO.Station> AvailableStationToChargeList();
-
+        IEnumerable<BO.StationToList> GetStations();
         #endregion
 
         #region Parcel

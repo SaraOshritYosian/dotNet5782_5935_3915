@@ -29,28 +29,28 @@ namespace PL
 
         }
 
-        private void DroneList1_Click(object sender, RoutedEventArgs e)
+        private void DroneList1_Click(object sender, RoutedEventArgs e)//drone
         {
             DroneListWindow we = new DroneListWindow(accseccBL2);
             we.Show();
             Close();
         }
 
-        private void CostumerList_Click(object sender, RoutedEventArgs e)
+        private void CostumerList_Click(object sender, RoutedEventArgs e)//customer
         {
-            DroneListWindow we = new DroneListWindow(accseccBL2);
+            CustomerListWindow we = new CustomerListWindow(accseccBL2);
             we.Show();
             Close();
         }
 
-        private void StationList_Click(object sender, RoutedEventArgs e)
+        private void StationList_Click(object sender, RoutedEventArgs e)//station
         {
-            DroneListWindow we = new DroneListWindow(accseccBL2);
+            StationListWindow we = new StationListWindow(accseccBL2);
             we.Show();
             Close();
         }
 
-        private void ParcelList_Click(object sender, RoutedEventArgs e)
+        private void ParcelList_Click(object sender, RoutedEventArgs e)//parcel
         {
             ParcelListWindow we = new ParcelListWindow(accseccBL2);
             we.Show();

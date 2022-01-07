@@ -11,17 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for DroneWindow1.xaml
+    /// Interaction logic for StationWindow.xaml
     /// </summary>
-    public partial class DroneWindow1 : Window
+    public partial class StationWindow : Window
     {
-        public DroneWindow1()
+        private IBL accseccBL1;
+        public StationWindow(IBL accseccBL )
         {
             InitializeComponent();
+            accseccBL1 = accseccBL;
         }
     }
 }
