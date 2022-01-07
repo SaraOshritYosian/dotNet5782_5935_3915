@@ -46,19 +46,20 @@ namespace PL
             this.Close();
         }
 
-        private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)//עדכון לקוח כשלוחצים פעמיים
+       
+        private void AddButton_Click(object sender, RoutedEventArgs e)//הוספת לקוח בלחיצה אחת
         {
-            //BO.DroneToList drne = DronesListView.SelectedItem as BO.DroneToList;
-            //DronWindow dr = new DronWindow(accseccBL1, drne, this);
-            //dr.Show();
             BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
             CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
             cw.Show();
+
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)//הוספת לקוח בלחיצה אחת
+        private void CustomerListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)//עדכון
         {
-
+            BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
+            CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
+            cw.Show();
         }
     }
 }

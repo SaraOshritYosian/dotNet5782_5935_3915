@@ -55,5 +55,23 @@ namespace PL
         {
             this.Close();
         }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)//add customer
+        {
+            GridAddCustomer.Visibility = Visibility.Visible;
+            GridUpdateCustomer.Visibility = Visibility.Hidden;
+            //לעשות בדיקות
+            BO.Customer customer1;
+            customer1 = new()
+            {
+                Id = Convert.ToInt32(TextBoxId.Text),
+                Name = TextBoxName.Text,
+                Pone = TextboxPhone.Text,
+                LocationOfCustomer = new BO.Location() { Latitude = Convert.ToInt32(TextBoxLattidude.Text), Longitude = Convert.ToInt32(TextBoxLongtitude.Text) }
+            };
+            }
+
+
+        }
     }
-}
+
