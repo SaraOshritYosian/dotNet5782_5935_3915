@@ -7,35 +7,48 @@
         mc:Ignorable="d"
         Title="StationListWindow" Height="600" Width="800">
     <Grid x:Name="main">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="491*"/>
+            <ColumnDefinition Width="309*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="111*"/>
-            <RowDefinition Height="106*"/>
+            <RowDefinition Height="251*"/>
+            <RowDefinition Height="333*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFAADAFF"/>
+                    <GradientStop Color="#FFE2D1D6" Offset="0.983"/>
+                    <GradientStop Color="#FFD3E6EA" Offset="0.47"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="87*"/>
                 <ColumnDefinition Width="113*"/>
             </Grid.ColumnDefinitions >
 
 
-            <DataGrid x:Name="DataGrideStation" Grid.Column="0" MouseDoubleClick="DataGrideStation_MouseDoubleClick_1"/>
-            <Image HorizontalAlignment="Center" Height="395" Margin="0,-31,0,0" VerticalAlignment="Top" Width="630" Source="/map.jpg"  Grid.Column="1"/>
+
+            <Button x:Name="AddButon" Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="371,146,0,0" Background="{x:Null}" FontSize="72" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF9F1919" Click="AddButon_Click" Width="77" Height="71" VerticalAlignment="Top"/>
         </Grid>
 
 
 
-        <Grid Name="AGrid" Height="auto" Grid.Row="1" Width="auto">
+        <Grid Name="AGrid" Height="auto" Grid.Row="1" Width="auto" Margin="0,15,0,0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="267*"/>
-                <ColumnDefinition Width="533*"/>
+                <ColumnDefinition Width="179*"/>
+                <ColumnDefinition Width="221*"/>
             </Grid.ColumnDefinitions >
-
-            <Button Content="Button" HorizontalAlignment="Left" Margin="27,200,0,0" VerticalAlignment="Top" Height="68" Width="128" Click="Button_Click">
+            <DataGrid x:Name="DataGrideStation" Grid.Column="0" MouseDoubleClick="DataGrideStation_MouseDoubleClick_1" Margin="6,-1,436,1" Grid.ColumnSpan="2" Background="#FFBFE7E5" FontFamily="Arial Black" FontSize="16"/>
+            <Button x:Name="back" Content="" HorizontalAlignment="Left" Margin="17,-254,0,0" VerticalAlignment="Top" Height="83" Width="128" Click="Button_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/back-arrow_1f519.png"/>
                 </Button.Background>
             </Button>
+            <Image Grid.Column="1" HorizontalAlignment="Left" Height="378" Margin="4,-25,0,0" VerticalAlignment="Top" Width="771" Source="/map.jpg"/>
         </Grid>
+        <CheckBox Content="Stations with available charging stations" HorizontalAlignment="Center" Margin="0,189,0,0" VerticalAlignment="Top" Height="38" FontSize="20" FontFamily="Arial Black" Width="468"/>
 
 
 

@@ -10,6 +10,8 @@
     <None Remove="back-arrow_1f519.png" />
     <None Remove="drone-delivery-supply-chain-1200px-1024x690.jpg" />
     <None Remove="map.jpg" />
+    <None Remove="map.png" />
+    <None Remove="plus.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
     <Resource Include="back-arrow_1f519.png" />
     <Resource Include="drone-delivery-supply-chain-1200px-1024x690.jpg" />
     <Resource Include="map.jpg" />
+    <Resource Include="plus.png" />
   </ItemGroup>
 
 </Project>
