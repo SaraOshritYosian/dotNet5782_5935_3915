@@ -40,11 +40,20 @@ namespace PL
 
         private void DataGrideStation_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
+         //   BO.StationToList drne = DataGrideStation.SelectedItem as BO.StationToList;
             BO.StationToList st = DataGrideStation.SelectedItem as BO.StationToList;
-            StationWindow we = new StationWindow(accseccBL1);
+            StationWindow we = new StationWindow(accseccBL1, this,st);//פעולה בונה של עדכון
             we.Show();
-            Close();
+            
 
+        }
+
+        private void AddButon_Click(object sender, RoutedEventArgs e)
+        {
+            BO.StationToList st = DataGrideStation.SelectedItem as BO.StationToList;
+            StationWindow we = new StationWindow(accseccBL1,this);//פעולה בונה של הוספה
+            we.Show();
+           
         }
     }
 }
