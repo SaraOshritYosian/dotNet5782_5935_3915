@@ -14,11 +14,28 @@
                 <GradientStop Color="#FFF7E2C7" Offset="0.479"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Image HorizontalAlignment="Center" Height="500" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" Margin="-2,-10,0,0" VerticalAlignment="Top" Width="800"/>
-        <Button x:Name="DroneList1" Content="Drons display" HorizontalAlignment="Center" Margin="500,40,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="DroneList1_Click" Background="#FF8B7769"/>
-        <Button x:Name="CostumerList" Content="Costumers display" HorizontalAlignment="Center" Margin="350,140,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="CostumerList_Click"/>
-        <Button x:Name="StationList" Content="Stations display" HorizontalAlignment="Center" Margin="200,240,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="StationList_Click" Background="#FFA2B9BF"/>
-        <Button x:Name="ParcelList" Content="Parcels display" HorizontalAlignment="Center" Margin="0,340,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Arial Black" Width="232" Height="73" FontWeight="Bold" Click="ParcelList_Click"/>
+        <Image HorizontalAlignment="Center" Height="500" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" Margin="0,-10,0,0" VerticalAlignment="Top" Width="800" Opacity="0.2" />
+
+        <Button x:Name="CostumerList" Content="Customer List" HorizontalAlignment="Center" Margin="-380,96,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Bodoni MT Black" Width="350" Height="140" FontWeight="Bold" Click="CostumerList_Click" RenderTransformOrigin="0.125,0.443" BorderBrush="{x:Null}" MouseEnter="CostumerList_MouseEnter" MouseLeave="CostumerList_MouseLeave" Background="#FFB2C6EB">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="StationList" Content="Station List"  HorizontalAlignment="Center" Margin="390,96,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Bodoni MT Black" Width="350" Height="140" FontWeight="Bold" Click="StationList_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" MouseEnter="StationList_MouseEnter" MouseLeave="StationList_MouseLeave" Background="#FF444448">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="ParcelList" Content="Parcel List" HorizontalAlignment="Center" Margin="-380,261,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Bodoni MT Black" Width="350" Height="140" FontWeight="Bold" Click="ParcelList_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" MouseEnter="ParcelList_MouseEnter" MouseLeave="ParcelList_MouseLeave" Background="#FFF8DA8D">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="DroneList12" Margin="390,261,0,0" Content="Drons List" HorizontalAlignment="Center" VerticalAlignment="Top" Height="140" Width="350" RenderTransformOrigin="0.5,0.5" Click="DroneList12_Click" BorderBrush="{x:Null}" MouseEnter="DroneList12_MouseEnter" MouseLeave="DroneList12_MouseLeave" Background="#FFCECECE" FontSize="36" FontWeight="Bold" FontFamily="Bodoni MT Black" >
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
 
     </Grid>

@@ -244,7 +244,7 @@ namespace BL
             }
             BO.DroneToList dds = DroneToLisToPrint(id);
             BO.DroneToList dd = new BO.DroneToList() { Id = dds.Id, LocationDrone = dds.LocationDrone, StatusDrone = dds.StatusDrone, IdParcel = dds.IdParcel, Model = name, StatusBatter = dds.StatusBatter, Weight = dds.Weight };
-            BlDrone.Remove(dds);
+            BlDrone.Remove(BlDrone.Find(p => p.Id == id));
             BlDrone.Add(dd);
             accessIDal.UpdetDrone(cc);
         }

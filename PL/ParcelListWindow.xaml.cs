@@ -20,13 +20,47 @@ namespace PL
     /// </summary>
     public partial class ParcelListWindow : Window
     {
-        private IBL accseccBL2;
-        public ParcelListWindow(IBL accseccBL1)
+        private IBL accseccBL1;
+        public ParcelListWindow(IBL accseccBL)
         {
             InitializeComponent();
-            accseccBL2 = accseccBL1;
-            ParcelListData.ItemsSource = accseccBL2.GetParcels();
+            accseccBL1 = accseccBL;
+            ParcelListData.ItemsSource = accseccBL1.GetParcels();
 
+        }
+
+       
+        private void AddParcel_Click(object sender, RoutedEventArgs e)
+        {
+            ParcelWindow dr = new ParcelWindow(accseccBL1, this);//מקבל גם גישה וגם את החלון כדי שיוכל לסגור אותו
+            dr.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ListsWindow we = new ListsWindow(accseccBL1);
+            we.Show();
+            Close();
+        }
+
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            Close();
+        }
+
+        private void ParcelListData_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+            BO.ParcelToLIst parcel = ParcelListData.SelectedItem as BO.ParcelToLIst;
+            ParcelWindow dr = new ParcelWindow(accseccBL1, parcel, this);
+            dr.Show();
         }
     }
 }

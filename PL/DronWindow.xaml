@@ -8,17 +8,19 @@
         Title="DronWindow" Height="640" Width="800">
 
     <Grid x:Name="GridMainDrone">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFCECECE"/>
+                <GradientStop Color="#FF565E77" Offset="1"/>
+                <GradientStop Color="#FFCAC4B5" Offset="0.555"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
-        
+
         <Grid x:Name="GridAddDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFA5B9BE"/>
-                    <GradientStop Color="#FF756549" Offset="0.879"/>
-                    <GradientStop Color="#FFF6EDD8" Offset="0.369"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="211*"/>
                 <ColumnDefinition Width="189*"/>
@@ -34,7 +36,7 @@
             <TextBox x:Name="TexModel"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
             <TextBox x:Name="TextId" Grid.Column="1" HorizontalAlignment="Left" Margin="0,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="120"/>
             <ComboBox x:Name="ComboBoxStation" Grid.Column="1" HorizontalAlignment="Left" Margin="0,260,0,0" VerticalAlignment="Top" Height="24" Width="120"/>
-            <Button x:Name="ButtonCancel" Content="X" Grid.Column="3" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Height="26" Width="31" FontSize="18" FontFamily="Arial Black" Click="ButtonCancel_Click" Background="#FFFB1C1C"/>
+            <Button x:Name="ButtonCancel" Content="X" Grid.Column="3" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Height="28" Width="28" FontSize="18" FontFamily="Arial Black" Click="ButtonCancel_Click" Background="#FFFB1C1C"/>
             <Button x:Name="ButtonAdd" Content="Add" Grid.Column="3" HorizontalAlignment="Right" Margin="0,488,7,0" VerticalAlignment="Top" Width="140" Height="73" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click"/>
             <Label x:Name="Label3" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.382,2.679" Background="Transparent" Foreground="#FFF71616"/>
             <Label x:Name="Label2" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,212,0,0" VerticalAlignment="Top" Foreground="#FFF11010"/>
@@ -45,15 +47,9 @@
 
         </Grid>
         <Grid x:Name="GridUpDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
 
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94ACB8" Offset="0"/>
-                    <GradientStop Color="#FFFBEED2" Offset="0.515"/>
-                    <GradientStop Color="#FF897051" Offset="0.858"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
                 <RowDefinition Height="115*"/>
@@ -72,7 +68,7 @@
             <Label x:Name="LabelWeight2" Content="" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Height="49" Width="122" RenderTransformOrigin="0.579,2.636" FontSize="18" FontFamily="Arial Black"/>
             <Label x:Name="LabeLocation2" Content="" HorizontalAlignment="Left" Margin="120,170,0,0" VerticalAlignment="Top" Width="166" Height="141" FontSize="16" FontFamily="Arial Black" Grid.RowSpan="2" FontWeight="Medium" FontStretch="Condensed" FontStyle="Oblique"/>
 
-            <TextBox x:Name="TexBoxModel" HorizontalAlignment="Left" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" Height="35" Grid.Row="1"/>
+            <TextBox x:Name="TexBoxModel"  HorizontalAlignment="Left" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" Height="35" Grid.Row="1"/>
             <Label x:Name="LabelModel1" Content="Model:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="35" Width="95" FontSize="18" FontFamily="Arial Black" Grid.Row="1"/>
 
 
@@ -91,7 +87,8 @@
             <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,74,15,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
             <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="358,91,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717"/>
             <Label x:Name="LabelErrorMode"  Content="Please fill in" HorizontalAlignment="Left" Margin="130,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="82" Foreground="#FFF50C0C"/>
-            
+            <Button x:Name="idStationBu" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="112,203,0,0" VerticalAlignment="Top" Width="181" Click="idStationBu_Click" FontWeight="Bold" FontFamily="Arial Black" Height="40"/>
+
 
         </Grid>
 

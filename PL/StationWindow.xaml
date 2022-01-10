@@ -9,13 +9,14 @@
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFC5E3EC"/>
-                <GradientStop Color="#FFE1C9C0" Offset="1"/>
-                <GradientStop Color="#FFE8ECE3" Offset="0.509"/>
+                <GradientStop Color="#FF404146" Offset="0.009"/>
+                <GradientStop Color="#FF45464B" Offset="1"/>
+                <GradientStop Color="#FF888888" Offset="0.646"/>
+                <GradientStop Color="#FF868686" Offset="0.284"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid x:Name="GridAddSattion" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="231*"/>
                 <ColumnDefinition Width="135*"/>
@@ -31,13 +32,14 @@
             <TextBox x:Name="TexName"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
             <TextBox x:Name="TextId" Grid.Column="1" HorizontalAlignment="Left" Margin="0,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="120"/>
             <TextBox x:Name="textSlots" Grid.Column="1" HorizontalAlignment="Left" Margin="0,260,0,0" VerticalAlignment="Top" Height="24" Width="120"/>
-            <Button x:Name="ButtonCancel" Content="X" Grid.Column="2" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Height="26" Width="31" FontSize="18" FontFamily="Arial Black"  Background="#FFFB1C1C" Click="ButtonCancel_Click"/>
-            <Button x:Name="ButtonAdd" Content="Add" Grid.Column="2" HorizontalAlignment="Left" Margin="8,347,0,14" Width="123" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click" />
+            <Button x:Name="ButtonCancel" Content="X" Grid.Column="2" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Height="26" Width="31" FontSize="18" FontFamily="Arial Black"  Background="#FFFB1C1C" Click="ButtonCancel_Click" BorderBrush="{x:Null}"/>
+            <Button x:Name="ButtonAdd" Content="Add" Grid.Column="2" HorizontalAlignment="Left" Margin="8,360,0,14" Width="103" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click" BorderBrush="{x:Null}" />
             <Label x:Name="Label3" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.382,2.679" Background="Transparent" Foreground="#FFF71616" Height="26" Width="72"/>
             <Label x:Name="Label2" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,212,0,0" VerticalAlignment="Top" Foreground="#FFF11010" Height="26" Width="72"/>
             <Label x:Name="Label1" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,278,0,0" VerticalAlignment="Top" Foreground="#FFF31111" Height="26" Width="72"/>
             <Label x:Name="Label4" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" VerticalAlignment="Top" Foreground="#FFF31111" Height="26" Width="72"/>
             <Label x:Name="Label5" Content="drone is exsist" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" Foreground="#FFF31111" VerticalAlignment="Top" Height="26" Width="85"/>
+            <Label x:Name="Label6"  Content="Please fill in"  Grid.Column="2" HorizontalAlignment="Left" Margin="0,212,0,0"  Foreground="#FFF11010" Height="26" Width="72" VerticalAlignment="Top"/>
 
 
 
@@ -46,7 +48,7 @@
 
 
         <Grid x:Name="GridUpStation" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
@@ -57,9 +59,26 @@
                 <ColumnDefinition Width="71*"/>
                 <ColumnDefinition Width="89*"/>
             </Grid.ColumnDefinitions>
-            <Label x:Name="LabelId1" Content="Id:" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.5,0.599" Height="28" Width="38" FontSize="18" FontFamily="Arial Black"/>
-            <Label x:Name="LabelWeight1" Content="Weight:" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.605,-0.326" Height="34" Width="86" FontSize="18" FontFamily="Arial Black"/>
-            <Label Content="Location:" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Arial Black" Height="31" Width="105"/>
+            <Label Content="id:" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black"/>
+            <Label x:Name="IdText" Content="" HorizontalAlignment="Left" Margin="140,34,0,0" VerticalAlignment="Top"/>
+            <Label Content="Location:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black"/>
+            <Label x:Name="LocationText" Content="" HorizontalAlignment="Left" Margin="140,108,0,0" VerticalAlignment="Top"/>
+            <Rectangle HorizontalAlignment="Center" Height="192" Margin="0,18,0,0" Grid.Row="1" VerticalAlignment="Top" Width="247" Fill="#FFCE6363"/>
+            <Label Content="name:" HorizontalAlignment="Center" Margin="0,38,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14" Width="134"/>
+            <Label x:Name="lbb" Content="" HorizontalAlignment="Center" Margin="0,70,0,0"  Grid.Row="1" VerticalAlignment="Top" Width="164" FontFamily="Arial Black" AutomationProperties.ItemStatus="" ContentStringFormat="" Height="88"/>
+            <TextBox x:Name="TexName1" HorizontalAlignment="Center" Margin="154,38,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="44" Height="24"/>
+            <ListView Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="1" Margin="0,5,0,48" Width="201" Background="#FFCE6363" MouseDoubleClick="ListView_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="x" Grid.Column="1" Margin="250,5,0,0" VerticalAlignment="Top" Background="#FFCE6363" BorderBrush="{x:Null}" Height="28" Width="28"  FontFamily="Arial Black" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
+            <Label Content="List of Drons in charge:" Grid.Column="1" HorizontalAlignment="Center" Margin="0,163,0,0" VerticalAlignment="Top" Height="40" Width="194" FontFamily="Arial Black" FontSize="14" Grid.RowSpan="2"/>
+            <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Margin="0,164,0,0" Grid.Row="1" VerticalAlignment="Top" Background="#FFF6F6F6" FontFamily="Arial Black" Height="29" Width="70" Click="Save_Click"/>
+            <ComboBox HorizontalAlignment="Center" Margin="154,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="35" Height="27"/>
+
         </Grid>
 
 

@@ -25,7 +25,7 @@
         </Image>
 
 
-        <Grid x:Name="masengerOrCustomer" d:IsHidden="True">
+        <Grid x:Name="masengerOrCustomer">
             <Label Content="Enter as:" HorizontalAlignment="Center" Margin="0,299,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Arial Black" Height="63" Width="194"/>
             <Button x:Name="Manager" Content="Manager" HorizontalAlignment="Center" Margin="0,406,200,0" VerticalAlignment="Top"  Height="50" Width="140" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" RenderTransformOrigin="33,33" Click="Manager_Click"/>
 
@@ -33,11 +33,12 @@
 
 
         </Grid>
-        <Grid x:Name="enterM" d:IsHidden="True">
+        <Grid x:Name="enterM">
             <Rectangle HorizontalAlignment="Center" Height="300" Margin="-0,200,0,0" Stroke="Black" VerticalAlignment="Top" Width="300" Fill="#FFFCF5E5"/>
             <Label x:Name="passwordm" Content="password" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial Black" Width="136" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
-            <TextBox x:Name="passwordTextm" HorizontalAlignment="Center" Margin="0,300,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="22"/>
+
             <Button Content="ENTER" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top" Height="54" Width="174" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" Click="Button_Click"/>
+            <PasswordBox x:Name="passwordTextm" HorizontalAlignment="Center" Margin="0,315,0,0" VerticalAlignment="Top" Height="39" Width="174"/>
 
 
 
@@ -56,8 +57,9 @@
             <Label Content="Existing Customer" HorizontalAlignment="Center" Margin="-400,252,0,0" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" FontSize="18"/>
             <Rectangle HorizontalAlignment="Center" Height="300" Margin="-400,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="300" Fill="#FFFCF5E5"/>
             <Label x:Name="passwordc" Content="password" HorizontalAlignment="Center" Margin="-400,354,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial Black" Width="136" FontWeight="Black" FontStyle="Oblique" FontStretch="ExtraCondensed"/>
-            <TextBox x:Name="passwordTextc" HorizontalAlignment="Center" Margin="-400,403,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="27"/>
+
             <Button Content="ENTER" HorizontalAlignment="Center" Margin="-400,498,0,0" VerticalAlignment="Top" Height="54" Width="174" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" Click="Button_Click_1"/>
+            <PasswordBox x:Name="passwordTextc"  HorizontalAlignment="Center" Margin="-400,403,0,0" VerticalAlignment="Top" Width="174" Height="27"/>
 
 
 

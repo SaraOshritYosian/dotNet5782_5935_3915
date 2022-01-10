@@ -24,36 +24,57 @@ namespace PL
         private IBL accseccBL1;
         public StationListWindow(IBL accseccBL)
         {
+            
             InitializeComponent();
+           
             accseccBL1 = accseccBL;
-            DataGrideStation.ItemsSource = accseccBL1.GetStations();
+            var stationList = accseccBL1.GetStations();
+            DataGrideStation.ItemsSource = stationList;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+       
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ListsWindow we = new ListsWindow(accseccBL1);
             we.Show();
             Close();
         }
 
-       
+        private void AddS_Click(object sender, RoutedEventArgs e)
+        {
+            StationWindow we = new StationWindow(accseccBL1,this);
+            we.Show();
+        }
 
         private void DataGrideStation_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-         //   BO.StationToList drne = DataGrideStation.SelectedItem as BO.StationToList;
             BO.StationToList st = DataGrideStation.SelectedItem as BO.StationToList;
-            StationWindow we = new StationWindow(accseccBL1, this,st);//פעולה בונה של עדכון
+            StationWindow we = new StationWindow(accseccBL1, this, st);//פעולה בונה של הוספה
             we.Show();
-            
-
         }
 
-        private void AddButon_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            Close();
+        }
+
+        private void DataGrideStation_MouseEnter(object sender, MouseEventArgs e)
         {
             BO.StationToList st = DataGrideStation.SelectedItem as BO.StationToList;
-            StationWindow we = new StationWindow(accseccBL1,this);//פעולה בונה של הוספה
-            we.Show();
+           
            
         }
-    }
+
+        private void DataGrideStation_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+        }   }
 }

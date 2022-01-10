@@ -65,15 +65,17 @@ namespace PL
             this.Close();
         }
 
-        private void ComboBoxStatuse_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {//
-        //    if
-        }
-
         private void back_Click(object sender, RoutedEventArgs e)
         {
             ListsWindow we = new ListsWindow(accseccBL1);
             we.Show();
+            Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
             Close();
         }
     }

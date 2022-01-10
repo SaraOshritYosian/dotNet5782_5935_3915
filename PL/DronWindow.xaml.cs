@@ -24,6 +24,7 @@ namespace PL
        // static int idDrone = 11;
         BO.DroneToList droneTo;
         IBL accseccBL2;
+        BO.Station station1;
         
         #region Add
         public DronWindow(IBL accseccBL1,DroneListWindow dd)//add
@@ -120,6 +121,7 @@ namespace PL
             LabelErrorMode.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL1;
             droneTo = drone;
+            idStationBu.Visibility = Visibility.Hidden;
             LabelId2.Content = Convert.ToString(droneTo.Id);
             LabelWeight2.Content = droneTo.Weight;//משקל
             LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
@@ -135,6 +137,9 @@ namespace PL
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
+                idStationBu.Visibility = Visibility.Visible;
+                station1 = accseccBL2.GetStationByDrone(droneTo.Id);
+                idStationBu.Content = "Number Station Is: " + station1.Id;
             }
                 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
@@ -196,6 +201,7 @@ namespace PL
         public DronWindow(IBL accseccBL1,BO.DroneToList drone,DroneListWindow droneList)//update
         {
             InitializeComponent();
+            idStationBu.Visibility = Visibility.Hidden;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
             droneListWindow11 = droneList;//מקבל את החלון רשימת רחפן כשי שיוכל לעדכן ברענון
@@ -220,6 +226,9 @@ namespace PL
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
+                idStationBu.Visibility = Visibility.Visible;
+                station1= accseccBL2.GetStationByDrone(droneTo.Id);
+                idStationBu.Content = "Number Station Is: " + station1.Id;
             }
 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
@@ -419,6 +428,13 @@ namespace PL
         private void Cancell_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void idStationBu_Click(object sender, RoutedEventArgs e)
+        {
+            BO.StationToList stationTo = accseccBL2.StationToListToPrint(station1.Id);
+            StationWindow window = new StationWindow(accseccBL2, stationTo);
+            window.Show();
         }
     }
 }

@@ -10,52 +10,58 @@
         <Grid Name="MainGrid">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFA0B7BC"/>
-                    <GradientStop Color="#FFAA906E" Offset="1"/>
-                    <GradientStop Color="#FFFAF5E3" Offset="0.474"/>
+                    <GradientStop Color="#FFCECECE" Offset="0.087"/>
+                    <GradientStop Color="#FFC7D6FD" Offset="0.919"/>
+                    <GradientStop Color="#FFF5CC84" Offset="0.797"/>
                 </LinearGradientBrush>
             </Grid.Background>
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="35*"/>
-                <RowDefinition Height="173*"/>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="407*"/>
+                <RowDefinition Height="63*"/>
             </Grid.RowDefinitions>
 
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9FB5BC"/>
-                        <GradientStop Color="#FF7E6C59" Offset="1"/>
-                        <GradientStop Color="#FFFBF1D6" Offset="0.488"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="103*"/>
+                </Grid.RowDefinitions>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <Label x:Name="DroneStatus" Content="Drone Statuse" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="18" Width="164" Height="37"/>
-                <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Margin="0,0,0,0" SelectionChanged="ComboBoxStatuse_SelectionChanged"/>
-                <Label x:Name="DroneMaxWeight" Content="Drone Max Weight" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="194" FontSize="18" FontFamily="Arial Black" Height="37"/>
-                <ComboBox x:Name="ComboBoxMaxWeight" Grid.Column="3" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Height="50" SelectionChanged="ComboBoxMaxWeight_SelectionChanged"/>
-                <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="130,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152"/>
-                <Button Content="clear" Grid.Column="3" HorizontalAlignment="Left" Margin="128,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.655,1.73"/>
-                <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="0,0,9,77" VerticalAlignment="Bottom" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" Grid.Column="3"/>
+                <Label x:Name="DroneStatus" Content="Drone Statuse" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="18" Width="164" Height="37" Margin="36,0,0,0" Grid.Row="1"/>
+                <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Grid.Row="1"/>
+                <Label x:Name="DroneMaxWeight" Content="Drone Max Weight" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="194" FontSize="18" FontFamily="Arial Black" Height="37" Margin="6,0,0,0" Grid.Row="1"/>
+                <ComboBox x:Name="ComboBoxMaxWeight" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="50" SelectionChanged="ComboBoxMaxWeight_SelectionChanged" Grid.Row="1"/>
+                <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="130,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152" Grid.Row="1" Height="20" Width="29"/>
+                <Button Content="clear" Grid.Column="3" HorizontalAlignment="Left" Margin="128,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.655,1.73" Grid.Row="1" Height="20" Width="29"/>
+                <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="160,0,10,0" VerticalAlignment="Center" FontFamily="Arial Black" Background="#FFEB1414" Height="28" Width="28" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" Grid.Column="3" BorderBrush="{x:Null}"/>
             </Grid>
-            <ListView x:Name="DronesListView"  Grid.Row="1" Margin="0,16,0,96" MouseDoubleClick="DronesListView_MouseDoubleClick">
+            <ListView x:Name="DronesListView"  Grid.Row="2" Margin="0,16,0,3" MouseDoubleClick="DronesListView_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="1" HorizontalAlignment="Right" Margin="0,455,10,0" VerticalAlignment="Top" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black"/>
-            <Button x:Name="back" Content="" HorizontalAlignment="Left" Margin="0,425,0,0" Grid.Row="1" VerticalAlignment="Top" Height="93" Width="168" Click="back_Click">
+            <Button x:Name="Add_Drone" Content="Add New Drone" Grid.Row="3" HorizontalAlignment="Right" Margin="622,0,0,0" VerticalAlignment="Center" Height="58" Width="164" Click="Add_Drone_Click" FontSize="18" FontFamily="Arial Black" BorderBrush="{x:Null}"/>
+            <Button x:Name="back" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="104" Click="back_Click" BorderBrush="{x:Null}" Margin="14,403,0,0" Grid.Row="2" Grid.RowSpan="2">
                 <Button.Background>
                     <ImageBrush ImageSource="/back-arrow_1f519.png" Stretch="Fill" TileMode="None"/>
                 </Button.Background>
             </Button>
         </Grid>
+        <Button Content="" HorizontalAlignment="Left" Margin="25,6,0,0" VerticalAlignment="Top" Width="77" Height="46" BorderBrush="{x:Null}" Click="Button_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/576x768bb.png"/>
+            </Button.Background>
+        </Button>
 
 
 

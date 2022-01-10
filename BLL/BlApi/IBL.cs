@@ -41,6 +41,8 @@ namespace BlApi
         #endregion
 
         #region Station
+        BO.StationToList StationToListToPrint(int id);
+        BO.Station GetStationByDrone(int idd);
         Station GetStation(int id);
         void AddStation(Station station);
         void UpdateStation(int idS, int names, int chargeSlote);

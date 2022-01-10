@@ -48,7 +48,7 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)//המנהל הקיש סיסמה ורוצה לפנות לרשימות
         {
-            if(passwordTextm.Text=="12345")
+            if(passwordTextm.Password=="12345")
             {
                 ListsWindow we = new ListsWindow(accsessBL);
                 we.Show();
@@ -58,7 +58,7 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)//הלקוח קיים הקיש סיסמה
         {
-            string a = passwordTextm.Text;
+            string a = passwordTextm.Password;
             for ( int i=0;i<passwordArr.Count();i++)
             {
                 if (a == passwordArr.ElementAt(i))
@@ -69,7 +69,7 @@ namespace PL
                 }
                 
             }
-            passwordTextm.Text="";
+            passwordTextm.Password="";
             MessageBox.Show("The customer does not exist in the system ");
 
 
@@ -77,7 +77,7 @@ namespace PL
 
         private void Button_Click_2(object sender, RoutedEventArgs e)//הוספת לקוח
         {
-            string a = passwordTextm.Text;
+            string a = passwordTextm.Password;
             for (int i = 0; i < passwordArr.Count(); i++)
             {
                 if (a == passwordArr.ElementAt(i))

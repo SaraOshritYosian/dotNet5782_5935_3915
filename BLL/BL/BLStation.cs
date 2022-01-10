@@ -29,7 +29,27 @@ namespace BL
             return null;
 
         }
+        public BO.Station GetStationByDrone(int idd)// v
+        {
+            BO.Station c = new BO.Station();
+            try
+            {
+                DO.DroneCharge droneCharge = accessIDal.GetDroneChargByDrone(idd);
+                DO.Station station = accessIDal.GetStation(droneCharge.Stationld);
 
+                c.Id = station.Id;
+                c.Name = station.Name;
+                BO.Location newBo = new BO.Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                c.LocationStation = newBo;
+                c.ChargeSlotsFree = station.ChargeSlots;
+                c.DroneInChargeList = ListDroneInStation(station.Id);
+            }
+            catch (BO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
+            return c;
+        }
 
         public BO.Station GetStation(int id)// v
         {

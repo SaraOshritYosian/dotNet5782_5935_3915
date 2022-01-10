@@ -26,16 +26,10 @@ namespace PL
         {
             InitializeComponent();
              accseccBL2 = accseccBL1;
-
+           
         }
 
-        private void DroneList1_Click(object sender, RoutedEventArgs e)//drone
-        {
-            DroneListWindow we = new DroneListWindow(accseccBL2);
-            we.Show();
-            Close();
-        }
-
+      
         private void CostumerList_Click(object sender, RoutedEventArgs e)//customer
         {
             CustomerListWindow we = new CustomerListWindow(accseccBL2);
@@ -55,6 +49,63 @@ namespace PL
             ParcelListWindow we = new ParcelListWindow(accseccBL2);
             we.Show();
             Close();
+        }
+
+        private void DroneList12_Click(object sender, RoutedEventArgs e)
+        {
+            DroneListWindow we = new DroneListWindow(accseccBL2);
+            we.Show();
+            Close();
+        }
+
+       
+
+        private void DroneList12_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DroneList12.Height = 155;
+            DroneList12.Width = 370;
+        }
+
+        private void DroneList12_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DroneList12.Height = 140;
+            DroneList12.Width = 350;
+        }
+
+        private void CostumerList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CostumerList.Height = 155;
+            CostumerList.Width = 370;
+        }
+
+        private void CostumerList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            CostumerList.Height = 140;
+            CostumerList.Width = 350;
+        }
+
+        private void StationList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            StationList.Height = 155;
+            StationList.Width = 370;
+        }
+
+        private void StationList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            StationList.Height = 140;
+            StationList.Width = 350;
+        }
+
+        private void ParcelList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ParcelList.Height = 155;
+            ParcelList.Width = 370;
+        }
+
+        private void ParcelList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ParcelList.Height = 140;
+            ParcelList.Width = 350;
         }
     }
 }

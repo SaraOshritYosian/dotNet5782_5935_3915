@@ -26,6 +26,7 @@ namespace PL
         public StationWindow(IBL accseccBL, StationListWindow wen)//add
         {
             InitializeComponent();
+            
             accseccBL1 = accseccBL;
             GridUpStation.Visibility = Visibility.Hidden;
             GridAddSattion.Visibility = Visibility.Visible;
@@ -36,17 +37,33 @@ namespace PL
             Label4.Visibility = Visibility.Hidden;
             Label5.Visibility = Visibility.Hidden;
 
-
+            Label6.Visibility = Visibility.Hidden;
 
         }
 
         public StationWindow(IBL accseccBL, StationListWindow wen, BO.StationToList to)//update
         {
+
             InitializeComponent();
+            lbb.Content= "Number of\n charging stations:";
+            this.Width = 800;
+            Height = 450;
             GridUpStation.Visibility = Visibility.Visible;
             GridAddSattion.Visibility = Visibility.Hidden;
             accseccBL1 = accseccBL;
             statwin = wen;
+            toList = to;
+        }
+        public StationWindow(IBL accseccBL, BO.StationToList to)//update
+        {
+
+            InitializeComponent();
+            lbb.Content = "Number of\n charging stations:";
+            this.Width = 800;
+            Height = 450;
+            GridUpStation.Visibility = Visibility.Visible;
+            GridAddSattion.Visibility = Visibility.Hidden;
+            accseccBL1 = accseccBL;
             toList = to;
         }
 
@@ -67,6 +84,8 @@ namespace PL
                 Label4.Visibility = Visibility.Visible;
             if (TextLocation1.Text == "")
                 Label2.Visibility = Visibility.Visible;
+            if (TextLocation2.Text == "")
+                Label6.Visibility = Visibility.Visible;
             if (textSlots.Text == "")
                 Label1.Visibility = Visibility.Visible;
 
@@ -74,6 +93,8 @@ namespace PL
                 Label3.Visibility = Visibility.Hidden;
             if (TextLocation1.Text != "")
                 Label2.Visibility = Visibility.Hidden;
+            if (TextLocation2.Text != "")
+                Label6.Visibility = Visibility.Hidden;
             if (textSlots.Text != "")
                 Label1.Visibility = Visibility.Hidden;
             if (TextId.Text != "")
@@ -91,7 +112,7 @@ namespace PL
 
             if (TextId.Text != "")
             {
-                if ((TextId.Text != "") & (TextLocation1.Text != "")& (TextLocation1.Text != "") & (textSlots.Text != "") & (TexName.Text != "") & (accseccBL1.GetStations().Any(p => p.Id == Convert.ToInt32(TextId.Text)) == false))
+                if ((TextId.Text != "") & (TextLocation1.Text != "") & (TextLocation1.Text != "")& (TextLocation1.Text != "") & (textSlots.Text != "") & (TexName.Text != "") & (accseccBL1.GetStations().Any(p => p.Id == Convert.ToInt32(TextId.Text)) == false))
                 {
                     BO.Station station;
                     //bool dds = accseccBL2.BlDrone.Any(p => p.Id == Convert.ToInt32(TextId.Text));
@@ -106,6 +127,21 @@ namespace PL
                 }
             }
 
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)//לשלוח לחלון של רחפן את הרחפן הנוכלי
+        {
 
         }
     }

@@ -7,6 +7,8 @@ namespace DalApi
 {
     class DalConfig
     {
+        //C:\Users\chanacom\source\repos\SaraOshritYosian\dotNet5782_5935_3915\xml\dal-config.xml
+
         internal static string DalName;
         internal static Dictionary<string, string> DalPackages;
         static DalConfig()
