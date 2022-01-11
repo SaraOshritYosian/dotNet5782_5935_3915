@@ -36,11 +36,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
                 <Label x:Name="DroneStatus" Content="Drone Statuse" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="18" Width="164" Height="37" Margin="36,0,0,0" Grid.Row="1"/>
-                <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Grid.Row="1"/>
+                <ComboBox x:Name="ComboBoxStatuse" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="120" Height="50" Grid.Row="1" SelectionChanged="ComboBoxStatuse_SelectionChanged"/>
                 <Label x:Name="DroneMaxWeight" Content="Drone Max Weight" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="194" FontSize="18" FontFamily="Arial Black" Height="37" Margin="6,0,0,0" Grid.Row="1"/>
                 <ComboBox x:Name="ComboBoxMaxWeight" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="50" SelectionChanged="ComboBoxMaxWeight_SelectionChanged" Grid.Row="1"/>
-                <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="130,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152" Grid.Row="1" Height="20" Width="29"/>
-                <Button Content="clear" Grid.Column="3" HorizontalAlignment="Left" Margin="128,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.655,1.73" Grid.Row="1" Height="20" Width="29"/>
+                <Button Content="clear" Grid.Column="1" HorizontalAlignment="Left" Margin="130,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.038,0.152" Grid.Row="1" Height="20" Width="29" Click="Button_Click_1"/>
+                <Button Content="clear" Grid.Column="3" HorizontalAlignment="Left" Margin="128,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.655,1.73" Grid.Row="1" Height="20" Width="29" Click="Button_Click_2"/>
                 <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Margin="160,0,10,0" VerticalAlignment="Center" FontFamily="Arial Black" Background="#FFEB1414" Height="28" Width="28" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" Grid.Column="3" BorderBrush="{x:Null}"/>
             </Grid>
             <ListView x:Name="DronesListView"  Grid.Row="2" Margin="0,16,0,3" MouseDoubleClick="DronesListView_MouseDoubleClick">

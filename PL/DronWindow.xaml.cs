@@ -263,7 +263,7 @@ namespace PL
                 }
 
             }
-            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         // TexBoxModel.IsReadOnly = true;//טקסט מודל רק לקריאה
+            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         
             LinearGradientBrush myBrush = new();//צבע בטריה                      
             TexBattery.Background = myBrush;
             if (droneTo.StatusBatter < 21)

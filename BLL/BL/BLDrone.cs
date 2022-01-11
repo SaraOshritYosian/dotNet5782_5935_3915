@@ -308,7 +308,12 @@ namespace BL
             }
             return dd;
         }
-
+        public IEnumerable<BO.DroneToList> GetDronesByPerdicate(Predicate<BO.DroneToList> predicate)
+        {
+            return from drone in this.GetDrons()
+                   where predicate(drone)
+                   select drone;
+        }
     }
 
 }

@@ -41,6 +41,7 @@ namespace BlApi
         #endregion
 
         #region Station
+        IEnumerable<BO.DroneToList> GetDronesByPerdicate(Predicate<BO.DroneToList> predicate);
         BO.StationToList StationToListToPrint(int id);
         BO.Station GetStationByDrone(int idd);
         Station GetStation(int id);
