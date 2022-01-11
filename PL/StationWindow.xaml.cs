@@ -38,7 +38,7 @@ namespace PL
             Label5.Visibility = Visibility.Hidden;
 
             Label6.Visibility = Visibility.Hidden;
-
+           
         }
 
         public StationWindow(IBL accseccBL, StationListWindow wen, BO.StationToList to)//update
@@ -53,18 +53,20 @@ namespace PL
             accseccBL1 = accseccBL;
             statwin = wen;
             toList = to;
+            ListViewDroneInCharge.ItemsSource = accseccBL1.ListDroneInStation(toList.Id);
         }
         public StationWindow(IBL accseccBL, BO.StationToList to)//update
         {
 
             InitializeComponent();
             lbb.Content = "Number of\n charging stations:";
-            this.Width = 800;
+            Width = 800;
             Height = 450;
             GridUpStation.Visibility = Visibility.Visible;
             GridAddSattion.Visibility = Visibility.Hidden;
             accseccBL1 = accseccBL;
             toList = to;
+            ListViewDroneInCharge.ItemsSource = accseccBL1.ListDroneInStation(toList.Id);
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)

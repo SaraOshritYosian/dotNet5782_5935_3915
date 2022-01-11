@@ -10,7 +10,7 @@ namespace BL
     sealed partial class BL : IBL
     {
 
-        private IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
+        public IEnumerable<BO.DroneInCharge> ListDroneInStation(int idS)//return list of drone in charge it halp to station
         {
             int moneDroneInCharge= accessIDal.MoneDroneChargByStationListInt(idS);//כמות הרחפנים שיש תלחנה
             if (moneDroneInCharge > 0)
@@ -155,6 +155,19 @@ namespace BL
             {
                 if (a.ElementAt(i).ChargeSlots > 0)
                     b.Add(GetStation( a.ElementAt(i).Id));
+            }
+            return b;
+        }
+
+        public IEnumerable<BO.StationToList> AvailableStationToChargeListStationToList()//ptint list station who have available to charge 
+        {
+
+            IEnumerable<DO.Station> a = accessIDal.GetAllStation();
+            List<BO.StationToList> b = new List<BO.StationToList>();
+            for (int i = 0; i < a.Count(); i++)
+            {
+                if (a.ElementAt(i).ChargeSlots > 0)
+                    b.Add(StationToListToPrint(a.ElementAt(i).Id));
             }
             return b;
         }

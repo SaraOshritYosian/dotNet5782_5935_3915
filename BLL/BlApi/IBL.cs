@@ -50,6 +50,7 @@ namespace BlApi
         IEnumerable<int> AvailableStationToChargeListt();
         IEnumerable<BO.Station> AvailableStationToChargeList();
         IEnumerable<BO.StationToList> GetStations();
+        IEnumerable<BO.StationToList> AvailableStationToChargeListStationToList();
         #endregion
 
         #region Parcel
@@ -59,6 +60,7 @@ namespace BlApi
         void PickUpPackage(int id);//איסוף
         void AssignPackageToDrone(int id);//שיוך
         BO.StatusParcel StatuseParcelKnow(int idP);
+        IEnumerable<DroneInCharge> ListDroneInStation(int idS);
 
         #endregion
 
