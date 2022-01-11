@@ -8,12 +8,12 @@ namespace DalApi
     class DalConfig
     {
         //C:\Users\chanacom\source\repos\SaraOshritYosian\dotNet5782_5935_3915\xml\dal-config.xml
-        //
+        //xml\dal-config.xml
         internal static string DalName;
         internal static Dictionary<string, string> DalPackages;
         static DalConfig()
         {
-            XElement dalConfig = XElement.Load(@"C:\Users\chanacom\source\repos\SaraOshritYosian\dotNet5782_5935_3915\xml\dal-config.xml");
+            XElement dalConfig = XElement.Load(@"xml\dal-config.xml");
             DalName = dalConfig.Element("dal").Value;
             DalPackages = (from pkg in dalConfig.Element("dal-packages").Elements()
                            select pkg
