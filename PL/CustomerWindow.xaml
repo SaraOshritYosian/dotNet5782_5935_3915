@@ -33,9 +33,9 @@
             <Label x:Name="LableId" Content="ID:" HorizontalAlignment="Left" Margin="27,54,0,0" VerticalAlignment="Top" FontSize="20" Background="White" RenderTransformOrigin="1.056,0.541"/>
             <Label x:Name="LablePhone" Content="Phone:" HorizontalAlignment="Left" Margin="17,190,0,0" VerticalAlignment="Top" Width="71" FontSize="20" RenderTransformOrigin="0.523,0.037"/>
             <Label x:Name="LableLocation" Content="Location:" HorizontalAlignment="Left" Margin="17,257,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.863,0.601"/>
-            <Label x:Name="LableId2" Content="" HorizontalAlignment="Left" Margin="88,59,0,0" VerticalAlignment="Top" Width="115"/>
-            <TextBox x:Name="TextboxName" HorizontalAlignment="Left" Margin="98,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
-            <TextBox x:Name="TextboxPhone" HorizontalAlignment="Left" Margin="93,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+            <Label x:Name="LableId2" Content="{Binding Id}" HorizontalAlignment="Left" Margin="88,59,0,0" VerticalAlignment="Top" Width="115"/>
+            <TextBox x:Name="TextboxName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="98,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+            <TextBox x:Name="TextboxPhone" Text="{Binding Pone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="93,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
             <Label x:Name="LableLocationLong" Content="" HorizontalAlignment="Left" Margin="135,249,0,0" VerticalAlignment="Top" Width="153"/>
             <Label x:Name="LableTitleUpdate" Content="Update Customer:" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="210" Height="39" FontSize="22"/>
 

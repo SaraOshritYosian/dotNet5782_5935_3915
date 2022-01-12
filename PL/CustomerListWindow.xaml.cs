@@ -21,22 +21,15 @@ namespace PL
     public partial class CustomerListWindow : Window
     {
         private IBL accseccBL1;
-        //public DroneListWindow(IBL accseccBL)
-        //{
-        //    InitializeComponent();
-        //    //ניצרו רשימה של הרחפני ואז נכניס בדתה את הרשימה ואז כשעושים עוספת רחפן חדש אז עושים לרשימה שיצרנו אדד
-        //    DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
-        //ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(BO.StatusDrone));
-        //    ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
-
-        //}
+       
         public CustomerListWindow(IBL accseccBL)
         {
 
             InitializeComponent();
             accseccBL1 = accseccBL;
-            CustomerListView.ItemsSource = accseccBL1.GetCustomers();
-
+            var list= accseccBL1.GetCustomers();
+            CustomerListView.DataContext = list;
+            CustomerListView.IsReadOnly = true;
 
 
         }
@@ -49,13 +42,19 @@ namespace PL
        
         private void AddButton_Click(object sender, RoutedEventArgs e)//הוספת לקוח בלחיצה אחת
         {
-            BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
-            CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
+            CustomerWindow cw = new CustomerWindow(accseccBL1, this);//לעשות את הפעולה 
             cw.Show();
 
         }
 
-        private void CustomerListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)//עדכון
+       
+
+        private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
             if (cl != null)
@@ -63,6 +62,7 @@ namespace PL
                 CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
                 cw.Show();
             }
+
         }
     }
 }

@@ -20,8 +20,18 @@
             </Label>
             <Button x:Name="Cancell" Content="X" HorizontalAlignment="Left" Margin="759,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" Grid.Row="1" />
             <Button x:Name="AddButton" Content="הוספת לקוח" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.304,1.036" Width="96" Click="AddButton_Click" Grid.Row="1" Height="20"/>
-            <DataGrid  x:Name="CustomerListView" HorizontalAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick_1" Width="800" Margin="0,57,0,0"/>
-
+            <DataGrid x:Name="CustomerListView" Margin="10,57,85,62">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="numberOfPackagesGetCustomerColumn" Binding="{Binding NumberOfPackagesGetCustomer}" Header="Number Of Packages Get Customer" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="numberOfPackagesSentAndDeliveredCustomerColumn" Binding="{Binding NumberOfPackagesSentAndDeliveredCustomer}" Header="Number Of Packages Sent And Delivered Customer" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="numberOfPackagesSentAndNotDeliveredCustomerColumn" Binding="{Binding NumberOfPackagesSentAndNotDeliveredCustomer}" Header="Number Of Packages Sent And Not Delivered Customer" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="poneColumn" Binding="{Binding Pone}" Header="Pone" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="severalPackagesOnTheWayToTheCustomerCustomerColumn" Binding="{Binding SeveralPackagesOnTheWayToTheCustomerCustomer}" Header="Several Packages On The Way To The Customer Customer" Width="SizeToHeader"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
 
         </Grid>
 

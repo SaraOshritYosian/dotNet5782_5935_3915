@@ -36,8 +36,19 @@ namespace PL
         BO.CustomerToList customerTo;
         IBL accseccBL2;
         private readonly CustomerListWindow customerListWindow1;
+        public CustomerWindow(IBL accseccBL1, CustomerListWindow customerList)//add
+        {
+            InitializeComponent();
+            GridAddCustomer.Visibility = Visibility.Visible;
+            GridUpdateCustomer.Visibility = Visibility.Hidden;
+            accseccBL2 = accseccBL1;
+            customerListWindow1 = customerList;
 
-        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList )
+
+
+
+        }
+        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList )//update
         {
             InitializeComponent();
             GridAddCustomer.Visibility = Visibility.Hidden;
@@ -59,8 +70,7 @@ namespace PL
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)//add customer
         {
-            GridAddCustomer.Visibility = Visibility.Visible;
-            GridUpdateCustomer.Visibility = Visibility.Hidden;
+            
             //לעשות בדיקות
             BO.Customer customer1;
             customer1 = new()
@@ -70,7 +80,9 @@ namespace PL
                 Pone = TextboxPhone.Text,
                 LocationOfCustomer = new BO.Location() { Latitude = Convert.ToInt32(TextBoxLattidude.Text), Longitude = Convert.ToInt32(TextBoxLongtitude.Text) }
             };
+            accseccBL2.AddCustomer(customer1);
             MessageBox.Show("The drone wad added succesfully!");
+            customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)//update
