@@ -27,6 +27,7 @@ namespace PL
         public ParcelWindow(IBL accseccBL, BO.ParcelToLIst parcel ,ParcelListWindow parcelList)//update
         {
             InitializeComponent();
+           
             accseccBL2 = accseccBL;
             ParcelListWindow = parcelList;
             ParcelToLIst = parcel;
@@ -35,16 +36,23 @@ namespace PL
             GridUpParcel.DataContext = parcel;
             IdsLabel.Content = accseccBL.GetParcel(parcel.Id).CustomerInParcelSender;
             IdTLabel.Content= accseccBL.GetParcel(parcel.Id).CustomerInParcelTarget;
+            if (accseccBL.GetParcel(parcel.Id).DroneInParcel.Id != 0)
+            {
+                DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            }
+            else
+                DroneLabel.Visibility = Visibility.Hidden;
             DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
-            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
-            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
-            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
-            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            PichedUpT.Content = accseccBL.GetParcel(parcel.Id).PichedUp;
+            ScheduledT.Content = accseccBL.GetParcel(parcel.Id).Scheduled;
+            DeliveredT.Content = accseccBL.GetParcel(parcel.Id).Delivered;
+            RequestedT.Content = accseccBL.GetParcel(parcel.Id).Requested;
         }
 
         public ParcelWindow(IBL accseccBL, ParcelListWindow parcelList)//add
         {
             InitializeComponent();
+            Width = 600;
             accseccBL2 = accseccBL;
             ParcelListWindow = parcelList;
             GridUpParcel.Visibility = Visibility.Hidden;//עדכון מופעל
@@ -109,15 +117,25 @@ namespace PL
                 if ((TexIdt.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxproperty.SelectedItem != null) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == true) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == true))
                 {
                     BO.Parcel parcel1;
-                 
                     parcel1 = new() { Id = idParcel, CustomerInParcelSender=new BO.CustomerInParcel { Id = Convert.ToInt32(TextIds.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TextIds.Text)).Name }
                     ,CustomerInParcelTarget= new BO.CustomerInParcel { Id = Convert.ToInt32(TexIdt.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TexIdt.Text)).Name },
                         Weight = (BO.WeightCategories)ComboBoxWeight.SelectedItem,Priority= (BO.Priority)ComboBoxproperty.SelectedItem
                     };
-                    accseccBL2.AddParcel(parcel1);//parcel add
-                    MessageBox.Show("Adding a Parcel number: " + parcel1.Id + " was successful");
-                    ParcelListWindow.parcelToLIstDataGrid.DataContext = accseccBL2.GetParcels();
-                    Close();
+                    try
+                    {
+                        accseccBL2.AddParcel(parcel1);//parcel add
+
+                        MessageBox.Show("Adding a Parcel number: " + parcel1.Id + " was successful");
+
+                        ParcelListWindow.parcelToLIstDataGrid.DataContext = accseccBL2.GetParcels();
+                        Close();
+                    }
+                   
+                      catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
 
                 }
             }
@@ -132,6 +150,12 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void DroneLabel_Click(object sender, RoutedEventArgs e)
+        {
+            DronWindow dronWindow = new DronWindow(accseccBL2, accseccBL2.DroneToLisToPrint(accseccBL2.GetParcel(ParcelToLIst.Id).DroneInParcel.Id));
+            dronWindow.Show();
         }
     }
 }

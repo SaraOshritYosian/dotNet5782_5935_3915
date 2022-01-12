@@ -35,7 +35,7 @@ namespace Dal
        
         internal static void Initialize()//מאתחל את הרשימות וקורא לכל היצירות 
         {
-            dronsList.Add(new Drone() { Id = 0, Model = "2MO3",  Weight = WeightCategories.Light });
+            dronsList.Add(new Drone() { Id = 4, Model = "2MO3",  Weight = WeightCategories.Light });
             dronsList.Add(new Drone() { Id = 1, Model = "V78K",Weight = WeightCategories.Heavy });
             dronsList.Add(new Drone() { Id = 2, Model = "5TD7", Weight = WeightCategories.Medium });
             dronsList.Add(new Drone() { Id = 3, Model = "FS001", Weight = WeightCategories.Medium });

@@ -43,11 +43,11 @@ namespace PL
             GridAddCustomer.Visibility = Visibility.Hidden;
             GridUpdateCustomer.Visibility = Visibility.Visible;
             accseccBL2 = accseccBL1;
-            //customerTo = customer;
-            LableId.Content = (customer.Id).ToString();
-            TextboxName.Text = customer.Name;//לעדכן
-            TextboxPhone.Text = customer.Pone;//לעדכן
-            LableLocation.Content= accseccBL2.GetCustomer(customer.Id).LocationOfCustomer.ToString();
+            customerTo = customer;
+          //  LableId.Content = (customer.Id).ToString();
+          //  TextboxName.Text = customer.Name;//לעדכן
+          //  TextboxPhone.Text = customer.Pone;//לעדכן
+            LableLocation.Content= accseccBL2.GetCustomer(customer.Id).LocationOfCustomer;
             //עדכון
 
         }
