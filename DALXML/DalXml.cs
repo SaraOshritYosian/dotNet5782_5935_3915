@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using DalApi;
-
+using Dal;
+using DalApi;
+using DO;
 
 namespace Dal
 {
@@ -14,7 +16,7 @@ namespace Dal
         DalXml() { }
 
         string dronsPath = @"DronsXml.xml"; //XElement
-
+        string customerPath = @"CustomerXml.xml";
         string dronschargePath = @"DronsCharcheXml.xml"; //XMLSerializer
         string parcelsPath = @"ParcelXml.xml"; //XMLSerializer
         string stationsPath = @"StationsXml.xml"; //XMLSerializer
@@ -472,37 +474,145 @@ namespace Dal
         #endregion
         IEnumerable<int> IDal.ListTargetParcel(int idta)
         {
-            throw new NotImplementedException();
+            List<int> a = new List<int>();
+            foreach (Parcel item in XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath))
+            {
+                if (item.Targetld == idta)
+                {
+                    a.Add(item.Id);
+                }
+            }
+            return a;
         }
 
         IEnumerable<int> IDal.ListSendetParcel(int idse)
         {
-            throw new NotImplementedException();
+            List<int> a = new List<int>();
+            foreach (Parcel item in XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath))
+            {
+                if (item.Senderld == idse)
+                {
+                    a.Add(item.Id);
+                }
+            }
+            return a;
         }
 
         IEnumerable<DO.Customer> IDal.GetAllCustomer()
         {
-            throw new NotImplementedException();
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
+
+            return (from p in customersRootElem.Elements()
+                    select new Customer()
+                    {
+                        Id = Int32.Parse(p.Element("ID").Value),
+                        Name = p.Element("Name").Value,
+                        Pone = p.Element("Pone").Value,
+                        Longitude = Int32.Parse(p.Element("Longitude").Value),
+                        Lattitude = Int32.Parse(p.Element("Lattitude").Value),
+                        //ListOfPackagesFromTheCustomer=
+                        
+                    }
+                   );
+
+           
         }
 
         IEnumerable<DO.Customer> IDal.GetAllCustomerBy(Predicate<DO.Customer> predicate)
         {
-            throw new NotImplementedException();
+            XElement customerRootElem = XMLTools.LoadListFromXMLElement(customerPath);
+
+            return from p in customerRootElem.Elements()
+                   let p1 = new Customer()
+                   {
+                       Id = Int32.Parse(p.Element("ID").Value),
+                       Name = p.Element("Name").Value,
+                       Pone = p.Element("Pone").Value,
+                       Longitude = Int32.Parse(p.Element("Longitude").Value),
+                       Lattitude = Int32.Parse(p.Element("Lattitude").Value),
+                       //ListOfPackagesFromTheCustomer=
+                   }
+                   where predicate(p1)
+                   select p1;
+           
         }
 
         DO.Customer IDal.GetCustomer(int id)
         {
-            throw new NotImplementedException();
+            XElement customerRootElem = XMLTools.LoadListFromXMLElement(customerPath);
+
+            Customer p = (from per in customerRootElem.Elements()
+                        where int.Parse(per.Element("ID").Value) == id
+                        select new Customer()
+                        {
+                            Id = Int32.Parse(per.Element("ID").Value),
+                            Name = per.Element("Name").Value,
+                            Pone = per.Element("Pone").Value,
+                            Lattitude = Int32.Parse(per.Element("Lattitude").Value),
+                            Longitude = Int32.Parse(per.Element("Longitude").Value),
+                            //ListOfPackagesFromTheCustomer=
+                            //City = per.Element("City").Value,
+                            //BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
+                            //PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), per.Element("PersonalStatus").Value),
+                            //Duration = TimeSpan.ParseExact(per.Element("Duration").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                        }
+                        ).FirstOrDefault();
+
+            if (p == null)
+                throw new DO.CustomerAlreadyExistsException();
+
+            return p;
+            //throw new NotImplementedException();
         }
 
         void IDal.AddCustomer(DO.Customer customer)
         {
-            throw new NotImplementedException();
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
+
+            XElement per1 = (from p in customersRootElem.Elements()
+                             where int.Parse(p.Element("ID").Value) == customer.Id
+                             select p).FirstOrDefault();
+
+            if (per1 != null)
+                throw new DO.CustomerAlreadyExistsException();
+
+            XElement customerElem = new XElement("Customer", new XElement("ID", customer.Id),
+                                  new XElement("Name", customer.Name),
+                                  new XElement("Pone", customer.Pone),
+                                  new XElement("Longitude", customer.Longitude.ToString()),
+                                   new XElement("Lattitude", customer.Lattitude.ToString())
+                                );
+
+            customersRootElem.Add(customerElem);
+
+            XMLTools.SaveListToXMLElement(customersRootElem, customerPath);
+           
         }
 
         void IDal.UpdetCustomer(DO.Customer customer)
         {
-            throw new NotImplementedException();
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
+
+            XElement per = (from p in customersRootElem.Elements()
+                            where int.Parse(p.Element("ID").Value) == customer.Id
+                            select p).FirstOrDefault();
+
+            if (per != null)
+            {
+                per.Element("ID").Value = customer.Id.ToString();
+                per.Element("Name").Value = customer.Name;
+                per.Element("Pone").Value = customer.Pone;
+                per.Element("Longitude").Value = customer.Longitude.ToString();
+                per.Element("Lattitude").Value = customer.Lattitude.ToString();
+               
+
+                XMLTools.SaveListToXMLElement(customersRootElem, customerPath);
+            }
+            else
+                throw new DO.CustomerAlreadyExistsException();
+       
+
+           
         }
 
         void IDal.UpdetCustomer(int id, Action<DO.Customer> action)
@@ -512,6 +622,20 @@ namespace Dal
 
         void IDal.DeleteCustomer(int id)
         {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
+
+            XElement per = (from p in customersRootElem.Elements()
+                            where int.Parse(p.Element("ID").Value) == id
+                            select p).FirstOrDefault();
+
+            if (per != null)
+            {
+                per.Remove(); //<==>   Remove per from personsRootElem
+
+                XMLTools.SaveListToXMLElement(customersRootElem, customerPath);
+            }
+            else
+                throw new DO.CustomerAlreadyExistsException();
             throw new NotImplementedException();
         }
 
