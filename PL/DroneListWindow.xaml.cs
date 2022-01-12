@@ -46,8 +46,12 @@ namespace PL
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.DroneToList drne = DronesListView.SelectedItem as BO.DroneToList;
-            DronWindow dr = new DronWindow(accseccBL1, drne,this);
-            dr.Show();
+            if (drne != null)
+            {
+                DronWindow dr = new DronWindow(accseccBL1, drne, this);
+                dr.Show();
+            }
+            
         }
 
         private void ComboBoxMaxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)

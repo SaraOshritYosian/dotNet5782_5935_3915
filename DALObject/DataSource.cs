@@ -43,9 +43,13 @@ namespace Dal
             stationsList.Add(new Station() { Name = 1222, Id = 1, ChargeSlots = 6, Longitude = 0.3340, Latitude = 9.33340 });
             stationsList.Add(new Station() { Name = 77834, Id = 2, ChargeSlots = 30, Longitude = 111.23, Latitude = 43.99 });
             
-            customerList.Add(new Customer() { Id = 32424593, Name = "chana", Lattitude = 33.44, Longitude = 544.554, Pone = "0504378982" });
-            customerList.Add(new Customer() { Id = 3246663, Name = "avi", Lattitude = 33.44, Longitude = 544.5443, Pone = "0566558982" });
-
+            customerList.Add(new Customer() { Id = 32424593, Name = "chana", Lattitude = 33.44, Longitude = 34, Pone = "0504378982" });
+            customerList.Add(new Customer() { Id = 3246663, Name = "avi", Lattitude = 33.44, Longitude = 344, Pone = "0566558982" });
+            customerList.Add(new Customer() { Id = 111111, Name = "sara", Lattitude = 11, Longitude = 323, Pone = "00443324" });
+            customerList.Add(new Customer() { Id = 222222, Name = "miri", Lattitude = 22, Longitude = 2332, Pone = "050434" }); 
+            customerList.Add(new Customer() { Id = 333333, Name = "avi", Lattitude = 33.44, Longitude = 544.5443, Pone = "0566558982" });
+            customerList.Add(new Customer() { Id = 444444, Name = "david", Lattitude = 334, Longitude = 343, Pone = "0504382" });
+        
         }
 
     }

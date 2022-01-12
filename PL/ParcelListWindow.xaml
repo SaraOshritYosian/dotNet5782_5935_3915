@@ -20,6 +20,17 @@
             <RowDefinition Height="260*"/>
             <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
+
+        <DataGrid x:Name="parcelToLIstDataGrid" Grid.Row="1"  AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="1,63,-2,3" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="priorityColumn" Binding="{Binding Priority}" Header="Priority" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="senderNameColumn" Binding="{Binding SenderName}" Header="Sender Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="statusParcelColumn" Binding="{Binding statusParcel}" Header="status Parcel" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="targetNameColumn" Binding="{Binding TargetName}" Header="Target Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="weightColumn" Binding="{Binding Weight}" Header="Weight" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2">
 
             <Grid.ColumnDefinitions>
@@ -44,7 +55,6 @@
                 <ImageBrush ImageSource="/back-arrow_1f519.png" Opacity="0.9"/>
             </Button.Background>
         </Button>
-        <DataGrid x:Name="ParcelListData" Grid.Row="2" Background="#FFF6DA92" MouseDoubleClick="ParcelListData_MouseDoubleClick_1"/>
 
     </Grid>
 </Window>

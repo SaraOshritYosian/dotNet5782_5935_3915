@@ -25,8 +25,8 @@ namespace PL
         {
             InitializeComponent();
             accseccBL1 = accseccBL;
-            ParcelListData.ItemsSource = accseccBL1.GetParcels();
-
+            parcelToLIstDataGrid.DataContext= accseccBL1.GetParcels();
+            parcelToLIstDataGrid.IsReadOnly = true;
         }
 
        
@@ -58,7 +58,7 @@ namespace PL
 
         private void ParcelListData_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            BO.ParcelToLIst parcel = ParcelListData.SelectedItem as BO.ParcelToLIst;
+            BO.ParcelToLIst parcel = parcelToLIstDataGrid.SelectedItem as BO.ParcelToLIst;
             ParcelWindow dr = new ParcelWindow(accseccBL1, parcel, this);
             dr.Show();
         }

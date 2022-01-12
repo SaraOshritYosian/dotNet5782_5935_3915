@@ -21,12 +21,11 @@ namespace PL
     public partial class StationWindow : Window
     {
         private IBL accseccBL1;
-        private readonly StationListWindow statwin;
+        private  StationListWindow statwin;
         BO.StationToList toList;
         public StationWindow(IBL accseccBL, StationListWindow wen)//add
         {
             InitializeComponent();
-            
             accseccBL1 = accseccBL;
             GridUpStation.Visibility = Visibility.Hidden;
             GridAddSattion.Visibility = Visibility.Visible;
@@ -45,7 +44,7 @@ namespace PL
         {
 
             InitializeComponent();
-            lbb.Content= "Number of\n charging stations:";
+            lbb.Content= "Number of\ncharging stations:";
             this.Width = 800;
             Height = 450;
             GridUpStation.Visibility = Visibility.Visible;
@@ -53,22 +52,12 @@ namespace PL
             accseccBL1 = accseccBL;
             statwin = wen;
             toList = to;
+            GridUpStation.DataContext = to;//id,name,
             ListViewDroneInCharge.ItemsSource = accseccBL1.ListDroneInStation(toList.Id);
+            IdText.IsReadOnly = true;
+            LocationText.Content = accseccBL.GetStation(to.Id).LocationStation;
+            ChargeSlote.Text = (to.ChargeSlotsFree + to.ChargeSlotsNotFree).ToString();
         }
-        public StationWindow(IBL accseccBL, BO.StationToList to)//update
-        {
-
-            InitializeComponent();
-            lbb.Content = "Number of\n charging stations:";
-            Width = 800;
-            Height = 450;
-            GridUpStation.Visibility = Visibility.Visible;
-            GridAddSattion.Visibility = Visibility.Hidden;
-            accseccBL1 = accseccBL;
-            toList = to;
-            ListViewDroneInCharge.ItemsSource = accseccBL1.ListDroneInStation(toList.Id);
-        }
-
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
 
@@ -117,13 +106,10 @@ namespace PL
                 if ((TextId.Text != "") & (TextLocation1.Text != "") & (TextLocation1.Text != "")& (TextLocation1.Text != "") & (textSlots.Text != "") & (TexName.Text != "") & (accseccBL1.GetStations().Any(p => p.Id == Convert.ToInt32(TextId.Text)) == false))
                 {
                     BO.Station station;
-                    //bool dds = accseccBL2.BlDrone.Any(p => p.Id == Convert.ToInt32(TextId.Text));
-                    //try
-                    //{ 
                     station = new() { Id = Convert.ToInt32(TextId.Text), Name =Convert.ToInt32( TexName.Text), LocationStation =new BO.Location {Latitude=Convert.ToDouble( TextLocation1.Text),Longitude=Convert.ToDouble( TextLocation2.Text) }, ChargeSlotsFree =Convert.ToInt32( textSlots.Text) };
                     accseccBL1.AddStation(station);//station
                     MessageBox.Show("Adding a station number: " + station.Id + " was successful");
-                    statwin.DataGrideStation.ItemsSource = accseccBL1.GetStations();
+                    statwin.stationToListDataGrid.ItemsSource = accseccBL1.GetStations();
                     Close();
 
                 }
@@ -139,12 +125,20 @@ namespace PL
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            accseccBL1.UpdateStation(toList.Id, Convert.ToInt32(TexName1.Text), Convert.ToInt32(ChargeSlote.Text));
+            statwin.stationToListDataGrid.DataContext=accseccBL1.GetStations();
         }
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)//לשלוח לחלון של רחפן את הרחפן הנוכלי
         {
 
+            BO.DroneToList drne = ListViewDroneInCharge.SelectedItem as BO.DroneToList;
+            if (drne != null)
+            {
+                DronWindow dr = new DronWindow(accseccBL1, drne);
+                dr.Show();
+            }
+           
         }
     }
     

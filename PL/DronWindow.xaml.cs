@@ -121,7 +121,7 @@ namespace PL
             LabelErrorMode.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL1;
             droneTo = drone;
-            idStationBu.Visibility = Visibility.Hidden;
+           
             LabelId2.Content = Convert.ToString(droneTo.Id);
             LabelWeight2.Content = droneTo.Weight;//משקל
             LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
@@ -137,9 +137,9 @@ namespace PL
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
-                idStationBu.Visibility = Visibility.Visible;
+               
                 station1 = accseccBL2.GetStationByDrone(droneTo.Id);
-                idStationBu.Content = "Number Station Is: " + station1.Id;
+               
             }
                 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
@@ -201,7 +201,7 @@ namespace PL
         public DronWindow(IBL accseccBL1,BO.DroneToList drone,DroneListWindow droneList)//update
         {
             InitializeComponent();
-            idStationBu.Visibility = Visibility.Hidden;
+            
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
             droneListWindow11 = droneList;//מקבל את החלון רשימת רחפן כשי שיוכל לעדכן ברענון
@@ -226,9 +226,97 @@ namespace PL
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
-                idStationBu.Visibility = Visibility.Visible;
+                
                 station1= accseccBL2.GetStationByDrone(droneTo.Id);
-                idStationBu.Content = "Number Station Is: " + station1.Id;
+               
+            }
+
+            if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
+            {
+                BottonToFun2.Visibility = Visibility.Visible;
+                BottonToFun.Visibility = Visibility.Visible;
+                statuse.Content = " הרחפן  זמין";
+                BottonToFun.Content = "Send for loading";
+                BottonToFun2.Content = "Assignment to the package";
+            }
+
+            if (droneTo.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
+            {
+                int a = droneTo.IdParcel;
+                if (a != 0)
+                {
+                    BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
+
+                    if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
+                    {
+                        statuse.Content = "הרחפן אסף את החבילה";
+                        BottonToFun2.Content = "Provide package";
+                        BottonToFun2.Visibility = Visibility.Visible;
+                    }
+                    if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
+                    {
+                        statuse.Content = " הרחפן  שוייך לחבילה";
+                        BottonToFun.Visibility = Visibility.Visible;
+                        BottonToFun.Content = "Collect a package";
+                    }
+
+                }
+
+            }
+            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         
+            LinearGradientBrush myBrush = new();//צבע בטריה                      
+            TexBattery.Background = myBrush;
+            if (droneTo.StatusBatter < 21)
+            {
+                myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
+                TexBattery.Background = myBrush;
+                //TexBattery
+            }
+
+            if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
+            {
+                myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
+                TexBattery.Background = myBrush;
+            }
+
+            if (droneTo.StatusBatter < 100 & droneTo.StatusBatter > 80)
+            {
+                myBrush.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
+                TexBattery.Background = myBrush;
+            }
+
+        }
+        public DronWindow(IBL accseccBL1, BO.DroneToList drone)//מקבל את הרחפן מחלון של תחנה
+        {
+            InitializeComponent();
+            
+            GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
+            GridUpDrone.Visibility = Visibility.Visible;
+            
+            LabelErrorTime.Visibility = Visibility.Hidden;
+            comoboxTime.Visibility = Visibility.Hidden;
+            LabelTime.Visibility = Visibility.Hidden;
+            LabelErrorMode.Visibility = Visibility.Hidden;
+            accseccBL2 = accseccBL1;
+            droneTo = drone;
+            LabelId2.Content = Convert.ToString(droneTo.Id);
+            LabelWeight2.Content = droneTo.Weight;//משקל
+            LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
+            TexBoxModel.Text = droneTo.Model;//מודל
+                                             //אם יש שינוי
+
+            if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
+            {
+                statuse.Content = " הרחפן בטעינה";
+                BottonToFun.Content = "Release from charging";
+                comoboxTime.Visibility = Visibility.Visible;
+                LabelTime.Visibility = Visibility.Visible;
+                TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
+                comoboxTime.ItemsSource = a;
+                BottonToFun2.Visibility = Visibility.Hidden;
+                
+                station1 = accseccBL2.GetStationByDrone(droneTo.Id);
+               
             }
 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
@@ -428,13 +516,6 @@ namespace PL
         private void Cancell_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        private void idStationBu_Click(object sender, RoutedEventArgs e)
-        {
-            BO.StationToList stationTo = accseccBL2.StationToListToPrint(station1.Id);
-            StationWindow window = new StationWindow(accseccBL2, stationTo);
-            window.Show();
         }
     }
 }

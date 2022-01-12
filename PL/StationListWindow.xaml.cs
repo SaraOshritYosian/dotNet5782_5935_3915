@@ -29,7 +29,8 @@ namespace PL
            
             accseccBL1 = accseccBL;
             var stationList = accseccBL1.GetStations();
-            DataGrideStation.ItemsSource = stationList;
+            stationToListDataGrid.DataContext = stationList;
+            stationToListDataGrid.IsReadOnly = true;
         }
 
        
@@ -43,56 +44,51 @@ namespace PL
 
         private void AddS_Click(object sender, RoutedEventArgs e)
         {
+            
             StationWindow we = new StationWindow(accseccBL1,this);
             we.Show();
         }
 
-        private void DataGrideStation_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
-        {
-            BO.StationToList st = DataGrideStation.SelectedItem as BO.StationToList;
-            StationWindow we = new StationWindow(accseccBL1, this, st);//פעולה בונה של הוספה
-            we.Show();
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)//סגירת חלון
         {
             Close();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_2(object sender, RoutedEventArgs e)//לחלון ראשי
         {
             MainWindow main = new MainWindow();
             main.Show();
             Close();
         }
 
-        private void DataGrideStation_MouseEnter(object sender, MouseEventArgs e)
-        {
-            BO.StationToList st = DataGrideStation.SelectedItem as BO.StationToList;
-           
-           
-        }
-
-        private void DataGrideStation_MouseLeave(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void Avisible_Checked(object sender, RoutedEventArgs e)
+        
+        private void Avisible_Checked(object sender, RoutedEventArgs e)//סינון
         {
             if (Avisible.IsChecked == true)
-                DataGrideStation.ItemsSource = accseccBL1.AvailableStationToChargeListStationToList();
+                stationToListDataGrid.DataContext = accseccBL1.AvailableStationToChargeListStationToList();
             else
-                DataGrideStation.ItemsSource = accseccBL1.GetStations();
+                stationToListDataGrid.DataContext = accseccBL1.GetStations();
         }
 
        
         private void Avisible_Click(object sender, RoutedEventArgs e)
         {
             if (Avisible.IsChecked == true)
-                DataGrideStation.ItemsSource = accseccBL1.AvailableStationToChargeListStationToList();
+                stationToListDataGrid.DataContext = accseccBL1.AvailableStationToChargeListStationToList();
             else
-                DataGrideStation.ItemsSource = accseccBL1.GetStations();
+                stationToListDataGrid.DataContext = accseccBL1.GetStations();
+        }
+
+        private void stationToListDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)//לחיצה כפולה
+        {
+            BO.StationToList st = stationToListDataGrid.SelectedItem as BO.StationToList;
+            if (st != null)
+            {
+                StationWindow we = new StationWindow(accseccBL1, this, st);//פעולה בונה של הוספה
+                we.Show();
+            }
+            
         }
     }
 }

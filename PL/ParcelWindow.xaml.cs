@@ -108,7 +108,7 @@ namespace PL
                     };
                     accseccBL2.AddParcel(parcel1);//station
                     MessageBox.Show("Adding a Parcel number: " + parcel1.Id + " was successful");
-                    ParcelListWindow.ParcelListData.ItemsSource = accseccBL2.GetParcels();
+                    ParcelListWindow.parcelToLIstDataGrid.ItemsSource = accseccBL2.GetParcels();
                     Close();
 
                 }

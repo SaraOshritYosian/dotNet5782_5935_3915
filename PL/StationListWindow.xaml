@@ -43,23 +43,28 @@
         </Grid>
         <Grid Name="ggGrid" Height="auto" Grid.Row="1" Width="auto" Grid.RowSpan="2" Margin="0,88,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="67*"/>
-                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="533*"/>
+                <ColumnDefinition Width="267*"/>
             </Grid.ColumnDefinitions >
-            <ListView x:Name="DataGrideStation" ItemsSource="{Binding stationList }"  Background="#FF868686" MouseDoubleClick="DataGrideStation_MouseDoubleClick_1"  MouseEnter="DataGrideStation_MouseEnter" MouseLeave="DataGrideStation_MouseLeave">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <DataGrid x:Name="stationToListDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="2,31,6,102" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" MouseDoubleClick="stationToListDataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="chargeSlotsFreeColumn" Width="SizeToHeader" Header="Charge Slots Free" Binding="{Binding ChargeSlotsFree}"/>
+                    <DataGridTextColumn x:Name="chargeSlotsNotFreeColumn" Width="SizeToHeader" Header="Charge Slots Not Free" Binding="{Binding ChargeSlotsNotFree}"/>
+                    <DataGridTextColumn x:Name="idColumn" Width="SizeToHeader" Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name" Binding="{Binding Name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
         </Grid>
+
+
         <Button Content="" HorizontalAlignment="Left" Margin="31,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="60" Width="97" Click="Button_Click_1" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="/back-arrow_1f519.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="AddS" Content="Add Station" HorizontalAlignment="Right" Margin="618,0,10,0" Grid.Row="3" VerticalAlignment="Center" Height="42" Width="172" RenderTransformOrigin="0.63,0.299" BorderBrush="{x:Null}" Background="#FF868686" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FFAC0F0F" Click="AddS_Click"/>
+        <Button x:Name="AddS" Content="Add Station" HorizontalAlignment="Right" Margin="618,0,10,0" Grid.Row="3" VerticalAlignment="Center" Height="42" Width="172" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Background="#FF868686" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FFAC0F0F" Click="AddS_Click"/>
 
     </Grid>
 </Window>
