@@ -472,6 +472,7 @@ namespace Dal
 
         }
         #endregion
+
         IEnumerable<int> IDal.ListTargetParcel(int idta)
         {
             List<int> a = new List<int>();
@@ -558,8 +559,8 @@ namespace Dal
                         }
                         ).FirstOrDefault();
 
-            if (p == null)
-                throw new DO.CustomerAlreadyExistsException();
+        //    if (p == null)
+              //  throw new DO.CustomerAlreadyExistsException();
 
             return p;
             //throw new NotImplementedException();
@@ -644,16 +645,23 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        double[] IDal.RequestPowerConsuption()
-        {
 
-            double[] arr = new double[5];
+        public IEnumerable<double> ElectricityUse()
+        {
+            throw new NotImplementedException();
+            //double[] arr = new double[5];
             //arr[0] = DataSource.Config.Free;//פנוי
             //arr[1] = DataSource.Config.LightWeight;
             //arr[2] = DataSource.Config.MediumWeight;
             //arr[3] = DataSource.Config.HeavyWeight;
             //arr[4] = DataSource.Config.LoadingPrecents;
-            return arr;
+            //return arr;
+        }
+        double[] IDal.RequestPowerConsuption()
+        {
+            throw new NotImplementedException();
+            //double[] t = { DataSource.Config.Free, DataSource.Config.LightWeight, DataSource.Config.MediumWeight, DataSource.Config.HeavyWeight, DataSource.Config.LoadingPrecents };
+            //return t;
         }
 
         IEnumerable<double> IDal.ElectricityUse()
@@ -661,20 +669,51 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        void IDal.AssignPackageToDrone(int idParcel, int idDrone)
+        public void AssignPackageToDrone(int idParcel, int idDrone)
         {
-            throw new NotImplementedException();
+            List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
+            List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
+            Parcel per1 = ListParcel.Find(p => p.Id == idParcel);
+            bool fal1 = ListParcel.Any(p => p.Id == idParcel);
+            bool fal2 = ListDrons.Any(p => p.Id == idDrone);
+            Drone per2 = ListDrons.Find(p => p.Id == idDrone);
+            //לבדוק אם קיים
+            if (fal2 == true & fal1 == true)
+            {
+                per1.Droneld = per2.Id;//הכנסה ת"ז של הרחפן
+                per1.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
+                UpdetParcel(per1);
+            }
+            else
+                throw new Exception("error id");
+
         }
 
-        void IDal.PackageCollectionByDrone(int idParcel)
-        {
-            throw new NotImplementedException();
-        }
+   
 
-        void IDal.DeliveryOfPackageToTheCustomer(int idParcel)
+    public void PackageCollectionByDrone(int idParcel)
         {
-            throw new NotImplementedException();
+        List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
+        Parcel per1 = ListParcel.Find(p => p.Id == idParcel);
+        bool fal1 = ListParcel.Any(p => p.Id == idParcel);
+        if (fal1 == true)
+        {
+            per1.PichedUp = DateTime.Now;
+            UpdetParcel(per1);
         }
+    }
+
+      public  void DeliveryOfPackageToTheCustomer(int idParcel)
+        {
+            List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
+            Parcel per1 = ListParcel.Find(p => p.Id == idParcel);
+        bool fal1 = ListParcel.Any(p => p.Id == idParcel);
+        if (fal1 == true)
+        {
+            per1.Delivered = DateTime.Now;
+            UpdetParcel(per1);
+        }
+    }
 
        
     }

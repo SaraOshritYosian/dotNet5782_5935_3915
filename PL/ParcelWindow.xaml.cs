@@ -32,6 +32,14 @@ namespace PL
             ParcelToLIst = parcel;
             GridUpParcel.Visibility = Visibility.Visible;//עדכון מופעל
             GridAddParcel.Visibility = Visibility.Hidden;//הוספה מופעל
+            GridUpParcel.DataContext = parcel;
+            IdsLabel.Content = accseccBL.GetParcel(parcel.Id).CustomerInParcelSender;
+            IdTLabel.Content= accseccBL.GetParcel(parcel.Id).CustomerInParcelTarget;
+            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
         }
 
         public ParcelWindow(IBL accseccBL, ParcelListWindow parcelList)//add
@@ -52,7 +60,7 @@ namespace PL
 
         }
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)//כפתור הוספת חבילה
         {
             if (TexIdt.Text == "")
                 Label3.Visibility = Visibility.Visible;
@@ -74,7 +82,7 @@ namespace PL
 
 
                 Label4.Visibility = Visibility.Hidden;
-                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)))//קיים
+                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text))==false)//לא קיים
                 {
                     Label5.Visibility = Visibility.Visible;
                 }
@@ -87,7 +95,7 @@ namespace PL
 
 
                 Label3.Visibility = Visibility.Hidden;
-                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)))//קיים
+                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text))==false)//לא קיים
                 {
                     Label6.Visibility = Visibility.Visible;
                 }
@@ -98,7 +106,7 @@ namespace PL
 
             if (TextIds.Text != "")
             {
-                if ((TexIdt.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxproperty.SelectedItem != null) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == false) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == false))
+                if ((TexIdt.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxproperty.SelectedItem != null) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == true) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == true))
                 {
                     BO.Parcel parcel1;
                  
@@ -106,9 +114,9 @@ namespace PL
                     ,CustomerInParcelTarget= new BO.CustomerInParcel { Id = Convert.ToInt32(TexIdt.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TexIdt.Text)).Name },
                         Weight = (BO.WeightCategories)ComboBoxWeight.SelectedItem,Priority= (BO.Priority)ComboBoxproperty.SelectedItem
                     };
-                    accseccBL2.AddParcel(parcel1);//station
+                    accseccBL2.AddParcel(parcel1);//parcel add
                     MessageBox.Show("Adding a Parcel number: " + parcel1.Id + " was successful");
-                    ParcelListWindow.parcelToLIstDataGrid.ItemsSource = accseccBL2.GetParcels();
+                    ParcelListWindow.parcelToLIstDataGrid.DataContext = accseccBL2.GetParcels();
                     Close();
 
                 }

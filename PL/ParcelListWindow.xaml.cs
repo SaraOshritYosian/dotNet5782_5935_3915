@@ -56,11 +56,17 @@ namespace PL
             Close();
         }
 
-        private void ParcelListData_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+       
+
+        private void parcelToLIstDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.ParcelToLIst parcel = parcelToLIstDataGrid.SelectedItem as BO.ParcelToLIst;
-            ParcelWindow dr = new ParcelWindow(accseccBL1, parcel, this);
-            dr.Show();
+            if (parcel != null)
+            {
+                ParcelWindow dr = new ParcelWindow(accseccBL1, parcel, this);
+                dr.Show();
+            }
+            
         }
     }
 }
