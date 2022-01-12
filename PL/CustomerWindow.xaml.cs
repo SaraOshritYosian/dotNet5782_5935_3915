@@ -35,6 +35,7 @@ namespace PL
     {
         BO.CustomerToList customerTo;
         IBL accseccBL2;
+        private readonly CustomerListWindow customerListWindow1;
 
         public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList )
         {
@@ -42,11 +43,11 @@ namespace PL
             GridAddCustomer.Visibility = Visibility.Hidden;
             GridUpdateCustomer.Visibility = Visibility.Visible;
             accseccBL2 = accseccBL1;
-            customerTo = customer;
-            LableId.Content = Convert.ToString(customerTo.Id);
-            TextboxName.Text = customerTo.Name;//לעדכן
-            TextboxPhone.Text = customerTo.Pone;//לעדכן
-            LableLocation.Content= accseccBL2.GetCustomer(customerTo.Id).LocationOfCustomer.ToString();
+            //customerTo = customer;
+            LableId.Content = (customer.Id).ToString();
+            TextboxName.Text = customer.Name;//לעדכן
+            TextboxPhone.Text = customer.Pone;//לעדכן
+            LableLocation.Content= accseccBL2.GetCustomer(customer.Id).LocationOfCustomer.ToString();
             //עדכון
 
         }
@@ -69,9 +70,15 @@ namespace PL
                 Pone = TextboxPhone.Text,
                 LocationOfCustomer = new BO.Location() { Latitude = Convert.ToInt32(TextBoxLattidude.Text), Longitude = Convert.ToInt32(TextBoxLongtitude.Text) }
             };
-            }
-
-
+            MessageBox.Show("The drone wad added succesfully!");
         }
+
+        private void ButtonUpdate_Click(object sender, RoutedEventArgs e)//update
+        {
+            accseccBL2.UpdateCustomer(Convert.ToInt32(TextBoxId.Text), TextBoxName.Text, TextBoxPhone.Text);
+            customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
+            MessageBox.Show("The drone wad updated succesfully!");
+        }
+    }
     }
 

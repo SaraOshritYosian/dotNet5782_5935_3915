@@ -510,7 +510,7 @@ namespace Dal
                         Pone = p.Element("Pone").Value,
                         Longitude = Int32.Parse(p.Element("Longitude").Value),
                         Lattitude = Int32.Parse(p.Element("Lattitude").Value),
-                        //ListOfPackagesFromTheCustomer=
+                        
                         
                     }
                    );
@@ -530,7 +530,7 @@ namespace Dal
                        Pone = p.Element("Pone").Value,
                        Longitude = Int32.Parse(p.Element("Longitude").Value),
                        Lattitude = Int32.Parse(p.Element("Lattitude").Value),
-                       //ListOfPackagesFromTheCustomer=
+                       
                    }
                    where predicate(p1)
                    select p1;
@@ -558,11 +558,11 @@ namespace Dal
                         }
                         ).FirstOrDefault();
 
-            if (p == null)
-                throw new DO.CustomerAlreadyExistsException();
+            //if (p == null)
+            //    throw new DO.CustomerAlreadyExistsException();
 
             return p;
-            //throw new NotImplementedException();
+            
         }
 
         void IDal.AddCustomer(DO.Customer customer)
