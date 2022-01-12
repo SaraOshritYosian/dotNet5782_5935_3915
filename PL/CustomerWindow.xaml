@@ -8,7 +8,7 @@
         Title="CustomerWindow" Height="450" Width="806">
     <Grid x:Name="GridMainCustomer">
         <Button x:Name="Cancell" Content="X" HorizontalAlignment="Left" Margin="765,10,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" />
-        <Grid x:Name="GridAddCustomer">
+        <Grid x:Name="GridAddCustomer" d:IsHidden="True">
             <Grid.ColumnDefinitions>                <ColumnDefinition Width="211*"/>                <ColumnDefinition Width="189*"/>                <ColumnDefinition Width="200*"/>                <ColumnDefinition Width="200*"/>            </Grid.ColumnDefinitions>
             <Label x:Name="LableId1" Content="ID:" HorizontalAlignment="Left" Margin="54,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.163,0.499" Width="57" FontSize="20"/>
             <Label x:Name="LableName1" Content="Name:" HorizontalAlignment="Left" Margin="49,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.224,1.916" Width="81" FontSize="20"/>
@@ -28,18 +28,19 @@
         </Grid>
 
 
-        <Grid x:Name="GridUpdateCustomer" d:IsHidden="True">
+        <Grid x:Name="GridUpdateCustomer">
             <Label x:Name="LableName" Content="Name:" HorizontalAlignment="Left" Margin="17,116,0,0" VerticalAlignment="Top" Width="66" FontSize="20"/>
             <Label x:Name="LableId" Content="ID:" HorizontalAlignment="Left" Margin="27,54,0,0" VerticalAlignment="Top" FontSize="20" Background="White" RenderTransformOrigin="1.056,0.541"/>
-            <Label x:Name="LablePhone" Content="Phone:" HorizontalAlignment="Left" Margin="17,190,0,0" VerticalAlignment="Top" Width="66" FontSize="20" RenderTransformOrigin="0.523,0.037"/>
-            <Label x:Name="LableLocation" Content="Location" HorizontalAlignment="Left" Margin="17,257,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.863,0.601"/>
+            <Label x:Name="LablePhone" Content="Phone:" HorizontalAlignment="Left" Margin="17,190,0,0" VerticalAlignment="Top" Width="71" FontSize="20" RenderTransformOrigin="0.523,0.037"/>
+            <Label x:Name="LableLocation" Content="Location:" HorizontalAlignment="Left" Margin="17,257,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.863,0.601"/>
             <Label x:Name="LableId2" Content="" HorizontalAlignment="Left" Margin="88,59,0,0" VerticalAlignment="Top" Width="115"/>
             <TextBox x:Name="TextboxName" HorizontalAlignment="Left" Margin="98,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
             <TextBox x:Name="TextboxPhone" HorizontalAlignment="Left" Margin="93,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
-            <Label x:Name="LableLocation2" Content="" HorizontalAlignment="Left" Margin="134,262,0,0" VerticalAlignment="Top" Width="153"/>
+            <Label x:Name="LableLocationLong" Content="" HorizontalAlignment="Left" Margin="135,249,0,0" VerticalAlignment="Top" Width="153"/>
             <Label x:Name="LableTitleUpdate" Content="Update Customer:" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="210" Height="39" FontSize="22"/>
 
-            <Button x:Name="ButtonUpdate" Content="Save" HorizontalAlignment="Center" Margin="0,336,0,0" VerticalAlignment="Top" Width="180" Height="46"/>
+            <Button x:Name="ButtonUpdate" Content="Save" HorizontalAlignment="Center" Margin="0,336,0,0" VerticalAlignment="Top" Width="180" Height="46" Click="ButtonUpdate_Click"/>
+            <Label x:Name="LableLocationLat" Content="" HorizontalAlignment="Left" Margin="135,289,0,0" VerticalAlignment="Top" Width="153" Height="27"/>
 
         </Grid>
 

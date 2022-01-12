@@ -58,8 +58,11 @@ namespace PL
         private void CustomerListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)//עדכון
         {
             BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
-            CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
-            cw.Show();
+            if (cl != null)
+            {
+                CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
+                cw.Show();
+            }
         }
     }
 }
