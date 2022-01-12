@@ -46,7 +46,7 @@ namespace DalApi
         void AddDroneCharge(DO.DroneCharge droneCharge);//add
         void UpdetDroneCharge(DO.DroneCharge droneCharge);//updet
         void UpdetDroneCharge(int id, Action<DO.DroneCharge> action);//updet
-        IEnumerable<DO.Drone> DroneChargeList();                                                            //  void DeleteDroneCharge(int id);//delete
+                                                         //  void DeleteDroneCharge(int id);//delete
         DO.DroneCharge GetDroneChargByStation(int id);
         void SendDroneToCharge(int station, int drone);
         void ReleaseDroneFromCharging(int drone);

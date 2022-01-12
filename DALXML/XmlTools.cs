@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using DalApi;
 
-namespace DalApi
+namespace Dal
 {
-    class XmlTools
+    class XMLTools
     {
         static string dir = @"xml\";
-        static XmlTools()
+        static XMLTools()
         {
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);

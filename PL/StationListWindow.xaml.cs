@@ -76,5 +76,23 @@ namespace PL
         private void DataGrideStation_MouseLeave(object sender, MouseEventArgs e)
         {
 
-        }   }
+        }
+
+        private void Avisible_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Avisible.IsChecked == true)
+                DataGrideStation.ItemsSource = accseccBL1.AvailableStationToChargeListStationToList();
+            else
+                DataGrideStation.ItemsSource = accseccBL1.GetStations();
+        }
+
+       
+        private void Avisible_Click(object sender, RoutedEventArgs e)
+        {
+            if (Avisible.IsChecked == true)
+                DataGrideStation.ItemsSource = accseccBL1.AvailableStationToChargeListStationToList();
+            else
+                DataGrideStation.ItemsSource = accseccBL1.GetStations();
+        }
+    }
 }

@@ -31,14 +31,14 @@
 
         </Grid>
         <Grid Name="MainGrid">
-            <Button Content="x" HorizontalAlignment="Left" Height="28" Margin="744,0,0,0" VerticalAlignment="Center" Width="28" Background="#FFEF1D1D" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" HorizontalContentAlignment="Center" Click="Button_Click"/>
+            <Button Content="x" HorizontalAlignment="Right" Height="28" Margin="744,0,10,0" VerticalAlignment="Center" Width="28" Background="#FFEF1D1D" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" HorizontalContentAlignment="Center" Click="Button_Click"/>
             <Button Content="" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Center" Width="68" Height="45" Click="Button_Click_2">
                 <Button.Background>
                     <ImageBrush ImageSource="/576x768bb.png"/>
                 </Button.Background>
             </Button>
         </Grid>
-        <Button x:Name="AddParcel" Content="ADD" HorizontalAlignment="Left" Margin="676,12,0,0" Grid.Row="3" VerticalAlignment="Top" Height="34" Width="78" Click="AddParcel_Click" BorderBrush="{x:Null}"/>
+        <Button x:Name="AddParcel" Content="ADD" HorizontalAlignment="Right" Margin="676,12,10,0" Grid.Row="3" VerticalAlignment="Top" Height="34" Width="78" Click="AddParcel_Click" BorderBrush="{x:Null}"/>
         <Button Content="" HorizontalAlignment="Left" Margin="45,2,0,0" Grid.Row="3" VerticalAlignment="Top" Height="45" Width="83" Click="Button_Click_1" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="/back-arrow_1f519.png" Opacity="0.9"/>

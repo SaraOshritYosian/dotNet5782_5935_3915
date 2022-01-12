@@ -284,10 +284,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
         #endregion
 
         #region DroneCharg
-        public IEnumerable<Drone> DroneChargeList()
-        {
-            return (IEnumerable<Drone>)DataSource.droneChargeList;
-        }
+      
 
         public int CoutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
         {

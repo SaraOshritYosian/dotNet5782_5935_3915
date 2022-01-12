@@ -33,15 +33,10 @@ namespace PL
             DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
             ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(BO.StatusDrone));
             ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            
 
         }
-        //public void Refresh(IBL.BL accseccBL)
-        //{
-        //    accseccBL1 = accseccBL;
-        //    DroneListWindow we = new DroneListWindow(accseccBL1);
-        //    DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
-        //    we.Show();
-        //}
+        
         private void Add_Drone_Click(object sender, RoutedEventArgs e)
         {
             DronWindow dr = new DronWindow(accseccBL1,this);//מקבל גם גישה וגם את החלון כדי שיוכל לסגור אותו
@@ -57,7 +52,7 @@ namespace PL
 
         private void ComboBoxMaxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-         //   DronesListView.ItemsSource = accseccBL1.GetDronsByWeight(sender as ComboBoxMaxWeight.SelectedItem);
+            DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x=>x.Weight==(BO.WeightCategories)ComboBoxMaxWeight.SelectedItem);
         }
 
         private void Cancell_Click(object sender, RoutedEventArgs e)
@@ -77,6 +72,21 @@ namespace PL
             MainWindow main = new MainWindow();
             main.Show();
             Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+        }
+
+        private void ComboBoxStatuse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.StatusDrone == (BO.StatusDrone)ComboBoxStatuse.SelectedItem);
         }
     }
 }
