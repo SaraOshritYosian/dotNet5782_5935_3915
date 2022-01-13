@@ -1,2 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Customer>
+    <Id>32424593</Id>
+    <Name>chana</Name>
+    <Pone>0504378982</Pone>
+    <Longitude>34</Longitude>
+    <Lattitude>33.44</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>3246663</Id>
+    <Name>avi</Name>
+    <Pone>0566558982</Pone>
+    <Longitude>344</Longitude>
+    <Lattitude>33.44</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>111111</Id>
+    <Name>sara</Name>
+    <Pone>00443324</Pone>
+    <Longitude>323</Longitude>
+    <Lattitude>11</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>222222</Id>
+    <Name>miri</Name>
+    <Pone>050434</Pone>
+    <Longitude>2332</Longitude>
+    <Lattitude>22</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>333333</Id>
+    <Name>avi</Name>
+    <Pone>0566558982</Pone>
+    <Longitude>544.5443</Longitude>
+    <Lattitude>33.44</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>444444</Id>
+    <Name>david</Name>
+    <Pone>0504382</Pone>
+    <Longitude>343</Longitude>
+    <Lattitude>334</Lattitude>
+  </Customer>
+</ArrayOfCustomer>
