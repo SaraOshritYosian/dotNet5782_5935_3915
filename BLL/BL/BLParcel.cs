@@ -73,6 +73,8 @@ namespace BL
         }
         public void AddParcel(BO.Parcel parcel)//v
         {
+            parcel.Id =accessIDal.GetParcelId();
+            
             DO.Parcel p = new DO.Parcel();
             p.Id = parcel.Id;
             p.Senderld = parcel.CustomerInParcelSender.Id;

@@ -203,6 +203,10 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
         #endregion
 
         #region Parcel
+        public int GetParcelId()//מחזיא מספר של משלוח הבא
+        {
+            return DataSource.Config.ParcelId;
+        }
         public IEnumerable<Parcel> PparcelList()//return list
         {
             return DataSource.parcelList;
@@ -240,11 +244,12 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
 
         public void AddParcel(Parcel parcel)
         {
-            if (DataSource.parcelList.Any(p => p.Id == parcel.Id))
-            {
-                throw new ParcelAlreadyExistsException($"bad parcel id: {parcel.Id}");
-            }
+            //if (DataSource.parcelList.Any(p => p.Id == parcel.Id))
+            //{
+            //    throw new ParcelAlreadyExistsException($"bad parcel id: {parcel.Id}");
+            //}
             DataSource.parcelList.Add(parcel);
+            DataSource.Config.ParcelId++;
         }
        
 

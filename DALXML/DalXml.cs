@@ -711,6 +711,9 @@ namespace Dal
         }
     }
 
-       
+        public int GetParcelId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
