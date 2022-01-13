@@ -648,23 +648,23 @@ namespace Dal
 
         public IEnumerable<double> ElectricityUse()
         {
-            throw new NotImplementedException();
-            //double[] arr = new double[5];
-            //arr[0] = DataSource.Config.Free;//פנוי
-            //arr[1] = DataSource.Config.LightWeight;
-            //arr[2] = DataSource.Config.MediumWeight;
-            //arr[3] = DataSource.Config.HeavyWeight;
-            //arr[4] = DataSource.Config.LoadingPrecents;
-            //return arr;
+            //throw new NotImplementedException();
+            double[] arr = new double[5];
+            arr[0] = 0.5;//פנוי
+            arr[1] = 30;
+            arr[2] = 20;
+            arr[3] = 15;
+            arr[4] = 20;
+            return arr;
         }
         double[] IDal.RequestPowerConsuption()
         {
-            throw new NotImplementedException();
-            //double[] t = { DataSource.Config.Free, DataSource.Config.LightWeight, DataSource.Config.MediumWeight, DataSource.Config.HeavyWeight, DataSource.Config.LoadingPrecents };
-            //return t;
+            //throw new NotImplementedException();
+            double[] t = { 0.5, 30,20, 15, 20 };
+            return t;
         }
 
-       
+
         public void AssignPackageToDrone(int idParcel, int idDrone)
         {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
