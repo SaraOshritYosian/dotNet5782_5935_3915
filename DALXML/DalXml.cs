@@ -664,11 +664,7 @@ namespace Dal
             //return t;
         }
 
-        IEnumerable<double> IDal.ElectricityUse()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public void AssignPackageToDrone(int idParcel, int idDrone)
         {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);

@@ -26,10 +26,10 @@ namespace Dal
             public static double MediumWeight=20;
             public static double HeavyWeight=15;
             public static double LoadingPrecents=20;//  הוספתי 20,קצב טעינת רחפן באחוזים לשעה
-            internal static int amountDorneId = 0;//כמות הרחפנים
-            internal static int amountStationId = 0;//כמות התחנות
-            internal static int amountCustomerId = 0;//כמות הלקוחות
-            internal static int amountParcelId = 0;//כמות חבילות
+            //internal static int amountDorneId = 0;//כמות הרחפנים
+            //internal static int amountStationId = 0;//כמות התחנות
+            //internal static int amountCustomerId = 0;//כמות הלקוחות
+            //internal static int amountParcelId = 0;//כמות חבילות
             //מונה לחבילות והמונה ות"ז של חבילות יהיו זהים
         }
        
