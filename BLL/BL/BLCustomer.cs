@@ -41,7 +41,7 @@ namespace BL
         //
 
 
-        private IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
+        public IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
             ListIdParcelTo = (List<int>)accessIDal.ListSendetParcel(idc);
@@ -53,7 +53,7 @@ namespace BL
             return a;
 
         }
-        private IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
+        public IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
             ListIdParcelTo = (List<int>)accessIDal.ListTargetParcel(idc);// מקבל רשימה של ת"ז של משלוחים מי שיקבל ע"פ ת"ז של לקוח מסויים

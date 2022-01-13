@@ -504,7 +504,7 @@ namespace Dal
         IEnumerable<DO.Customer> IDal.GetAllCustomer()
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
-
+            //if(customersRootElem!=null)
             return (from p in customersRootElem.Elements()
                     select new Customer()
                     {

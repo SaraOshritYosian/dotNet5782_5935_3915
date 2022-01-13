@@ -16,6 +16,8 @@ namespace BlApi
         void AddCustomer(Customer customer);
         IEnumerable<BO.ParcelToLIst> GetParcels();
         IEnumerable<BO.CustomerToList> GetCustomers();
+        IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc);
+        IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc);
 
 
         #endregion

@@ -140,6 +140,11 @@ namespace PL
             }
            
         }
+
+        private void ListViewDroneInCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
     
 }

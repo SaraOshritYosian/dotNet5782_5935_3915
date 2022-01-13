@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
+using BO;
+//public List<ParcelInCustomer> ListOfPackagesFromTheCustomer { get; set; }//רשימת חבילות אצל הלקוח -מהלקוח
+//public List<ParcelInCustomer> ListOfPackagesToTheCustomer { get; set; }//רשימת חבילות אצל הלקוח- ללקוח
+
 
 namespace PL
 {
@@ -55,9 +59,14 @@ namespace PL
             GridUpdateCustomer.Visibility = Visibility.Visible;
             accseccBL2 = accseccBL1;
             customerTo = customer;
-          //  LableId.Content = (customer.Id).ToString();
-          //  TextboxName.Text = customer.Name;//לעדכן
-          //  TextboxPhone.Text = customer.Pone;//לעדכן
+            ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customerTo.Id);
+            ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customerTo.Id);
+
+            /*ListParcelFromCustomers(customerTo.Id);*/
+
+            LableId.Content = (customer.Id).ToString();
+            //  TextboxName.Text = customer.Name;//לעדכן
+            //  TextboxPhone.Text = customer.Pone;//לעדכן
             LableLocation.Content= accseccBL2.GetCustomer(customer.Id).LocationOfCustomer;
             //עדכון
 
@@ -91,6 +100,32 @@ namespace PL
             customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
             MessageBox.Show("The drone wad updated succesfully!");
         }
+
+        private void ListviewListOfPackagesFromTheCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)//?
+        {
+            BO.ParcelToLIst parcels = ListviewListOfPackagesFromTheCustomer.SelectedItem as BO.ParcelToLIst;
+            ParcelListWindow parcelList = new ParcelListWindow(accseccBL2);
+            if (parcels != null)
+            {
+                ParcelWindow p = new ParcelWindow(accseccBL2,parcels, parcelList);
+                p.Show();
+            }
+
+        }
+
+        private void ListViewListOfPackagesToTheCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.ParcelToLIst parcels = ListViewListOfPackagesToTheCustomer.SelectedItem as BO.ParcelToLIst;
+            ParcelListWindow parcelList = new ParcelListWindow(accseccBL2);
+            if (parcels != null)
+            {
+                ParcelWindow p = new ParcelWindow(accseccBL2, parcels, parcelList);
+                p.Show();
+            }
+
+        }
+
+        
     }
     }
 

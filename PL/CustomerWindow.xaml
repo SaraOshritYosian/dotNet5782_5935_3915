@@ -39,8 +39,24 @@
             <Label x:Name="LableLocationLong" Content="" HorizontalAlignment="Left" Margin="135,249,0,0" VerticalAlignment="Top" Width="153"/>
             <Label x:Name="LableTitleUpdate" Content="Update Customer:" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="210" Height="39" FontSize="22"/>
 
-            <Button x:Name="ButtonUpdate" Content="Save" HorizontalAlignment="Center" Margin="0,336,0,0" VerticalAlignment="Top" Width="180" Height="46" Click="ButtonUpdate_Click"/>
+            <Button x:Name="ButtonUpdate" Content="Save" HorizontalAlignment="Left" Margin="62,343,0,0" VerticalAlignment="Top" Width="180" Height="46" Click="ButtonUpdate_Click"/>
             <Label x:Name="LableLocationLat" Content="" HorizontalAlignment="Left" Margin="135,289,0,0" VerticalAlignment="Top" Width="153" Height="27"/>
+            <ListView x:Name="ListviewListOfPackagesFromTheCustomer" Margin="403,94,38,207" MouseDoubleClick="ListviewListOfPackagesFromTheCustomer_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="ListViewListOfPackagesToTheCustomer" Margin="403,289,38,15" MouseDoubleClick="ListViewListOfPackagesToTheCustomer_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label x:Name="Lable_ListOfPackagesFromTheCustomer" Content=" List of packages from the Customer:" HorizontalAlignment="Left" Margin="446,51,0,0" VerticalAlignment="Top" Width="268"/>
+            <Label x:Name="LableListOfPackagesToTheCustomer" Content="List of packages to the customer:" HorizontalAlignment="Left" Margin="446,252,0,0" VerticalAlignment="Top" Width="268"/>
 
         </Grid>
 
