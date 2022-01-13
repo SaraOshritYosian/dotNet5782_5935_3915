@@ -13,6 +13,7 @@ namespace BL
 {
     sealed partial class BL : IBL
     {
+        //
         public Random rand = new Random(DateTime.Now.Millisecond);
         internal IDal accessIDal = DalFactory.GetDal();//access to dalobject
         private List<DroneToList> BlDrone;
