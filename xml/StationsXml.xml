@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Name>1222</Name>
-    <Id>1</Id>
-    <ChargeSlots>6</ChargeSlots>
-    <Longitude>0.334</Longitude>
-    <Latitude>9.3334</Latitude>
-  </Station>
-  <Station>
     <Name>77834</Name>
     <Id>2</Id>
     <ChargeSlots>30</ChargeSlots>
@@ -20,5 +13,12 @@
     <ChargeSlots>5</ChargeSlots>
     <Longitude>654</Longitude>
     <Latitude>433</Latitude>
+  </Station>
+  <Station>
+    <Name>112</Name>
+    <Id>1</Id>
+    <ChargeSlots>0</ChargeSlots>
+    <Longitude>0.334</Longitude>
+    <Latitude>9.3334</Latitude>
   </Station>
 </ArrayOfStation>

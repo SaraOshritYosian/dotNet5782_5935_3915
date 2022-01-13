@@ -41,35 +41,7 @@
     <Stationld>2</Stationld>
   </DroneCharge>
   <DroneCharge>
-    <Droneld>1</Droneld>
-    <Stationld>12223</Stationld>
-  </DroneCharge>
-  <DroneCharge>
     <Droneld>4</Droneld>
-    <Stationld>12223</Stationld>
-  </DroneCharge>
-  <DroneCharge>
-    <Droneld>1</Droneld>
-    <Stationld>1</Stationld>
-  </DroneCharge>
-  <DroneCharge>
-    <Droneld>2</Droneld>
-    <Stationld>2</Stationld>
-  </DroneCharge>
-  <DroneCharge>
-    <Droneld>4</Droneld>
-    <Stationld>2</Stationld>
-  </DroneCharge>
-  <DroneCharge>
-    <Droneld>2</Droneld>
-    <Stationld>2</Stationld>
-  </DroneCharge>
-  <DroneCharge>
-    <Droneld>4</Droneld>
-    <Stationld>2</Stationld>
-  </DroneCharge>
-  <DroneCharge>
-    <Droneld>2</Droneld>
     <Stationld>2</Stationld>
   </DroneCharge>
 </ArrayOfDroneCharge>
