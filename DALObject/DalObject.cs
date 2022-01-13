@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
-
+using Dal;
 namespace Dal//במיין בהוספה את מקבלת את הנתונים ומכניסה אותם לאובייקט שאותו את שולחת כפרמטר לפונקצית הוספה שבdalobject
 {
 
@@ -14,9 +14,25 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
     {
         static readonly IDal instance = new DalObject();
         public static IDal Instance { get => instance; }
+
+        /// <summary>
+        /// //////////////////
+        static string  dronsPath = @"DronsXml.xml"; //XElement
+        static string customerPath = @"CustomerXml.xml";
+        static string dronschargePath = @"DronsCharcheXml.xml"; //XMLSerializer
+        static string parcelsPath = @"ParcelXml.xml"; //XMLSerializer
+        static string stationsPath = @"StationsXml.xml"; //XMLSerializer
+        /// </summary>
         static DalObject()// בנאי של דלאובצקט והיא המחלקה שקונסול יעשה לה ניו מתי שהוא ירצה להתחיל והיא שניקרא לפונקציות בדתסורס
         {
             DataSource.Initialize();
+            XMLTools.SaveListToXMLSerializer(DataSource.dronsList, dronsPath);
+            XMLTools.SaveListToXMLSerializer(DataSource.customerList, customerPath);
+            XMLTools.SaveListToXMLSerializer(DataSource.droneChargeList, dronschargePath);
+            XMLTools.SaveListToXMLSerializer(DataSource.parcelList, parcelsPath);
+           // XMLTools.SaveListToXMLSerializer(DataSource.Config., parcelsPath);
+            XMLTools.SaveListToXMLSerializer(DataSource.stationsList, stationsPath);
+
         }
         //
         #region Drone

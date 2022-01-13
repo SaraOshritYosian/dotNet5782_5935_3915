@@ -50,6 +50,9 @@ namespace Dal
             customerList.Add(new Customer() { Id = 333333, Name = "avi", Lattitude = 33.44, Longitude = 544.5443, Pone = "0566558982" });
             customerList.Add(new Customer() { Id = 444444, Name = "david", Lattitude = 334, Longitude = 343, Pone = "0504382" });
             parcelList.Add(new Parcel() { Id = 0,Senderld= 444444,Targetld= 222222,Droneld= 3,Weight= WeightCategories.Medium,Priority=Priority.quick,Delivered=default,PichedUp=default,Requested=default,Scheduled=default });
+        
+        
+        
         }
 
     }

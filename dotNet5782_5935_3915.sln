@@ -33,12 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DALXML\DalXml.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D056729B-4969-4047-AE19-12351C8FD112}"
 	ProjectSection(SolutionItems) = preProject
-		xml\CustomerXml.xml = xml\CustomerXml.xml
 		xml\dal-config.xml = xml\dal-config.xml
-		xml\DronsCharcheXml.xml = xml\DronsCharcheXml.xml
-		xml\DronsXml.xml = xml\DronsXml.xml
-		xml\ParcelXml.xml = xml\ParcelXml.xml
-		xml\StationsXml.xml = xml\StationsXml.xml
 	EndProjectSection
 EndProject
 Global

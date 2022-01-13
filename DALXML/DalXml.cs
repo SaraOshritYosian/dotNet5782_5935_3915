@@ -20,7 +20,7 @@ namespace Dal
         string dronschargePath = @"DronsCharcheXml.xml"; //XMLSerializer
         string parcelsPath = @"ParcelXml.xml"; //XMLSerializer
         string stationsPath = @"StationsXml.xml"; //XMLSerializer
-       
+      //  string config = @"ConfigXml.xml";
 
         #region Drone
         //CRUD Drone
