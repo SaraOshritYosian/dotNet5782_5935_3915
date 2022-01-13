@@ -40,4 +40,8 @@
     <Droneld>2</Droneld>
     <Stationld>2</Stationld>
   </DroneCharge>
+  <DroneCharge>
+    <Droneld>4</Droneld>
+    <Stationld>2</Stationld>
+  </DroneCharge>
 </ArrayOfDroneCharge>
