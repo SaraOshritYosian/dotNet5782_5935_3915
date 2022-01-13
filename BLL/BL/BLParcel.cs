@@ -49,7 +49,7 @@ namespace BL
             {
                 DO.Parcel dop = accessIDal.GetParcel(id);
                 BO.DroneToList bo = BlDrone.Find(p => p.Id == dop.Droneld);
-               DO.Drone d = accessIDal.GetDrone(dop.Droneld);
+              
                 bop = new BO.Parcel()
                 {
                     Id = dop.Id,
@@ -60,9 +60,17 @@ namespace BL
                     Requested = dop.Requested,
                     Delivered = dop.Delivered,
                     PichedUp = dop.PichedUp,
-                    Scheduled = dop.Scheduled,
-                    DroneInParcel = new BO.DroneInParcel() { Id = d.Id, StatusBatter = GetDrone(d.Id).StatusBatter, LocationDroneInParcel = bo.LocationDrone }
+                    Scheduled = dop.Scheduled
                 };
+                if (dop.Droneld != 0)
+                {
+                    DO.Drone d = accessIDal.GetDrone(dop.Droneld);
+                    bop.DroneInParcel = new BO.DroneInParcel() { Id = d.Id, StatusBatter = GetDrone(d.Id).StatusBatter, LocationDroneInParcel = bo.LocationDrone };
+                }
+                else
+                    bop.DroneInParcel = null;
+
+
             }
             catch (BO.Excptions ex)
             {
@@ -71,7 +79,7 @@ namespace BL
             return bop;
 
         }
-        public void AddParcel(BO.Parcel parcel)//v
+        public int AddParcel(BO.Parcel parcel)//v
         {
          
             DO.Parcel p = new DO.Parcel();
@@ -80,7 +88,7 @@ namespace BL
             p.Targetld = parcel.CustomerInParcelTarget.Id;
             p.Weight = (DO.WeightCategories)parcel.Weight;
             p.Priority = (DO.Priority)parcel.Priority;
-            p.Droneld = 0;
+            p.Droneld = default;
             p.Requested = DateTime.Now;
             p.Scheduled = default;
             p.PichedUp = default;
@@ -88,8 +96,8 @@ namespace BL
 
             try
             {
-                accessIDal.AddParcel(p);
-               
+               int i= accessIDal.AddParcel(p);
+                return i;
             }
             catch (BO.Excptions ex)
             {

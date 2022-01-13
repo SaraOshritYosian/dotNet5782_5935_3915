@@ -288,11 +288,9 @@ namespace PL
         }
         public DronWindow(IBL accseccBL1, BO.DroneToList drone)//מקבל את הרחפן מחלון של תחנה
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
-            
             LabelErrorTime.Visibility = Visibility.Hidden;
             comoboxTime.Visibility = Visibility.Hidden;
             LabelTime.Visibility = Visibility.Hidden;

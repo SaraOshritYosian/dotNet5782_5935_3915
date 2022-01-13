@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StationWindow" Height="450" Width="500">
+        Title="StationWindow" Height="650" Width="800">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -63,20 +63,20 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="283*"/>
-                <ColumnDefinition Width="217*"/>
+                <ColumnDefinition Width="399*"/>
+                <ColumnDefinition Width="401*"/>
             </Grid.ColumnDefinitions>
 
-
-            <Label Content="id:" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" FontWeight="Bold" Height="28" Width="31"/>
-            <TextBox x:Name="IdText" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Height="20" Width="73" BorderBrush="{x:Null}" Foreground="Black" SelectionBrush="Black" SelectionTextBrush="Black" CaretBrush="Black" FontFamily="Arial Black" FontWeight="Bold" FontSize="15"/>
-            <Label Content="Location:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" FontWeight="Bold" Height="28" Width="92"/>
-            <Label x:Name="LocationText" Content="" HorizontalAlignment="Left" Margin="110,91,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" Width="171" Height="98" FontSize="16"/>
-            <Rectangle HorizontalAlignment="Center" Height="192" Margin="0,18,0,0" Grid.Row="1" VerticalAlignment="Top" Width="246" Fill="#FFCE6363"/>
-            <Label Content="name:" HorizontalAlignment="Center" Margin="-100,38,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="16" Width="134" Height="28"/>
-            <Label x:Name="lbb" Content="" HorizontalAlignment="Center" Margin="-80,70,0,0"  Grid.Row="1" VerticalAlignment="Top" Width="164" FontFamily="Arial Black" AutomationProperties.ItemStatus="" ContentStringFormat="" Height="88" FontSize="16"/>
-            <TextBox x:Name="TexName1"  Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Center" Margin="130,42,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Height="24" FontFamily="Arial Black" FontWeight="Bold" FontSize="16"/>
-            <ListView x:Name="ListViewDroneInCharge" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="1" Margin="0,5,0,48" Width="202" Background="#FFCE6363" MouseDoubleClick="ListView_MouseDoubleClick" SelectionChanged="ListViewDroneInCharge_SelectionChanged">
+            <Rectangle HorizontalAlignment="Left" Height="237" Margin="3,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="387"/>
+            <Label Content="id:" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Arial Black" FontWeight="Bold" Height="28" Width="38"/>
+            <Label x:Name="IdText" Content="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="54,36,0,0" VerticalAlignment="Top" Height="34" Width="102" BorderBrush="{x:Null}" Foreground="Black"  FontFamily="Arial Black" FontWeight="Bold" FontSize="15"/>
+            <Label Content="Location:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Arial Black" FontWeight="Bold" Height="28" Width="121"/>
+            <Label x:Name="LocationText" Content="" HorizontalAlignment="Left" Margin="131,98,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" Width="186" Height="130" FontSize="16"/>
+            <Rectangle HorizontalAlignment="Center" Height="307" Margin="0,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420" Fill="#FFCE6363"/>
+            <Label Content="name:" HorizontalAlignment="Left" Margin="41,38,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="18" Width="134" Height="28"/>
+            <Label x:Name="lbb" Content="" HorizontalAlignment="Left" Margin="11,76,0,0"  Grid.Row="1" VerticalAlignment="Top" Width="164" FontFamily="Arial Black" AutomationProperties.ItemStatus="" ContentStringFormat="" Height="112" FontSize="16"/>
+            <TextBox x:Name="TexName1"  Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="154,48,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Height="24" FontFamily="Arial Black" FontWeight="Bold" FontSize="16"/>
+            <ListView x:Name="ListViewDroneInCharge" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="1" Margin="0,5,0,31" Width="316" Background="#FFCE6363" SelectionChanged="ListViewDroneInCharge_SelectionChanged" MouseDoubleClick="ListViewDroneInCharge_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
@@ -84,9 +84,10 @@
                 </ListView.View>
             </ListView>
             <Button Content="x" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,10,0" VerticalAlignment="Top" Background="#FFCE6363" BorderBrush="{x:Null}" Height="28" Width="28"  FontFamily="Arial Black" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
-            <Label Content="List of Drons in charge:" Grid.Column="1" HorizontalAlignment="Center" Margin="0,168,0,0" VerticalAlignment="Top" Height="40" Width="234" FontFamily="Arial Black" FontSize="16" Grid.RowSpan="2" FontWeight="Bold"/>
-            <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Margin="0,164,0,0" Grid.Row="1" VerticalAlignment="Top" Background="#FFF6F6F6" FontFamily="Arial Black" Height="29" Width="70" Click="Save_Click" FontWeight="Bold"/>
-            <TextBox x:Name="ChargeSlote" HorizontalAlignment="Center" Margin="155,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="73" Height="27" FontFamily="Arial Black" FontWeight="Bold" FontSize="16"/>
+            <Label Content="List of Drons in charge:" Grid.Column="1" HorizontalAlignment="Center" Margin="0,228,0,0" VerticalAlignment="Top" Height="40" Width="328" FontFamily="Arial Black" FontSize="18" FontWeight="Bold"/>
+            <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" Margin="108,201,0,0" Grid.Row="1" VerticalAlignment="Top" Background="#FFF6F6F6" FontFamily="Arial Black" Height="55" Width="156" Click="Save_Click" FontWeight="Bold" FontSize="18"/>
+            <TextBox x:Name="ChargeSlote" HorizontalAlignment="Left" Margin="173,98,0,0" Grid.Row="1" VerticalAlignment="Top" Width="72" Height="27" FontFamily="Arial Black" FontWeight="Bold" FontSize="16"/>
+
 
         </Grid>
 

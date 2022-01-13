@@ -1,23 +1,18 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <Id>4</Id>
-    <Model>2MO3</Model>
+    <Id>1</Id>
+    <Model>bmw</Model>
     <Weight>Light</Weight>
   </Drone>
   <Drone>
-    <Id>1</Id>
-    <Model>V78K</Model>
-    <Weight>Heavy</Weight>
-  </Drone>
-  <Drone>
     <Id>2</Id>
-    <Model>5TD7</Model>
-    <Weight>Medium</Weight>
+    <Model>vovo20</Model>
+    <Weight>Light</Weight>
   </Drone>
   <Drone>
     <Id>3</Id>
-    <Model>FS001</Model>
-    <Weight>Medium</Weight>
+    <Model>Disco99</Model>
+    <Weight>Heavy</Weight>
   </Drone>
 </ArrayOfDrone>

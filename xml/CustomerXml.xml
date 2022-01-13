@@ -42,11 +42,5 @@
     <Longitude>343</Longitude>
     <Lattitude>334</Lattitude>
   </Customer>
-  <Customer>
-    <ID>66666555</ID>
-    <Name>oshrit</Name>
-    <Pone></Pone>
-    <Longitude>987</Longitude>
-    <Lattitude>987</Lattitude>
-  </Customer>
+ 
 </ArrayOfCustomer>

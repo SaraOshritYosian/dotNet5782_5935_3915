@@ -211,11 +211,13 @@ namespace BL
             d.StatusDrone = BO.StatusDrone.InMaintenance;
             DO.Station station = accessIDal.GetStation(cod);
             d.LocationDrone = new BO.Location { Longitude = station.Longitude, Latitude = station.Latitude };
-            accessIDal.SendDroneToCharge(d.Id, cod);
+           
             BlDrone.Add(new BO.DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter = d.StatusBatter, StatusDrone = d.StatusDrone, LocationDrone = d.LocationDrone, IdParcel = 0 });
             try
             {
+
                 accessIDal.AddDrone(new DO.Drone { Id = d.Id, Model = d.Model, Weight = (DO.WeightCategories)d.Weight });
+                accessIDal.SendDroneToCharge(cod, d.Id);
             }
             catch (BO.Excptions ex)
             {

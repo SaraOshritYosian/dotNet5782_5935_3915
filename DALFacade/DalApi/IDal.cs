@@ -59,7 +59,7 @@ namespace DalApi
         IEnumerable<DO.Parcel> GetAllParcel();
         IEnumerable<DO.Parcel> GetAllParcelBy(Predicate<DO.Parcel> predicate);
         DO.Parcel GetParcel(int id);//get
-        void AddParcel(DO.Parcel parcel);//add
+        int AddParcel(DO.Parcel parcel);//add
         void UpdetParcel(DO.Parcel parcel);//updet
         void UpdetParcel(int id, Action<DO.Parcel> action);//updet
         void DeleteParcel(int id);//delete

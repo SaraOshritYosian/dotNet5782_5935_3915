@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="680" Width="800">
+        Title="MainWindow" Height="700" Width="1100">
     <Grid x:Name="main">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -14,7 +14,7 @@
                 <GradientStop Color="#FFEEE7D6" Offset="0.5"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Image HorizontalAlignment="Center" Height="680" VerticalAlignment="Top" Width="800" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill">
+        <Image HorizontalAlignment="Center" Height="700" VerticalAlignment="Top" Width="1100" Source="/drone-delivery-supply-chain-1200px-1024x690.jpg" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" Stretch="Fill">
             <Image.OpacityMask>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFADC2C4" Offset="0.012"/>

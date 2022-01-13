@@ -62,50 +62,50 @@ namespace PL
 
         private void DroneList12_MouseEnter(object sender, MouseEventArgs e)
         {
-            DroneList12.Height = 155;
-            DroneList12.Width = 370;
+            DroneList12.Height = 200;
+            DroneList12.Width = 450;
         }
 
         private void DroneList12_MouseLeave(object sender, MouseEventArgs e)
         {
-            DroneList12.Height = 140;
-            DroneList12.Width = 350;
+            DroneList12.Height = 160;
+            DroneList12.Width = 400;
         }
 
         private void CostumerList_MouseEnter(object sender, MouseEventArgs e)
         {
-            CostumerList.Height = 155;
-            CostumerList.Width = 370;
+            CostumerList.Height = 200;
+            CostumerList.Width = 450;
         }
 
         private void CostumerList_MouseLeave(object sender, MouseEventArgs e)
         {
-            CostumerList.Height = 140;
-            CostumerList.Width = 350;
+            CostumerList.Height = 160;
+            CostumerList.Width = 400;
         }
 
         private void StationList_MouseEnter(object sender, MouseEventArgs e)
         {
-            StationList.Height = 155;
-            StationList.Width = 370;
+            StationList.Height = 200;
+            StationList.Width = 450;
         }
 
         private void StationList_MouseLeave(object sender, MouseEventArgs e)
         {
-            StationList.Height = 140;
-            StationList.Width = 350;
+            StationList.Height = 160;
+            StationList.Width = 400;
         }
 
         private void ParcelList_MouseEnter(object sender, MouseEventArgs e)
         {
-            ParcelList.Height = 155;
-            ParcelList.Width = 370;
+            ParcelList.Height = 200;
+            ParcelList.Width = 450;
         }
 
         private void ParcelList_MouseLeave(object sender, MouseEventArgs e)
         {
-            ParcelList.Height = 140;
-            ParcelList.Width = 350;
+            ParcelList.Height = 160;
+            ParcelList.Width = 400;
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ParcelWindow" Height="450" Width="800">
+        Title="ParcelWindow" Height="650" Width="800">
     <Grid x:Name="GridMainParcel">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -43,8 +43,8 @@
         </Grid>
         <Grid  x:Name="GridUpParcel" OpacityMask="#FF231919">
             <Grid.RowDefinitions>
-                <RowDefinition Height="93*"/>
-                <RowDefinition Height="115*"/>
+                <RowDefinition Height="253*"/>
+                <RowDefinition Height="381*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -52,29 +52,36 @@
                 <ColumnDefinition Width="12*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Id:" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="32"/>
-            <Label x:Name="IdLabel" Content="{Binding Id}" HorizontalAlignment="Left" Margin="91,36,0,0" VerticalAlignment="Top" Height="64" Width="110" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
+            <Label x:Name="IdLabel" Content="{Binding Id}" HorizontalAlignment="Left" Margin="49,41,0,0" VerticalAlignment="Top" Height="33" Width="91" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
             <Label Content="The Name Of Sender Is:" HorizontalAlignment="Left" Margin="0,115,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="219"/>
-            <Label x:Name="IdsLabel" Content="" HorizontalAlignment="Left" Margin="264,108,0,0" VerticalAlignment="Top" Width="152" Height="78" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
+            <Label x:Name="IdsLabel" Content="" HorizontalAlignment="Left" Margin="233,0,0,0" VerticalAlignment="Center" Width="138" Height="78" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
             <Label Content="The Name Of The Target is:" HorizontalAlignment="Left" Margin="0,29,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="252"/>
-            <Label x:Name="IdTLabel" Content="" HorizontalAlignment="Left" Margin="267,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="123" Height="98" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
-            <Label Content="Wight Of The Parcel Is:" Grid.Column="1" HorizontalAlignment="Left" Margin="0,19,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="216"/>
-            <Label x:Name="WeghtLabel" Content="{Binding statusParcel}" Grid.Column="1" HorizontalAlignment="Left" Margin="242,23,0,0" VerticalAlignment="Top" Height="58" Width="104" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
-            <Label Content="Priority Of The Parcel is:" Grid.Column="1" HorizontalAlignment="Left" Margin="0,91,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="226"/>
-            <Label x:Name="PropertyLbel" Content="{Binding Priority}" Grid.Column="1" HorizontalAlignment="Left" Margin="242,90,0,0" VerticalAlignment="Top" Height="57" Width="117" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
-            <Label Content="The Drone is:  " HorizontalAlignment="Left" Margin="0,110,0,0" VerticalAlignment="Top" Grid.Row="1" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="137"/>
-            <Button x:Name="DroneLabel" Content="" HorizontalAlignment="Left" Margin="162,113,0,0" VerticalAlignment="Top" Grid.Row="1" Height="118" Width="200" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Click="DroneLabel_Click"/>
+            <Label x:Name="IdTLabel" Content="" HorizontalAlignment="Left" Margin="260,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130" Height="98" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
 
-            <Label Content="Requested Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,17,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="157"/>
-            <Label x:Name="RequestedT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,17,0,0" Grid.Row="1" VerticalAlignment="Top" Width="141" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
-            <Label Content="Scheduled Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,67,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="156"/>
-            <Label x:Name="ScheduledT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="211,70,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
-            <Label  Content="PichedUp Time: " Grid.Column="1" HorizontalAlignment="Left" Margin="41,117,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="153"/>
-            <Label x:Name="PichedUpT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="223,113,0,0" Grid.Row="1" VerticalAlignment="Top" Width="146" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Rectangle HorizontalAlignment="Left" Height="154" Margin="4,168,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="401"/>
+            <Label Content="Wight Of The Parcel Is:" HorizontalAlignment="Left" Margin="19,198,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="216" Grid.Row="1"/>
+            <Label x:Name="WeghtLabel" Content="{Binding statusParcel}" HorizontalAlignment="Left" Margin="243,195,0,0" VerticalAlignment="Top" Height="41" Width="99" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Grid.Row="1"/>
+            <Label Content="Priority Of The Parcel is:" HorizontalAlignment="Left" Margin="21,280,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="226" Grid.Row="1"/>
+            <Label x:Name="PropertyLbel" Content="{Binding Priority}" HorizontalAlignment="Left" Margin="255,275,0,0" VerticalAlignment="Top" Height="40" Width="107" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Grid.Row="1"/>
+            <Label x:Name="lAbelDrone" Content="The Drone is:  " HorizontalAlignment="Left" Margin="13,67,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="137" Grid.Column="1"/>
+            <Button x:Name="DroneLabel" Content="" HorizontalAlignment="Left" Margin="161,0,0,0" VerticalAlignment="Center" Height="123" Width="200" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Click="DroneLabel_Click" Grid.Column="1"/>
 
-            <Label Content="Delivered Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,161,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="147"/>
-            <Label x:Name="DeliveredT"  Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="226,160,0,0" Grid.Row="1" VerticalAlignment="Top" Width="143" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="309" Margin="17,14,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="360"/>
+
+            <Label Content="Requested Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,40,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="157"/>
+            <Label x:Name="RequestedT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="141" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Label Content="Scheduled Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,110,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="156"/>
+            <Label x:Name="ScheduledT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,110,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Label  Content="PichedUp Time: " Grid.Column="1" HorizontalAlignment="Left" Margin="41,190,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="153"/>
+            <Label x:Name="PichedUpT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="146" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+
+            <Label Content="Delivered Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,260,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="147"/>
+            <Label x:Name="DeliveredT"  Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,260,0,0" Grid.Row="1" VerticalAlignment="Top" Width="143" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
 
             <Button Content="X" Grid.Column="1" HorizontalAlignment="Right" Margin="0,6,0,0" VerticalAlignment="Top" Background="#FFE91818" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Height="28" Width="28" Click="Button_Click"/>
+            <Rectangle HorizontalAlignment="Left" Height="147" Margin="0,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="408" Grid.Row="1"/>
+            <Rectangle HorizontalAlignment="Left" Height="133" Margin="0,90,0,0" Stroke="Black" VerticalAlignment="Top" Width="404"/>
+
 
 
         </Grid>

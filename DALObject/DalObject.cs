@@ -240,14 +240,25 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
             throw new NotImplementedException();//זריקה
         }
 
-        public void AddParcel(Parcel parcel)
+        public int AddParcel(Parcel parcel)
         {
             //if (DataSource.parcelList.Any(p => p.Id == parcel.Id))
             //{
             //    throw new ParcelAlreadyExistsException($"bad parcel id: {parcel.Id}");
             //}
-            parcel.Id = DataSource.Config.ParcelId++;
-            DataSource.parcelList.Add(parcel);
+            Parcel p = new Parcel();
+            p.Senderld = parcel.Senderld;
+            p.Targetld = parcel.Targetld;
+            p.Weight = parcel.Weight;
+            p.Priority = parcel.Priority;
+            p.Droneld = parcel.Droneld;
+            p.Requested = parcel.Requested;
+            p.Scheduled = parcel.Scheduled;
+            p.PichedUp = parcel.PichedUp;
+            p.Delivered = parcel.Delivered;
+            p.Id = DataSource.Config.ParcelId++;
+            DataSource.parcelList.Add(p);
+            return DataSource.Config.ParcelId;
            // DataSource.Config.ParcelId++;
         }
        

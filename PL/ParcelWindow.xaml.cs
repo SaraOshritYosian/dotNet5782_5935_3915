@@ -36,12 +36,17 @@ namespace PL
             GridUpParcel.DataContext = parcel;
             IdsLabel.Content = accseccBL.GetParcel(parcel.Id).CustomerInParcelSender;
             IdTLabel.Content= accseccBL.GetParcel(parcel.Id).CustomerInParcelTarget;
-            if (accseccBL.GetParcel(parcel.Id).DroneInParcel.Id != 0)
+            if (accseccBL.GetParcel(parcel.Id).DroneInParcel != null)
             {
                 DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+                lAbelDrone.Visibility = Visibility.Visible;
             }
             else
+            {
                 DroneLabel.Visibility = Visibility.Hidden;
+                lAbelDrone.Visibility = Visibility.Hidden;
+            }
+               
             DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
             PichedUpT.Content = accseccBL.GetParcel(parcel.Id).PichedUp;
             ScheduledT.Content = accseccBL.GetParcel(parcel.Id).Scheduled;
@@ -103,7 +108,7 @@ namespace PL
 
 
                 Label3.Visibility = Visibility.Hidden;
-                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text))==false)//לא קיים
+                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text))==false)//לא קיים
                 {
                     Label6.Visibility = Visibility.Visible;
                 }
@@ -123,9 +128,9 @@ namespace PL
                     };
                     try
                     {
-                        accseccBL2.AddParcel(parcel1);//parcel add
+                       int i= accseccBL2.AddParcel(parcel1);//parcel add
 
-                        MessageBox.Show("Adding a Parcel number: " + parcel1.Id + " was successful");
+                        MessageBox.Show("Adding a Parcel number: " + i + " was successful");
 
                         ParcelListWindow.parcelToLIstDataGrid.DataContext = accseccBL2.GetParcels();
                         Close();

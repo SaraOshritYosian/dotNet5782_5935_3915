@@ -26,6 +26,8 @@ namespace PL
         public StationWindow(IBL accseccBL, StationListWindow wen)//add
         {
             InitializeComponent();
+            Height = 450;
+            Width = 500;
             accseccBL1 = accseccBL;
             GridUpStation.Visibility = Visibility.Hidden;
             GridAddSattion.Visibility = Visibility.Visible;
@@ -45,8 +47,7 @@ namespace PL
 
             InitializeComponent();
             lbb.Content= "Number of\ncharging stations:";
-            this.Width = 800;
-            Height = 450;
+           
             GridUpStation.Visibility = Visibility.Visible;
             GridAddSattion.Visibility = Visibility.Hidden;
             accseccBL1 = accseccBL;
@@ -54,7 +55,7 @@ namespace PL
             toList = to;
             GridUpStation.DataContext = to;//id,name,
             ListViewDroneInCharge.ItemsSource = accseccBL1.ListDroneInStation(toList.Id);
-            IdText.IsReadOnly = true;
+            
             LocationText.Content = accseccBL.GetStation(to.Id).LocationStation;
             ChargeSlote.Text = (to.ChargeSlotsFree + to.ChargeSlotsNotFree).ToString();
         }
@@ -129,21 +130,20 @@ namespace PL
             statwin.stationToListDataGrid.DataContext=accseccBL1.GetStations();
         }
 
-        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)//לשלוח לחלון של רחפן את הרחפן הנוכלי
+        private void ListViewDroneInCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ListViewDroneInCharge_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+           
             BO.DroneToList drne = ListViewDroneInCharge.SelectedItem as BO.DroneToList;
             if (drne != null)
             {
                 DronWindow dr = new DronWindow(accseccBL1, drne);
                 dr.Show();
             }
-           
-        }
-
-        private void ListViewDroneInCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
     

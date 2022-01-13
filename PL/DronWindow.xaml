@@ -18,7 +18,7 @@
 
 
         <Grid x:Name="GridAddDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
 
 
             <Grid.ColumnDefinitions>
@@ -47,7 +47,7 @@
 
         </Grid>
         <Grid x:Name="GridUpDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
 
 
             <Grid.RowDefinitions>
@@ -68,6 +68,8 @@
             <Label x:Name="LabelWeight2" Content="" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Height="49" Width="122" RenderTransformOrigin="0.579,2.636" FontSize="18" FontFamily="Arial Black"/>
             <Label x:Name="LabeLocation2" Content="" HorizontalAlignment="Left" Margin="120,170,0,0" VerticalAlignment="Top" Width="166" Height="141" FontSize="16" FontFamily="Arial Black" Grid.RowSpan="2" FontWeight="Medium" FontStretch="Condensed" FontStyle="Oblique"/>
 
+
+            <Rectangle HorizontalAlignment="Left" Height="277" Margin="11,26,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="288"/>
             <TextBox x:Name="TexBoxModel"  HorizontalAlignment="Left" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" Height="35" Grid.Row="1"/>
             <Label x:Name="LabelModel1" Content="Model:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="35" Width="95" FontSize="18" FontFamily="Arial Black" Grid.Row="1"/>
 
@@ -80,13 +82,16 @@
             <Label Content="Battary" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="98" Height="56" FontSize="18" FontFamily="Arial Black"/>
             <TextBox x:Name="TexBattery" Grid.Column="1" HorizontalAlignment="Center" Margin="0,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="30" Background="{x:Null}" Foreground="#FF2F2828" BorderBrush="#FF161B28" TextAlignment="Center" FontFamily="Agency FB" FontWeight="Bold" FontSize="14"/>
 
-            <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Right" Margin="0,120,15,0" VerticalAlignment="Top" Width="190" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
-            <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,200,15,0" Grid.Row="1" VerticalAlignment="Top" Width="190" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
+            <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="268" Margin="0,10,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="270"/>
+            <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Right" Margin="0,120,15,0" VerticalAlignment="Top" Width="215" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
+            <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,200,15,0" Grid.Row="1" VerticalAlignment="Top" Width="213" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
             <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,10,250" FontFamily="Arial Black" Background="#FFEB1414" Click="Cancell_Click" Width="20" Height="20" />
             <Label x:Name="LabelTime" Content="Enter Time To Charge" Grid.Column="1" HorizontalAlignment="Right" Margin="0,27,15,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14"/>
             <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,74,15,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
             <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="358,91,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717"/>
             <Label x:Name="LabelErrorMode"  Content="Please fill in" HorizontalAlignment="Left" Margin="130,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="82" Foreground="#FFF50C0C"/>
+            
+
 
 
         </Grid>
