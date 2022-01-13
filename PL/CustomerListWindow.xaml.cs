@@ -54,7 +54,9 @@ namespace PL
 
         }
 
-        private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+       
+
+        private void CustomerListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
             if (cl != null)
