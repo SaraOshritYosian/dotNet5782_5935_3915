@@ -54,7 +54,7 @@ namespace BlApi
         #endregion
 
         #region Parcel
-         //int GetParcelId();
+        
         Parcel GetParcel(int id);
         void AddParcel(BO.Parcel parcel);
         public void PackageDeliveryByDrone(int Id);//הספקה

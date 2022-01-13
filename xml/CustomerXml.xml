@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
     <Id>32424593</Id>
@@ -30,7 +30,7 @@
   </Customer>
   <Customer>
     <Id>333333</Id>
-    <Name>avi</Name>
+    <Name>avigail</Name>
     <Pone>0566558982</Pone>
     <Longitude>544.5443</Longitude>
     <Lattitude>33.44</Lattitude>

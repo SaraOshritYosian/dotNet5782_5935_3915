@@ -20,7 +20,9 @@ namespace Dal
         string dronschargePath = @"DronsCharcheXml.xml"; //XMLSerializer
         string parcelsPath = @"ParcelXml.xml"; //XMLSerializer
         string stationsPath = @"StationsXml.xml"; //XMLSerializer
-      //  string config = @"ConfigXml.xml";
+        string configPath = @"Config.xml";
+
+
 
         #region Drone
         //CRUD Drone
@@ -506,11 +508,11 @@ namespace Dal
             return (from p in customersRootElem.Elements()
                     select new Customer()
                     {
-                        Id = Int32.Parse(p.Element("ID").Value),
+                        Id = Int32.Parse(p.Element("Id").Value),
                         Name = p.Element("Name").Value,
                         Pone = p.Element("Pone").Value,
-                        Longitude = Int32.Parse(p.Element("Longitude").Value),
-                        Lattitude = Int32.Parse(p.Element("Lattitude").Value),
+                        Longitude =double.Parse(p.Element("Longitude").Value),
+                        Lattitude = double.Parse(p.Element("Lattitude").Value),
                         
                         
                     }
@@ -543,14 +545,14 @@ namespace Dal
             XElement customerRootElem = XMLTools.LoadListFromXMLElement(customerPath);
 
             Customer p = (from per in customerRootElem.Elements()
-                        where int.Parse(per.Element("ID").Value) == id
+                        where int.Parse(per.Element("Id").Value) == id
                         select new Customer()
                         {
-                            Id = Int32.Parse(per.Element("ID").Value),
+                            Id = Int32.Parse(per.Element("Id").Value),
                             Name = per.Element("Name").Value,
                             Pone = per.Element("Pone").Value,
-                            Lattitude = Int32.Parse(per.Element("Lattitude").Value),
-                            Longitude = Int32.Parse(per.Element("Longitude").Value),
+                            Lattitude = double.Parse(per.Element("Lattitude").Value),
+                            Longitude = double.Parse(per.Element("Longitude").Value),
                             //ListOfPackagesFromTheCustomer=
                             //City = per.Element("City").Value,
                             //BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
@@ -571,7 +573,7 @@ namespace Dal
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
 
             XElement per1 = (from p in customersRootElem.Elements()
-                             where int.Parse(p.Element("ID").Value) == customer.Id
+                             where int.Parse(p.Element("Id").Value) == customer.Id
                              select p).FirstOrDefault();
 
             if (per1 != null)
@@ -659,9 +661,8 @@ namespace Dal
         }
         double[] IDal.RequestPowerConsuption()
         {
-            //throw new NotImplementedException();
-            double[] t = { 0.5, 30,20, 15, 20 };
-            return t;
+            return XMLTools.LoadListFromXMLElement(configPath).Element("BatteryUsages").Elements()
+                .Select(e => Convert.ToDouble(e.Value)).ToArray();
         }
 
 
@@ -711,9 +712,5 @@ namespace Dal
         }
     }
 
-        public int GetParcelId()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

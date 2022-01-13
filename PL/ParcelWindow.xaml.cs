@@ -20,7 +20,7 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
-        static int idParcel =10;
+       
         private IBL accseccBL2;
         ParcelListWindow ParcelListWindow;
         BO.ParcelToLIst ParcelToLIst;
@@ -117,7 +117,7 @@ namespace PL
                 if ((TexIdt.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxproperty.SelectedItem != null) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == true) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == true))
                 {
                     BO.Parcel parcel1;
-                    parcel1 = new() { Id = idParcel, CustomerInParcelSender=new BO.CustomerInParcel { Id = Convert.ToInt32(TextIds.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TextIds.Text)).Name }
+                    parcel1 = new() {  CustomerInParcelSender=new BO.CustomerInParcel { Id = Convert.ToInt32(TextIds.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TextIds.Text)).Name }
                     ,CustomerInParcelTarget= new BO.CustomerInParcel { Id = Convert.ToInt32(TexIdt.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TexIdt.Text)).Name },
                         Weight = (BO.WeightCategories)ComboBoxWeight.SelectedItem,Priority= (BO.Priority)ComboBoxproperty.SelectedItem
                     };

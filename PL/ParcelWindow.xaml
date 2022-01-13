@@ -15,7 +15,7 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid  x:Name="GridAddParcel">
+        <Grid  x:Name="GridAddParcel" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="233*"/>
                 <ColumnDefinition Width="217*"/>
@@ -41,7 +41,7 @@
 
 
         </Grid>
-        <Grid  x:Name="GridUpParcel" OpacityMask="#FF231919" d:IsHidden="True">
+        <Grid  x:Name="GridUpParcel" OpacityMask="#FF231919">
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
                 <RowDefinition Height="115*"/>

@@ -55,7 +55,7 @@ namespace DalApi
         #endregion
 
         #region Parcel
-        int GetParcelId();
+       
         IEnumerable<DO.Parcel> GetAllParcel();
         IEnumerable<DO.Parcel> GetAllParcelBy(Predicate<DO.Parcel> predicate);
         DO.Parcel GetParcel(int id);//get

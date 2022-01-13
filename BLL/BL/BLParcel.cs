@@ -73,10 +73,9 @@ namespace BL
         }
         public void AddParcel(BO.Parcel parcel)//v
         {
-            parcel.Id =accessIDal.GetParcelId();
-            
+         
             DO.Parcel p = new DO.Parcel();
-            p.Id = parcel.Id;
+           
             p.Senderld = parcel.CustomerInParcelSender.Id;
             p.Targetld = parcel.CustomerInParcelTarget.Id;
             p.Weight = (DO.WeightCategories)parcel.Weight;
@@ -90,6 +89,7 @@ namespace BL
             try
             {
                 accessIDal.AddParcel(p);
+               
             }
             catch (BO.Excptions ex)
             {

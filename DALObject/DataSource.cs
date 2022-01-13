@@ -20,6 +20,7 @@ namespace Dal
 
         internal class Config
         {
+           
             public static int ParcelId = 1;
             public static double Free=0.5;
             public static double LightWeight=30;
