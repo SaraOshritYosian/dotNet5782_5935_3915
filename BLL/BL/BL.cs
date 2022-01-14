@@ -79,12 +79,12 @@ namespace BL
             foreach (var item in BlDrone)
             {
 
-                int index = DALParcel1.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);
-                if (index != -1)
+                int index = DALParcel1.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);//לחבפש רחפן בתוך רשימת ההחבילות שההזמנה עדיין לא סופקה
+                if (index != -1)//אם מבצע משלוח
                 {
                     item.StatusDrone = StatusDrone.delivered;
-                    Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Senderld).LocationOfCustomer;
-                    Location targetLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Targetld).LocationOfCustomer;//מיקום של השולח
+                    Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Senderld).LocationOfCustomer;//מיקום של שולח
+                    Location targetLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Targetld).LocationOfCustomer;//מיקום של במקבל
                     double distanceBsenderAreciever = DistanceTo(senderLocation.Latitude, senderLocation.Longitude, targetLocation.Latitude, targetLocation.Longitude);
                     double distanceBrecieverAstation = returnMinDistancFromLicationToStation(targetLocation);//
                     double electricityUse = distanceBrecieverAstation * Free;
@@ -102,18 +102,18 @@ namespace BL
 
 
                     }
-                    if (DALParcel1[index].PichedUp == DateTime.MinValue)
+                    if (DALParcel1[index].PichedUp == DateTime.MinValue)//אם לא נאסף ולא סופק המיקום יהיה בתחנה קרוב לשולח
                     {
-                        item.LocationDrone = senderLocation;
+                        item.LocationDrone = new Location { Latitude = GetStationCalculatesTheSmallestDistance(senderLocation).Latitude, Longitude = GetStationCalculatesTheSmallestDistance(senderLocation).Longitude };// שמים את הרחן במקום של התחנה הקרובה לשולח לא נאסף ןלא סופק 
 
                         electricityUse += DistanceTo(item.LocationDrone.Latitude, item.LocationDrone.Longitude, targetLocation.Latitude, targetLocation.Longitude) * Free;
                     }
                     else
                     {
-                        item.LocationDrone = senderLocation;
+                        item.LocationDrone = senderLocation;//נאסף החבילה יהיה במיקום השולח
                     }
 
-                    item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+                    item.StatusBatter = (int)((int)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
                     item.IdParcel = DALParcel1[index].Id;
 
                 }

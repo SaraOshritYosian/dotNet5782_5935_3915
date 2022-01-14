@@ -43,6 +43,7 @@ namespace BlApi
         #endregion
 
         #region Station
+        DO.Station GetStationCalculatesTheSmallestDistance(BO.Location location);
         IEnumerable<BO.DroneToList> GetDronesByPerdicate(Predicate<BO.DroneToList> predicate);
         BO.StationToList StationToListToPrint(int id);
         BO.Station GetStationByDrone(int idd);
