@@ -21,6 +21,11 @@
     <Longitude>32.06</Longitude>
     <Lattitude>34.77</Lattitude>
   </Customer>
- 
- 
+  <Customer>
+    <ID>55667788</ID>
+    <Name>moshe</Name>
+    <Pone>023434343</Pone>
+    <Longitude>32.06</Longitude>
+    <Lattitude>34.76</Lattitude>
+  </Customer>
 </ArrayOfCustomer>
