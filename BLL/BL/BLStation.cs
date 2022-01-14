@@ -73,6 +73,8 @@ namespace BL
         }
         public void AddStation(BO.Station station)//v
         {
+            if (station.LocationStation.Longitude > 32.1027879 || station.LocationStation.Longitude < 32.056227 || station.LocationStation.Latitude < 34.75948 || station.LocationStation.Longitude > 34.8007048)
+                throw  new BO.Excptions("We are sorry but you do not live in Tel Aviv");
             DO.Station station1 = new DO.Station() { Id = station.Id, Name = station.Name, ChargeSlots = station.ChargeSlotsFree, Longitude = station.LocationStation.Longitude, Latitude = station.LocationStation.Latitude };
             try
             {

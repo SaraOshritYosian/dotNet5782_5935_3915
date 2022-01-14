@@ -15,4 +15,9 @@
     <Model>Disco99</Model>
     <Weight>Heavy</Weight>
   </Drone>
+  <Drone>
+    <Id>344</Id>
+    <Model>Aigg44</Model>
+    <Weight>Light</Weight>
+  </Drone>
 </ArrayOfDrone>

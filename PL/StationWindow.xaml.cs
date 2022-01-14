@@ -108,10 +108,20 @@ namespace PL
                 {
                     BO.Station station;
                     station = new() { Id = Convert.ToInt32(TextId.Text), Name =Convert.ToInt32( TexName.Text), LocationStation =new BO.Location {Latitude=Convert.ToDouble( TextLocation1.Text),Longitude=Convert.ToDouble( TextLocation2.Text) }, ChargeSlotsFree =Convert.ToInt32( textSlots.Text) };
-                    accseccBL1.AddStation(station);//station
-                    MessageBox.Show("Adding a station number: " + station.Id + " was successful");
-                    statwin.stationToListDataGrid.ItemsSource = accseccBL1.GetStations();
-                    Close();
+                    try
+                    {
+                        accseccBL1.AddStation(station);//station
+                        MessageBox.Show("Adding a station number: " + station.Id + " was successful");
+                        statwin.stationToListDataGrid.ItemsSource = accseccBL1.GetStations();
+                        Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+
+
 
                 }
             }

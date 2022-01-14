@@ -17,7 +17,7 @@
         </Grid.Background>
         <Grid x:Name="GridAddSattion" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
               
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="231*"/>
                 <ColumnDefinition Width="135*"/>
@@ -40,13 +40,15 @@
             <TextBox x:Name="TextId" Grid.Column="1" HorizontalAlignment="Left" Margin="0,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="120"/>
             <TextBox x:Name="textSlots" Grid.Column="1" HorizontalAlignment="Left" Margin="0,260,0,0" VerticalAlignment="Top" Height="24" Width="120"/>
             <Button x:Name="ButtonCancel" Content="X" Grid.Column="2" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Height="26" Width="31" FontSize="18" FontFamily="Arial Black"  Background="#FFFB1C1C" Click="ButtonCancel_Click" BorderBrush="{x:Null}"/>
-            <Button x:Name="ButtonAdd" Content="Add" Grid.Column="2" HorizontalAlignment="Left" Margin="8,360,0,14" Width="103" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click" BorderBrush="{x:Null}" />
+            <Button x:Name="ButtonAdd" Content="Add" Grid.Column="2" HorizontalAlignment="Left" Margin="8,360,0,14" Height="50" Width="103" FontSize="18" FontFamily="Arial Black" Click="ButtonAdd_Click" BorderBrush="{x:Null}" />
             <Label x:Name="Label3" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.382,2.679" Background="Transparent" Foreground="#FFF71616" Height="26" Width="72"/>
             <Label x:Name="Label2" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,212,0,0" VerticalAlignment="Top" Foreground="#FFF11010" Height="26" Width="72"/>
             <Label x:Name="Label1" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,278,0,0" VerticalAlignment="Top" Foreground="#FFF31111" Height="26" Width="72"/>
             <Label x:Name="Label4" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" VerticalAlignment="Top" Foreground="#FFF31111" Height="26" Width="72"/>
             <Label x:Name="Label5" Content="drone is exsist" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" Foreground="#FFF31111" VerticalAlignment="Top" Height="26" Width="85"/>
             <Label x:Name="Label6"  Content="Please fill in"  Grid.Column="2" HorizontalAlignment="Left" Margin="0,212,0,0"  Foreground="#FFF11010" Height="26" Width="72" VerticalAlignment="Top"/>
+            <Label Content="Latitude" Grid.Column="1" HorizontalAlignment="Left" Margin="46,164,0,0" VerticalAlignment="Top"/>
+            <Label Content="Longitude" Grid.Column="2" HorizontalAlignment="Left" Margin="48,164,0,0" VerticalAlignment="Top"/>
 
 
 
@@ -55,7 +57,7 @@
 
 
         <Grid x:Name="GridUpStation" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
@@ -83,7 +85,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="x" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,10,0" VerticalAlignment="Top" Background="#FFCE6363" BorderBrush="{x:Null}" Height="28" Width="28"  FontFamily="Arial Black" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
+            <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="363,5,0,0" VerticalAlignment="Top" Background="#FFCE6363" BorderBrush="{x:Null}" Height="28" Width="28"  FontFamily="Arial Black" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
             <Label Content="List of Drons in charge:" Grid.Column="1" HorizontalAlignment="Center" Margin="0,228,0,0" VerticalAlignment="Top" Height="40" Width="328" FontFamily="Arial Black" FontSize="18" FontWeight="Bold"/>
             <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" Margin="108,201,0,0" Grid.Row="1" VerticalAlignment="Top" Background="#FFF6F6F6" FontFamily="Arial Black" Height="55" Width="156" Click="Save_Click" FontWeight="Bold" FontSize="18"/>
             <TextBox x:Name="ChargeSlote" HorizontalAlignment="Left" Margin="173,98,0,0" Grid.Row="1" VerticalAlignment="Top" Width="72" Height="27" FontFamily="Arial Black" FontWeight="Bold" FontSize="16"/>

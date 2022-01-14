@@ -119,6 +119,9 @@ namespace BL
         //add customer
         public void AddCustomer(BO.Customer customer)//v
         {
+
+            if (customer.LocationOfCustomer.Longitude > 32.1027879 || customer.LocationOfCustomer.Longitude < 32.056227 || customer.LocationOfCustomer.Latitude > 34.75948 || customer.LocationOfCustomer.Longitude < 34.8007048)
+                throw new BO.Excptions("We are sorry but this station is not in Tel Aviv");
             DO.Customer customer1 = new DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
             try
             {
