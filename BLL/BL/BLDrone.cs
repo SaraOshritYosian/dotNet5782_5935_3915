@@ -55,6 +55,35 @@ namespace BL
 
             return s;
         }
+        public DO.Station GetStationCalculatesTheSmallestDistance(BO.Location location)//מקבל מיקום ושולח את התחנה שקרובה למיקום
+        {
+            IEnumerable<DO.Station> station = accessIDal.GetAllStation();
+            double chack, min;
+            DO.Station s;
+            min = DistanceToFromStationToDroneLocation(location.Latitude, location.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            s = station.ElementAt(0);
+            for (int i = 1; i < station.Count(); i++)
+            {
+                if (station.ElementAt(i).ChargeSlots > 0)//אם יש מקום טעינה פנוי
+                {
+                    chack = DistanceToFromStationToDroneLocation(location.Latitude, location.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    if (min > chack)
+                    {
+                        min = chack;
+                        s = station.ElementAt(i);//שומרת את התחנה אם המרחק קטן יותר
+                    }
+                }
+
+            }
+
+            return s;
+        }
+
+
+
+
+
+
         public double returnMinDistancFromLicationToStation(BO.Location lo)//check the min far station to drone
         {
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();

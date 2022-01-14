@@ -1,38 +1,26 @@
 <?xml version="1.0"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
+    <Id>24</Id>
+    <Senderld>32424593</Senderld>
+    <Targetld>3246663</Targetld>
+    <Weight>Light</Weight>
+    <Priority>quick</Priority>
+    <Droneld>0</Droneld>
+    <Requested>2022-01-14T12:49:48.9655173+02:00</Requested>
+    <Scheduled>0001-01-01T00:00:00</Scheduled>
+    <PichedUp>0001-01-01T00:00:00</PichedUp>
+    <Delivered>0001-01-01T00:00:00</Delivered>
+  </Parcel>
+  <Parcel>
     <Id>23</Id>
     <Senderld>111111</Senderld>
     <Targetld>3246663</Targetld>
     <Weight>Medium</Weight>
     <Priority>simple</Priority>
-    <Droneld>0</Droneld>
+    <Droneld>3</Droneld>
     <Requested>2022-01-13T23:10:08.7343039+02:00</Requested>
-    <Scheduled>0001-01-01T00:00:00</Scheduled>
-    <PichedUp>0001-01-01T00:00:00</PichedUp>
-    <Delivered>0001-01-01T00:00:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>24</Id>
-    <Senderld>32424593</Senderld>
-    <Targetld>3246663</Targetld>
-    <Weight>Light</Weight>
-    <Priority>quick</Priority>
-    <Droneld>0</Droneld>
-    <Requested>2022-01-14T12:49:48.9655173+02:00</Requested>
-    <Scheduled>0001-01-01T00:00:00</Scheduled>
-    <PichedUp>0001-01-01T00:00:00</PichedUp>
-    <Delivered>0001-01-01T00:00:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>24</Id>
-    <Senderld>32424593</Senderld>
-    <Targetld>3246663</Targetld>
-    <Weight>Light</Weight>
-    <Priority>quick</Priority>
-    <Droneld>344</Droneld>
-    <Requested>2022-01-14T12:49:48.9655173+02:00</Requested>
-    <Scheduled>2022-01-14T12:50:39.9804333+02:00</Scheduled>
+    <Scheduled>2022-01-14T14:04:42.4447247+02:00</Scheduled>
     <PichedUp>0001-01-01T00:00:00</PichedUp>
     <Delivered>0001-01-01T00:00:00</Delivered>
   </Parcel>
