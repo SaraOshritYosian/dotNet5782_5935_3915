@@ -97,14 +97,22 @@ namespace BL
             cc.Longitude = c.Longitude;
             try
             {
-                c = accessIDal.GetCustomer(id);
+                //c = accessIDal.GetCustomer(id);
                 if (name != "")
                 {
                     cc.Name = name;
                 }
+                else
+                {
+                    cc.Name = c.Name;
+                }
                 if (phone != "")
                 {
                     cc.Pone = phone;
+                }
+                else
+                {
+                    cc.Pone = c.Pone;
                 }
                 accessIDal.UpdetCustomer(cc);
 

@@ -52,7 +52,7 @@ namespace PL
 
 
         }
-        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList )//update
+        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList)//update
         {
             InitializeComponent();
             ButtonAdd.IsEnabled = false;
@@ -62,8 +62,8 @@ namespace PL
             customerTo = customer;
             ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customerTo.Id);
             ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customerTo.Id);
-            TextBoxName.Text = customer.Name;
-            TextboxPhone.Text = customer.Pone;
+           TextboxName.Text = customer.Name;
+            TextBoxPhone.Text = customer.Pone;
             if(TextboxPhone.Text!=null&&TextBoxName.Text!=null)
             {
                 ButtonAdd.IsEnabled = true;
@@ -114,7 +114,7 @@ namespace PL
         {
             try
             {
-                accseccBL2.UpdateCustomer(Convert.ToInt32(TextBoxId.Text), TextBoxName.Text, TextBoxPhone.Text);
+                accseccBL2.UpdateCustomer(Convert.ToInt32(LableId.Content), TextBoxName.Text, TextBoxPhone.Text);
                 customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
                 MessageBox.Show("The customer wad updated succesfully!");
             }

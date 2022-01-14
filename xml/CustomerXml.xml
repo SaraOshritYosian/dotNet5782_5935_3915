@@ -21,4 +21,25 @@
     <Longitude>32.06</Longitude>
     <Lattitude>34.77</Lattitude>
   </Customer>
+  <Customer>
+    <Id>8989076</Id>
+    <Name>hodaya</Name>
+    <Pone>03757867</Pone>
+    <Longitude>32.08</Longitude>
+    <Lattitude>34.767</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>55435473</Id>
+    <Name>haim</Name>
+    <Pone>053454567</Pone>
+    <Longitude>32.067</Longitude>
+    <Lattitude>34.8</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>12343245</Id>
+    <Name>shimon</Name>
+    <Pone>08978678</Pone>
+    <Longitude>32.07</Longitude>
+    <Lattitude>34.8</Lattitude>
+  </Customer>
 </ArrayOfCustomer>

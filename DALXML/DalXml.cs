@@ -593,7 +593,7 @@ namespace Dal
             if (per1 != null)
                 throw new DO.CustomerAlreadyExistsException();
 
-            XElement customerElem = new XElement("Customer", new XElement("ID", customer.Id),
+            XElement customerElem = new XElement("Customer", new XElement("Id", customer.Id),
                                   new XElement("Name", customer.Name),
                                   new XElement("Pone", customer.Pone),
                                   new XElement("Longitude", customer.Longitude.ToString()),
@@ -611,12 +611,12 @@ namespace Dal
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
 
             XElement per = (from p in customersRootElem.Elements()
-                            where int.Parse(p.Element("ID").Value) == customer.Id
+                            where int.Parse(p.Element("Id").Value) == customer.Id
                             select p).FirstOrDefault();
 
             if (per != null)
             {
-                per.Element("ID").Value = customer.Id.ToString();
+                per.Element("Id").Value = customer.Id.ToString();
                 per.Element("Name").Value = customer.Name;
                 per.Element("Pone").Value = customer.Pone;
                 per.Element("Longitude").Value = customer.Longitude.ToString();

@@ -17,7 +17,7 @@
         </Grid.Background>
         <Grid x:Name="GridAddSattion" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
               
-                   VerticalAlignment="Stretch" Width="auto">
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="231*"/>
                 <ColumnDefinition Width="135*"/>
@@ -57,7 +57,7 @@
 
 
         <Grid x:Name="GridUpStation" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
