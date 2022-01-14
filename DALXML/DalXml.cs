@@ -296,7 +296,7 @@ namespace Dal
             p.Id = codd++;//המספר של החבילה
             aa.Element("RowNumbers").Value = codd.ToString();
             aa.Value = codd.ToString();                      
-            XMLTools.SaveListToXMLElement(aa, configPath);
+          //  XMLTools.SaveListToXMLElement(aa, configPath);
             ListParcel.Add(p);
             XMLTools.SaveListToXMLSerializer(ListParcel, parcelsPath);
             return p.Id;
