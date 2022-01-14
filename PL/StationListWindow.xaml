@@ -43,10 +43,10 @@
         </Grid>
         <Grid Name="ggGrid" Height="auto" Grid.Row="1" Width="auto" Grid.RowSpan="2" Margin="0,88,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="533*"/>
-                <ColumnDefinition Width="267*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions >
-            <DataGrid x:Name="stationToListDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="2,31,6,102" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" MouseDoubleClick="stationToListDataGrid_MouseDoubleClick">
+            <DataGrid x:Name="stationToListDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="2,31,4,102" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" MouseDoubleClick="stationToListDataGrid_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="chargeSlotsFreeColumn" Width="SizeToHeader" Header="Charge Slots Free" Binding="{Binding ChargeSlotsFree}"/>
                     <DataGridTextColumn x:Name="chargeSlotsNotFreeColumn" Width="SizeToHeader" Header="Charge Slots Not Free" Binding="{Binding ChargeSlotsNotFree}"/>

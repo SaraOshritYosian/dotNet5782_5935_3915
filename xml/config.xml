@@ -1,10 +1,10 @@
 ﻿<data-config>
 	<BatteryUsages>
-		<FreeBatteryUsing>5</FreeBatteryUsing>
-		<LightBatteryUsing>10</LightBatteryUsing>
-		<MediumBatteryUsing>15</MediumBatteryUsing>
-		<HeavyBatteryUsing>20</HeavyBatteryUsing>
-		<ChargingRate>20</ChargingRate>
+		<FreeBatteryUsing>0.1</FreeBatteryUsing>
+		<LightBatteryUsing>0.1</LightBatteryUsing>
+		<MediumBatteryUsing>0.2</MediumBatteryUsing>
+		<HeavyBatteryUsing>0.4</HeavyBatteryUsing>
+		<ChargingRate>30</ChargingRate>
 	</BatteryUsages>
 	<RowNumbers>
 		<NewParcelId>24</NewParcelId>

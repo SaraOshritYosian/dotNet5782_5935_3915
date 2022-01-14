@@ -69,14 +69,14 @@
             <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="309" Margin="17,14,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="360"/>
 
             <Label Content="Requested Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,40,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="157"/>
-            <Label x:Name="RequestedT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="141" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Label x:Name="RequestedT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="203,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
             <Label Content="Scheduled Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,110,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="156"/>
-            <Label x:Name="ScheduledT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,110,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Label x:Name="ScheduledT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="203,110,0,0" Grid.Row="1" VerticalAlignment="Top" Width="165" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
             <Label  Content="PichedUp Time: " Grid.Column="1" HorizontalAlignment="Left" Margin="41,190,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="153"/>
-            <Label x:Name="PichedUpT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="146" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Label x:Name="PichedUpT" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="193,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="174" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
 
             <Label Content="Delivered Time:" Grid.Column="1" HorizontalAlignment="Left" Margin="41,260,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="147"/>
-            <Label x:Name="DeliveredT"  Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="212,260,0,0" Grid.Row="1" VerticalAlignment="Top" Width="143" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
+            <Label x:Name="DeliveredT"  Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="190,260,0,0" Grid.Row="1" VerticalAlignment="Top" Width="175" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28"/>
 
             <Button Content="X" Grid.Column="1" HorizontalAlignment="Right" Margin="0,6,0,0" VerticalAlignment="Top" Background="#FFE91818" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Height="28" Width="28" Click="Button_Click"/>
             <Rectangle HorizontalAlignment="Left" Height="147" Margin="0,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="408" Grid.Row="1"/>

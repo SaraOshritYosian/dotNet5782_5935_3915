@@ -18,7 +18,7 @@
 
 
         <Grid x:Name="GridAddDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto">
+                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
 
 
             <Grid.ColumnDefinitions>
@@ -47,7 +47,7 @@
 
         </Grid>
         <Grid x:Name="GridUpDrone" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                   VerticalAlignment="Stretch" Width="auto" d:IsHidden="True">
+                   VerticalAlignment="Stretch" Width="auto">
 
 
             <Grid.RowDefinitions>
