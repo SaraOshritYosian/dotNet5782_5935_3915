@@ -8,13 +8,6 @@
     <Latitude>34.77</Latitude>
   </Station>
   <Station>
-    <Name>77834</Name>
-    <Id>2</Id>
-    <ChargeSlots>1</ChargeSlots>
-    <Longitude>32.06</Longitude>
-    <Latitude>34.78</Latitude>
-  </Station>
-  <Station>
     <Name>12111</Name>
     <Id>12223</Id>
     <ChargeSlots>4</ChargeSlots>
@@ -27,5 +20,12 @@
     <ChargeSlots>44</ChargeSlots>
     <Longitude>32.06</Longitude>
     <Latitude>34.77</Latitude>
+  </Station>
+  <Station>
+    <Name>77834</Name>
+    <Id>2</Id>
+    <ChargeSlots>3</ChargeSlots>
+    <Longitude>32.06</Longitude>
+    <Latitude>34.78</Latitude>
   </Station>
 </ArrayOfStation>
