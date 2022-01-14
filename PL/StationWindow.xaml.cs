@@ -136,8 +136,17 @@ namespace PL
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            accseccBL1.UpdateStation(toList.Id, Convert.ToInt32(TexName1.Text), Convert.ToInt32(ChargeSlote.Text));
-            statwin.stationToListDataGrid.DataContext=accseccBL1.GetStations();
+            try
+            {
+                accseccBL1.UpdateStation(toList.Id, Convert.ToInt32(TexName1.Text), Convert.ToInt32(ChargeSlote.Text));
+                statwin.stationToListDataGrid.DataContext = accseccBL1.GetStations();
+                MessageBox.Show("Update a station number: " + toList.Id + " was successful");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
 
         private void ListViewDroneInCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -102,6 +102,10 @@ namespace BL
                 {
                     c.ChargeSlots = chargeSlote-accessIDal.CoutCharge(idS);
                 }
+                if (c.ChargeSlots <= 0)
+                {
+                    throw new BO.Excptions("Impossible");
+                }
                 //Console.WriteLine(c.ToString());
                 accessIDal.UpdetStation(c);
 

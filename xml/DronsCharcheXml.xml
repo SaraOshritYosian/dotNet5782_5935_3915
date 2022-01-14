@@ -6,10 +6,14 @@
   </DroneCharge>
   <DroneCharge>
     <Droneld>2</Droneld>
-    <Stationld>44</Stationld>
+    <Stationld>2</Stationld>
   </DroneCharge>
   <DroneCharge>
     <Droneld>3</Droneld>
     <Stationld>44</Stationld>
+  </DroneCharge>
+  <DroneCharge>
+    <Droneld>344</Droneld>
+    <Stationld>12223</Stationld>
   </DroneCharge>
 </ArrayOfDroneCharge>
