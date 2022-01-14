@@ -4,35 +4,28 @@
     <Name>223</Name>
     <Id>44</Id>
     <ChargeSlots>33</ChargeSlots>
-    <Longitude>34</Longitude>
-    <Latitude>44</Latitude>
+    <Longitude>32.058</Longitude>
+    <Latitude>34.77</Latitude>
   </Station>
   <Station>
     <Name>77834</Name>
     <Id>2</Id>
     <ChargeSlots>1</ChargeSlots>
-    <Longitude>111.23</Longitude>
-    <Latitude>43.99</Latitude>
+    <Longitude>32.06</Longitude>
+    <Latitude>34.78</Latitude>
   </Station>
   <Station>
     <Name>12111</Name>
     <Id>12223</Id>
     <ChargeSlots>4</ChargeSlots>
-    <Longitude>654</Longitude>
-    <Latitude>433</Latitude>
+    <Longitude>32.09</Longitude>
+    <Latitude>34.77</Latitude>
   </Station>
   <Station>
-    <Name>111</Name>
-    <Id>123232</Id>
-    <ChargeSlots>29</ChargeSlots>
-    <Longitude>443</Longitude>
-    <Latitude>234</Latitude>
-  </Station>
-  <Station>
-    <Name>112</Name>
-    <Id>1</Id>
-    <ChargeSlots>12</ChargeSlots>
-    <Longitude>0.334</Longitude>
-    <Latitude>9.3334</Latitude>
+    <Name>1222</Name>
+    <Id>88888</Id>
+    <ChargeSlots>44</ChargeSlots>
+    <Longitude>32.06</Longitude>
+    <Latitude>34.77</Latitude>
   </Station>
 </ArrayOfStation>
