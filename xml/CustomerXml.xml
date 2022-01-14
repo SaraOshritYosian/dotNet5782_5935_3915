@@ -42,5 +42,11 @@
     <Longitude>343</Longitude>
     <Lattitude>334</Lattitude>
   </Customer>
- 
+  <Customer>
+    <ID>304757867</ID>
+    <Name>emuna</Name>
+    <Pone>0584234214</Pone>
+    <Longitude>12.09</Longitude>
+    <Lattitude>134.08</Lattitude>
+  </Customer>
 </ArrayOfCustomer>

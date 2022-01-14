@@ -13,7 +13,11 @@
                 <RowDefinition Height="29*"/>
             </Grid.RowDefinitions>
 
-
+            <Button Content="" HorizontalAlignment="Left" Margin="31,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="60" Width="97" Click="Button_Click_1" BorderBrush="{x:Null}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/back-arrow_1f519.png"/>
+                </Button.Background>
+            </Button>
 
             <Label x:Name="TitleLable" Content="רשימת לקוחות" HorizontalAlignment="Left" Margin="352,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.26,0.54" Width="126" Height="26">
 

@@ -55,16 +55,22 @@ namespace PL
         public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList )//update
         {
             InitializeComponent();
+            ButtonAdd.IsEnabled = false;
             GridAddCustomer.Visibility = Visibility.Hidden;
             GridUpdateCustomer.Visibility = Visibility.Visible;
             accseccBL2 = accseccBL1;
             customerTo = customer;
             ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customerTo.Id);
             ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customerTo.Id);
-
+            TextBoxName.Text = customer.Name;
+            TextboxPhone.Text = customer.Pone;
+            if(TextboxPhone.Text!=null&&TextBoxName.Text!=null)
+            {
+                ButtonAdd.IsEnabled = true;
+            }
             /*ListParcelFromCustomers(customerTo.Id);*/
 
-            LableId.Content = (customer.Id).ToString();
+            LableId2.Content = (customer.Id).ToString();
             //  TextboxName.Text = customer.Name;//לעדכן
             //  TextboxPhone.Text = customer.Pone;//לעדכן
             LableLocation.Content= accseccBL2.GetCustomer(customer.Id).LocationOfCustomer;
@@ -86,11 +92,11 @@ namespace PL
             {
                 Id = Convert.ToInt32(TextBoxId.Text),
                 Name = TextBoxName.Text,
-                Pone = TextboxPhone.Text,
-                LocationOfCustomer = new BO.Location() { Latitude = Convert.ToInt32(TextBoxLattidude.Text), Longitude = Convert.ToInt32(TextBoxLongtitude.Text) }
+                Pone = TextBoxPhone.Text,
+                LocationOfCustomer = new BO.Location() { Latitude = Convert.ToDouble(TextBoxLattidude.Text), Longitude = Convert.ToDouble(TextBoxLongtitude.Text) }
             };
             accseccBL2.AddCustomer(customer1);
-            MessageBox.Show("The drone wad added succesfully!");
+            MessageBox.Show("The customer wad added succesfully!");
             customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
         }
 
@@ -98,7 +104,7 @@ namespace PL
         {
             accseccBL2.UpdateCustomer(Convert.ToInt32(TextBoxId.Text), TextBoxName.Text, TextBoxPhone.Text);
             customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
-            MessageBox.Show("The drone wad updated succesfully!");
+            MessageBox.Show("The customer wad updated succesfully!");
         }
 
         private void ListviewListOfPackagesFromTheCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)//?

@@ -66,5 +66,12 @@ namespace PL
             }
 
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ListsWindow we = new ListsWindow(accseccBL1);
+            we.Show();
+            Close();
+        }
     }
 }
