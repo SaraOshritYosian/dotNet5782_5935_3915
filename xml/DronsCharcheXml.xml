@@ -12,4 +12,8 @@
     <Droneld>344</Droneld>
     <Stationld>12223</Stationld>
   </DroneCharge>
+  <DroneCharge>
+    <Droneld>344</Droneld>
+    <Stationld>12223</Stationld>
+  </DroneCharge>
 </ArrayOfDroneCharge>

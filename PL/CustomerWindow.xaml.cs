@@ -95,16 +95,35 @@ namespace PL
                 Pone = TextBoxPhone.Text,
                 LocationOfCustomer = new BO.Location() { Latitude = Convert.ToDouble(TextBoxLattidude.Text), Longitude = Convert.ToDouble(TextBoxLongtitude.Text) }
             };
-            accseccBL2.AddCustomer(customer1);
-            MessageBox.Show("The customer wad added succesfully!");
-            customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
+            try
+            {
+                accseccBL2.AddCustomer(customer1);
+                MessageBox.Show("The customer wad added succesfully!");
+                customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
+
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)//update
         {
-            accseccBL2.UpdateCustomer(Convert.ToInt32(TextBoxId.Text), TextBoxName.Text, TextBoxPhone.Text);
-            customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
-            MessageBox.Show("The customer wad updated succesfully!");
+            try
+            {
+                accseccBL2.UpdateCustomer(Convert.ToInt32(TextBoxId.Text), TextBoxName.Text, TextBoxPhone.Text);
+                customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
+                MessageBox.Show("The customer wad updated succesfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
         }
 
         private void ListviewListOfPackagesFromTheCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)//?
