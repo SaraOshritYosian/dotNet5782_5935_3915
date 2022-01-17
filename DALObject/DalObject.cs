@@ -555,6 +555,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
             if (fal1 == true)
             {
                 per1.Delivered = DateTime.Now;
+                //per1.Droneld = 0;
                 UpdetParcel(per1);
             }
         }

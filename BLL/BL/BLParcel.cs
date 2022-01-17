@@ -220,7 +220,7 @@ namespace BL
             BO.DroneToList drone = BlDrone.Find(p => p.Id == id);
             if (fal == true)//exsist
             {
-                if (drone.StatusDrone != BO.StatusDrone.available)
+                if (drone.StatusDrone != BO.StatusDrone.delivered)
                     throw new InvalidOperationException("The drone is not assigned to any package");
                 var parcel = accessIDal.GetParcel(drone.IdParcel);
                 if ((parcel.Scheduled == default(DateTime)) || (parcel.PichedUp != default(DateTime)))
@@ -262,30 +262,32 @@ namespace BL
                 IEnumerable<DO.Parcel> aa = accessIDal.GetAllParcel();
                 //IDAL.DO.Parcel newGood;
                 var peoperty = aa.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight).
-                    ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Targetld).Lattitude, accessIDal.GetCustomer(parcel.Targetld).Longitude));
+                    ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude));
                 for (int i = 0; i < peoperty.Count(); i++)
                 {
 
                     double farToS = DistanceTo(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude);//מרחק ממקום של הרחפן למקום של ההזמנה
-                    double farFromSToT = DistanceTo(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);
+                    double farFromSToT = DistanceTo(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);//מרחק ממיקום השולח למיקום של המקבל
                     BO.Location location = new BO.Location() { Latitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, Longitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude };//מיקום של מי שצריך לקבל
                     double fatToStationMinDis = returnMinDistancFromLicationToStation(location);//מרחק מהתחנה הקרובה לרחפן לאחר מישלוח
-                    DO.WeightCategories weight1 = peoperty.ElementAt(i).Weight;
-                    double battery1 = BatteryConsumption(farFromSToT, weight1) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקום של ולמקום המשלוח ועד שהוא הול
-                    double batteryToStation1 = BatteryConsumption(fatToStationMinDis);
+                    DO.WeightCategories weight1 = peoperty.ElementAt(i).Weight;//משקל ההזמנה
+                   
+                    double battery1 = BatteryConsumption(farFromSToT, weight1) + BatteryConsumption(farToS);//בטריה שמתבזבזת לרחפן ממקומו הנוכחי ליפני ביצוע הזמנה למקום של איסוף הזמנה + הבטריה ממקום המקבל למקום השולח
+                    double batteryToStation1 = BatteryConsumption(fatToStationMinDis);//בטריה שמתבזבזת לתחנה הקרובה לאחר הספקה
                     BO.WeightCategories weightPa = (BO.WeightCategories)peoperty.ElementAt(i).Weight;
-                    if ((BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0) && (weightPa <= weight))//המשב בסדר וגם הסוללה תספיק כדי להגיע לתחנה הקרובה אם יצטרך
+                    if ((BlDronepp.StatusBatter - battery1 - batteryToStation1 > 0) && (weightPa <= weight)&(peoperty.ElementAt(i).Droneld==0))//המשב בסדר וגם הסוללה תספיק כדי להגיע לתחנה הקרובה אם יצטרך
                     {
                         return peoperty.ElementAt(i);
                     }
-
+                    
+                        
                 }
             }
-            catch (BO.Excptions ex)
+            catch (BO.Excptions )
             {
-                throw new BO.Excptions(ex.Message);
+                throw new BO.Excptions("We're sorry but there's no way\n for a handful to place an order");
             }
-            throw new Exception();//חריגה
+            throw new BO.Excptions("We're sorry but there's no way\n for a handful to place an order");
 
         }
         //שיוך חבילה לרחפן

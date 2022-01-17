@@ -111,17 +111,17 @@ namespace PL
             this.Close();
         }
         #endregion
-        public void Refresh(IBL accseccBL1,BO.DroneToList drone)//מרענן את הדף
+        public void Refresh(IBL accseccBL1, BO.DroneToList drone)//מרענן את הדף
         {
-
-            LabelErrorTime.Visibility = Visibility.Hidden;
+            ButtonParcel.Visibility = Visibility.Hidden;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
+            GridUpDrone.Visibility = Visibility.Visible; 
+            LabelErrorTime.Visibility = Visibility.Hidden;
             comoboxTime.Visibility = Visibility.Hidden;
             LabelTime.Visibility = Visibility.Hidden;
             LabelErrorMode.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL1;
             droneTo = drone;
-           
             LabelId2.Content = Convert.ToString(droneTo.Id);
             LabelWeight2.Content = droneTo.Weight;//משקל
             LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
@@ -130,27 +130,27 @@ namespace PL
 
             if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
-                statuse.Content = " הרחפן בטעינה";
+                statuse.Content = "The Drone is charging";
                 BottonToFun.Content = "Release from charging";
                 comoboxTime.Visibility = Visibility.Visible;
                 LabelTime.Visibility = Visibility.Visible;
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
-               
+
                 station1 = accseccBL2.GetStationByDrone(droneTo.Id);
-               
+
             }
-                
+
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
-                statuse.Content = " הרחפן  זמין";
+                statuse.Content = "The Drone is available";
                 BottonToFun.Content = "Send for loading";
                 BottonToFun2.Content = "Assignment to the package";
             }
-                
+
             if (droneTo.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
             {
                 int a = droneTo.IdParcel;
@@ -160,28 +160,32 @@ namespace PL
 
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
-                        statuse.Content = "הרחפן אסף את החבילה";
+                        statuse.Content = "The Drone collected the package";
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;
+                        ButtonParcel.Visibility = Visibility.Visible;
+                        ButtonParcel.Content = "Tap to open the package number:   " + a;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
-                        statuse.Content = " הרחפן  שוייך לחבילה";
+                        statuse.Content = "The Drone belongs to the package";
                         BottonToFun.Visibility = Visibility.Visible;
                         BottonToFun.Content = "Collect a package";
+                        ButtonParcel.Visibility = Visibility.Visible;
+                        ButtonParcel.Content = "Tap to open the package number:" + a;
                     }
-                    
+
                 }
 
             }
-            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה
-                                                                    // TexBoxModel.IsReadOnly = true;//טקסט מודל רק לקריאה
+            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         
             LinearGradientBrush myBrush = new();//צבע בטריה                      
             TexBattery.Background = myBrush;
             if (droneTo.StatusBatter < 21)
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
                 TexBattery.Background = myBrush;
+                //TexBattery
             }
 
             if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
@@ -190,18 +194,18 @@ namespace PL
                 TexBattery.Background = myBrush;
             }
 
-            if (droneTo.StatusBatter < 101 & droneTo.StatusBatter > 80)
+            if (droneTo.StatusBatter < 100 & droneTo.StatusBatter > 80)
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
                 TexBattery.Background = myBrush;
-            }
 
+            }
         }
 
         public DronWindow(IBL accseccBL1,BO.DroneToList drone,DroneListWindow droneList)//update
         {
             InitializeComponent();
-            
+            ButtonParcel.Visibility = Visibility.Hidden;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
             droneListWindow11 = droneList;//מקבל את החלון רשימת רחפן כשי שיוכל לעדכן ברענון
@@ -219,23 +223,23 @@ namespace PL
 
             if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
-                statuse.Content = " הרחפן בטעינה";
+                statuse.Content = "The Drone is charging";
                 BottonToFun.Content = "Release from charging";
                 comoboxTime.Visibility = Visibility.Visible;
                 LabelTime.Visibility = Visibility.Visible;
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
-                
-                station1= accseccBL2.GetStationByDrone(droneTo.Id);
-               
+
+                station1 = accseccBL2.GetStationByDrone(droneTo.Id);
+
             }
 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
-                statuse.Content = " הרחפן  זמין";
+                statuse.Content = "The Drone is available";
                 BottonToFun.Content = "Send for loading";
                 BottonToFun2.Content = "Assignment to the package";
             }
@@ -249,15 +253,19 @@ namespace PL
 
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
-                        statuse.Content = "הרחפן אסף את החבילה";
+                        statuse.Content = "The Drone collected the package";
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;
+                        ButtonParcel.Visibility = Visibility.Visible;
+                        ButtonParcel.Content = "Tap to open the package number:   " + a;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
-                        statuse.Content = " הרחפן  שוייך לחבילה";
+                        statuse.Content = "The Drone belongs to the package";
                         BottonToFun.Visibility = Visibility.Visible;
                         BottonToFun.Content = "Collect a package";
+                        ButtonParcel.Visibility = Visibility.Visible;
+                        ButtonParcel.Content = "Tap to open the package number:" + a;
                     }
 
                 }
@@ -305,7 +313,7 @@ namespace PL
 
             if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
-                statuse.Content = " הרחפן בטעינה";
+                statuse.Content = "The Drone is charging";
                 BottonToFun.Content = "Release from charging";
                 comoboxTime.Visibility = Visibility.Visible;
                 LabelTime.Visibility = Visibility.Visible;
@@ -321,7 +329,7 @@ namespace PL
             {
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
-                statuse.Content = " הרחפן  זמין";
+                statuse.Content = "The Drone is available";
                 BottonToFun.Content = "Send for loading";
                 BottonToFun2.Content = "Assignment to the package";
             }
@@ -335,13 +343,13 @@ namespace PL
 
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
-                        statuse.Content = "הרחפן אסף את החבילה";
+                        statuse.Content = "The Drone collected the package";
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
-                        statuse.Content = " הרחפן  שוייך לחבילה";
+                        statuse.Content = "The Drone belongs to the package";
                         BottonToFun.Visibility = Visibility.Visible;
                         BottonToFun.Content = "Collect a package";
                     }
@@ -514,6 +522,11 @@ namespace PL
         private void Cancell_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ButtonParcel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

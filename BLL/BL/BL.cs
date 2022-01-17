@@ -40,10 +40,11 @@ namespace BL
             //BLDrones = new List<Drone>();
             IEnumerable<DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             IEnumerable<DO.DroneCharge> DALDronesDroneCharge = accessIDal.GetAllDroneCharge().ToList();//רשימה של רחפנים מDAL
-            foreach (var item in DALDronesDroneCharge)
-            {
-                accessIDal.ReleaseDroneFromCharging(item.Droneld);
-            }
+            //foreach (var item in DALDronesDroneCharge)
+            //{
+            //    accessIDal.ReleaseDroneFromCharging(item.Droneld);
+            //}
+
 
                 foreach (var item in DALDrones)
             {
@@ -72,7 +73,14 @@ namespace BL
             {
                 DALParcel1.Add(new DO.Parcel { Id = item.Id, Senderld = item.Senderld, Delivered = item.Delivered, Droneld = item.Droneld, PichedUp = item.PichedUp, Priority = item.Priority,Requested=item.Requested,Scheduled=item.Scheduled,Targetld=item.Targetld,Weight=item.Weight }) ;//lattitud with one t
             }
-            IEnumerable<DO.Parcel> DALParcel = accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
+            // IEnumerable<DO.Parcel> DALParcel = accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
+            List<DO.DroneCharge> DALDroneCharge1 = new List<DO.DroneCharge>();//להעביר לתוכו
+            IEnumerable<DO.DroneCharge> DALDroneCharge = accessIDal.GetAllDroneCharge();//רשימה של חבילות מDAL
+            foreach (var item in DALDroneCharge)
+            {
+                DALDroneCharge1.Add(new DO.DroneCharge { Stationld = item.Stationld,Droneld=item.Droneld });//lattitud with one t
+            }
+
 
 
 
@@ -119,31 +127,46 @@ namespace BL
                 }
                 else
                 {
-                    item.StatusDrone = (StatusDrone)rand.Next(0, 2);
-                    if (item.StatusDrone == StatusDrone.InMaintenance)
+
+                    int index1 = DALDroneCharge1.FindIndex(x => x.Droneld == item.Id);//לחבפש רחפן בתוך רשימת הרחפנים בטעינה
+                    if (index1 != -1)//אם הרחפן בטעינה
                     {
-                        Station station = BLStation[rand.Next(0, BLStation.Count)];
-                        item.LocationDrone = station.LocationStation;
-                        accessIDal.SendDroneToCharge(station.Id, item.Id);
-                        //IDAL.DO.DroneCharge  droneCharge= new IDAL.DO.DroneCharge();
-                        // accessIDal.UpdetDroneCharge(station.Id);
+                        item.StatusDrone = StatusDrone.InMaintenance;
                         item.StatusBatter = rand.Next(0, 21);
+                        item.LocationDrone = new Location { Latitude = accessIDal.GetStation(DALDroneCharge1.Find(x => x.Droneld == item.Id).Stationld).Latitude, Longitude = accessIDal.GetStation(DALDroneCharge1.Find(x => x.Droneld == item.Id).Stationld).Longitude };
+
                     }
                     else
                     {
-                        List<DO.Parcel> DeliveredBySameId = DALParcel1.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
-                        if (DeliveredBySameId.Any())
-                        {
-                            item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
-                            double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
-                            item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
 
-                        }
-                        else
-                        {
-                            item.LocationDrone = BLStation[rand.Next(0, BLStation.Count)].LocationStation;
-                            item.StatusBatter = rand.Next(0, 101);
-                        }
+
+                        //item.StatusDrone = (StatusDrone)rand.Next(0, 2);
+                        //if (item.StatusDrone == StatusDrone.InMaintenance)
+                        //{
+                        //    Station station = BLStation[rand.Next(0, BLStation.Count)];
+                        //    item.LocationDrone = station.LocationStation;
+                        //    accessIDal.SendDroneToCharge(station.Id, item.Id);
+                        //    //IDAL.DO.DroneCharge  droneCharge= new IDAL.DO.DroneCharge();
+                        //    // accessIDal.UpdetDroneCharge(station.Id);
+                        //    item.StatusBatter = rand.Next(0, 21);
+                        //}
+                        //else
+                        //{
+                        item.StatusDrone = StatusDrone.available;
+                        List<DO.Parcel> DeliveredBySameId = DALParcel1.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
+                            if (DeliveredBySameId.Any())
+                            {
+                                item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
+                                double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
+                                item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+
+                            }
+                            else
+                            {
+                                item.LocationDrone = BLStation[rand.Next(0, BLStation.Count)].LocationStation;
+                                item.StatusBatter = rand.Next(0, 101);
+                            }
+                        //}
                     }
                 }
             }
