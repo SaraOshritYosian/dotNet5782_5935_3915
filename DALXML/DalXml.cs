@@ -307,7 +307,7 @@ namespace Dal
         public void DeleteParcel(int id)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
-            DO.Parcel per = ListParcel.Find(p => p.Droneld == id);
+            DO.Parcel per = ListParcel.Find(p => p.Id == id);
             bool fal = ListParcel.Any(p => p.Id == id);
 
             if (fal == true)//Bימצא{
@@ -326,7 +326,7 @@ namespace Dal
         public void UpdetParcel(DO.Parcel parcel)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
-            DO.Parcel per = ListParcel.Find(p => p.Droneld == parcel.Id);
+            DO.Parcel per = ListParcel.Find(p => p.Id == parcel.Id);
             bool fal = ListParcel.Any(p => p.Id == parcel.Id);
             if (fal == true)//Bימצא
             {
@@ -694,6 +694,7 @@ namespace Dal
                 per1.Droneld = per2.Id;//הכנסה ת"ז של הרחפן
                 per1.Scheduled = DateTime.Now;//עדכון זמן שיוך חבילה
                 UpdetParcel(per1);
+
             }
             else
                 throw new Exception("error id");

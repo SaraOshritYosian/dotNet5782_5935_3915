@@ -158,19 +158,22 @@ namespace PL
                 {
                     BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
 
+
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
                         statuse.Content = "The Drone collected the package";
                         BottonToFun2.Content = "Provide package";
-                        BottonToFun2.Visibility = Visibility.Visible;
+                        BottonToFun2.Visibility = Visibility.Visible;//רק לספק
+                        BottonToFun.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
                         ButtonParcel.Content = "Tap to open the package number:   " + a;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
                         statuse.Content = "The Drone belongs to the package";
-                        BottonToFun.Visibility = Visibility.Visible;
+                        BottonToFun.Visibility = Visibility.Visible;//רק לאסוף
                         BottonToFun.Content = "Collect a package";
+                        BottonToFun2.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
                         ButtonParcel.Content = "Tap to open the package number:" + a;
                     }
@@ -178,7 +181,7 @@ namespace PL
                 }
 
             }
-            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         
+            TexBattery.Text = Convert.ToInt32(droneTo.StatusBatter).ToString() + "%";//בטריה                                                          
             LinearGradientBrush myBrush = new();//צבע בטריה                      
             TexBattery.Background = myBrush;
             if (droneTo.StatusBatter < 21)
@@ -188,18 +191,18 @@ namespace PL
                 //TexBattery
             }
 
-            if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
+            if ((droneTo.StatusBatter > 20) & (droneTo.StatusBatter < 81))
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
                 TexBattery.Background = myBrush;
             }
 
-            if (droneTo.StatusBatter < 100 & droneTo.StatusBatter > 80)
+            if (droneTo.StatusBatter < 101 & droneTo.StatusBatter > 80)
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
                 TexBattery.Background = myBrush;
-
             }
+
         }
 
         public DronWindow(IBL accseccBL1,BO.DroneToList drone,DroneListWindow droneList)//update
@@ -230,7 +233,7 @@ namespace PL
                 TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
                 comoboxTime.ItemsSource = a;
                 BottonToFun2.Visibility = Visibility.Hidden;
-
+                BottonToFun.Visibility = Visibility.Visible;
                 station1 = accseccBL2.GetStationByDrone(droneTo.Id);
 
             }
@@ -255,15 +258,17 @@ namespace PL
                     {
                         statuse.Content = "The Drone collected the package";
                         BottonToFun2.Content = "Provide package";
-                        BottonToFun2.Visibility = Visibility.Visible;
+                        BottonToFun2.Visibility = Visibility.Visible;//רק לספק
+                        BottonToFun.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
                         ButtonParcel.Content = "Tap to open the package number:   " + a;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
                         statuse.Content = "The Drone belongs to the package";
-                        BottonToFun.Visibility = Visibility.Visible;
+                        BottonToFun.Visibility = Visibility.Visible;//רק לאסוף
                         BottonToFun.Content = "Collect a package";
+                        BottonToFun2.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
                         ButtonParcel.Content = "Tap to open the package number:" + a;
                     }
@@ -271,7 +276,7 @@ namespace PL
                 }
 
             }
-            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         
+            TexBattery.Text = Convert.ToInt32(droneTo.StatusBatter).ToString() + "%";//בטריה                                                         
             LinearGradientBrush myBrush = new();//צבע בטריה                      
             TexBattery.Background = myBrush;
             if (droneTo.StatusBatter < 21)
@@ -281,13 +286,13 @@ namespace PL
                 //TexBattery
             }
 
-            if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
+            if ((droneTo.StatusBatter > 20) & (droneTo.StatusBatter < 81))
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
                 TexBattery.Background = myBrush;
             }
 
-            if (droneTo.StatusBatter < 100 & droneTo.StatusBatter > 80)
+            if (droneTo.StatusBatter < 101 & droneTo.StatusBatter > 80)
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
                 TexBattery.Background = myBrush;
@@ -436,9 +441,10 @@ namespace PL
             {
                 try
                 {
-                    accseccBL2.PickUpPackage(droneTo.Id);
-                    MessageBox.Show("Drone: " + droneTo.Id + " Collect a package: " + droneTo.IdParcel);
+                    
+                    accseccBL2.PickUpPackage(accseccBL2.GetDrone(droneTo.Id).Id);
                     droneListWindow11.DronesListView.ItemsSource = accseccBL2.GetDrons();
+                    MessageBox.Show("Drone: " + droneTo.Id + " Collect a package: " + droneTo.IdParcel);
                     Refresh(accseccBL2, accseccBL2.DroneToLisToPrint(droneTo.Id));
                 }
                 catch (Exception ex)
@@ -459,9 +465,11 @@ namespace PL
                 try
                 {
                     accseccBL2.AssignPackageToDrone(droneTo.Id);
-                    MessageBox.Show("Drone: " + droneTo.Id + " Assignment to the package: "+ droneTo.IdParcel);
+                   
                     droneListWindow11.DronesListView.ItemsSource = accseccBL2.GetDrons();
+                    MessageBox.Show("Drone: " + droneTo.Id + " Assignment to the package: " + accseccBL2.GetDrone(droneTo.Id).PackageInTransfe.Id);
                     Refresh(accseccBL2, accseccBL2.DroneToLisToPrint(droneTo.Id));
+
                 }
                 catch (Exception ex)
                 {
@@ -476,7 +484,7 @@ namespace PL
             {
                 try
                 {
-                    accseccBL2.PackageDeliveryByDrone(droneTo.Id);//סיפוק חבילה רק אם הרחפן בעובלה והוא אסף תחבילה
+                    accseccBL2.PackageDeliveryByDrone(accseccBL2.GetDrone(droneTo.Id).Id);//סיפוק חבילה רק אם הרחפן בעובלה והוא אסף תחבילה
                     MessageBox.Show("Drone: " + droneTo.Id + " Provide package: " + droneTo.IdParcel);
                     droneListWindow11.DronesListView.ItemsSource = accseccBL2.GetDrons();
                     Refresh(accseccBL2, accseccBL2.DroneToLisToPrint(droneTo.Id));

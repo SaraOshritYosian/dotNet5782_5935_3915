@@ -211,7 +211,7 @@ namespace BL
         }
         
         //איסוף חבילה על ידי רחפן צריך להיות במצב הובלה חישוב מרחק מהמקום עד שמגיעה לאסוף תחבילה הבטריה יורדת באתאם
-        public void PickUpPackage(int id)//pick up package by drone
+        public void PickUpPackage(int id)//pick up package by drone איסוף חבילה לאחר שהיא שוייכה לחבילה
         {
             
             if (id < 0)
@@ -223,22 +223,24 @@ namespace BL
                 if (drone.StatusDrone != BO.StatusDrone.delivered)
                     throw new InvalidOperationException("The drone is not assigned to any package");
                 var parcel = accessIDal.GetParcel(drone.IdParcel);
-                if ((parcel.Scheduled == default(DateTime)) || (parcel.PichedUp != default(DateTime)))
+                if ((parcel.Scheduled == default(DateTime)) || (parcel.Requested == default(DateTime))|| (parcel.PichedUp != default(DateTime)))//החבילה לא נוצרה ולא שוייכה
                     throw new InvalidOperationException("The package is not ready to pick up");
                 try
                 {
 
-                    var sender = accessIDal.GetCustomer(parcel.Senderld);
+                    DO.Customer sender = accessIDal.GetCustomer(parcel.Senderld);
                     double distance = DistanceTo(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
-                    drone.StatusBatter = drone.StatusBatter - BatteryConsumption(distance);
+                    drone.StatusBatter -= BatteryConsumption(distance);
                     drone.LocationDrone = new BO.Location//עדכון מיקום למיקום שולח
                     {
                         Latitude = sender.Lattitude,
                         Longitude = sender.Longitude
                     };
+                    accessIDal.PackageCollectionByDrone(parcel.Id);
                     BlDrone.Remove(BlDrone.Find(p => p.Id == id));
-                    BlDrone.Add(drone);
-                    accessIDal.UpdetParcel(parcel); //קיבלנו עצם מועתק
+                    BlDrone.Add(drone);//ברשימת הרחפנים משנים לרחפן רק את המיקום ואת הסוללה
+                   // accessIDal.UpdetParcel(parcel); //קיבלנו עצם מועתק
+                   
                 }
                 catch (Exception)
                 {
@@ -304,6 +306,7 @@ namespace BL
             DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
                                                            //pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
             drone.StatusDrone = BO.StatusDrone.delivered;//שינוי מצב רחפן
+            drone.IdParcel = pp.Id;
             accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
             BlDrone.Remove(BlDrone.Find(p => p.Id == id));
             BlDrone.Add(drone);
@@ -325,10 +328,10 @@ namespace BL
             drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Targetld).Lattitude;//שינוי מיקום
             drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Targetld).Longitude;
             parcel.PichedUp = DateTime.Now;//שינוי זמן
-            accessIDal.UpdetParcel(parcel);//קיבלנו עצם מועתק
+            accessIDal.DeliveryOfPackageToTheCustomer(parcel.Id);//טת המישלוח לשנו תאת זמן ההספקה
             drone.StatusDrone = BO.StatusDrone.available;//שינוי סטטוס
             BlDrone.Remove(BlDrone.Find(p => p.Id == id));
-            BlDrone.Add(drone);
+            BlDrone.Add(drone);//לשנות לרחפן את הבטריה ןאת המיקום
 
         }
 

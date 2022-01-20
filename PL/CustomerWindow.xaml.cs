@@ -33,12 +33,13 @@ namespace PL
     //        LabelWeight2.Content = droneTo.Weight;//משקל
     //        LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
     //        TexBoxModel.Text = droneTo.Model;//מודל
-    //                                         //אם יש שינוי
-
+    //  ;                                       //אם יש שינוי
+   
     public partial class CustomerWindow : Window
     {
         BO.CustomerToList customerTo;
         IBL accseccBL2;
+        bool newcustome = false;
         private readonly CustomerListWindow customerListWindow1;
         public CustomerWindow(IBL accseccBL1, CustomerListWindow customerList)//add
         {
@@ -47,15 +48,22 @@ namespace PL
             GridUpdateCustomer.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL1;
             customerListWindow1 = customerList;
+        }
 
 
-
-
+        public CustomerWindow(IBL accseccBL1)//מקבל מהחלון ראשי כדי להכניס לקוח חדש שרוצה להרשם
+        {
+            InitializeComponent();
+            GridAddCustomer.Visibility = Visibility.Visible;
+            GridUpdateCustomer.Visibility = Visibility.Hidden;
+            accseccBL2 = accseccBL1;
+            newcustome = true;
         }
         public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList)//update
         {
             InitializeComponent();
             ButtonAdd.IsEnabled = false;
+            newcustome = false; ;
             GridAddCustomer.Visibility = Visibility.Hidden;
             GridUpdateCustomer.Visibility = Visibility.Visible;
             accseccBL2 = accseccBL1;
@@ -99,7 +107,17 @@ namespace PL
             {
                 accseccBL2.AddCustomer(customer1);
                 MessageBox.Show("The customer wad added succesfully!");
-                customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
+                if (newcustome == false)
+                {
+                    customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
+                }
+                else
+                {
+                    ListsWindow we = new ListsWindow(accseccBL2);
+                    we.Show();
+                }
+                    this.Close();
+                
             }
             catch (Exception ex)
             {

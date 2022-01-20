@@ -213,7 +213,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
         {
             Parcel per = DataSource.parcelList.Find(p => p.Id == id);
             bool fal= DataSource.parcelList.Any(p => p.Id == id);
-            if (fal==false)
+            if (fal==false)//לא קיים
                 throw new ParcelDoesNotExistException($"bad Parcle id: {id}");
             else
                  return per;

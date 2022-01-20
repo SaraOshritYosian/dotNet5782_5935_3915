@@ -12,6 +12,7 @@
     <None Remove="drone-delivery-supply-chain-1200px-1024x690.jpg" />
     <None Remove="map.png" />
     <None Remove="Tel_Aviv_hatuh.jpg" />
+    <None Remove="‏‏צילום מסך %28782%29.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
     <Resource Include="576x768bb.png" />
     <Resource Include="back-arrow_1f519.png" />
     <Resource Include="drone-delivery-supply-chain-1200px-1024x690.jpg" />
+    <Resource Include="‏‏צילום מסך (782).png" />
   </ItemGroup>
 
 </Project>

@@ -58,43 +58,29 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)//הלקוח קיים הקיש סיסמה
         {
-            string a = passwordTextm.Password;
-            for ( int i=0;i<passwordArr.Count();i++)
-            {
-                if (a == passwordArr.ElementAt(i))
+            IEnumerable<BO.CustomerToList> a = accsessBL.GetCustomers();
+            if (a.Any(x => x.Id == Convert.ToInt32(passwordTextc.Password)))//קיים
                 {
                     ListsWindow we = new ListsWindow(accsessBL);
                     we.Show();
                     Close();
                 }
-                
-            }
-            passwordTextm.Password="";
-            MessageBox.Show("The customer does not exist in the system ");
+            else
+            {
+                passwordTextc.Clear();
+                MessageBox.Show("The customer does not exist in the system ");
+            }  
+            
 
 
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)//הוספת לקוח
         {
-            string a = passwordTextm.Password;
-            for (int i = 0; i < passwordArr.Count(); i++)
-            {
-                if (a == passwordArr.ElementAt(i))
-                {
-                    
-                    MessageBox.Show("The customer exist in the system ");
-                    ListsWindow wwe = new ListsWindow(accsessBL);
-                    wwe.Show();
-                    Close();
-                }
-
-            }
-            passwordArr.ToList().Add(a);
-            MessageBox.Show("Adding a new client to the system");
-            ListsWindow we = new ListsWindow(accsessBL);
-            we.Show();
+            CustomerWindow window = new CustomerWindow(accsessBL);
+            window.Show();
             Close();
+
         }
     }
 }

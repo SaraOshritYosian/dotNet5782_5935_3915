@@ -6,8 +6,20 @@
     <Targetld>3246663</Targetld>
     <Weight>Light</Weight>
     <Priority>quick</Priority>
-    <Droneld>0</Droneld>
+    <Droneld>1</Droneld>
     <Requested>2022-01-14T12:49:48.9655173+02:00</Requested>
+    <Scheduled>2022-01-17T20:23:30.330311+02:00</Scheduled>
+    <PichedUp>2022-01-18T17:24:11.5235788+02:00</PichedUp>
+    <Delivered>2022-01-18T17:24:17.7920439+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>21</Id>
+    <Senderld>32424593</Senderld>
+    <Targetld>111111</Targetld>
+    <Weight>Light</Weight>
+    <Priority>quick</Priority>
+    <Droneld>0</Droneld>
+    <Requested>2022-01-14T12:49:41.9655173+02:00</Requested>
     <Scheduled>0001-01-01T00:00:00</Scheduled>
     <PichedUp>0001-01-01T00:00:00</PichedUp>
     <Delivered>0001-01-01T00:00:00</Delivered>
@@ -18,10 +30,34 @@
     <Targetld>3246663</Targetld>
     <Weight>Medium</Weight>
     <Priority>simple</Priority>
-    <Droneld>3</Droneld>
+    <Droneld>0</Droneld>
     <Requested>2022-01-13T23:10:08.7343039+02:00</Requested>
-    <Scheduled>2022-01-14T14:04:42.4447247+02:00</Scheduled>
+    <Scheduled>0001-01-01T00:00:00</Scheduled>
     <PichedUp>0001-01-01T00:00:00</PichedUp>
     <Delivered>0001-01-01T00:00:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>20</Id>
+    <Senderld>111111</Senderld>
+    <Targetld>8989076</Targetld>
+    <Weight>Light</Weight>
+    <Priority>quick</Priority>
+    <Droneld>1</Droneld>
+    <Requested>2022-01-14T12:55:48.9655173+02:00</Requested>
+    <Scheduled>2022-01-18T17:28:36.9424551+02:00</Scheduled>
+    <PichedUp>0001-01-01T00:00:00</PichedUp>
+    <Delivered>0001-01-01T00:00:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>22</Id>
+    <Senderld>8989076</Senderld>
+    <Targetld>3246663</Targetld>
+    <Weight>Light</Weight>
+    <Priority>quick</Priority>
+    <Droneld>344</Droneld>
+    <Requested>2022-01-14T12:32:48.9655173+02:00</Requested>
+    <Scheduled>2022-01-20T20:30:06.866686+02:00</Scheduled>
+    <PichedUp>2022-01-20T20:32:05.1302149+02:00</PichedUp>
+    <Delivered>2022-01-20T20:32:30.5101526+02:00</Delivered>
   </Parcel>
 </ArrayOfParcel>
