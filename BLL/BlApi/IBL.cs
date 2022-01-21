@@ -16,6 +16,7 @@ namespace BlApi
         void AddCustomer(Customer customer);
         IEnumerable<BO.ParcelToLIst> GetParcels();
         IEnumerable<BO.CustomerToList> GetCustomers();
+         BO.CustomerToList CostumerToListToPrint(int idc);
         IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc);
         IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc);
 
@@ -57,7 +58,7 @@ namespace BlApi
         #endregion
 
         #region Parcel
-        
+        void DeleteParcel(int idD);
         Parcel GetParcel(int id);
         int AddParcel(BO.Parcel parcel);
         public void PackageDeliveryByDrone(int Id);//הספקה

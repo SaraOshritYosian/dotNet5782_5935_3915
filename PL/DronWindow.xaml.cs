@@ -31,6 +31,7 @@ namespace PL
         {
            
             InitializeComponent();
+            Width = 500;
             GridUpDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             droneListWindow11 = dd;//מקבל חלון של דרון ליסט
             accseccBL2 = accseccBL1;
@@ -107,8 +108,12 @@ namespace PL
         }
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            var a = MessageBox.Show("You're sure you want to close", "closr", MessageBoxButton.YesNo);
 
-            this.Close();
+            if (a == MessageBoxResult.Yes)
+            {
+                Close();
+            }
         }
         #endregion
         public void Refresh(IBL accseccBL1, BO.DroneToList drone)//מרענן את הדף
@@ -529,7 +534,12 @@ namespace PL
 
         private void Cancell_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            var a = MessageBox.Show("You're sure you want to close", "closr", MessageBoxButton.YesNo);
+
+            if (a == MessageBoxResult.Yes)
+            {
+                Close();
+            }
         }
 
         private void ButtonParcel_Click(object sender, RoutedEventArgs e)

@@ -36,7 +36,12 @@ namespace PL
 
         private void Cancell_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            var a = MessageBox.Show("You're sure you want to close", "closr", MessageBoxButton.YesNo);
+
+            if (a == MessageBoxResult.Yes)
+            {
+                Close();
+            }
         }
 
        

@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <Button Content="x" Grid.Column="3" HorizontalAlignment="Right" Margin="158,0,10,0" Background="#FFAC0F0F" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Width="28" Height="28" HorizontalContentAlignment="Center" Click="Button_Click"/>
+            <Button Content="x" Grid.Column="3" HorizontalAlignment="Left" Margin="162,7,0,0" Background="#FFAC0F0F" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Width="28" Height="28" HorizontalContentAlignment="Center" Click="Button_Click" VerticalAlignment="Top"/>
             <Button Content="" HorizontalAlignment="Left" VerticalAlignment="Center" Width="74" Height="39" BorderBrush="{x:Null}" Click="Button_Click_2" Margin="25,0,0,0">
                 <Button.Background>
                     <ImageBrush ImageSource="/576x768bb.png"/>

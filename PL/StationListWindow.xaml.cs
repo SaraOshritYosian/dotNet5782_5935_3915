@@ -52,7 +52,12 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)//סגירת חלון
         {
-            Close();
+            var a = MessageBox.Show("You're sure you want to close", "closr", MessageBoxButton.YesNo);
+
+            if (a == MessageBoxResult.Yes)
+            {
+                Close();
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)//לחלון ראשי

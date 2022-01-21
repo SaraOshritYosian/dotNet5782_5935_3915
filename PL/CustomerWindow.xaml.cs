@@ -13,27 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
 using BO;
-//public List<ParcelInCustomer> ListOfPackagesFromTheCustomer { get; set; }//רשימת חבילות אצל הלקוח -מהלקוח
-//public List<ParcelInCustomer> ListOfPackagesToTheCustomer { get; set; }//רשימת חבילות אצל הלקוח- ללקוח
-
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for CustomerWindow.xaml
-    /// </summary>
-    /////  droneListWindow11 = droneList;//מקבל את החלון רשימת רחפן כשי שיוכל לעדכן ברענון
-    //        LabelErrorTime.Visibility = Visibility.Hidden; 
-    //        comoboxTime.Visibility = Visibility.Hidden;
-    //        LabelTime.Visibility = Visibility.Hidden;
-    //        LabelErrorMode.Visibility = Visibility.Hidden;
-    //        accseccBL2 = accseccBL1;
-    //        droneTo = drone;
-    //        LabelId2.Content = Convert.ToString(droneTo.Id);
-    //        LabelWeight2.Content = droneTo.Weight;//משקל
-    //        LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
-    //        TexBoxModel.Text = droneTo.Model;//מודל
-    //  ;                                       //אם יש שינוי
+   
    
     public partial class CustomerWindow : Window
     {
@@ -41,7 +25,7 @@ namespace PL
         IBL accseccBL2;
         bool newcustome = false;
         private readonly CustomerListWindow customerListWindow1;
-        public CustomerWindow(IBL accseccBL1, CustomerListWindow customerList)//add
+        public CustomerWindow(IBL accseccBL1, CustomerListWindow customerList)//add מקבל גישה לביאל וצקבל את החלון של רשימת הלקוחות
         {
             InitializeComponent();
             GridAddCustomer.Visibility = Visibility.Visible;
@@ -86,6 +70,33 @@ namespace PL
 
         }
 
+
+        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer )//פעולה בונה שמקבלת את הלקוח מחלון של הממשלוחים
+        {
+            InitializeComponent();
+            ButtonAdd.IsEnabled = false;
+            newcustome = false; ;
+            GridAddCustomer.Visibility = Visibility.Hidden;
+            GridUpdateCustomer.Visibility = Visibility.Visible;
+            accseccBL2 = accseccBL1;
+            customerTo = customer;
+            ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customerTo.Id);
+            ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customerTo.Id);
+            TextboxName.Text = customer.Name;
+            TextBoxPhone.Text = customer.Pone;
+            if (TextboxPhone.Text != null && TextBoxName.Text != null)
+            {
+                ButtonAdd.IsEnabled = true;
+            }
+            /*ListParcelFromCustomers(customerTo.Id);*/
+
+            LableId2.Content = (customer.Id).ToString();
+            //  TextboxName.Text = customer.Name;//לעדכן
+            //  TextboxPhone.Text = customer.Pone;//לעדכן
+            LableLocation.Content = accseccBL2.GetCustomer(customer.Id).LocationOfCustomer;
+            //עדכון
+
+        }
         private void Cancell_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

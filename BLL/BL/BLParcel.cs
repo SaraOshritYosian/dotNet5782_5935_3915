@@ -9,7 +9,10 @@ namespace BL
 {
     sealed partial class BL : IBL
     {
-
+        public void DeleteParcel(int idD)
+        {
+            accessIDal.DeleteParcel(idD);
+        }
 
         public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
         {

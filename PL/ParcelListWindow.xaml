@@ -24,7 +24,7 @@
         <DataGrid x:Name="parcelToLIstDataGrid" Grid.Row="1"  AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="1,63,-2,3" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2" MouseDoubleClick="parcelToLIstDataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
-               
+
                 <DataGridTextColumn x:Name="senderNameColumn" Binding="{Binding SenderName}" Header="Sender Name" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="targetNameColumn" Binding="{Binding TargetName}" Header="Target Name" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="statusParcelColumn" Binding="{Binding statusParcel}" Header="status Parcel" Width="SizeToHeader"/>
@@ -43,7 +43,7 @@
 
         </Grid>
         <Grid Name="MainGrid">
-            <Button Content="x" HorizontalAlignment="Right" Height="28" Margin="744,0,10,0" VerticalAlignment="Center" Width="28" Background="#FFEF1D1D" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" HorizontalContentAlignment="Center" Click="Button_Click"/>
+            <Button Content="x" HorizontalAlignment="Left" Margin="762,14,0,13" Width="28" Background="#FFEF1D1D" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" HorizontalContentAlignment="Center" Click="Button_Click"/>
             <Button Content="" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Center" Width="68" Height="45" Click="Button_Click_2">
                 <Button.Background>
                     <ImageBrush ImageSource="/576x768bb.png"/>
