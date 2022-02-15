@@ -28,4 +28,18 @@
     <Longitude>32.058</Longitude>
     <Latitude>34.77</Latitude>
   </Station>
+  <Station>
+    <Name>411</Name>
+    <Id>323</Id>
+    <ChargeSlots>3</ChargeSlots>
+    <Longitude>32.067</Longitude>
+    <Latitude>34.798</Latitude>
+  </Station>
+  <Station>
+    <Name>112</Name>
+    <Id>6765</Id>
+    <ChargeSlots>53</ChargeSlots>
+    <Longitude>32.09</Longitude>
+    <Latitude>34.77</Latitude>
+  </Station>
 </ArrayOfStation>

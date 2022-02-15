@@ -25,6 +25,7 @@ namespace PL
         BO.DroneToList droneTo;
         IBL accseccBL2;
         BO.Station station1;
+        bool aut = false;
         
         #region Add
         public DronWindow(IBL accseccBL1,DroneListWindow dd)//add
@@ -119,6 +120,7 @@ namespace PL
         public void Refresh(IBL accseccBL1, BO.DroneToList drone)//מרענן את הדף
         {
             ButtonParcel.Visibility = Visibility.Hidden;
+            atu.Visibility = Visibility.Visible;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible; 
             LabelErrorTime.Visibility = Visibility.Hidden;
@@ -171,7 +173,7 @@ namespace PL
                         BottonToFun2.Visibility = Visibility.Visible;//רק לספק
                         BottonToFun.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
-                        ButtonParcel.Content = "Tap to open the package number:   " + a;
+                        ButtonParcel.Content = "Click to see the package number: " + a;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
@@ -180,7 +182,7 @@ namespace PL
                         BottonToFun.Content = "Collect a package";
                         BottonToFun2.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
-                        ButtonParcel.Content = "Tap to open the package number:" + a;
+                        ButtonParcel.Content = "TClick to see the package number: " + a;
                     }
 
                 }
@@ -214,6 +216,7 @@ namespace PL
         {
             InitializeComponent();
             ButtonParcel.Visibility = Visibility.Hidden;
+            atu.Visibility = Visibility.Visible;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
             droneListWindow11 = droneList;//מקבל את החלון רשימת רחפן כשי שיוכל לעדכן ברענון
@@ -266,7 +269,7 @@ namespace PL
                         BottonToFun2.Visibility = Visibility.Visible;//רק לספק
                         BottonToFun.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
-                        ButtonParcel.Content = "Tap to open the package number:   " + a;
+                        ButtonParcel.Content = "Click to see the package number: " + a;
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
@@ -275,7 +278,7 @@ namespace PL
                         BottonToFun.Content = "Collect a package";
                         BottonToFun2.Visibility = Visibility.Hidden;
                         ButtonParcel.Visibility = Visibility.Visible;
-                        ButtonParcel.Content = "Tap to open the package number:" + a;
+                        ButtonParcel.Content = "Click to see the package number: " + a;
                     }
 
                 }
@@ -304,44 +307,38 @@ namespace PL
             }
 
         }
-        public DronWindow(IBL accseccBL1, BO.DroneToList drone)//מקבל את הרחפן מחלון של תחנה
+        public DronWindow(IBL accseccBL1, BO.DroneToList drone)// מקבל את הרחפן מחלון של תחנה או מחלון חבילה
         {
-            InitializeComponent();            
+            InitializeComponent();
+            ButtonParcel.Visibility = Visibility.Hidden;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
+            atu.Visibility = Visibility.Hidden;
             LabelErrorTime.Visibility = Visibility.Hidden;
             comoboxTime.Visibility = Visibility.Hidden;
             LabelTime.Visibility = Visibility.Hidden;
             LabelErrorMode.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL1;
             droneTo = drone;
+            ButtonUpdate.Visibility = Visibility.Hidden;
+            TexBoxModel.IsReadOnly = true;
             LabelId2.Content = Convert.ToString(droneTo.Id);
             LabelWeight2.Content = droneTo.Weight;//משקל
             LabeLocation2.Content = droneTo.LocationDrone;//מיקופ
             TexBoxModel.Text = droneTo.Model;//מודל
-                                             //אם יש שינוי
-
+            BottonToFun2.Visibility = Visibility.Hidden;
+            BottonToFun.Visibility = Visibility.Hidden;                             //אם יש שינוי
+            ButtonParcel.Visibility = Visibility.Hidden;
             if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
                 statuse.Content = "The Drone is charging";
-                BottonToFun.Content = "Release from charging";
-                comoboxTime.Visibility = Visibility.Visible;
-                LabelTime.Visibility = Visibility.Visible;
-                TimeSpan[] a = { new TimeSpan(1, 30, 0), new TimeSpan(2, 30, 0), new TimeSpan(4, 0, 0), new TimeSpan(5, 0, 0) };
-                comoboxTime.ItemsSource = a;
-                BottonToFun2.Visibility = Visibility.Hidden;
-                
-                station1 = accseccBL2.GetStationByDrone(droneTo.Id);
-               
-            }
+               }
 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
-                BottonToFun2.Visibility = Visibility.Visible;
-                BottonToFun.Visibility = Visibility.Visible;
+               
                 statuse.Content = "The Drone is available";
-                BottonToFun.Content = "Send for loading";
-                BottonToFun2.Content = "Assignment to the package";
+                
             }
 
             if (droneTo.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
@@ -354,20 +351,18 @@ namespace PL
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
                         statuse.Content = "The Drone collected the package";
-                        BottonToFun2.Content = "Provide package";
-                        BottonToFun2.Visibility = Visibility.Visible;
+                       
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
                         statuse.Content = "The Drone belongs to the package";
-                        BottonToFun.Visibility = Visibility.Visible;
-                        BottonToFun.Content = "Collect a package";
+                        
                     }
 
                 }
 
             }
-            TexBattery.Text = droneTo.StatusBatter.ToString() + "%";//בטריה                                                         
+            TexBattery.Text = Convert.ToInt32(droneTo.StatusBatter).ToString() + "%";//בטריה                                                         
             LinearGradientBrush myBrush = new();//צבע בטריה                      
             TexBattery.Background = myBrush;
             if (droneTo.StatusBatter < 21)
@@ -377,13 +372,13 @@ namespace PL
                 //TexBattery
             }
 
-            if ((droneTo.StatusBatter > 21) & (droneTo.StatusBatter < 80))
+            if ((droneTo.StatusBatter > 20) & (droneTo.StatusBatter < 81))
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
                 TexBattery.Background = myBrush;
             }
 
-            if (droneTo.StatusBatter < 100 & droneTo.StatusBatter > 80)
+            if (droneTo.StatusBatter < 101 & droneTo.StatusBatter > 80)
             {
                 myBrush.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
                 TexBattery.Background = myBrush;
@@ -544,6 +539,34 @@ namespace PL
 
         private void ButtonParcel_Click(object sender, RoutedEventArgs e)
         {
+            BO.ParcelToLIst pp = accseccBL2.ParcelToListToPrint(droneTo.IdParcel);
+            ParcelWindow par = new ParcelWindow(accseccBL2, pp);
+            par.Show();
+        }
+
+        private void atu_Click(object sender, RoutedEventArgs e)
+        {
+           //צריך להתחיל את התעליכון כי לחצתי על אוטומטי
+            if (aut == true)
+            {
+
+                atu.Content = "automatic";
+                aut = false;
+                BottonToFun.IsEnabled = true;
+                BottonToFun2.IsEnabled = true;
+                ButtonUpdate.Visibility = Visibility.Visible;
+                TexBoxModel.IsReadOnly = false;
+            }
+            else
+            {
+                BottonToFun.IsEnabled = false;
+                BottonToFun2.IsEnabled = false;
+                ButtonUpdate.Visibility = Visibility.Hidden;
+                TexBoxModel.IsReadOnly = true;
+                aut = true;
+                atu.Content = "manual";
+            }
+            
 
         }
     }

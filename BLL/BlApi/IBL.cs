@@ -19,7 +19,7 @@ namespace BlApi
          BO.CustomerToList CostumerToListToPrint(int idc);
         IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc);
         IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc);
-
+        IEnumerable<string> GetCustomersName();
 
         #endregion
 
@@ -58,6 +58,7 @@ namespace BlApi
         #endregion
 
         #region Parcel
+        BO.ParcelToLIst ParcelToListToPrint(int idp);
         void DeleteParcel(int idD);
         Parcel GetParcel(int id);
         int AddParcel(BO.Parcel parcel);
@@ -66,7 +67,7 @@ namespace BlApi
         void AssignPackageToDrone(int id);//שיוך
         BO.StatusParcel StatuseParcelKnow(int idP);
         IEnumerable<DroneInCharge> ListDroneInStation(int idS);
-
+        IEnumerable<BO.ParcelToLIst> GetParcelByPerdicate(Predicate<BO.ParcelToLIst> predicate);
         #endregion
 
     }

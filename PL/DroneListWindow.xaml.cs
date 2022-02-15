@@ -29,11 +29,15 @@ namespace PL
             //List<Drone> dd = new List<Drone>();
             
             accseccBL1 = accseccBL;
-           // DronesListView.DataContext= accseccBL1.GetDrons();
+            // DronesListView.DataContext= accseccBL1.GetDrons();
+           // ComboBoxMaxWeight.Items.Add("None");
+          //  ComboBoxStatuse.Items.Add("None");
+
             DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+           
             ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(BO.StatusDrone));
             ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
-            
+          
 
         }
         
@@ -54,9 +58,30 @@ namespace PL
             
         }
 
+        private void comoboxByDrone()
+        {
+            if(ComboBoxStatuse.SelectedItem==null&& ComboBoxMaxWeight.SelectedItem == null)
+            {
+                DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            }
+            if(ComboBoxStatuse.SelectedIndex != -1 && ComboBoxMaxWeight.SelectedIndex != -1)//גם לפי סטטוס ולפי משקל
+                DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.Weight == (BO.WeightCategories)ComboBoxMaxWeight.SelectedItem&&x.StatusDrone== (BO.StatusDrone)ComboBoxStatuse.SelectedItem);
+            else if (ComboBoxStatuse.SelectedIndex != -1 && ComboBoxMaxWeight.SelectedIndex == -1)//רק לפיסטטוס
+                DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.StatusDrone == (BO.StatusDrone)ComboBoxStatuse.SelectedItem);
+            else if (ComboBoxStatuse.SelectedIndex == -1 && ComboBoxMaxWeight.SelectedIndex != -1)//רק לפי משקל
+                DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.Weight == (BO.WeightCategories)ComboBoxMaxWeight.SelectedItem);
+
+        }
+
         private void ComboBoxMaxWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x=>x.Weight==(BO.WeightCategories)ComboBoxMaxWeight.SelectedItem);
+            comoboxByDrone();
+           // DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x=>x.Weight==(BO.WeightCategories)ComboBoxMaxWeight.SelectedItem);
+        }
+        private void ComboBoxStatuse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            comoboxByDrone();
+            //   DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.StatusDrone == (BO.StatusDrone)ComboBoxStatuse.SelectedItem);
         }
 
         private void Cancell_Click(object sender, RoutedEventArgs e)
@@ -85,17 +110,28 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            if (ComboBoxMaxWeight.SelectedIndex!= -1)
+            {
+                DronesListView.ItemsSource = DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.Weight == (BO.WeightCategories)ComboBoxMaxWeight.SelectedItem);//ממלא את הרשימה
+                
+            }
+            else
+                DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            ComboBoxStatuse.SelectedIndex = -1;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            if(ComboBoxStatuse.SelectedIndex != -1)
+            {
+                DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.StatusDrone == (BO.StatusDrone)ComboBoxStatuse.SelectedItem);//ממלא את הרשימה
+                
+            }
+            else 
+                DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
+            ComboBoxMaxWeight.SelectedIndex = -1;
         }
 
-        private void ComboBoxStatuse_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DronesListView.ItemsSource = accseccBL1.GetDronesByPerdicate(x => x.StatusDrone == (BO.StatusDrone)ComboBoxStatuse.SelectedItem);
-        }
+        
     }
 }

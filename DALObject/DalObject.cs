@@ -220,8 +220,8 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
         }
         public Parcel GetParcelByDrone(int id)
         {
-           Parcel per = DataSource.parcelList.Find(p => p.Droneld == id);
-            bool fal = DataSource.parcelList.Any(p => p.Droneld == id);
+           Parcel per = DataSource.parcelList.Find(p => p.Droneld == id && p.Delivered == default);
+            bool fal = DataSource.parcelList.Any(p => p.Droneld == id && p.Delivered == default);
             if (fal == false)
                 throw new DroneDoesNotExistException($"bad drone id: {id}");
             else
@@ -265,7 +265,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
 
         public void DeleteParcel(int id)
         {
-            Parcel per = DataSource.parcelList.Find(p => p.Droneld == id);
+            Parcel per = DataSource.parcelList.Find(p => p.Id == id);
             bool fal = DataSource.parcelList.Any(p => p.Id == id);
 
             if (fal == true)//Bימצא
@@ -278,7 +278,7 @@ namespace Dal//במיין בהוספה את מקבלת את הנתונים ומ�
 
         public void UpdetParcel(Parcel parcel)
         {
-            Parcel per = DataSource.parcelList.Find(p => p.Droneld == parcel.Id);
+            Parcel per = DataSource.parcelList.Find(p => p.Id == parcel.Id);
             bool fal = DataSource.parcelList.Any(p => p.Id == parcel.Id);
             if (fal == true)//Bימצא
             {

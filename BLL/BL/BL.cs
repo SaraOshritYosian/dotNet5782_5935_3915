@@ -87,8 +87,8 @@ namespace BL
             foreach (var item in BlDrone)
             {
 
-                int index = DALParcel1.FindIndex(x => x.Droneld == item.Id && x.Delivered == DateTime.MinValue);//לחבפש רחפן בתוך רשימת ההחבילות שההזמנה עדיין לא סופקה
-                if (index != -1)//אם מבצע משלוח
+                int index = DALParcel1.FindIndex(x => x.Droneld == item.Id && x.Delivered == default);//לחבפש רחפן בתוך רשימת ההחבילות שההזמנה עדיין לא סופקה
+                if (index != -1)//אם מבצע משלוח ולא סופק עדיין
                 {
                     item.StatusDrone = StatusDrone.delivered;
                     Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Senderld).LocationOfCustomer;//מיקום של שולח

@@ -225,6 +225,18 @@ namespace BL
             }
             return list;
         }
+        public IEnumerable<string> GetCustomersName()//מחזיר שמות של הלקוחות
+        {
+            List<string> list = new List<string>();
+            IEnumerable<DO.Customer> a = accessIDal.GetAllCustomer();
+
+            for (int i = 0; i < a.Count(); i++)
+            {
+                list.Add(CostumerToListToPrint(a.ElementAt(i).Id).Name);
+            }
+            return list;
+        }
+       
     }
     
 }

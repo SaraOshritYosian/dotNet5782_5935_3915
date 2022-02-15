@@ -348,6 +348,12 @@ namespace BL
             }
             return b;
         }
+        public IEnumerable<BO.ParcelToLIst> GetParcelByPerdicate(Predicate<BO.ParcelToLIst> predicate)
+        {
+            return from parcel in this.GetParcels()
+                   where predicate(parcel)
+                   select parcel;
+        }
     }
 }
 

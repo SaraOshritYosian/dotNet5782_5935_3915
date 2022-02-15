@@ -256,8 +256,8 @@ namespace Dal
         public DO.Parcel GetParcelByDrone(int id)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
-            DO.Parcel per = ListParcel.Find(p => p.Droneld == id);
-            bool fal = ListParcel.Any(p => p.Droneld == id);
+            DO.Parcel per = ListParcel.Find(p => p.Droneld == id&&p.Delivered==default);
+            bool fal = ListParcel.Any(p => p.Droneld == id && p.Delivered == default);
             if (fal == false)
                 throw new DO.DroneDoesNotExistException($"bad drone id: {id}");
             else

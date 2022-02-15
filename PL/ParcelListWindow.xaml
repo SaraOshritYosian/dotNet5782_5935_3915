@@ -35,21 +35,27 @@
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="111*"/>
+                <ColumnDefinition Width="289*"/>
+                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition Width="200*"/>
             </Grid.ColumnDefinitions >
-
-        </Grid>
-        <Grid Name="MainGrid">
-            <Button Content="x" HorizontalAlignment="Left" Margin="762,14,0,13" Width="28" Background="#FFEF1D1D" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" HorizontalContentAlignment="Center" Click="Button_Click"/>
-            <Button Content="" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Center" Width="68" Height="45" Click="Button_Click_2">
+            <ComboBox x:Name="senderrr" HorizontalAlignment="Left" Margin="90,32,0,0" VerticalAlignment="Top" Width="118" Grid.Column="1" Height="22" SelectionChanged="sender_SelectionChanged"/>
+            <ComboBox x:Name="target"  Grid.Column="1" HorizontalAlignment="Left" Margin="87,85,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="ComboBox_SelectionChanged"/>
+            <Label Content="By sender" HorizontalAlignment="Left" Margin="0,32,0,0" VerticalAlignment="Top" Height="26" Width="62" Grid.Column="1"/>
+            <Label Content="By recipient" Grid.Column="1" HorizontalAlignment="Left" Margin="3,82,0,0" VerticalAlignment="Top" Height="26" Width="72"/>
+            <Button Content="x" HorizontalAlignment="Left" Margin="160,6,0,87" Height="33" Width="33" Background="#FFEF1D1D" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" HorizontalContentAlignment="Center" Click="Button_Click" Grid.Column="3"/>
+            <Button Content="" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top" Width="63" Height="37" Click="Button_Click_2">
                 <Button.Background>
                     <ImageBrush ImageSource="/576x768bb.png"/>
                 </Button.Background>
             </Button>
+            <Label Content="Package mode" Grid.Column="2" HorizontalAlignment="Left" Margin="3,86,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="statusPaket" Grid.Column="2" HorizontalAlignment="Left" Margin="103,85,0,0" VerticalAlignment="Top" Width="86"/>
+            <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="208,35,0,0" VerticalAlignment="Top" Width="19" Height="17" Background="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" FontWeight="Bold" Click="Button_Click_4"/>
+            <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="211,87,0,0" VerticalAlignment="Top" Width="19" RenderTransformOrigin="-0.217,0.027" Height="18" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF1A0707" FontWeight="Bold" Click="Button_Click_3"/>
         </Grid>
+
         <Button x:Name="AddParcel" Content="ADD" HorizontalAlignment="Right" Margin="676,12,10,0" Grid.Row="3" VerticalAlignment="Top" Height="34" Width="78" Click="AddParcel_Click" BorderBrush="{x:Null}"/>
         <Button Content="" HorizontalAlignment="Left" Margin="45,2,0,0" Grid.Row="3" VerticalAlignment="Top" Height="45" Width="83" Click="Button_Click_1" BorderBrush="{x:Null}">
             <Button.Background>

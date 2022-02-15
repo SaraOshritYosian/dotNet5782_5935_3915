@@ -52,8 +52,43 @@ namespace PL
             ScheduledT.Content = accseccBL.GetParcel(parcel.Id).Scheduled;
             DeliveredT.Content = accseccBL.GetParcel(parcel.Id).Delivered;
             RequestedT.Content = accseccBL.GetParcel(parcel.Id).Requested;
+            if (accseccBL2.GetParcel(ParcelToLIst.Id).Scheduled == default)//אם לא שוייך ניתן למחוק
+                deletParcel.Visibility = Visibility.Visible;
+            else
+                deletParcel.Visibility = Visibility.Hidden;
         }
+        public ParcelWindow(IBL accseccBL, BO.ParcelToLIst parcel)//ניפתח תצוגת חבילה מהחלון של הרחפן
+        {
+            InitializeComponent();
 
+            accseccBL2 = accseccBL;
+            ParcelToLIst = parcel;
+            GridUpParcel.Visibility = Visibility.Visible;//עדכון מופעל
+            GridAddParcel.Visibility = Visibility.Hidden;//הוספה מופעל
+            DroneLabel.IsEnabled = false; ;
+            IdsLabel.IsEnabled = false;
+            IdTLabel.IsEnabled = false;
+            GridUpParcel.DataContext = parcel;
+            IdsLabel.Content = accseccBL.GetParcel(parcel.Id).CustomerInParcelSender;
+            IdTLabel.Content = accseccBL.GetParcel(parcel.Id).CustomerInParcelTarget;
+            if (accseccBL.GetParcel(parcel.Id).DroneInParcel != null && accseccBL.GetParcel(parcel.Id).Delivered == default)
+            {
+                DroneLabel.Content = accseccBL.GetDrone(accseccBL.GetParcel(parcel.Id).DroneInParcel.Id).Id;
+                lAbelDrone.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DroneLabel.Visibility = Visibility.Hidden;
+                lAbelDrone.Visibility = Visibility.Hidden;
+            }
+
+            //DroneLabel.Content = accseccBL.GetParcel(parcel.Id).DroneInParcel;
+            PichedUpT.Content = accseccBL.GetParcel(parcel.Id).PichedUp;
+            ScheduledT.Content = accseccBL.GetParcel(parcel.Id).Scheduled;
+            DeliveredT.Content = accseccBL.GetParcel(parcel.Id).Delivered;
+            RequestedT.Content = accseccBL.GetParcel(parcel.Id).Requested;
+            deletParcel.Visibility = Visibility.Hidden;
+        }
         public ParcelWindow(IBL accseccBL, ParcelListWindow parcelList)//add
         {
             InitializeComponent();
@@ -92,7 +127,6 @@ namespace PL
                 Label1.Visibility = Visibility.Hidden;
             if (TextIds.Text != "")
             {
-
 
                 Label4.Visibility = Visibility.Hidden;
                 if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text))==false)//לא קיים
@@ -173,28 +207,6 @@ namespace PL
             dronWindow.Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (accseccBL2.GetParcel(ParcelToLIst.Id).Scheduled == default)//אם לא שוייך ניתן למחוק
-            {
-                var a = MessageBox.Show("You're sure you want to delete", "delete", MessageBoxButton.YesNo);
-                
-                if (a==MessageBoxResult.Yes)
-                {
-                   // //accseccBL2.DeleteParcel(ParcelToLIst.Id);
-                   //// Close();
-                   //// ParcelListWindow.DataContext = accseccBL2.GetParcels();
-                    MessageBox.Show("The order was successfully deleted");
-                }
-               
-              
-            }
-            else
-            MessageBox.Show("This invitation could not be deleted because it was associated with Drone");
-           
-           
-        }
-
         private void IdsLabel_Click(object sender, RoutedEventArgs e)//השולח
         {
             BO.CustomerToList customerToList = accseccBL2.CostumerToListToPrint(accseccBL2.GetParcel(ParcelToLIst.Id).CustomerInParcelSender.Id);
@@ -207,6 +219,27 @@ namespace PL
             BO.CustomerToList customerToList = accseccBL2.CostumerToListToPrint(accseccBL2.GetParcel(ParcelToLIst.Id).CustomerInParcelTarget.Id);
             CustomerWindow customerWindow = new(accseccBL2, customerToList);
             customerWindow.Show();
+        }
+
+        private void deletParcel_Click(object sender, RoutedEventArgs e)
+        {
+            if (accseccBL2.GetParcel(ParcelToLIst.Id).Scheduled == default)//אם לא שוייך ניתן למחוק
+            {
+                var a = MessageBox.Show("You're sure you want to delete", "delete", MessageBoxButton.YesNo);
+
+                if (a == MessageBoxResult.Yes)
+                {
+                    accseccBL2.DeleteParcel(ParcelToLIst.Id);
+                    ParcelListWindow.parcelToLIstDataGrid.DataContext = accseccBL2.GetParcels();
+                    MessageBox.Show("The order was successfully deleted");
+                    this.Close();
+                }
+
+
+            }
+            else
+                MessageBox.Show("This invitation could not be deleted because it was associated with Drone");
+
         }
     }
 }

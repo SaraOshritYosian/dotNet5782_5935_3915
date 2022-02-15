@@ -83,7 +83,7 @@
 
             <Button Content="X" Grid.Column="1" Margin="350,6,0,0" VerticalAlignment="Top" Background="#FFE91818" BorderBrush="{x:Null}" FontSize="20" FontFamily="Arial Black" FontWeight="Bold" Height="28" Click="Button_Click" HorizontalAlignment="Left" Width="28"/>
 
-            <Button Content="Delete" Grid.Column="1" HorizontalAlignment="Left" Margin="163,559,0,0" VerticalAlignment="Top" Height="43" Width="128" FontWeight="Bold" FontSize="18" FontFamily="Arial Black" BorderBrush="#FF1B150D" Background="#FFB1926A" Click="Button_Click_1"/>
+            <Button x:Name="deletParcel"  Content="Delete" Grid.Column="1" HorizontalAlignment="Left" Margin="163,559,0,32" Width="128" FontWeight="Bold" FontSize="18" FontFamily="Arial Black" BorderBrush="#FF1B150D" Background="#FFB1926A" Click="deletParcel_Click"/>
 
 
 

@@ -166,10 +166,11 @@ namespace PL
         private void ListViewDroneInCharge_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
            
-            BO.DroneToList drne = ListViewDroneInCharge.SelectedItem as BO.DroneToList;
-            if (drne != null)
+            BO.DroneInCharge drne1 = ListViewDroneInCharge.SelectedItem as BO.DroneInCharge;
+            BO.DroneToList drone = accseccBL1.DroneToLisToPrint(drne1.Id);
+            if (drne1 != null)
             {
-                DronWindow dr = new DronWindow(accseccBL1, drne);
+                DronWindow dr = new DronWindow(accseccBL1, drone);
                 dr.Show();
             }
         }
