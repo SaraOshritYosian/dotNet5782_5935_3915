@@ -21,7 +21,7 @@ namespace PL
     public partial class DroneListWindow : Window
     {
        private IBL accseccBL1;
-        
+        private List<int> Idd = new List<int>();
         public DroneListWindow(IBL accseccBL)
         {
             InitializeComponent();
@@ -32,7 +32,10 @@ namespace PL
           
 
         }
-        
+        private void updateList(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DronesListView.Items.Refresh();
+        }
         private void Add_Drone_Click(object sender, RoutedEventArgs e)
         {
             DronWindow dr = new DronWindow(accseccBL1,this);//מקבל גם גישה וגם את החלון כדי שיוכל לסגור אותו
@@ -40,11 +43,16 @@ namespace PL
         }
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
+        { 
+           
             BO.DroneToList drne = DronesListView.SelectedItem as BO.DroneToList;
-            if (drne != null)
+            if (drne != null& !Idd.Any(id => id == drne.Id))
             {
+                Idd.Add(drne.Id);
                 DronWindow dr = new DronWindow(accseccBL1, drne, this);
+                dr.Closing += (sender, e) => Idd.Remove(drne.Id);
+                dr.DataContextChanged += updateList;
+                //refresh listView
                 dr.Show();
             }
             

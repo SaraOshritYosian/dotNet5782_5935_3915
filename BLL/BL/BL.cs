@@ -109,15 +109,14 @@ namespace BL
                     if (DALParcel1[index].PichedUp == DateTime.MinValue)//אם לא נאסף ולא סופק המיקום יהיה בתחנה קרוב לשולח
                     {
                         item.LocationDrone = new Location { Latitude = GetStationCalculatesTheSmallestDistance(senderLocation).Latitude, Longitude = GetStationCalculatesTheSmallestDistance(senderLocation).Longitude };// שמים את הרחן במקום של התחנה הקרובה לשולח לא נאסף ןלא סופק 
-
-                        electricityUse += DistanceTo(item.LocationDrone.Latitude, item.LocationDrone.Longitude, targetLocation.Latitude, targetLocation.Longitude) * Free;
+                        electricityUse += DistanceTo(item.LocationDrone.Latitude, item.LocationDrone.Longitude, senderLocation.Latitude, senderLocation.Longitude) * Free;
                     }
                     else
                     {
                         item.LocationDrone = senderLocation;//נאסף החבילה יהיה במיקום השולח
                     }
-
-                    item.StatusBatter = (int)((int)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+                    int a= rand.Next((int)electricityUse, 100);
+                    item.StatusBatter = a;
                     item.IdParcel = DALParcel1[index].Id;
 
                 }
@@ -128,7 +127,7 @@ namespace BL
                     if (index1 != -1)//אם הרחפן בטעינה
                     {
                         item.StatusDrone = StatusDrone.InMaintenance;
-                        item.StatusBatter = rand.Next(0, 21);
+                        item.StatusBatter =(int) rand.Next(0, 21);
                         item.LocationDrone = new Location { Latitude = accessIDal.GetStation(DALDroneCharge1.Find(x => x.Droneld == item.Id).Stationld).Latitude, Longitude = accessIDal.GetStation(DALDroneCharge1.Find(x => x.Droneld == item.Id).Stationld).Longitude };
 
                     }
@@ -137,17 +136,21 @@ namespace BL
 
                         item.StatusDrone = StatusDrone.available;
                         List<DO.Parcel> DeliveredBySameId = DALParcel1.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
-                        if (DeliveredBySameId.Any())
+                        int a = rand.Next(0, DeliveredBySameId.Count);
+                        BO.Location location = BLCustomer.Find(x => x.Id == DeliveredBySameId[a].Targetld).LocationOfCustomer;
+                        
+                        if (DeliveredBySameId.Any()&& location != null)
                         {
-                            item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count-1)].Targetld).LocationOfCustomer;
+                           
+                            item.LocationDrone = location;
                             double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
-                            item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+                            item.StatusBatter = (int)((int)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
 
                         }
                         else
                         {
                             item.LocationDrone = BLStation[rand.Next(0, BLStation.Count)].LocationStation;
-                            item.StatusBatter = rand.Next(0, 101);
+                            item.StatusBatter = (int)rand.Next(0, 101);
                         }
 
                     }

@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 
     namespace BO
     {
+
        public class Excptions : Exception
         {
             public Excptions() : base() { }
@@ -29,7 +30,18 @@ using System.Runtime.Serialization;
                 return "The id does not exist";
             }
         }
-        [Serializable]
+
+    [Serializable]
+    public class CantSendDroneToChargeException : Exception
+    {
+        public CantSendDroneToChargeException(string message) : base(message) { }
+    }
+    [Serializable]
+    public class CantLinkParcelException : Exception
+    {
+        public CantLinkParcelException(string message) : base(message) { }
+    }
+    [Serializable]
         class AlreadyExistException : Exception
         {
             public AlreadyExistException() : base() { }

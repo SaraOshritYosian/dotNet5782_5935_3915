@@ -11,6 +11,7 @@ namespace BL
     {
 
         #region Dronecharge
+       
         public  double GetFarCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
         {
             BO.DroneToList drone = DroneToLisToPrint(idDr);
@@ -211,7 +212,7 @@ namespace BL
                    // Model = "ffff",
                     Weight = (BO.WeightCategories)dodrone.Weight,
                     StatusDrone = dotolist.StatusDrone,
-                    StatusBatter = dotolist.StatusBatter,
+                    StatusBatter =(int)dotolist.StatusBatter,
                     LocationDrone = dotolist.LocationDrone,
 
                     //PackageInTransfe = GetParcelInTransfer(id)
@@ -304,11 +305,11 @@ namespace BL
                 bodroneToList.Id = dodrone.Id;
                 bodroneToList.Model = dodrone.Model;
                 bodroneToList.Weight = (BO.WeightCategories)dodrone.Weight;
-                bodroneToList.StatusBatter = bo.StatusBatter;
+                bodroneToList.StatusBatter =(int)bo.StatusBatter;
                 bodroneToList.StatusDrone = bo.StatusDrone;
                 bodroneToList.LocationDrone = bo.LocationDrone;
                 if (bo.StatusDrone == BO.StatusDrone.delivered)//אם הוא במצב עסוק אז יש לו חבילה בעברה ומכניסה את מספר החבילה
-                    bodroneToList.IdParcel = GetDrone(id).PackageInTransfe.Id;
+                    bodroneToList.IdParcel = GetParcelInTransfer(id).Id;
 
 
             }

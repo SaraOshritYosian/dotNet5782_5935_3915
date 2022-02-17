@@ -28,7 +28,6 @@ namespace BlApi
 
         #region Drone
         IEnumerable<BO.DroneToList> GetDrons();
-        
         Drone GetDrone(int id);
         void AddDrone(Drone drone, int cod);//add
         void UpdateDrone(int id, string name);
