@@ -79,19 +79,20 @@
             <Label  x:Name="statuse" Content="" Grid.Column="1" HorizontalAlignment="Center" Margin="21,149,0,0" VerticalAlignment="Top" Width="398" Height="45" FontSize="18" FontFamily="Arial Black" Foreground="#FFEA1919" Background="#FFDDDDDD"/>
 
             <Label Content="Battary" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="98" Height="56" FontSize="18" FontFamily="Arial Black"/>
-            <TextBox x:Name="TexBattery" Grid.Column="1" HorizontalAlignment="Center" Margin="0,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="30" Background="{x:Null}" Foreground="#FF2F2828" BorderBrush="#FF161B28" TextAlignment="Center" FontFamily="Agency FB" FontWeight="Bold" FontSize="14"/>
+            <TextBox x:Name="TexBattery" Grid.Column="1" HorizontalAlignment="Left" Margin="177,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="30" Background="{x:Null}" Foreground="#FF2F2828" BorderBrush="#FF161B28" TextAlignment="Center" FontFamily="Agency FB" FontWeight="Bold" FontSize="14"/>
 
             <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="268" Margin="0,10,20,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="270"/>
             <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Right" Margin="0,121,43,0" VerticalAlignment="Top" Width="215" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
             <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,200,42,0" Grid.Row="1" VerticalAlignment="Top" Width="213" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
-            <Button x:Name="Cancell" Content="X" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,10,250" FontFamily="Arial Black" Background="#FFEB1414" Click="Cancell_Click" Width="20" Height="20" />
+            <Button x:Name="Cancell" Content="X" Grid.Column="1" Margin="415,5,10,254" FontFamily="Arial Black" Background="#FFEB1414" Click="Cancell_Click" Height="20" />
             <Label x:Name="LabelTime" Content="Enter Time To Charge" Grid.Column="1" HorizontalAlignment="Right" Margin="0,26,42,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14"/>
             <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,64,80,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
             <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="292,89,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717"/>
             <Label x:Name="LabelErrorMode"  Content="Please fill in" HorizontalAlignment="Left" Margin="130,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="82" Foreground="#FFF50C0C"/>
             <Button x:Name="ButtonParcel" Content="" Grid.Column="1" HorizontalAlignment="Center" Margin="18,196,0,0" VerticalAlignment="Top" Height="65" Width="402" Click="ButtonParcel_Click"/>
             <Button x:Name="atu" Content="automatic" HorizontalAlignment="Left" Margin="327,271,0,14" Grid.Row="1" Width="161" Click="atu_Click" FontSize="18" FontFamily="Arial Black" Foreground="#FFE41717" Grid.ColumnSpan="2"/>
-
+            <CheckBox x:Name="SimulatorIsActive" Content="Simulator is Active" Visibility="Collapsed" HorizontalAlignment="Left" Margin="271,13,0,0" VerticalAlignment="Top"/>
+            <ProgressBar x:Name="resultProgressBar"  Grid.Column="1" HorizontalAlignment="Left" Height="46" Margin="52,60,0,0" VerticalAlignment="Top" Width="100"/>
 
 
 
