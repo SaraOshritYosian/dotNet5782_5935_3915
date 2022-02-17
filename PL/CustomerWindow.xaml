@@ -16,15 +16,15 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Button x:Name="Cancell" Content="X" HorizontalAlignment="Left" Margin="765,10,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" d:IsHidden="True" />
-        <Grid x:Name="GridAddCustomer">
+        <Grid x:Name="GridAddCustomer" d:IsHidden="True">
             <Grid.ColumnDefinitions>                <ColumnDefinition Width="211*"/>                <ColumnDefinition Width="189*"/>                <ColumnDefinition Width="200*"/>                <ColumnDefinition Width="200*"/>            </Grid.ColumnDefinitions>
             <Label x:Name="LableId1" Content="ID:" HorizontalAlignment="Left" Margin="54,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.163,0.499" Width="57" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"/>
             <Label x:Name="LableName1" Content="Name:" HorizontalAlignment="Left" Margin="49,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.224,1.916" Width="81" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"/>
             <Label x:Name="LablePhone1" Content="Phone:" HorizontalAlignment="Left" Margin="48,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.397,1.38" Width="82" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"/>
             <Label x:Name="LableLocation1" Content="Location:" HorizontalAlignment="Left" Margin="43,290,0,0" VerticalAlignment="Top" Width="115" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"/>
-            <TextBox x:Name="TextBoxId" Grid.Column="1" Text="{Binding  Id}" HorizontalAlignment="Center" Margin="0,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
-            <TextBox x:Name="TextBoxName" Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Center" Margin="0,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-            <TextBox x:Name="TextBoxPhone" Grid.Column="1" Text="{Binding  Pone}" HorizontalAlignment="Center" Margin="0,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+            <TextBox x:Name="TextBoxId" Grid.Column="1" Text="{Binding  Id , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Center" Margin="0,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+            <TextBox x:Name="TextBoxName" Grid.Column="1" Text="{Binding Name , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Center" Margin="0,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+            <TextBox x:Name="TextBoxPhone" Grid.Column="1" Text="{Binding  Pone , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Center" Margin="0,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
             <TextBox x:Name="TextBoxLongtitude" Grid.Column="2" HorizontalAlignment="Center" Margin="0,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Height="18"/>
             <Button x:Name="ButtonAdd" Content="Add:" Grid.Column="3" HorizontalAlignment="Center" Margin="0,333,0,0" VerticalAlignment="Top" Width="100" Height="43" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"  Click="ButtonAdd_Click"/>
             <TextBox x:Name="TextBoxLattidude" Grid.Column="2" HorizontalAlignment="Center" Margin="0,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
@@ -37,27 +37,27 @@
         </Grid>
 
         <!--{Binding LableId}-->
-        <Grid x:Name="GridUpdateCustomer" d:IsHidden="True">
+        <Grid x:Name="GridUpdateCustomer">
             <Label x:Name="LableName" Content="Name:" HorizontalAlignment="Left" Margin="17,116,0,0" VerticalAlignment="Top" Width="90" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"/>
             <Label x:Name="LableId" Content="ID:" HorizontalAlignment="Left" Margin="27,54,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" RenderTransformOrigin="1.056,0.541"/>
             <Label x:Name="LablePhone" Content="Phone:" HorizontalAlignment="Left" Margin="17,190,0,0" VerticalAlignment="Top" Width="90" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" RenderTransformOrigin="0.523,0.037"/>
             <Label x:Name="LableLocation" Content="Location:" HorizontalAlignment="Left" Margin="17,257,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" RenderTransformOrigin="0.863,0.601"/>
-            <Label x:Name="LableId2" Content="{Binding LableId}" HorizontalAlignment="Left" Margin="123,65,0,0" VerticalAlignment="Top" Width="115"/>
-            <TextBox x:Name="TextboxName" Text="{Binding LableName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="150,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
-            <TextBox x:Name="TextboxPhone" Text="{Binding LablePhone, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="212,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+            <Label x:Name="LableId2" Content="{Binding Id}" HorizontalAlignment="Left" Margin="123,65,0,0" VerticalAlignment="Top" Width="115"/>
+            <TextBox x:Name="TextboxName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="150,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="36"/>
+            <TextBox x:Name="TextboxPhone" Text="{Binding Pone, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="149,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" Height="35"/>
             <Label x:Name="LableLocationLong" Content="" HorizontalAlignment="Left" Margin="222,247,0,0" VerticalAlignment="Top" Width="154"/>
             <Label x:Name="LableTitleUpdate" Content="Update Customer:" HorizontalAlignment="Left" Margin="283,0,0,0" VerticalAlignment="Top" Width="210" Height="39" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303"/>
 
             <Button x:Name="ButtonUpdate" Content="Save" HorizontalAlignment="Left" Margin="62,343,0,0" VerticalAlignment="Top" Width="180" Height="46" FontSize="20" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" Click="ButtonUpdate_Click"/>
             <Label x:Name="LableLocationLat" Content="" HorizontalAlignment="Left" Margin="222,289,0,0" VerticalAlignment="Top" Width="154" Height="27"/>
-            <ListView x:Name="ListviewListOfPackagesFromTheCustomer" Margin="403,94,38,207" MouseDoubleClick="ListviewListOfPackagesFromTheCustomer_MouseDoubleClick">
+            <ListView x:Name="ListviewListOfPackagesFromTheCustomer" Margin="400,94,15,195" MouseDoubleClick="ListviewListOfPackagesFromTheCustomer_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView x:Name="ListViewListOfPackagesToTheCustomer" Margin="403,289,38,15" MouseDoubleClick="ListViewListOfPackagesToTheCustomer_MouseDoubleClick">
+            <ListView x:Name="ListViewListOfPackagesToTheCustomer" Margin="403,289,13,15" MouseDoubleClick="ListViewListOfPackagesToTheCustomer_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

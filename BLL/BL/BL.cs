@@ -139,7 +139,7 @@ namespace BL
                         List<DO.Parcel> DeliveredBySameId = DALParcel1.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
                         if (DeliveredBySameId.Any())
                         {
-                            item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
+                            item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count-1)].Targetld).LocationOfCustomer;
                             double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
                             item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
 

@@ -2,7 +2,7 @@
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
     <Id>32424593</Id>
-    <Name>chana</Name>
+    <Name>riki</Name>
     <Pone>0504378982</Pone>
     <Longitude>32.07</Longitude>
     <Lattitude>34.79</Lattitude>
