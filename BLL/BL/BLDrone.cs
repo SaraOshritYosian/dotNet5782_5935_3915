@@ -79,11 +79,6 @@ namespace BL
             return s;
         }
 
-
-
-
-
-
         public double returnMinDistancFromLicationToStation(BO.Location lo)//check the min far station to drone
         {
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
@@ -280,6 +275,24 @@ namespace BL
             accessIDal.UpdetDrone(cc);
         }
 
+        public void UpdateDrone(BO.Drone drone)//v
+        {
+            try
+            {
+                accessIDal.UpdetDrone(new DO.Drone { Id = drone.Id, Model = drone.Model, Weight = (DO.WeightCategories)drone.Weight });
+            }
+            catch (BO.Excptions ex)
+            {
+                throw new BO.Excptions(ex.Message);
+            }
+            BO.DroneToList droneToList = new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone };
+            if (drone.PackageInTransfe != null)
+                droneToList.IdParcel = drone.PackageInTransfe.Id;
+            else
+                droneToList.IdParcel = 0;
+            BlDrone.Remove(BlDrone.Find(p => p.Id == drone.Id));
+            BlDrone.Add(droneToList);
+        }
 
         public BO.DroneToList DroneToLisToPrint(int id)//v
         {
@@ -317,6 +330,10 @@ namespace BL
                 return (int)(kilometrs * MediumWeight);
             return (int)(kilometrs * HeavyWeight);
 
+        }
+        public double BatteryConsumption(double kilometrs, BO.WeightCategories weight)// Overrides the previous function in case the glider is free and no weight category enters
+        {
+            return kilometrs * Free;
         }
         public double BatteryConsumption(double kilometrs)// Overrides the previous function in case the glider is free and no weight category enters
         {

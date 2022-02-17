@@ -1,4 +1,5 @@
 ﻿using BO;
+using DalApi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace BlApi
 {
     public interface IBL
     {
+
+        void StartDroneSimulator(int id, Action update, Func<bool> checkStop);
         #region Customer
         Customer GetCustomer(int id);
         void UpdateCustomer(int id, string name, string phone);
@@ -29,6 +32,7 @@ namespace BlApi
         Drone GetDrone(int id);
         void AddDrone(Drone drone, int cod);//add
         void UpdateDrone(int id, string name);
+        void UpdateDrone(BO.Drone drone);
         void SendingDroneToCharging(int droneId);
         void ReleaseDrone(int id, TimeSpan time);
         double GetFarCalculatesTheSmallestDistance(int idDr);
@@ -38,9 +42,11 @@ namespace BlApi
         double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K');
         BO.DroneToList DroneToLisToPrint(int id);
         int BatteryConsumption(double kilometrs, DO.WeightCategories weightcategories);
+        double BatteryConsumption(double kilometrs, BO.WeightCategories weight);
         double BatteryConsumption(double kilometrs);
 
         IEnumerable<BO.DroneToList> GetDronsByWeight(WeightCategories weightcategories);
+
         #endregion
 
         #region Station
@@ -58,6 +64,8 @@ namespace BlApi
         #endregion
 
         #region Parcel
+        void UpdateParcel(BO.Parcel parcel);
+         double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K');
         BO.ParcelToLIst ParcelToListToPrint(int idp);
         void DeleteParcel(int idD);
         Parcel GetParcel(int id);

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Xml.Linq;
 using DalApi;
 using Dal;
-using DalApi;
 using DO;
 
 namespace Dal
@@ -281,8 +280,9 @@ namespace Dal
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
             XElement aa = XMLTools.LoadListFromXMLElement(configPath);
-            int codd = XMLTools.LoadListFromXMLElement(configPath).Element("RowNumbers").Elements().Select(e => Convert.ToInt32(e.Value)).FirstOrDefault();//יש תמספר חבילה
-            
+            int codd = Convert.ToInt32(aa.Element("RowNumbers").Value);
+           // int codd = XMLTools.LoadListFromXMLElement(configPath).Element("RowNumbers").Elements().Select(e => Convert.ToInt32(e.Value)).FirstOrDefault();//יש תמספר חבילה
+
             Parcel p = new Parcel();
             p.Senderld = parcel.Senderld;
             p.Targetld = parcel.Targetld;
@@ -294,10 +294,13 @@ namespace Dal
             p.PichedUp = parcel.PichedUp;
             p.Delivered = parcel.Delivered;           
             p.Id = codd++;//המספר של החבילה
+
             aa.Element("RowNumbers").Value = codd.ToString();
-            aa.Value = codd.ToString();                      
-          //  XMLTools.SaveListToXMLElement(aa, configPath);
+           // aa.Value = codd.ToString(); 
+            
+           XMLTools.SaveListToXMLElement(aa, configPath);
             ListParcel.Add(p);
+            
             XMLTools.SaveListToXMLSerializer(ListParcel, parcelsPath);
             return p.Id;
 

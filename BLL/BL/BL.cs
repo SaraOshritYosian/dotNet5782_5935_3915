@@ -16,42 +16,38 @@ namespace BL
         //
         public Random rand = new Random(DateTime.Now.Millisecond);
         internal IDal accessIDal = DalFactory.GetDal();//access to dalobject
-        private List<DroneToList> BlDrone;
-        public static double Free;
-        public static double LightWeight;
-        public static double MediumWeight;
-        public static double HeavyWeight;
-        public static double LoadingPrecents;
         
+        private List<DroneToList> BlDrone;
+        public  double Free;
+        public  double LightWeight;
+        public  double MediumWeight;
+        public  double HeavyWeight;
+        public  double LoadingPrecents;
+
         static readonly IBL instance = new BL();
         public static IBL Instance { get => instance; }
 
         BL()
 
         {
-           
+
             double[] arr = accessIDal.RequestPowerConsuption();// בקשת צריכת חשמל ע"י רחפן
             Free = arr[0];
             LightWeight = arr[1];
             MediumWeight = arr[2];
             HeavyWeight = arr[3];
             LoadingPrecents = arr[4];
-             BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
+            BlDrone = new List<DroneToList>();//רשימה של רחפנים בביאל
             //BLDrones = new List<Drone>();
             IEnumerable<DO.Drone> DALDrones = accessIDal.GetAllDrone().ToList();//רשימה של רחפנים מDAL
             IEnumerable<DO.DroneCharge> DALDronesDroneCharge = accessIDal.GetAllDroneCharge().ToList();//רשימה של רחפנים מDAL
-            //foreach (var item in DALDronesDroneCharge)
-            //{
-            //    accessIDal.ReleaseDroneFromCharging(item.Droneld);
-            //}
 
-
-                foreach (var item in DALDrones)
+            foreach (var item in DALDrones)
             {
                 BlDrone.Add(new DroneToList { Id = item.Id, Model = item.Model, Weight = (WeightCategories)item.Weight });//weightcategories
-            
-            
-            
+
+
+
             }
             List<Customer> BLCustomer = new List<Customer>();
             IEnumerable<DO.Customer> DALCustomer = accessIDal.GetAllCustomer();//רשימה של לקוחות מDAL
@@ -61,24 +57,24 @@ namespace BL
             }
             List<Station> BLStation = new List<Station>();
             IEnumerable<DO.Station> DALStation = accessIDal.GetAllStation();
-           
-                foreach (var item in DALStation)
-            { 
+
+            foreach (var item in DALStation)
+            {
                 BLStation.Add(new Station { Name = item.Name, Id = item.Id, ChargeSlotsFree = item.ChargeSlots, LocationStation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude } });//lattitud with one t
-            
+
             }
             List<DO.Parcel> DALParcel1 = new List<DO.Parcel>();//להעביר לתוכו
             IEnumerable<DO.Parcel> DALParcel0 = accessIDal.GetAllParcel();//רשימה של חבילות מDAL
             foreach (var item in DALParcel0)
             {
-                DALParcel1.Add(new DO.Parcel { Id = item.Id, Senderld = item.Senderld, Delivered = item.Delivered, Droneld = item.Droneld, PichedUp = item.PichedUp, Priority = item.Priority,Requested=item.Requested,Scheduled=item.Scheduled,Targetld=item.Targetld,Weight=item.Weight }) ;//lattitud with one t
+                DALParcel1.Add(new DO.Parcel { Id = item.Id, Senderld = item.Senderld, Delivered = item.Delivered, Droneld = item.Droneld, PichedUp = item.PichedUp, Priority = item.Priority, Requested = item.Requested, Scheduled = item.Scheduled, Targetld = item.Targetld, Weight = item.Weight });//lattitud with one t
             }
             // IEnumerable<DO.Parcel> DALParcel = accessIDal.GetAllParcel();//רשימה של חביחות מ DAL
             List<DO.DroneCharge> DALDroneCharge1 = new List<DO.DroneCharge>();//להעביר לתוכו
             IEnumerable<DO.DroneCharge> DALDroneCharge = accessIDal.GetAllDroneCharge();//רשימה של חבילות מDAL
             foreach (var item in DALDroneCharge)
             {
-                DALDroneCharge1.Add(new DO.DroneCharge { Stationld = item.Stationld,Droneld=item.Droneld });//lattitud with one t
+                DALDroneCharge1.Add(new DO.DroneCharge { Stationld = item.Stationld, Droneld = item.Droneld });//lattitud with one t
             }
 
 
@@ -139,41 +135,32 @@ namespace BL
                     else
                     {
 
-
-                        //item.StatusDrone = (StatusDrone)rand.Next(0, 2);
-                        //if (item.StatusDrone == StatusDrone.InMaintenance)
-                        //{
-                        //    Station station = BLStation[rand.Next(0, BLStation.Count)];
-                        //    item.LocationDrone = station.LocationStation;
-                        //    accessIDal.SendDroneToCharge(station.Id, item.Id);
-                        //    //IDAL.DO.DroneCharge  droneCharge= new IDAL.DO.DroneCharge();
-                        //    // accessIDal.UpdetDroneCharge(station.Id);
-                        //    item.StatusBatter = rand.Next(0, 21);
-                        //}
-                        //else
-                        //{
                         item.StatusDrone = StatusDrone.available;
                         List<DO.Parcel> DeliveredBySameId = DALParcel1.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
-                            if (DeliveredBySameId.Any())
-                            {
-                                item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
-                                double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
-                                item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+                        if (DeliveredBySameId.Any())
+                        {
+                            item.LocationDrone = BLCustomer.Find(x => x.Id == DeliveredBySameId[rand.Next(0, DeliveredBySameId.Count)].Targetld).LocationOfCustomer;
+                            double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
+                            item.StatusBatter = (float)((float)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
 
-                            }
-                            else
-                            {
-                                item.LocationDrone = BLStation[rand.Next(0, BLStation.Count)].LocationStation;
-                                item.StatusBatter = rand.Next(0, 101);
-                            }
-                        //}
+                        }
+                        else
+                        {
+                            item.LocationDrone = BLStation[rand.Next(0, BLStation.Count)].LocationStation;
+                            item.StatusBatter = rand.Next(0, 101);
+                        }
+
                     }
                 }
+            }
+        }
+            public void StartDroneSimulator(int id, Action update, Func<bool> checkStop)
+            {
+                new Simulator(this, id, update, checkStop);
             }
 
 
         }
-
     }
-}
+
 

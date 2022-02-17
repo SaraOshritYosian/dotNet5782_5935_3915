@@ -1,12 +1,11 @@
-﻿<data-config>
-	<BatteryUsages>
-		<FreeBatteryUsing>0.1</FreeBatteryUsing>
-		<LightBatteryUsing>0.1</LightBatteryUsing>
-		<MediumBatteryUsing>0.2</MediumBatteryUsing>
-		<HeavyBatteryUsing>0.4</HeavyBatteryUsing>
-		<ChargingRate>30</ChargingRate>
-	</BatteryUsages>
-	<RowNumbers>
-		<NewParcelId>28</NewParcelId>
-	</RowNumbers>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data-config>
+  <BatteryUsages>
+    <FreeBatteryUsing>0.1</FreeBatteryUsing>
+    <LightBatteryUsing>0.1</LightBatteryUsing>
+    <MediumBatteryUsing>0.2</MediumBatteryUsing>
+    <HeavyBatteryUsing>0.4</HeavyBatteryUsing>
+    <ChargingRate>0.6</ChargingRate>
+  </BatteryUsages>
+  <RowNumbers>35</RowNumbers>
 </data-config>

@@ -25,16 +25,8 @@ namespace PL
         public DroneListWindow(IBL accseccBL)
         {
             InitializeComponent();
-            //ניצרו רשימה של הרחפני ואז נכניס בדתה את הרשימה ואז כשעושים עוספת רחפן חדש אז עושים לרשימה שיצרנו אדד
-            //List<Drone> dd = new List<Drone>();
-            
             accseccBL1 = accseccBL;
-            // DronesListView.DataContext= accseccBL1.GetDrons();
-           // ComboBoxMaxWeight.Items.Add("None");
-          //  ComboBoxStatuse.Items.Add("None");
-
             DronesListView.ItemsSource = accseccBL1.GetDrons();//ממלא את הרשימה
-           
             ComboBoxStatuse.ItemsSource = Enum.GetValues(typeof(BO.StatusDrone));
             ComboBoxMaxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
           

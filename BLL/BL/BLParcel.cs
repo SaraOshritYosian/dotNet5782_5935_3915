@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -13,7 +14,21 @@ namespace BL
         {
             accessIDal.DeleteParcel(idD);
         }
+        public void UpdateParcel(BO.Parcel parcel)
+        {
+            DO.Parcel p = new DO.Parcel();
 
+            p.Senderld = parcel.CustomerInParcelSender.Id;
+            p.Targetld = parcel.CustomerInParcelTarget.Id;
+            p.Weight = (DO.WeightCategories)parcel.Weight;
+            p.Priority = (DO.Priority)parcel.Priority;
+            p.Droneld = parcel.DroneInParcel.Id;
+            p.Requested = parcel.Requested;
+            p.Scheduled = parcel.Scheduled;
+            p.PichedUp = parcel.PichedUp;
+            p.Delivered = parcel.Delivered;
+            accessIDal.UpdetParcel(p);
+        }
         public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
         {
             BO.PackageInTransfer bop;
@@ -108,7 +123,7 @@ namespace BL
             }
         }
 
-        private static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
+        public  double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
             double rlat1 = Math.PI * lat1 / 180;
             double rlat2 = Math.PI * lat2 / 180;
@@ -270,10 +285,12 @@ namespace BL
                     ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude));
                 for (int i = 0; i < peoperty.Count(); i++)
                 {
-
+                    //המרחק מהמיקום של הרחפן הנוכחי ועש הלאסוף תחבילה
                     double farToS = DistanceTo(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude);//מרחק ממקום של הרחפן למקום של ההזמנה
+                   //vnrje nvaukj kneck
                     double farFromSToT = DistanceTo(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);//מרחק ממיקום השולח למיקום של המקבל
                     BO.Location location = new BO.Location() { Latitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, Longitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude };//מיקום של מי שצריך לקבל
+                    //מרחק מהמקבל ועד לתחנה הקרובה אליו
                     double fatToStationMinDis = returnMinDistancFromLicationToStation(location);//מרחק מהתחנה הקרובה לרחפן לאחר מישלוח
                     DO.WeightCategories weight1 = peoperty.ElementAt(i).Weight;//משקל ההזמנה
                    
@@ -284,7 +301,6 @@ namespace BL
                     {
                         return peoperty.ElementAt(i);
                     }
-                    
                         
                 }
             }
@@ -307,7 +323,7 @@ namespace BL
                 throw new Exception("No have parcel to Assign");
 
             DO.Parcel pp = MIUNParcelByGood(drone.Id);//קיבלתי את המשלוח לפי העדיפות טובה
-                                                           //pp.Scheduled = DateTime.Now;//זמן שיוך עכשיו
+                                                         
             drone.StatusDrone = BO.StatusDrone.delivered;//שינוי מצב רחפן
             drone.IdParcel = pp.Id;
             accessIDal.AssignPackageToDrone(pp.Id, id);//שליחת הרחפן והחבילה לשיכבת הנתונים
@@ -354,7 +370,16 @@ namespace BL
                    where predicate(parcel)
                    select parcel;
         }
+
+
+
     }
+
+
+
+
+
+
 }
 
     
