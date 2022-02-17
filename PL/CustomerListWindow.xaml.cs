@@ -65,7 +65,7 @@ namespace PL
         {
             BO.CustomerToList cl = CustomerListView.SelectedItem as BO.CustomerToList;
             if (cl != null)
-            {
+            {          
                 CustomerWindow cw = new CustomerWindow(accseccBL1, cl, this);//לעשות את הפעולה 
                 cw.Show();
             }
@@ -78,5 +78,12 @@ namespace PL
             we.Show();
             Close();
         }
+
+        private void CustomerListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+       
     }
 }

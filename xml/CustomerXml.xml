@@ -23,23 +23,51 @@
   </Customer>
   <Customer>
     <Id>8989076</Id>
-    <Name>hodaya</Name>
-    <Pone>03757867</Pone>
+    <Name>jennifer</Name>
+    <Pone>0989898654</Pone>
     <Longitude>32.08</Longitude>
     <Lattitude>34.767</Lattitude>
   </Customer>
   <Customer>
     <Id>55435473</Id>
-    <Name>haim</Name>
-    <Pone>053454567</Pone>
+    <Name>shira</Name>
+    <Pone>0546764567</Pone>
     <Longitude>32.067</Longitude>
     <Lattitude>34.8</Lattitude>
   </Customer>
   <Customer>
     <Id>12343245</Id>
-    <Name>shimon</Name>
-    <Pone>08978678</Pone>
+    <Name>shira</Name>
+    <Pone>4567890</Pone>
     <Longitude>32.07</Longitude>
+    <Lattitude>34.8</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>77889980</Id>
+    <Name>renana</Name>
+    <Pone>0546567568</Pone>
+    <Longitude>32.06</Longitude>
+    <Lattitude>34.76</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>12121212</Id>
+    <Name>rivka c</Name>
+    <Pone>0676545678</Pone>
+    <Longitude>32.06</Longitude>
+    <Lattitude>34.77</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>13131313</Id>
+    <Name>moti</Name>
+    <Pone>054354657</Pone>
+    <Longitude>32.1</Longitude>
+    <Lattitude>34.8</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>324233915</Id>
+    <Name>saraoshrit</Name>
+    <Pone>0556678288</Pone>
+    <Longitude>32.1</Longitude>
     <Lattitude>34.8</Lattitude>
   </Customer>
 </ArrayOfCustomer>

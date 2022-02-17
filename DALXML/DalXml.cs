@@ -632,7 +632,7 @@ namespace Dal
            
         }
 
-        void IDal.UpdetCustomer(int id, Action<DO.Customer> action)
+        void IDal.UpdetCustomer(int id, Action<DO.Customer> action)//
         {
             throw new NotImplementedException();
         }

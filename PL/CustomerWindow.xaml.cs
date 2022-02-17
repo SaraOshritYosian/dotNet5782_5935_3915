@@ -21,10 +21,13 @@ namespace PL
    
     public partial class CustomerWindow : Window
     {
+        BO.Customer customer;
         BO.CustomerToList customerTo;
+
         IBL accseccBL2;
         bool newcustome = false;
         private readonly CustomerListWindow customerListWindow1;
+   
         public CustomerWindow(IBL accseccBL1, CustomerListWindow customerList)//add מקבל גישה לביאל וצקבל את החלון של רשימת הלקוחות
         {
             InitializeComponent();
@@ -43,7 +46,7 @@ namespace PL
             accseccBL2 = accseccBL1;
             newcustome = true;
         }
-        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customer, CustomerListWindow customerList)//update
+        public CustomerWindow(IBL accseccBL1, BO.CustomerToList customers, CustomerListWindow customerList)//update
         {
             InitializeComponent();
             ButtonAdd.IsEnabled = false;
@@ -51,22 +54,25 @@ namespace PL
             GridAddCustomer.Visibility = Visibility.Hidden;
             GridUpdateCustomer.Visibility = Visibility.Visible;
             accseccBL2 = accseccBL1;
-            customerTo = customer;
-            ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customerTo.Id);
-            ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customerTo.Id);
-           TextboxName.Text = customer.Name;
-            TextBoxPhone.Text = customer.Pone;
-            if(TextboxPhone.Text!=null&&TextBoxName.Text!=null)
+
+            customer = accseccBL2.GetCustomer(customers.Id);
+            DataContext = customer;
+
+            ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customer.Id);
+            ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customer.Id);
+            ////TextboxName.Text = customer.Name;
+            //TextBoxPhone.Text = customer.Pone;
+            if (TextboxPhone.Text != null && TextBoxName.Text != null)
             {
                 ButtonAdd.IsEnabled = true;
             }
             /*ListParcelFromCustomers(customerTo.Id);*/
 
             LableId2.Content = (customer.Id).ToString();
-            //  TextboxName.Text = customer.Name;//לעדכן
-            //  TextboxPhone.Text = customer.Pone;//לעדכן
-            LableLocation.Content= accseccBL2.GetCustomer(customer.Id).LocationOfCustomer;
-            //עדכון
+            TextboxName.Text = customer.Name;//לעדכן
+            TextBoxPhone.Text = customer.Pone;//לעדכן
+            LableLocation.Content = accseccBL2.GetCustomer(customer.Id).LocationOfCustomer;
+           // עדכון
 
         }
 
@@ -104,36 +110,52 @@ namespace PL
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)//add customer
         {
-            
+
             //לעשות בדיקות
-            BO.Customer customer1;
-            customer1 = new()
+            if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextBoxId.Text)))//קיים
             {
-                Id = Convert.ToInt32(TextBoxId.Text),
-                Name = TextBoxName.Text,
-                Pone = TextBoxPhone.Text,
-                LocationOfCustomer = new BO.Location() { Latitude = Convert.ToDouble(TextBoxLattidude.Text), Longitude = Convert.ToDouble(TextBoxLongtitude.Text) }
-            };
-            try
+                MessageBox.Show("This customer is already exist!");
+            }
+            else
             {
-                accseccBL2.AddCustomer(customer1);
-                MessageBox.Show("The customer wad added succesfully!");
-                if (newcustome == false)
+                if (TextBoxId.Text != "" && TextBoxName.Text != "" && TextBoxPhone.Text != "" && TextBoxLattidude.Text != "" && TextBoxLongtitude.Text != "")
                 {
-                    customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
-                }
+
+                    BO.Customer customer1;
+                    customer1 = new()
+                    {
+                        Id = Convert.ToInt32(TextBoxId.Text),
+                        Name = TextBoxName.Text,
+                        Pone = TextBoxPhone.Text,
+                        LocationOfCustomer = new BO.Location() { Latitude = Convert.ToDouble(TextBoxLattidude.Text), Longitude = Convert.ToDouble(TextBoxLongtitude.Text) }
+                    };
+                    try
+                    {
+                        accseccBL2.AddCustomer(customer1);
+                        MessageBox.Show("The customer wad added succesfully!");
+                        if (newcustome == false)
+                        {
+                            customerListWindow1.CustomerListView.DataContext = accseccBL2.GetCustomers();
+                        }
+                        else
+                        {
+                            ListsWindow we = new ListsWindow(accseccBL2);
+                            we.Show();
+                        }
+                        this.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                }   
                 else
                 {
-                    ListsWindow we = new ListsWindow(accseccBL2);
-                    we.Show();
-                }
-                    this.Close();
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Fill in what's missing");
 
+                }
             }
 
 
@@ -143,7 +165,8 @@ namespace PL
         {
             try
             {
-                accseccBL2.UpdateCustomer(Convert.ToInt32(LableId.Content), TextBoxName.Text, TextBoxPhone.Text);
+                accseccBL2.UpdateCustomer(Convert.ToInt32(LableId2.Content), TextboxName.Text, TextboxPhone.Text);
+                //CustomerWindow();
                 customerListWindow1.CustomerListView.ItemsSource = accseccBL2.GetCustomers();
                 MessageBox.Show("The customer wad updated succesfully!");
             }
@@ -157,11 +180,13 @@ namespace PL
 
         private void ListviewListOfPackagesFromTheCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)//?
         {
+       
             BO.ParcelToLIst parcels = ListviewListOfPackagesFromTheCustomer.SelectedItem as BO.ParcelToLIst;
-            ParcelListWindow parcelList = new ParcelListWindow(accseccBL2);
+            //ParcelListWindow parcelList = new ParcelListWindow(accseccBL2);
             if (parcels != null)
             {
-                ParcelWindow p = new ParcelWindow(accseccBL2,parcels, parcelList);
+                ParcelWindow p = new ParcelWindow(accseccBL2, parcels);
+
                 p.Show();
             }
 
@@ -170,10 +195,10 @@ namespace PL
         private void ListViewListOfPackagesToTheCustomer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.ParcelToLIst parcels = ListViewListOfPackagesToTheCustomer.SelectedItem as BO.ParcelToLIst;
-            ParcelListWindow parcelList = new ParcelListWindow(accseccBL2);
+            //ParcelListWindow parcelList = new ParcelListWindow(accseccBL2);
             if (parcels != null)
             {
-                ParcelWindow p = new ParcelWindow(accseccBL2, parcels, parcelList);
+                ParcelWindow p = new ParcelWindow(accseccBL2, parcels);
                 p.Show();
             }
 

@@ -87,7 +87,7 @@ namespace BL
             }
             return c;
         }
-        //update customer by id or name or phone ot more
+        //update customer by id or name or phone or more
         public void UpdateCustomer(int id, string name, string phone)//v
         {
             DO.Customer c = accessIDal.GetCustomer(id);

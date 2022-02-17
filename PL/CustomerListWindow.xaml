@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="CustomerListWindow" Height="450" Width="800">
     <Grid x:Name="main">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFF4DB9B"/>
+                <GradientStop Color="#FF9F7B4D" Offset="0.991"/>
+                <GradientStop Color="#FFEEE2CD" Offset="0.478"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid x:Name="innerGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="188*"/>
@@ -19,11 +26,11 @@
                 </Button.Background>
             </Button>
 
-            <Label x:Name="TitleLable" Content="רשימת לקוחות" HorizontalAlignment="Left" Margin="352,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.26,0.54" Width="126" Height="26">
+            <Label x:Name="TitleLable" Content="רשימת לקוחות" HorizontalAlignment="Left" Margin="352,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.26,0.54" Width="106" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" Height="26">
 
             </Label>
             <Button x:Name="Cancell" Content="X" HorizontalAlignment="Left" Margin="759,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black" Background="#FFEB1414" Height="22" Width="31" Click="Cancell_Click" RenderTransformOrigin="0.565,-1.5" Grid.Row="1" />
-            <Button x:Name="AddButton" Content="הוספת לקוח" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.304,1.036" Width="96" Click="AddButton_Click" Grid.Row="1" Height="20"/>
+            <Button x:Name="AddButton" Content="הוספת לקוח" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.304,1.036" Width="96" Click="AddButton_Click" Grid.Row="1" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" Height="20"/>
             <DataGrid x:Name="CustomerListView" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="6,45,4,25" RowDetailsVisibilityMode="VisibleWhenSelected" MouseDoubleClick="CustomerListView_MouseDoubleClick_1">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="idColumn" Header="Id" Width="SizeToHeader">
