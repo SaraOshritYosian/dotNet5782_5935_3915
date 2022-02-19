@@ -89,8 +89,8 @@ namespace BL
                     item.StatusDrone = StatusDrone.delivered;
                     Location senderLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Senderld).LocationOfCustomer;//מיקום של שולח
                     Location targetLocation = BLCustomer.Find(x => x.Id == DALParcel1[index].Targetld).LocationOfCustomer;//מיקום של במקבל
-                    double distanceBsenderAreciever = DistanceTo(senderLocation.Latitude, senderLocation.Longitude, targetLocation.Latitude, targetLocation.Longitude);
-                    double distanceBrecieverAstation = returnMinDistancFromLicationToStation(targetLocation);//
+                    double distanceBsenderAreciever = DistanceTo(senderLocation.Latitude, senderLocation.Longitude, targetLocation.Latitude, targetLocation.Longitude);//המרחק משולח למקבל
+                    double distanceBrecieverAstation = returnMinDistancFromLicationToStation(targetLocation);//מרחק לאחר משלוח לתחנה הקרובה
                     double electricityUse = distanceBrecieverAstation * Free;
                     switch (DALParcel1[index].Weight)
                     {
@@ -145,8 +145,8 @@ namespace BL
 
                             item.LocationDrone = location;
                             double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
-                            item.StatusBatter = (int)((int)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
-
+                            //item.StatusBatter = (int)((int)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);
+                            item.StatusBatter = electricityUse < 100 ? new Random().Next((int)electricityUse, 101) : 100;
                         }
                         else
                         {

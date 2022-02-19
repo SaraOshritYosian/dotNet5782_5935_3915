@@ -58,7 +58,7 @@ namespace BL
                     CustomerInParcelTarget = new BO.CustomerInParcel() { Id = dop.Targetld, Name = GetCustomer(dop.Targetld).Name },
                     Collection = GetCustomer(dop.Senderld).LocationOfCustomer,
                     DeliveryDestination = GetCustomer(dop.Targetld).LocationOfCustomer,
-                    far = DistanceTo(GetCustomer(dop.Senderld).LocationOfCustomer.Latitude, GetCustomer(dop.Senderld).LocationOfCustomer.Longitude, GetCustomer(dop.Targetld).LocationOfCustomer.Latitude, GetCustomer(dop.Targetld).LocationOfCustomer.Longitude)//צריך לחשב את המרחק
+                    far = calculateDist(GetDrone(idD).LocationDrone.Latitude, GetDrone(idD).LocationDrone.Longitude, GetCustomer(dop.Targetld).LocationOfCustomer.Latitude, GetCustomer(dop.Targetld).LocationOfCustomer.Longitude)//צריך לחשב את המרחק
 
 
                 };
@@ -140,31 +140,61 @@ namespace BL
 
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public  double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
+        public  double DistanceTo(double lac1, double loc1, double lac2, double loc2, char unit = 'K')
         {
-            double rlat1 = Math.PI * lat1 / 180;
-            double rlat2 = Math.PI * lat2 / 180;
-            double theta = lon1 - lon2;
-            double rtheta = Math.PI * theta / 180;
-            double dist =
-                Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) *
-                Math.Cos(rlat2) * Math.Cos(rtheta);
-            dist = Math.Acos(dist);
-            dist = dist * 180 / Math.PI;
-            dist = dist * 60 * 1.1515;
+            const double Radios = 6371000;//meters
+            //deg to radians
+            double lat1 = lac1 * Math.PI / 180;
+            double lat2 = lac2 * Math.PI / 180;
+            double lng1 = loc1 * Math.PI / 180;
+            double lng2 = loc2 * Math.PI / 180;
 
-            switch (unit)
-            {
-                case 'K': //Kilometers -> default
-                    return dist * 1.609344;
-                case 'N': //Nautical Miles 
-                    return dist * 0.8684;
-                case 'M': //Miles
-                    return dist;
-            }
+            //Haversine formula
+            double a = Math.Pow(Math.Sin((lat2 - lat1) / 2), 2) +
+                Math.Cos(lat1) * Math.Cos(lat2) *
+                Math.Pow(Math.Sin((lng2 - lng1) / 2), 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return Radios * c;
 
-            return dist;
+
+            //double rlat1 = Math.PI * lat1 / 180;
+            //double rlat2 = Math.PI * lat2 / 180;
+            //double theta = lon1 - lon2;
+            //double rtheta = Math.PI * theta / 180;
+            //double dist = Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) *  Math.Cos(rlat2) * Math.Cos(rtheta);
+            //dist = Math.Acos(dist);
+            //dist = dist * 180 / Math.PI;
+            //dist = dist * 60 * 1.1515;
+
+            //switch (unit)
+            //{
+            //    case 'K': //Kilometers -> default
+            //        return dist * 1.609344;
+            //    case 'N': //Nautical Miles 
+            //        return dist * 0.8684;
+            //    case 'M': //Miles
+            //        return dist;
+            //}
+
+            //return dist;
         }
+        private double calculateDist(double lac1, double loc1, double lac2, double loc2)
+        {
+            const double Radios = 6371000;//meters
+            //deg to radians
+            double lat1 = lac1 * Math.PI / 180;
+            double lat2 = lac2 * Math.PI / 180;
+            double lng1 = loc1 * Math.PI / 180;
+            double lng2 = loc2 * Math.PI / 180;
+
+            //Haversine formula
+            double a = Math.Pow(Math.Sin((lat2 - lat1) / 2), 2) +
+                Math.Cos(lat1) * Math.Cos(lat2) *
+                Math.Pow(Math.Sin((lng2 - lng1) / 2), 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return Radios * c;
+        }
+
 
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -276,7 +306,7 @@ namespace BL
                 {
 
                     DO.Customer sender = accessIDal.GetCustomer(parcel.Senderld);
-                    double distance = DistanceTo(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
+                    double distance = calculateDist(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, sender.Lattitude, sender.Longitude);//לקרוא לפונ חישוב מרחק
                     drone.StatusBatter -= BatteryConsumption(distance);
                     drone.LocationDrone = new BO.Location//עדכון מיקום למיקום שולח
                     {
@@ -314,13 +344,13 @@ namespace BL
                 IEnumerable<DO.Parcel> aa = accessIDal.GetAllParcel();
                 //IDAL.DO.Parcel newGood;
                 var peoperty = aa.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight).
-                    ThenBy(parcel => DistanceTo(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude));
+                    ThenBy(parcel => calculateDist(BlDronepp.LocationDrone.Latitude, BlDronepp.LocationDrone.Latitude, accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude));
                 for (int i = 0; i < peoperty.Count(); i++)
                 {
                     //המרחק מהמיקום של הרחפן הנוכחי ועש הלאסוף תחבילה
-                    double farToS = DistanceTo(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude);//מרחק ממקום של הרחפן למקום של ההזמנה
+                    double farToS = calculateDist(locationDrone.Latitude, locationDrone.Longitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude);//מרחק ממקום של הרחפן למקום של ההזמנה
                    //vnrje nvaukj kneck
-                    double farFromSToT = DistanceTo(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);//מרחק ממיקום השולח למיקום של המקבל
+                    double farFromSToT = calculateDist(GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Senderld).LocationOfCustomer.Longitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude);//מרחק ממיקום השולח למיקום של המקבל
                     BO.Location location = new BO.Location() { Latitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Latitude, Longitude = GetCustomer(peoperty.ElementAt(i).Targetld).LocationOfCustomer.Longitude };//מיקום של מי שצריך לקבל
                     //מרחק מהמקבל ועד לתחנה הקרובה אליו
                     double fatToStationMinDis = returnMinDistancFromLicationToStation(location);//מרחק מהתחנה הקרובה לרחפן לאחר מישלוח
@@ -386,7 +416,7 @@ namespace BL
                 if (parcel.Delivered != default)//אספו
 
                     throw new Exception();//להוסיף חריגה
-                double distance = DistanceTo(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
+                double distance = calculateDist(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
                 drone.StatusBatter -= BatteryConsumption(distance, parcel.Weight);
                 drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Targetld).Lattitude;//שינוי מיקום
                 drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Targetld).Longitude;

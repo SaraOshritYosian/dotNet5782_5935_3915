@@ -21,10 +21,12 @@ namespace PL
     public partial class ParcelListWindow : Window
     {
         private IBL accseccBL1;
-        public ParcelListWindow(IBL accseccBL)
+        bool customer = false;
+        public ParcelListWindow(IBL accseccBL,bool cur=false)
         {
             InitializeComponent();
             accseccBL1 = accseccBL;
+            customer = cur;
             parcelToLIstDataGrid.DataContext= accseccBL1.GetParcels();
             parcelToLIstDataGrid.IsReadOnly = true;
             senderrr.ItemsSource = accseccBL1.GetCustomersName();
@@ -41,9 +43,20 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ListsWindow we = new ListsWindow(accseccBL1,true);
-            we.Show();
-            Close();
+            if (customer == true)
+            {
+                ListsWindow we = new ListsWindow(accseccBL1, true);
+                we.Show();
+                Close();
+            }
+            else
+            {
+                ListsWindow we = new ListsWindow(accseccBL1);
+                we.Show();
+                Close();
+
+            }
+            
         }
 
         

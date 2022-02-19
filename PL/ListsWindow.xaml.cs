@@ -59,9 +59,18 @@ namespace PL
 
         private void ParcelList_Click(object sender, RoutedEventArgs e)//parcel
         {
-            ParcelListWindow we = new ParcelListWindow(accseccBL2);
-            we.Show();
-            Close();
+            if (cus == true){
+                ParcelListWindow we = new ParcelListWindow(accseccBL2,true);
+                we.Show();
+                Close();
+            }
+            else
+            {
+                ParcelListWindow we = new ParcelListWindow(accseccBL2);
+                we.Show();
+                Close();
+            }
+          
         }
 
         private void DroneList12_Click(object sender, RoutedEventArgs e)

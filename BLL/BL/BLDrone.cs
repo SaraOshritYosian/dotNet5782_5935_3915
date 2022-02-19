@@ -19,13 +19,13 @@ namespace BL
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
             double  min;
             double chack;
-            min = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            min = calculateDist(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
            
             for (int i = 1; i < station.Count(); i++)
             {
                 if (station.ElementAt(i).ChargeSlots > 0)
                 {
-                    chack = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    chack = calculateDist(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
                     if (min > chack)
                         min = chack;
                 }
@@ -41,13 +41,13 @@ namespace BL
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
             double chack, min;
             DO.Station s;
-            min = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            min = calculateDist(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
             s = station.ElementAt(0);
             for (int i = 1; i < station.Count(); i++)
             {
                 if (station.ElementAt(i).ChargeSlots > 0)//אם יש מקום טעינה פנוי
                 {
-                    chack = DistanceToFromStationToDroneLocation(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    chack = calculateDist(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
                     if (min > chack)
                     {
                         min = chack;
@@ -66,13 +66,13 @@ namespace BL
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
             double chack, min;
             DO.Station s;
-            min = DistanceToFromStationToDroneLocation(location.Latitude, location.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            min = calculateDist(location.Latitude, location.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
             s = station.ElementAt(0);
             for (int i = 1; i < station.Count(); i++)
             {
                 if (station.ElementAt(i).ChargeSlots > 0)//אם יש מקום טעינה פנוי
                 {
-                    chack = DistanceToFromStationToDroneLocation(location.Latitude, location.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    chack = calculateDist(location.Latitude, location.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
                     if (min > chack)
                     {
                         min = chack;
@@ -90,13 +90,13 @@ namespace BL
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
             double chack, min;
            // IDAL.DO.Station s = station.ElementAt(0);
-            min = DistanceToFromStationToDroneLocation(lo.Latitude, lo.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
+            min = calculateDist(lo.Latitude, lo.Longitude, station.ElementAt(0).Latitude, station.ElementAt(0).Longitude);
            // s = station.ElementAt(0);
             for (int i = 1; i < station.Count(); i++)
             {
                 if (station.ElementAt(i).ChargeSlots > 0)//אם יש מקום טעינה פנוי
                 {
-                    chack = DistanceToFromStationToDroneLocation(lo.Latitude, lo.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
+                    chack = calculateDist(lo.Latitude, lo.Longitude, station.ElementAt(i).Latitude, station.ElementAt(i).Longitude);
                     if (min > chack)
                     {
                         min = chack;

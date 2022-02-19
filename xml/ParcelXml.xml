@@ -181,30 +181,6 @@
     <Delivered>2022-02-19T19:50:03.6029035+02:00</Delivered>
   </Parcel>
   <Parcel>
-    <Id>6</Id>
-    <Senderld>12343245</Senderld>
-    <Targetld>55435473</Targetld>
-    <Weight>Light</Weight>
-    <Priority>simple</Priority>
-    <Droneld>0</Droneld>
-    <Requested>2022-02-18T16:09:21.0311673+02:00</Requested>
-    <Scheduled>0001-01-01T00:00:00</Scheduled>
-    <PichedUp>0001-01-01T00:00:00</PichedUp>
-    <Delivered>0001-01-01T00:00:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>35</Id>
-    <Senderld>32424593</Senderld>
-    <Targetld>111111</Targetld>
-    <Weight>Light</Weight>
-    <Priority>simple</Priority>
-    <Droneld>0</Droneld>
-    <Requested>2022-02-18T15:38:14.0786279+02:00</Requested>
-    <Scheduled>0001-01-01T00:00:00</Scheduled>
-    <PichedUp>0001-01-01T00:00:00</PichedUp>
-    <Delivered>0001-01-01T00:00:00</Delivered>
-  </Parcel>
-  <Parcel>
     <Id>39</Id>
     <Senderld>222222</Senderld>
     <Targetld>111111</Targetld>
@@ -232,30 +208,6 @@
     <Id>41</Id>
     <Senderld>222222</Senderld>
     <Targetld>55435473</Targetld>
-    <Weight>Light</Weight>
-    <Priority>quick</Priority>
-    <Droneld>0</Droneld>
-    <Requested>2022-02-19T20:04:04.1899028+02:00</Requested>
-    <Scheduled>0001-01-01T00:00:00</Scheduled>
-    <PichedUp>0001-01-01T00:00:00</PichedUp>
-    <Delivered>0001-01-01T00:00:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>29</Id>
-    <Senderld>111111</Senderld>
-    <Targetld>8989076</Targetld>
-    <Weight>Medium</Weight>
-    <Priority>simple</Priority>
-    <Droneld>0</Droneld>
-    <Requested>2022-02-15T18:50:39.8718953+02:00</Requested>
-    <Scheduled>0001-01-01T00:00:00</Scheduled>
-    <PichedUp>0001-01-01T00:00:00</PichedUp>
-    <Delivered>0001-01-01T00:00:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>37</Id>
-    <Senderld>32424593</Senderld>
-    <Targetld>222222</Targetld>
     <Weight>Light</Weight>
     <Priority>quick</Priority>
     <Droneld>0</Droneld>
@@ -299,5 +251,53 @@
     <Scheduled>2022-02-19T21:48:46.9488581+02:00</Scheduled>
     <PichedUp>2022-02-19T21:49:28.9651142+02:00</PichedUp>
     <Delivered>2022-02-19T21:49:37.9900108+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>6</Id>
+    <Senderld>12343245</Senderld>
+    <Targetld>55435473</Targetld>
+    <Weight>Light</Weight>
+    <Priority>simple</Priority>
+    <Droneld>1</Droneld>
+    <Requested>2022-02-18T16:09:21.0311673+02:00</Requested>
+    <Scheduled>2022-02-19T22:25:24.9588707+02:00</Scheduled>
+    <PichedUp>2022-02-19T22:25:26.0671577+02:00</PichedUp>
+    <Delivered>2022-02-19T22:25:27.1556603+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>35</Id>
+    <Senderld>32424593</Senderld>
+    <Targetld>111111</Targetld>
+    <Weight>Light</Weight>
+    <Priority>simple</Priority>
+    <Droneld>1</Droneld>
+    <Requested>2022-02-18T15:38:14.0786279+02:00</Requested>
+    <Scheduled>2022-02-19T22:25:28.8234766+02:00</Scheduled>
+    <PichedUp>2022-02-19T22:25:29.9060062+02:00</PichedUp>
+    <Delivered>2022-02-19T22:25:30.9835128+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>29</Id>
+    <Senderld>111111</Senderld>
+    <Targetld>8989076</Targetld>
+    <Weight>Medium</Weight>
+    <Priority>simple</Priority>
+    <Droneld>3</Droneld>
+    <Requested>2022-02-15T18:50:39.8718953+02:00</Requested>
+    <Scheduled>2022-02-19T22:37:49.4398898+02:00</Scheduled>
+    <PichedUp>0001-01-01T00:00:00</PichedUp>
+    <Delivered>0001-01-01T00:00:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>37</Id>
+    <Senderld>32424593</Senderld>
+    <Targetld>222222</Targetld>
+    <Weight>Light</Weight>
+    <Priority>quick</Priority>
+    <Droneld>2</Droneld>
+    <Requested>2022-02-19T20:04:04.1899028+02:00</Requested>
+    <Scheduled>2022-02-19T22:39:03.1497247+02:00</Scheduled>
+    <PichedUp>0001-01-01T00:00:00</PichedUp>
+    <Delivered>0001-01-01T00:00:00</Delivered>
   </Parcel>
 </ArrayOfParcel>

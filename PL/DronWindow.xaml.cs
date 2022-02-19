@@ -138,7 +138,7 @@ namespace PL
             GridUpDrone.DataContext = drone2;
             if (droneTo.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
-                
+                parcelB.Visibility = Visibility.Hidden;
                 BottonToFun.Content = "Release from charging";
                 comoboxTime.Visibility = Visibility.Visible;
                 LabelTime.Visibility = Visibility.Visible;
@@ -154,7 +154,7 @@ namespace PL
             {
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
-                
+                parcelB.Visibility = Visibility.Hidden;
                 BottonToFun.Content = "Send for loading";
                 BottonToFun2.Content = "Assignment to the package";
             }
@@ -165,7 +165,7 @@ namespace PL
                 if (a != 0)
                 {
                     BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
-
+                    parcelB.Visibility = Visibility.Visible;
 
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
@@ -173,7 +173,7 @@ namespace PL
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;//רק לספק
                         BottonToFun.Visibility = Visibility.Hidden;
-                        ButtonParcel.Visibility = Visibility.Visible;
+                        
                        
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
@@ -249,11 +249,12 @@ namespace PL
                 BottonToFun2.Visibility = Visibility.Hidden;
                 BottonToFun.Visibility = Visibility.Visible;
                 station1 = accseccBL2.GetStationByDrone(droneTo.Id);
-
+                parcelB.Visibility = Visibility.Hidden;
             }
 
             if (droneTo.StatusDrone == BO.StatusDrone.available)//אם זמין אז יש אפשרות או לשייך חבילה או לשלוח לטעינה
             {
+                parcelB.Visibility = Visibility.Hidden;
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Visibility = Visibility.Visible;
                // statuse.Content = "The Drone is available";
@@ -264,13 +265,14 @@ namespace PL
             if (droneTo.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
             {
                 int a = droneTo.IdParcel;
+
                 if (a != 0)
                 {
                     BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
-
+                    parcelB.Visibility = Visibility.Visible;
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
-                        //statuse.Content = "The Drone collected the package";
+                        
                         BottonToFun2.Content = "Provide package";
                         BottonToFun2.Visibility = Visibility.Visible;//רק לספק
                         BottonToFun.Visibility = Visibility.Hidden;
@@ -278,7 +280,7 @@ namespace PL
                     }
                     if (pp == BO.StatusParcel.associated)//זה שוייך צריך לאסוף
                     {
-                        //statuse.Content = "The Drone belongs to the package";
+                        
                         BottonToFun.Visibility = Visibility.Visible;//רק לאסוף
                         BottonToFun.Content = "Collect a package";
                         BottonToFun2.Visibility = Visibility.Hidden;
@@ -313,7 +315,6 @@ namespace PL
         public DronWindow(IBL accseccBL1, BO.DroneToList drone)// מקבל את הרחפן מחלון של תחנה או מחלון חבילה
         {
             InitializeComponent();
-            ButtonParcel.Visibility = Visibility.Hidden;
             GridAddDrone.Visibility = Visibility.Hidden;//עדכון מופעל
             GridUpDrone.Visibility = Visibility.Visible;
             GridUpDrone.DataContext = accseccBL1.GetDrone(drone.Id);
@@ -326,9 +327,10 @@ namespace PL
             ButtonUpdate.Visibility = Visibility.Hidden;
             TexBoxModel.IsReadOnly = true;
             BottonToFun2.Visibility = Visibility.Hidden;
-            BottonToFun.Visibility = Visibility.Hidden;                        
-           
-         
+            BottonToFun.Visibility = Visibility.Hidden;
+            parcelB.Visibility = Visibility.Hidden;
+
+
             TexBattery.Text = Convert.ToInt32(droneTo.StatusBatter).ToString() + "%";//בטריה                                                         
             LinearGradientBrush myBrush = new();//צבע בטריה                      
             TexBattery.Background = myBrush;
@@ -510,13 +512,6 @@ namespace PL
             }
         }
 
-        private void ButtonParcel_Click(object sender, RoutedEventArgs e)
-        {
-            BO.ParcelToLIst pp = accseccBL2.ParcelToListToPrint(droneTo.IdParcel);
-            ParcelWindow par = new ParcelWindow(accseccBL2, pp);
-            par.Show();
-        }
-
 
         private bool exit = false;
         private BackgroundWorker work;
@@ -536,7 +531,7 @@ namespace PL
         {
             if (!work.IsBusy)
             {
-                ButtonParcel.IsEnabled =false;
+                parcelB.IsEnabled =false;
                 work.RunWorkerAsync();
                 BottonToFun.IsEnabled = false;
                 BottonToFun2.IsEnabled = false;
@@ -569,6 +564,7 @@ namespace PL
             LabelErrorMode.Visibility = Visibility.Hidden;
             if (drone2.StatusDrone == BO.StatusDrone.InMaintenance)//אם בתחזוקה אז יש אפשרות לשחחרר רחםן בטעינה
             {
+                parcelB.Visibility = Visibility.Hidden;
                 BottonToFun.Visibility = Visibility.Visible;
                 BottonToFun.IsEnabled = false;
                 BottonToFun.Content = "Release from charging";
@@ -589,6 +585,7 @@ namespace PL
                 BottonToFun2.Visibility = Visibility.Visible;
                 BottonToFun.Content = "Send for loading";
                 BottonToFun2.Content = "Assignment to the package";
+                parcelB.Visibility = Visibility.Hidden;
             }
 
             if (drone2.StatusDrone == BO.StatusDrone.delivered)//אם בהבלה
@@ -597,7 +594,7 @@ namespace PL
                 if (a != 0)
                 {
                     BO.StatusParcel pp = accseccBL2.StatuseParcelKnow(a);
-
+                    parcelB.Visibility = Visibility.Visible;
 
                     if (pp == BO.StatusParcel.collected)//זה נאסף נישאר לספק
                     {
@@ -614,7 +611,7 @@ namespace PL
                         BottonToFun.IsEnabled = false;//רק לאסוף
                         BottonToFun.Content = "Collect a package";
                         BottonToFun2.Visibility = Visibility.Hidden;
-                        BottonToFun.Visibility = Visibility.Hidden;
+                        BottonToFun.Visibility = Visibility.Visible;
                     }
 
                 }
@@ -650,16 +647,20 @@ namespace PL
             autBool = false;
             BottonToFun.IsEnabled = true;
             BottonToFun2.IsEnabled = true;
-            ButtonParcel.IsEnabled = true;
-            ButtonUpdate.Visibility = Visibility.Visible;
+            parcelB.IsEnabled = true;
             TexBoxModel.IsReadOnly = false;
             droneListWindow11.DronesListView.ItemsSource = accseccBL2.GetDrons();
-            Refresh(accseccBL2, accseccBL2.DroneToLisToPrint(droneTo.Id));
-            ButtonParcel.Visibility = Visibility.Visible;
+            Refresh(accseccBL2, accseccBL2.DroneToLisToPrint(droneTo.Id)); 
 
 
         }
-       
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BO.ParcelToLIst pp = accseccBL2.ParcelToListToPrint(droneTo.IdParcel);
+            ParcelWindow par = new ParcelWindow(accseccBL2, pp);
+            par.Show();
+        }
     }
 }
 
