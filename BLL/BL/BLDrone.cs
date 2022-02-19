@@ -110,31 +110,45 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
+        public double DistanceToFromStationToDroneLocation(double lac1, double loc1, double lac2, double loc2, char unit = 'K')
         {
-            
-            double rlat1 = Math.PI * lat1 / 180;
-            double rlat2 = Math.PI * lat2 / 180;
-            double theta = lon1 - lon2;
-            double rtheta = Math.PI * theta / 180;
-            double dist =
-                Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) *
-                Math.Cos(rlat2) * Math.Cos(rtheta);
-            dist = Math.Acos(dist);
-            dist = dist * 180 / Math.PI;
-            dist = dist * 60 * 1.1515;
 
-            switch (unit)
-            {
-                case 'K': //Kilometers -> default
-                    return dist * 1.609344;
-                case 'N': //Nautical Miles 
-                    return dist * 0.8684;
-                case 'M': //Miles
-                    return dist;
-            }
+            const double Radios = 6371000;//meters
+            //deg to radians
+            double lat1 = lac1 * Math.PI / 180;
+            double lat2 = lac2 * Math.PI / 180;
+            double lng1 = loc1 * Math.PI / 180;
+            double lng2 = loc2 * Math.PI / 180;
 
-            return dist;
+            //Haversine formula
+            double a = Math.Pow(Math.Sin((lat2 - lat1) / 2), 2) +
+                Math.Cos(lat1) * Math.Cos(lat2) *
+                Math.Pow(Math.Sin((lng2 - lng1) / 2), 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return Radios * c;
+
+            //double rlat1 = Math.PI * lat1 / 180;
+            //double rlat2 = Math.PI * lat2 / 180;
+            //double theta = lon1 - lon2;
+            //double rtheta = Math.PI * theta / 180;
+            //double dist =
+            //    Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) *
+            //    Math.Cos(rlat2) * Math.Cos(rtheta);
+            //dist = Math.Acos(dist);
+            //dist = dist * 180 / Math.PI;
+            //dist = dist * 60 * 1.1515;
+
+            //switch (unit)
+            //{
+            //    case 'K': //Kilometers -> default
+            //        return dist * 1.609344;
+            //    case 'N': //Nautical Miles 
+            //        return dist * 0.8684;
+            //    case 'M': //Miles
+            //        return dist;
+            //}
+
+            //return dist;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -233,7 +247,27 @@ namespace BL
                     //PackageInTransfe = GetParcelInTransfer(id)
                 };
                 if (bodrone.StatusDrone == BO.StatusDrone.delivered)
-                    bodrone.PackageInTransfe = GetParcelInTransfer(id);
+                {
+                    BO.PackageInTransfer bop;
+                    DO.Parcel dop = accessIDal.GetParcelByDrone(id);//parcel from dalObect
+                    bop = new BO.PackageInTransfer()
+                    {
+                        Id = dop.Id,
+                        PackageMode = StatuseParcelKnowBool(dop.Id),
+                        PriorityParcel = (BO.Priority)dop.Priority,
+                        Weight = (BO.WeightCategories)dop.Weight,
+                        CustomerInParcelSender = new BO.CustomerInParcel() { Id = dop.Senderld, Name = GetCustomer(dop.Senderld).Name },
+                        CustomerInParcelTarget = new BO.CustomerInParcel() { Id = dop.Targetld, Name = GetCustomer(dop.Targetld).Name },
+                        Collection = GetCustomer(dop.Senderld).LocationOfCustomer,
+                        DeliveryDestination = GetCustomer(dop.Targetld).LocationOfCustomer,
+                        far = DistanceToFromStationToDroneLocation(bodrone.LocationDrone.Latitude, bodrone.LocationDrone.Longitude, GetCustomer(dop.Targetld).LocationOfCustomer.Latitude, GetCustomer(dop.Targetld).LocationOfCustomer.Longitude)//צריך לחשב את המרחק
+
+
+                    };
+                    bodrone.PackageInTransfe = bop;
+
+                }
+                  //  bodrone.PackageInTransfe = GetParcelInTransfer(id);
 
             }
             catch (BO.Excptions ex)
@@ -333,7 +367,7 @@ namespace BL
                 bodroneToList.StatusDrone = bo.StatusDrone;
                 bodroneToList.LocationDrone = bo.LocationDrone;
                 if (bo.StatusDrone == BO.StatusDrone.delivered)//אם הוא במצב עסוק אז יש לו חבילה בעברה ומכניסה את מספר החבילה
-                    bodroneToList.IdParcel = GetParcelInTransfer(id).Id;
+                    bodroneToList.IdParcel = accessIDal.GetParcelByDrone(id).Id;
 
 
             }

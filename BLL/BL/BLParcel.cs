@@ -39,37 +39,37 @@ namespace BL
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
-        {
-            BO.PackageInTransfer bop;
-            try
-            {
-                DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
+        //[MethodImpl(MethodImplOptions.Synchronized)]
+        //public BO.PackageInTransfer GetParcelInTransfer(int idD)// 
+        //{
+        //    BO.PackageInTransfer bop;
+        //    try
+        //    {
+        //        DO.Parcel dop = accessIDal.GetParcelByDrone(idD);//parcel from dalObect
 
-                // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
-                bop = new BO.PackageInTransfer()
-                {
-                    Id = dop.Id,
-                    PackageMode = StatuseParcelKnowBool(dop.Id),
-                    PriorityParcel = (BO.Priority)dop.Priority,
-                    Weight = (BO.WeightCategories)dop.Weight,
-                    CustomerInParcelSender = new BO.CustomerInParcel() { Id = dop.Senderld, Name = GetCustomer(dop.Senderld).Name },
-                    CustomerInParcelTarget = new BO.CustomerInParcel() { Id = dop.Targetld, Name = GetCustomer(dop.Targetld).Name },
-                    Collection = GetCustomer(dop.Senderld).LocationOfCustomer,
-                    DeliveryDestination = GetCustomer(dop.Targetld).LocationOfCustomer,
-                    far = calculateDist(GetDrone(idD).LocationDrone.Latitude, GetDrone(idD).LocationDrone.Longitude, GetCustomer(dop.Targetld).LocationOfCustomer.Latitude, GetCustomer(dop.Targetld).LocationOfCustomer.Longitude)//צריך לחשב את המרחק
+        //        // IDAL.DO.Drone d = accessIDal.GetDrone(dop.Droneld);//drone from dalObject
+        //        bop = new BO.PackageInTransfer()
+        //        {
+        //            Id = dop.Id,
+        //            PackageMode = StatuseParcelKnowBool(dop.Id),
+        //            PriorityParcel = (BO.Priority)dop.Priority,
+        //            Weight = (BO.WeightCategories)dop.Weight,
+        //            CustomerInParcelSender = new BO.CustomerInParcel() { Id = dop.Senderld, Name = GetCustomer(dop.Senderld).Name },
+        //            CustomerInParcelTarget = new BO.CustomerInParcel() { Id = dop.Targetld, Name = GetCustomer(dop.Targetld).Name },
+        //            Collection = GetCustomer(dop.Senderld).LocationOfCustomer,
+        //            DeliveryDestination = GetCustomer(dop.Targetld).LocationOfCustomer,
+        //            far = calculateDist(DroneToLisToPrint(idD).LocationDrone.Latitude, DroneToLisToPrint(idD).LocationDrone.Longitude, GetCustomer(dop.Targetld).LocationOfCustomer.Latitude, GetCustomer(dop.Targetld).LocationOfCustomer.Longitude)//צריך לחשב את המרחק
 
 
-                };
-            }
-            catch (BO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
-            }
-            return bop;
+        //        };
+        //    }
+        //    catch (BO.Excptions ex)
+        //    {
+        //        throw new BO.Excptions(ex.Message);
+        //    }
+        //    return bop;
 
-        }
+        //}
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Parcel GetParcel(int id)//v
         {
@@ -416,11 +416,10 @@ namespace BL
                 if (parcel.Delivered != default)//אספו
 
                     throw new Exception();//להוסיף חריגה
-                double distance = calculateDist(accessIDal.GetCustomer(parcel.Senderld).Lattitude, accessIDal.GetCustomer(parcel.Senderld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
+                double distance = calculateDist(drone.LocationDrone.Latitude, drone.LocationDrone.Longitude, accessIDal.GetCustomer(parcel.Targetld).Lattitude, accessIDal.GetCustomer(parcel.Targetld).Longitude);
                 drone.StatusBatter -= BatteryConsumption(distance, parcel.Weight);
                 drone.LocationDrone.Latitude = accessIDal.GetCustomer(parcel.Targetld).Lattitude;//שינוי מיקום
                 drone.LocationDrone.Longitude = accessIDal.GetCustomer(parcel.Targetld).Longitude;
-                parcel.PichedUp = DateTime.Now;//שינוי זמן
                 accessIDal.DeliveryOfPackageToTheCustomer(parcel.Id);//טת המישלוח לשנו תאת זמן ההספקה
                 drone.StatusDrone = BO.StatusDrone.available;//שינוי סטטוס
                 BlDrone.Remove(BlDrone.Find(p => p.Id == id));

@@ -62,7 +62,7 @@ namespace BL
                             if (drone.PackageInTransfe.far > SPEED)
                             {
                                 Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, (SLEEP/1000) * SPEED);
-                                double newBattery = drone.StatusBatter -( SLEEP/1000) * SPEED * bl.accessIDal.RequestPowerConsuption()[0];//
+                                double newBattery = drone.StatusBatter -( SLEEP/1000) * SPEED *(bl.accessIDal.RequestPowerConsuption()[0]/100);//
                                 drone.StatusBatter = newBattery;
                                 drone.LocationDrone = newLocation;
                                 bl.UpdateDrone(drone);
@@ -91,7 +91,7 @@ namespace BL
                                 lock (bl)
                                 {
                                     Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, (SLEEP/1000) * SPEED);
-                                    double newBattery = drone.StatusBatter - (SLEEP / 1000) * SPEED * (bl.accessIDal.RequestPowerConsuption()[(int)drone.PackageInTransfe.Weight + 1]/10);
+                                    double newBattery = drone.StatusBatter - (SLEEP / 1000) * SPEED * (bl.accessIDal.RequestPowerConsuption()[(int)drone.PackageInTransfe.Weight + 1]/100);
                                     drone.StatusBatter = newBattery;
                                     drone.LocationDrone = newLocation;
                                     bl.UpdateDrone(drone);

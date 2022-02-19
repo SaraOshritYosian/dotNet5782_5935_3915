@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <data-config>
   <BatteryUsages>
-    <FreeBatteryUsing>0.0001</FreeBatteryUsing>
-    <LightBatteryUsing>0.001</LightBatteryUsing>
-    <MediumBatteryUsing>0.002</MediumBatteryUsing>
-    <HeavyBatteryUsing>0.003</HeavyBatteryUsing>
+    <FreeBatteryUsing>0.01</FreeBatteryUsing>
+    <LightBatteryUsing>0.01</LightBatteryUsing>
+    <MediumBatteryUsing>0.02</MediumBatteryUsing>
+    <HeavyBatteryUsing>0.03</HeavyBatteryUsing>
     <ChargingRate>5</ChargingRate>
   </BatteryUsages>
   <RowNumbers>42</RowNumbers>
