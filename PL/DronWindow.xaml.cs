@@ -618,8 +618,7 @@ namespace PL
                     }
 
                 }
-
-
+            }
                 TexBattery.Text = Convert.ToInt32(drone2.StatusBatter).ToString() + "%";//בטריה                                                         
                 LinearGradientBrush myBrush = new();//צבע בטריה                      
                 TexBattery.Background = myBrush;
@@ -642,7 +641,7 @@ namespace PL
                     TexBattery.Background = myBrush;
                 }
 
-            }
+         
         }
         
         private void SimulatorButton_Unchecked_1(object sender, RoutedEventArgs e)

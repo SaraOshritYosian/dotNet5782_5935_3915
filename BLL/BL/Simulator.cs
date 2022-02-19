@@ -62,7 +62,7 @@ namespace BL
                             if (drone.PackageInTransfe.far > (SLEEP/1000) * SPEED)
                             {
                                 Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, (SLEEP/1000) * SPEED);
-                                double newBattery = drone.StatusBatter -( SLEEP/1000) * SPEED/10 * bl.Free;//
+                                double newBattery = drone.StatusBatter -( SLEEP/1000) * SPEED/10 * bl.accessIDal.RequestPowerConsuption()[0];//
                                 drone.StatusBatter = newBattery;
                                 drone.LocationDrone = newLocation;
                                 bl.UpdateDrone(drone);
@@ -121,7 +121,7 @@ namespace BL
                     case StatusDrone.InMaintenance://אם בטעינה אז אפשר לשחרר
                         if (drone.StatusBatter < 100)
                         {
-                            double newBattery = drone.StatusBatter + SPEED/1000 * (bl.LoadingPrecents/2);
+                            double newBattery = drone.StatusBatter + SLEEP/1000 * bl.accessIDal.RequestPowerConsuption()[4];
                             newBattery = newBattery < 100 ? newBattery : 100;
                             drone.StatusBatter = newBattery;
                             lock (bl)
@@ -151,7 +151,7 @@ namespace BL
                 }
                 
                 WPFUpdate();
-                Thread.Sleep((int)SLEEP*10);
+                Thread.Sleep(SLEEP);
             }
           
 

@@ -84,7 +84,7 @@
             <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="276" Margin="0,25,242,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="270"/>
             <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Right" Margin="0,141,265,0" VerticalAlignment="Top" Width="215" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
             <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,220,264,0" Grid.Row="1" VerticalAlignment="Top" Width="213" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
-            <Button x:Name="Cancell" Content="X" Grid.Column="1" Margin="448,5,12,246" FontFamily="Arial Black" Background="#FFEB1414" Click="Cancell_Click" />
+            <Button x:Name="Cancell" Content="X" Grid.Column="1" Height="28" Width="28" Margin="448,5,12,246" FontFamily="Arial Black" Background="#FFEB1414" Click="Cancell_Click" />
             <Label x:Name="LabelTime" Content="Enter Time To Charge" Grid.Column="1" HorizontalAlignment="Right" Margin="0,46,264,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14" Height="26" Width="177"/>
             <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,84,302,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22"/>
             <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="118,101,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717" Height="26" Width="72"/>
