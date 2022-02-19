@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -11,7 +12,7 @@ namespace BL
     {
 
         #region Dronecharge
-       
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public  double GetFarCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
         {
             BO.DroneToList drone = DroneToLisToPrint(idDr);
@@ -32,6 +33,8 @@ namespace BL
 
             return min;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Station GetStationCalculatesTheSmallestDistance(int idDr)//check the min far station to drone
         {
             BO.DroneToList drone = DroneToLisToPrint(idDr);
@@ -56,6 +59,8 @@ namespace BL
 
             return s;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Station GetStationCalculatesTheSmallestDistance(BO.Location location)//מקבל מיקום ושולח את התחנה שקרובה למיקום
         {
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
@@ -79,7 +84,7 @@ namespace BL
 
             return s;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double returnMinDistancFromLicationToStation(BO.Location lo)//check the min far station to drone
         {
             IEnumerable<DO.Station> station = accessIDal.GetAllStation();
@@ -103,6 +108,8 @@ namespace BL
 
             return min;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double DistanceToFromStationToDroneLocation(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
             
@@ -129,6 +136,8 @@ namespace BL
 
             return dist;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendingDroneToCharging(int droneId)
         {
             DO.Station s;
@@ -149,19 +158,22 @@ namespace BL
                     battery = BatteryConsumption(kilometerStationToDrone,(DO.WeightCategories)DroneToLisToPrint(droneId).Weight);// The amount of battery wasted
                     if (battery < DroneToLisToPrint(droneId).StatusBatter)// Check if the required battery is enough for the battery I have in the glider
                     {
-                        accessIDal.SendDroneToCharge(s.Id, droneId);
-                        BO.DroneToList drone = BlDrone.Find(p => p.Id == droneId);//תחילה מוצא אותו וזה עצם מועתק
-                        drone.StatusBatter -= battery;//עדכון בטריה
-                        drone.StatusDrone = BO.StatusDrone.InMaintenance;//עדכון מצב 
-                        BO.Location l = new BO.Location();
-                        l.Latitude = accessIDal.GetStation(s.Id).Latitude;//המיקום של התחנה שאיול נישלח הרחפן
-                        l.Longitude = accessIDal.GetStation(s.Id).Longitude;
-                        drone.LocationDrone = l;//עדכון מיקום רחפן
-                        BlDrone.Remove(BlDrone.Find(p => p.Id == droneId));//מוציא
-                        BlDrone.Add(new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone, IdParcel = drone.IdParcel });
+                        lock (accessIDal)
+                        {
+                            accessIDal.SendDroneToCharge(s.Id, droneId);
+                            BO.DroneToList drone = BlDrone.Find(p => p.Id == droneId);//תחילה מוצא אותו וזה עצם מועתק
+                            drone.StatusBatter -= battery;//עדכון בטריה
+                            drone.StatusDrone = BO.StatusDrone.InMaintenance;//עדכון מצב 
+                            BO.Location l = new BO.Location();
+                            l.Latitude = accessIDal.GetStation(s.Id).Latitude;//המיקום של התחנה שאיול נישלח הרחפן
+                            l.Longitude = accessIDal.GetStation(s.Id).Longitude;
+                            drone.LocationDrone = l;//עדכון מיקום רחפן
+                            BlDrone.Remove(BlDrone.Find(p => p.Id == droneId));//מוציא
+                            BlDrone.Add(new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone, IdParcel = drone.IdParcel });
 
+                        }
                     }
-                       else
+                    else
                         throw new Exception();
 
 
@@ -174,30 +186,33 @@ namespace BL
         }
 
         //שיחרור רחפן מטעינה
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDrone(int id,TimeSpan time)
         {
-            
-            double time1;
-            time1= time.TotalMinutes;//זמן בדקות שהרחפן היה בטעינה
-            Console.WriteLine(time);
-            Console.WriteLine(time1);
-            if (DroneToLisToPrint(id).StatusDrone != BO.StatusDrone.InMaintenance)//אם הסטטוס שונה בתחזוקה יש חריגה
-                throw new Exception();
-            accessIDal.ReleaseDroneFromCharging(id);//שחרור רחפן מטעינה בשכבת הנתונים
-            BO.DroneToList drone = BlDrone.Find(p => p.Id == id);//מעדכנת את הרחפן
-            drone.StatusDrone = BO.StatusDrone.available;
-            drone.StatusBatter += (time1 / 60) * LoadingPrecents;//מצב סוללה
-            if (drone.StatusBatter > 100)
-                drone.StatusBatter = 100;
-          // Console.WriteLine( (time1 / 60) * LoadingPrecents);
-            BlDrone.Remove(BlDrone.Find(p => p.Id == id));
-            BlDrone.Add(new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone, IdParcel = drone.IdParcel });
-          
+            lock (accessIDal)
+            {
+                double time1;
+                time1 = time.TotalMinutes;//זמן בדקות שהרחפן היה בטעינה
+                Console.WriteLine(time);
+                Console.WriteLine(time1);
+                if (DroneToLisToPrint(id).StatusDrone != BO.StatusDrone.InMaintenance)//אם הסטטוס שונה בתחזוקה יש חריגה
+                    throw new Exception();
+                accessIDal.ReleaseDroneFromCharging(id);//שחרור רחפן מטעינה בשכבת הנתונים
+                BO.DroneToList drone = BlDrone.Find(p => p.Id == id);//מעדכנת את הרחפן
+                drone.StatusDrone = BO.StatusDrone.available;
+                drone.StatusBatter += (time1 / 60) * LoadingPrecents;//מצב סוללה
+                if (drone.StatusBatter > 100)
+                    drone.StatusBatter = 100;
+                // Console.WriteLine( (time1 / 60) * LoadingPrecents);
+                BlDrone.Remove(BlDrone.Find(p => p.Id == id));
+                BlDrone.Add(new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone, IdParcel = drone.IdParcel });
+            }
 
         }
 
         #endregion
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Drone GetDrone(int id)//v 
         {
             BO.Drone bodrone=new BO.Drone();
@@ -229,72 +244,81 @@ namespace BL
 
 
         }
-       
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(BO.Drone d, int cod)//v
         {
-            d.StatusBatter = rand.Next(20, 41);
-            d.StatusDrone = BO.StatusDrone.InMaintenance;
-            DO.Station station = accessIDal.GetStation(cod);
-            d.LocationDrone = new BO.Location { Longitude = station.Longitude, Latitude = station.Latitude };
-           
-            BlDrone.Add(new BO.DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter = d.StatusBatter, StatusDrone = d.StatusDrone, LocationDrone = d.LocationDrone, IdParcel = 0 });
-            try
+            lock (accessIDal)
             {
+                d.StatusBatter = rand.Next(20, 41);
+                d.StatusDrone = BO.StatusDrone.InMaintenance;
+                DO.Station station = accessIDal.GetStation(cod);
+                d.LocationDrone = new BO.Location { Longitude = station.Longitude, Latitude = station.Latitude };
 
-                accessIDal.AddDrone(new DO.Drone { Id = d.Id, Model = d.Model, Weight = (DO.WeightCategories)d.Weight });
-                accessIDal.SendDroneToCharge(cod, d.Id);
-            }
-            catch (BO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
+                BlDrone.Add(new BO.DroneToList { Id = d.Id, Model = d.Model, Weight = d.Weight, StatusBatter =(int)d.StatusBatter, StatusDrone = d.StatusDrone, LocationDrone = d.LocationDrone, IdParcel = 0 });
+                try
+                {
+
+                    accessIDal.AddDrone(new DO.Drone { Id = d.Id, Model = d.Model, Weight = (DO.WeightCategories)d.Weight });
+                    accessIDal.SendDroneToCharge(cod, d.Id);
+                }
+                catch (BO.Excptions ex)
+                {
+                    throw new BO.Excptions(ex.Message);
+                }
             }
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int id, string name)//v
         {
-            DO.Drone c;
-            DO.Drone cc;
-            try
+            lock (accessIDal)
             {
-                c = accessIDal.GetDrone(id);
-                if (name != "")
+                DO.Drone c;
+                DO.Drone cc;
+                try
                 {
-                    cc = new DO.Drone() { Id = c.Id, Model = name, Weight = c.Weight };
+                    c = accessIDal.GetDrone(id);
+                    if (name != "")
+                    {
+                        cc = new DO.Drone() { Id = c.Id, Model = name, Weight = c.Weight };
+                    }
+                    else
+                        cc = new DO.Drone() { Id = c.Id, Model = c.Model, Weight = c.Weight };
                 }
-                else
-                    cc = new DO.Drone() { Id = c.Id, Model = c.Model, Weight = c.Weight };
+                catch (BO.Excptions ex)
+                {
+                    throw new BO.Excptions(ex.Message);
+                }
+                BO.DroneToList dds = DroneToLisToPrint(id);
+                BO.DroneToList dd = new BO.DroneToList() { Id = dds.Id, LocationDrone = dds.LocationDrone, StatusDrone = dds.StatusDrone, IdParcel = dds.IdParcel, Model = name, StatusBatter = dds.StatusBatter, Weight = dds.Weight };
+                BlDrone.Remove(BlDrone.Find(p => p.Id == id));
+                BlDrone.Add(dd);
+                accessIDal.UpdetDrone(cc);
             }
-            catch (BO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
-            }
-            BO.DroneToList dds = DroneToLisToPrint(id);
-            BO.DroneToList dd = new BO.DroneToList() { Id = dds.Id, LocationDrone = dds.LocationDrone, StatusDrone = dds.StatusDrone, IdParcel = dds.IdParcel, Model = name, StatusBatter = dds.StatusBatter, Weight = dds.Weight };
-            BlDrone.Remove(BlDrone.Find(p => p.Id == id));
-            BlDrone.Add(dd);
-            accessIDal.UpdetDrone(cc);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(BO.Drone drone)//v
         {
-            try
+            lock (accessIDal)
             {
-                accessIDal.UpdetDrone(new DO.Drone { Id = drone.Id, Model = drone.Model, Weight = (DO.WeightCategories)drone.Weight });
+                try
+                {
+                    accessIDal.UpdetDrone(new DO.Drone { Id = drone.Id, Model = drone.Model, Weight = (DO.WeightCategories)drone.Weight });
+                }
+                catch (BO.Excptions ex)
+                {
+                    throw new BO.Excptions(ex.Message);
+                }
+                BO.DroneToList droneToList = new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone };
+                if (drone.PackageInTransfe != null)
+                    droneToList.IdParcel = drone.PackageInTransfe.Id;
+                else
+                    droneToList.IdParcel = 0;
+                BlDrone.Remove(BlDrone.Find(p => p.Id == drone.Id));
+                BlDrone.Add(droneToList);
             }
-            catch (BO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
-            }
-            BO.DroneToList droneToList = new BO.DroneToList { Id = drone.Id, Model = drone.Model, Weight = drone.Weight, StatusBatter = drone.StatusBatter, StatusDrone = drone.StatusDrone, LocationDrone = drone.LocationDrone };
-            if (drone.PackageInTransfe != null)
-                droneToList.IdParcel = drone.PackageInTransfe.Id;
-            else
-                droneToList.IdParcel = 0;
-            BlDrone.Remove(BlDrone.Find(p => p.Id == drone.Id));
-            BlDrone.Add(droneToList);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.DroneToList DroneToLisToPrint(int id)//v
         {
             BO.DroneToList bodroneToList = new BO.DroneToList();
@@ -321,8 +345,8 @@ namespace BL
 
 
         }
-       
-      
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int BatteryConsumption(double kilometrs, DO.WeightCategories weightcategories)// A function that gets a mileage and calculates how much battery it takes to get there
         {
             if (weightcategories == 0)
@@ -332,19 +356,27 @@ namespace BL
             return (int)(kilometrs * HeavyWeight);
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double BatteryConsumption(double kilometrs, BO.WeightCategories weight)// Overrides the previous function in case the glider is free and no weight category enters
         {
             return kilometrs * Free;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double BatteryConsumption(double kilometrs)// Overrides the previous function in case the glider is free and no weight category enters
         {
             return kilometrs * Free;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable< BO.DroneToList> GetDrons()
         {
             return from Drone in BlDrone
                    select Drone;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.DroneToList> GetDronsByWeight(BO.WeightCategories weightcategories)
         {
 
@@ -357,6 +389,8 @@ namespace BL
             }
             return dd;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.DroneToList> GetDronesByPerdicate(Predicate<BO.DroneToList> predicate)
         {
             return from drone in this.GetDrons()

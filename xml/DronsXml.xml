@@ -6,8 +6,13 @@
     <Weight>Heavy</Weight>
   </Drone>
   <Drone>
-    <Id>344</Id>
-    <Model>Aigg44</Model>
+    <Id>554</Id>
+    <Model>65TE</Model>
+    <Weight>Light</Weight>
+  </Drone>
+  <Drone>
+    <Id>2</Id>
+    <Model>vovo20</Model>
     <Weight>Light</Weight>
   </Drone>
   <Drone>
@@ -16,8 +21,8 @@
     <Weight>Light</Weight>
   </Drone>
   <Drone>
-    <Id>2</Id>
-    <Model>vovo20</Model>
+    <Id>344</Id>
+    <Model>Aigg44</Model>
     <Weight>Light</Weight>
   </Drone>
 </ArrayOfDrone>

@@ -83,8 +83,7 @@ namespace PL
             customerTo = customer;
             ListviewListOfPackagesFromTheCustomer.ItemsSource = accseccBL2.ListParcelFromCustomers(customerTo.Id);
             ListViewListOfPackagesToTheCustomer.ItemsSource = accseccBL2.ListParcelToCustomer(customerTo.Id);
-            TextboxName.Text = customer.Name;
-            TextBoxPhone.Text = customer.Pone;
+            GridUpdateCustomer.DataContext = customer;
             if (TextboxPhone.Text != null && TextBoxName.Text != null)
             {
                 ButtonAdd.IsEnabled = true;
@@ -134,7 +133,7 @@ namespace PL
                         }
                         else
                         {
-                            ListsWindow we = new ListsWindow(accseccBL2);
+                            ListsWindow we = new ListsWindow(accseccBL2,true);
                             we.Show();
                         }
                         this.Close();

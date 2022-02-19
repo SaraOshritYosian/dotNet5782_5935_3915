@@ -133,15 +133,16 @@ namespace BL
                     }
                     else
                     {
-
+                        //הרחפן זמין
                         item.StatusDrone = StatusDrone.available;
                         List<DO.Parcel> DeliveredBySameId = DALParcel1.FindAll(x => x.Droneld == item.Id && x.Delivered != DateTime.MinValue);
-                        int a = rand.Next(0, DeliveredBySameId.Count);
-                        BO.Location location = BLCustomer.Find(x => x.Id == DeliveredBySameId[a].Targetld).LocationOfCustomer;
+                       
                         
-                        if (DeliveredBySameId.Any()&& location != null)
+                        if (DeliveredBySameId.Count>0)
                         {
-                           
+                            int a = rand.Next(0, DeliveredBySameId.Count);
+                            BO.Location location = BLCustomer.Find(x => x.Id == DeliveredBySameId[a].Targetld).LocationOfCustomer;
+
                             item.LocationDrone = location;
                             double electricityUse = returnMinDistancFromLicationToStation(item.LocationDrone) * Free;
                             item.StatusBatter = (int)((int)(rand.NextDouble() * (100 - electricityUse)) + electricityUse);

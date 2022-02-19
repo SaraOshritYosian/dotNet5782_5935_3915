@@ -25,7 +25,7 @@
         </Image>
 
 
-        <Grid x:Name="masengerOrCustomer" d:IsHidden="True">
+        <Grid x:Name="masengerOrCustomer">
             <Label Content="Enter as:" HorizontalAlignment="Center" Margin="0,299,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Arial Black" Height="63" Width="194"/>
             <Button x:Name="Manager" Content="Manager" HorizontalAlignment="Center" Margin="0,406,200,0" VerticalAlignment="Top"  Height="50" Width="140" FontSize="22" FontFamily="Arial Black" Background="{x:Null}" RenderTransformOrigin="33,33" Click="Manager_Click"/>
 

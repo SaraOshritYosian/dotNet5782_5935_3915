@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace BL
 {
-    class Simulator
+    internal class Simulator
     {
         private const int EMPTY = 0;
         int SLEEP = 1000;
-        int SPEED = 50;
+        int SPEED = 5000;
         
         public Simulator(BL bl, int DroneID, Action WPFUpdate, Func<bool> StopCheck)
         {
@@ -25,8 +25,14 @@ namespace BL
                 {
                     case StatusDrone.available://הרחפן זמין אפשר לשייך לחביחה אם יש או שליחה לטעינה
                         if (droneIsWaitnigForCharging)
-                            
-                            try { bl.SendingDroneToCharging(drone.Id); Thread.Sleep((int)SLEEP); }
+
+                            try
+                            {
+                                lock (bl)
+                                {
+                                    bl.SendingDroneToCharging(drone.Id); Thread.Sleep((int)SLEEP);
+                                }
+                            }
                             catch (Exception)
                             {
                                 droneIsWaitnigForCharging = true;
@@ -34,68 +40,79 @@ namespace BL
                         else
                             try
                             {
-                                bl.AssignPackageToDrone(drone.Id);//שיוך חבילה לרחפן
+                                lock (bl)
+                                {
+                                    bl.AssignPackageToDrone(drone.Id);//שיוך חבילה לרחפן
+                                }
                             }
                             catch (Exception)
                             {
-                                if(drone.StatusBatter==100)
-                                    Thread.Sleep((int)SLEEP);
-                                else
-                                  droneIsWaitnigForCharging = true;
+                                if (drone.StatusBatter < 100)
+                                   
+                                    droneIsWaitnigForCharging = true;
                             }
-                       // Thread.Sleep((int)SLEEP);
+                       
                         break;
 
 
                     case StatusDrone.delivered://אם בשליחות אז אפשר לאסוף או למסור 
-                        BO.Parcel parcel = bl.GetParcel(drone.PackageInTransfe.Id);
+                        
                         if (!drone.PackageInTransfe.PackageMode)//אם לא נאסף
                         {
-                            //if (drone.PackageInTransfe.far > SPEED * SLEEP)
-                            //{
-                            //    Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, SLEEP * SPEED);
-                            //    double newBattery = drone.StatusBatter - SLEEP * SPEED * bl.Free;//
-                            //    drone.StatusBatter = newBattery;
-                            //    drone.LocationDrone = newLocation;
-                            //    bl.UpdateDrone(drone);
-                            //}
-                            //else
-                            //{
+                            if (drone.PackageInTransfe.far > (SLEEP/1000) * SPEED)
+                            {
+                                Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, (SLEEP/1000) * SPEED);
+                                double newBattery = drone.StatusBatter -( SLEEP/1000) * SPEED/10 * bl.Free;//
+                                drone.StatusBatter = newBattery;
+                                drone.LocationDrone = newLocation;
+                                bl.UpdateDrone(drone);
+                            }
+                            else
+                            {
                                 try
                                 {
-                                    bl.PickUpPackage(drone.Id);
+                                    lock (bl)
+                                    {
+                                        bl.PickUpPackage(drone.Id);
+                                    }
                                 }
                                 catch (Exception)
                                 {
-                                    Thread.Sleep(SLEEP);
+                                    Thread.Sleep(SLEEP/1000);
                                 }
                                
-                            //}
+                            }
 
                         }
                         else//הרחפן בדרך לחבילה
                         {
-                            //if (drone.PackageInTransfe.far > SLEEP * SPEED)
-                            //{
-                            //    Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, SLEEP * SPEED);
-                            //    double newBattery = drone.StatusBatter - SLEEP * SPEED * bl.accessIDal.RequestPowerConsuption()[(int)drone.PackageInTransfe.Weight + 1];
-                            //    drone.StatusBatter = newBattery;
-                            //    drone.LocationDrone = newLocation;
-                            //    bl.UpdateDrone(drone);
-                            //}
-                            //else
-                            //{
+                            if (drone.PackageInTransfe.far > (SLEEP/1000) * SPEED)
+                            {
+                                lock (bl)
+                                {
+                                    Location newLocation = calculateCurrnetLocation(drone.LocationDrone, drone.PackageInTransfe.DeliveryDestination, (SLEEP/1000) * SPEED);
+                                    double newBattery = drone.StatusBatter - (SLEEP / 1000) * SPEED * (bl.accessIDal.RequestPowerConsuption()[(int)drone.PackageInTransfe.Weight + 1]/10);
+                                    drone.StatusBatter = newBattery;
+                                    drone.LocationDrone = newLocation;
+                                    bl.UpdateDrone(drone);
+                                }
+                            }
+                            else
+                            {
                                 try
                                 {
-                                    bl.PackageDeliveryByDrone(drone.Id);
+                                    lock (bl)
+                                    {
+                                        bl.PackageDeliveryByDrone(drone.Id);
+                                    }
                                 }
                                 catch (Exception)
                                 {
                                     Thread.Sleep(SLEEP);
                                 }
 
-                                
-                           // }//אם לא סופק החבילה
+
+                            }//אם לא סופק החבילה
                         }
                        
                         break;
@@ -104,17 +121,23 @@ namespace BL
                     case StatusDrone.InMaintenance://אם בטעינה אז אפשר לשחרר
                         if (drone.StatusBatter < 100)
                         {
-                            double newBattery = drone.StatusBatter + SPEED * bl.LoadingPrecents;
+                            double newBattery = drone.StatusBatter + SPEED/1000 * (bl.LoadingPrecents/2);
                             newBattery = newBattery < 100 ? newBattery : 100;
                             drone.StatusBatter = newBattery;
-                            bl.UpdateDrone(drone);
+                            lock (bl)
+                            {
+                                bl.UpdateDrone(drone);
+                            }
                         }
                         else//סוללה מלאה מלאה אז..
                         {
                             try
                             {
-                                bl.ReleaseDrone(drone.Id, default);
-                                droneIsWaitnigForCharging = false;
+                                lock (bl)
+                                {
+                                    bl.ReleaseDrone(drone.Id, default);
+                                    droneIsWaitnigForCharging = false;
+                                }
                             }
                             catch (Exception)
                             {
@@ -126,8 +149,9 @@ namespace BL
                     default:
                         break;
                 }
+                
                 WPFUpdate();
-                Thread.Sleep((int)SLEEP);
+                Thread.Sleep((int)SLEEP*10);
             }
           
 

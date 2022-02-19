@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using DalApi;
 using Dal;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -25,6 +26,7 @@ namespace Dal
 
         #region Drone
         //CRUD Drone
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetDroneDoSndByParcelId(int idp)//מחזיר את ת"ז של הרחפ ןשמבצע את המשלוח
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
@@ -36,15 +38,16 @@ namespace Dal
             return ListParcel.Find(p => p.Id == idp).Droneld;
 
     }
-    public IEnumerable<DO.Drone> ListDroneInStation(int id)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public IEnumerable<DO.Drone> ListDroneInStation(int id)
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             return (IEnumerable<DO.Drone>)(from Drone in ListDrons
                                            select GetStation(id));
     }
 
-
-    public DO.Drone GetDrone(int id)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public DO.Drone GetDrone(int id)
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             DO.Drone drone = ListDrons.Find(p => p.Id == id);
@@ -54,20 +57,20 @@ namespace Dal
         else
             return drone;
     }
-
-    public IEnumerable<DO.Drone> GetAllDrone()
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public IEnumerable<DO.Drone> GetAllDrone()
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             return from Drone in ListDrons
                    select Drone;
     }
-
-    public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public IEnumerable<DO.Drone> GetAllDroneBy(Predicate<DO.Drone> predicate)
     {
         throw new NotImplementedException();//זריקה
     }
-
-    public void AddDrone(DO.Drone drone)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void AddDrone(DO.Drone drone)
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             if (ListDrons.Any(p => p.Id == drone.Id))
@@ -77,8 +80,8 @@ namespace Dal
             ListDrons.Add(drone);
             XMLTools.SaveListToXMLSerializer(ListDrons, dronsPath);
         }
-
-    public void DeleteDrone(int id)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void DeleteDrone(int id)
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             bool fal = ListDrons.Any(p => p.Id == id);
@@ -96,8 +99,8 @@ namespace Dal
 
 
     }
-
-    public void UpdetDrone(DO.Drone drone)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void UpdetDrone(DO.Drone drone)
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             bool fal = ListDrons.Any(p => p.Id == drone.Id);
@@ -114,18 +117,19 @@ namespace Dal
 
 
         }
-
-    public void UpdetDrone(int id, Action<DO.Drone> action)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void UpdetDrone(int id, Action<DO.Drone> action)
     {
         throw new NotImplementedException();
     }
-
-    public IEnumerable<DO.Drone> DdroneList()
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public IEnumerable<DO.Drone> DdroneList()
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             return ListDrons;
     }
-    public IEnumerable<int> GetListDrone()//מחזיר רשימה של רחפנים רק הת"ז שלהם
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public IEnumerable<int> GetListDrone()//מחזיר רשימה של רחפנים רק הת"ז שלהם
     {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
             List<int> a = new List<int>();
@@ -138,6 +142,7 @@ namespace Dal
         #endregion
         #region Station
         //CRU
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> ReturnStationHaveFreeCharde()//מחזיר רשימה של תחנות שיש להם כמות טעינה גדולה מ0
         {
             List<DO.Station> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -150,6 +155,7 @@ namespace Dal
             }
             return ss;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> SStationList()
         {
             List<DO.Station> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -170,7 +176,7 @@ namespace Dal
                 throw new DO.StationDoesNotExistException($"bad Station id: {id}");
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> GetAllStation()
         {
             List<DO.Station> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -178,12 +184,12 @@ namespace Dal
             return from Station in ListDrons
                    select Station;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Station> GetAllStationBy(Predicate<DO.Station> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(DO.Station station)
         {
             List<DO.Station> ListStation = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -195,7 +201,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListStation, stationsPath);
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteStation(int id)
         {
             List<DO.Station> ListStation = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -211,7 +217,7 @@ namespace Dal
                 throw new DO.StationDoesNotExistException($"bad station id: {id}");
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdetStation(DO.Station station)
         {
             List<DO.Station> ListStation = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -229,7 +235,7 @@ namespace Dal
                 throw new DO.StationDoesNotExistException($"bad drone id: {station.Id}");
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdetStation(int id, Action<DO.Station> action)
         {
             throw new NotImplementedException();
@@ -237,11 +243,13 @@ namespace Dal
 
         #endregion
         #region Parcel
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> PparcelList()//return list
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
             return ListParcel;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Parcel GetParcel(int id)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
@@ -252,10 +260,11 @@ namespace Dal
             else
                 return per;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Parcel GetParcelByDrone(int id)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
-            DO.Parcel per = ListParcel.Find(p => p.Droneld == id&&p.Delivered==default);
+            DO.Parcel per = ListParcel.Find(p => p.Droneld == id&&p.Delivered==default);//לא סופק
             bool fal = ListParcel.Any(p => p.Droneld == id && p.Delivered == default);
             if (fal == false)
                 throw new DO.DroneDoesNotExistException($"bad drone id: {id}");
@@ -263,19 +272,19 @@ namespace Dal
                 return per;
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> GetAllParcel()
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
             return from Parcel in ListParcel
                    select Parcel;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.Parcel> GetAllParcelBy(Predicate<DO.Parcel> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(DO.Parcel parcel)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
@@ -306,7 +315,7 @@ namespace Dal
 
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteParcel(int id)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
@@ -325,7 +334,7 @@ namespace Dal
 
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdetParcel(DO.Parcel parcel)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
@@ -342,7 +351,7 @@ namespace Dal
                 throw new DO.ParcelDoesNotExistException($"bad parcel id: {parcel.Id}");
 
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdetParcel(int id, Action<DO.Parcel> action)
         {
             throw new NotImplementedException();
@@ -350,8 +359,8 @@ namespace Dal
 
         #endregion
         #region DroneCharg
-      
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CoutCharge(int id)//בדיקה כמה עמדות טעינה תפוסים ישש לתחנה מסויימת
         {
             List<DO.DroneCharge> ListDronsCharge = XMLTools.LoadListFromXMLSerializer<DO.DroneCharge>(dronschargePath);
@@ -366,7 +375,7 @@ namespace Dal
             }
             return mone;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.DroneCharge GetDroneChargByDrone(int id)
         {
             List<DO.DroneCharge> ListDronsCharge = XMLTools.LoadListFromXMLSerializer<DO.DroneCharge>(dronschargePath);
@@ -376,6 +385,7 @@ namespace Dal
             else
                 throw new DO.DroneChargDoesNotExistException($"bad Drone id: {id}");
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.DroneCharge GetDroneChargByStation(int id)
         {
             List<DO.DroneCharge> ListDronsCharge = XMLTools.LoadListFromXMLSerializer<DO.DroneCharge>(dronschargePath);
@@ -385,7 +395,7 @@ namespace Dal
             else
                 throw new DO.StationDoesNotExistException($"bad station id: {id}");
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<int> GetDroneChargByStationListInt(int ids)//מחזיר רשימה של ת"ז של רחפנים שנימצאים בתחנה מסויימת
         {
             List<int> a = new List<int>();
@@ -399,6 +409,7 @@ namespace Dal
             }
             return a;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int MoneDroneChargByStationListInt(int ids)//מחזיר כמוצ של ת"ז של רחפנים שנימצאים בתחנה מסויימת
         {
             int mone = 0;
@@ -412,18 +423,19 @@ namespace Dal
             }
             return mone;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.DroneCharge> GetAllDroneCharge()
         {
             List<DO.DroneCharge> ListDronsCharge = XMLTools.LoadListFromXMLSerializer<DO.DroneCharge>(dronschargePath);
             return from DroneCharge in ListDronsCharge
                    select DroneCharge;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DO.DroneCharge> GetAllDroneChargeBy(Predicate<DO.DroneCharge> predicate)
         {
             throw new NotImplementedException();//זריקה
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
 
         public void UpdetDroneCharge(DO.DroneCharge droneCharge)
         {
@@ -442,12 +454,13 @@ namespace Dal
                 throw new DO.DroneChargDoesNotExistException($"bad station id: {droneCharge.Stationld}");
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
 
         public void UpdetDroneCharge(int id, Action<DO.DroneCharge> action)
         {
             throw new NotImplementedException();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToCharge(int station, int drone)//Drone a skimmer for charging
         {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
@@ -467,6 +480,7 @@ namespace Dal
                 XMLTools.SaveListToXMLSerializer(ListStations, stationsPath);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromCharging(int drone)//Drone a skimmer from charging
         {
             List<DO.Station> ListStations = XMLTools.LoadListFromXMLSerializer<DO.Station>(stationsPath);
@@ -484,7 +498,7 @@ namespace Dal
 
             }
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DO.DroneCharge cs)//מוסיף רחפנים לעמדות טעינה add drone to the charge spot
         {
             SendDroneToCharge(cs.Stationld, cs.Droneld);
@@ -492,6 +506,8 @@ namespace Dal
         }
         #endregion
         #region Customer
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         IEnumerable<int> IDal.ListTargetParcel(int idta)
         {
             List<int> a = new List<int>();
@@ -504,6 +520,7 @@ namespace Dal
             }
             return a;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
 
         IEnumerable<int> IDal.ListSendetParcel(int idse)
         {
@@ -517,7 +534,7 @@ namespace Dal
             }
             return a;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         IEnumerable<DO.Customer> IDal.GetAllCustomer()
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
@@ -537,7 +554,7 @@ namespace Dal
 
            
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         IEnumerable<DO.Customer> IDal.GetAllCustomerBy(Predicate<DO.Customer> predicate)
         {
             XElement customerRootElem = XMLTools.LoadListFromXMLElement(customerPath);
@@ -556,7 +573,7 @@ namespace Dal
                    select p1;
            
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         DO.Customer IDal.GetCustomer(int id)
         {
             XElement customerRootElem = XMLTools.LoadListFromXMLElement(customerPath);
@@ -584,7 +601,7 @@ namespace Dal
             return p;
             
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void IDal.AddCustomer(DO.Customer customer)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
@@ -608,7 +625,7 @@ namespace Dal
             XMLTools.SaveListToXMLElement(customersRootElem, customerPath);
            
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void IDal.UpdetCustomer(DO.Customer customer)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customerPath);
@@ -634,7 +651,7 @@ namespace Dal
 
            
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void IDal.UpdetCustomer(int id, Action<DO.Customer> action)//
         {
             throw new NotImplementedException();
@@ -658,31 +675,33 @@ namespace Dal
                 throw new DO.CustomerAlreadyExistsException();
             throw new NotImplementedException();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         IEnumerable<DO.Customer> IDal.CcustomerList()
         {
             throw new NotImplementedException();
         }
 
         #endregion
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<double> ElectricityUse()
         {
-            //throw new NotImplementedException();
+            XElement aa = XMLTools.LoadListFromXMLElement(configPath);
             double[] arr = new double[5];
-            arr[0] = 0.5;//פנוי
-            arr[1] = 30;
-            arr[2] = 20;
-            arr[3] = 15;
-            arr[4] = 20;
+            arr[0] = Convert.ToInt32(aa.Element("BatteryUsages").Element("FreeBatteryUsing").Value);
+            arr[1] = Convert.ToInt32(aa.Element("BatteryUsages").Element("LightBatteryUsing").Value); ;
+            arr[2] = Convert.ToInt32(aa.Element("BatteryUsages").Element("MediumBatteryUsing").Value); ;
+            arr[3] = Convert.ToInt32(aa.Element("BatteryUsages").Element("HeavyBatteryUsing").Value); ;
+            arr[4] = Convert.ToInt32(aa.Element("RowNumbers").Value); ;
             return arr;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         double[] IDal.RequestPowerConsuption()
         {
             return XMLTools.LoadListFromXMLElement(configPath).Element("BatteryUsages").Elements().Select(e => Convert.ToDouble(e.Value)).ToArray();
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignPackageToDrone(int idParcel, int idDrone)
         {
             List<DO.Drone> ListDrons = XMLTools.LoadListFromXMLSerializer<DO.Drone>(dronsPath);
@@ -704,9 +723,9 @@ namespace Dal
 
         }
 
-   
 
-    public void PackageCollectionByDrone(int idParcel)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void PackageCollectionByDrone(int idParcel)
         {
         List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
         Parcel per1 = ListParcel.Find(p => p.Id == idParcel);
@@ -717,8 +736,8 @@ namespace Dal
             UpdetParcel(per1);
         }
     }
-
-      public  void DeliveryOfPackageToTheCustomer(int idParcel)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public  void DeliveryOfPackageToTheCustomer(int idParcel)
         {
             List<DO.Parcel> ListParcel = XMLTools.LoadListFromXMLSerializer<DO.Parcel>(parcelsPath);
             Parcel per1 = ListParcel.Find(p => p.Id == idParcel);

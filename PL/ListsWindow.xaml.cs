@@ -22,11 +22,24 @@ namespace PL
     public partial class ListsWindow : Window
     {
         IBL accseccBL2;
-        public ListsWindow(IBL accseccBL1)
+        bool cus;
+        public ListsWindow(IBL accseccBL1,bool c=false)
         {
             InitializeComponent();
              accseccBL2 = accseccBL1;
-           
+            cus = c;
+            if (cus == true)
+            {
+                
+                CostumerList.Visibility = Visibility.Hidden;
+                DroneList12.Visibility = Visibility.Hidden;
+                CostumerList.Visibility = Visibility.Hidden;
+                StationList.Visibility = Visibility.Hidden;
+
+                ParcelList.Margin = new Thickness(294, 224, 0, 0);
+
+
+            }
         }
 
       
@@ -106,6 +119,13 @@ namespace PL
         {
             ParcelList.Height = 160;
             ParcelList.Width = 400;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            Close();
         }
     }
 }
