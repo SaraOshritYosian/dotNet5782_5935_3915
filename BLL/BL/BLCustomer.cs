@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -24,6 +25,8 @@ namespace BL
             };
             return p;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private BO.ParcelInCustomer ParcelInCustomeWhoGet(int idp)//return parcel from  customer//מי שמקבל
         {
 
@@ -40,7 +43,7 @@ namespace BL
         }
         //
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.ParcelInCustomer> ListParcelToCustomer(int idc)//return list of the parcel to customer//ת"ז של השולח 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
@@ -48,11 +51,14 @@ namespace BL
             List<BO.ParcelInCustomer> a = new List<BO.ParcelInCustomer>();
             for (int i = 0; i < ListIdParcelTo.Count(); i++)
             {
+
                 a.Add(ParcelInCustomeWhoSend(ListIdParcelTo[i]));
             }
             return a;
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.ParcelInCustomer> ListParcelFromCustomers(int idc)//return list of the parcel to customer//מקבל ת"ז של מי שצריך לקבל 
         {
             List<int> ListIdParcelTo = new List<int>();//vv
@@ -66,6 +72,8 @@ namespace BL
 
         }
         //return a customer
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Customer GetCustomer(int id)//v 
         {
             BO.Customer c = new BO.Customer();
@@ -88,6 +96,7 @@ namespace BL
             return c;
         }
         //update customer by id or name or phone or more
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(int id, string name, string phone)//v
         {
             DO.Customer c = accessIDal.GetCustomer(id);
@@ -114,7 +123,10 @@ namespace BL
                 {
                     cc.Pone = c.Pone;
                 }
-                accessIDal.UpdetCustomer(cc);
+                lock (accessIDal)
+                {
+                    accessIDal.UpdetCustomer(cc);
+                }
 
 
             }
@@ -125,24 +137,28 @@ namespace BL
 
         }
         //add customer
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(BO.Customer customer)//v
         {
-
-            if (customer.LocationOfCustomer.Longitude > 32.1027879 || customer.LocationOfCustomer.Longitude < 32.056227 || customer.LocationOfCustomer.Latitude < 34.75948 || customer.LocationOfCustomer.Longitude > 34.8007048)
-                throw new BO.Excptions("We are sorry but Deliveries only in Tel Aviv");
-            DO.Customer customer1 = new DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
-            try
+            lock (accessIDal)
             {
-                accessIDal.AddCustomer(customer1);
-            }
+                if (customer.LocationOfCustomer.Longitude > 32.1027879 || customer.LocationOfCustomer.Longitude < 32.056227 || customer.LocationOfCustomer.Latitude < 34.75948 || customer.LocationOfCustomer.Longitude > 34.8007048)
+                    throw new BO.Excptions("We are sorry but Deliveries only in Tel Aviv");
+                DO.Customer customer1 = new DO.Customer() { Id = customer.Id, Name = customer.Name, Pone = customer.Pone, Longitude = customer.LocationOfCustomer.Longitude, Lattitude = customer.LocationOfCustomer.Latitude };
+                try
+                {
+                    accessIDal.AddCustomer(customer1);
+                }
 
-            catch (BO.Excptions ex)
-            {
-                throw new BO.Excptions(ex.Message);
+                catch (BO.Excptions ex)
+                {
+                    throw new BO.Excptions(ex.Message);
+                }
             }
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.CustomerToList CostumerToListToPrint(int idc)//
         {
             BO.CustomerToList c = new BO.CustomerToList();
@@ -163,7 +179,7 @@ namespace BL
             }
             return c;
         }//v
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private int NumberOfPackagesSentAndDelivered(int idc)//מחזיר מספר חבילות ששלח וסופקו מקבל ת"ז של הלקוח ששלח
         {
             int mone = 0;
@@ -176,6 +192,8 @@ namespace BL
             }
             return mone;
         }
+
+     
         private int NumberOfPackagesSentButNotDelivered(int idc)//מחזיר מספר חבילות ששלח ולא וסופקו מקבל ת"ז של הלקוח ששלח
         {
             int mone = 0;
@@ -188,6 +206,8 @@ namespace BL
             }
             return mone;
         }
+
+     
         private int NumberOfPackagesHeReceived(int idc)//מחזיר מספר חבילות שקיבל הפונקציה מקבלת את הת"ז של הלקוח שהוא צריך לקבל את ההזמנות
         {
             int mone = 0;
@@ -201,6 +221,8 @@ namespace BL
             }
             return mone;
         }
+
+      
         private int SeveralPackagesOnTheWayToTheCustomer(int idc)//מחזיר מספר חבילות שבדרך אילו הפו' מקבלת הת"ז של הלקוח הנ"ל
         {
             int mone = 0;
@@ -214,6 +236,8 @@ namespace BL
             }
             return mone;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.CustomerToList> GetCustomers()
         {
             List<BO.CustomerToList> list = new List<BO.CustomerToList>();
@@ -223,8 +247,12 @@ namespace BL
             {
                 list.Add(CostumerToListToPrint(a.ElementAt(i).Id));
             }
+          
+            
             return list;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<string> GetCustomersName()//מחזיר שמות של הלקוחות
         {
             List<string> list = new List<string>();

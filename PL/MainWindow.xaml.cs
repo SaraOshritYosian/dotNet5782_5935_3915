@@ -28,6 +28,7 @@ namespace PL
             masengerOrCustomer.Visibility = Visibility.Visible;
             enterM.Visibility = Visibility.Hidden;
             enterC.Visibility = Visibility.Hidden;
+        
 
 
         }
@@ -61,7 +62,7 @@ namespace PL
             IEnumerable<BO.CustomerToList> a = accsessBL.GetCustomers();
             if (a.Any(x => x.Id == Convert.ToInt32(passwordTextc.Password)))//קיים
                 {
-                    ListsWindow we = new ListsWindow(accsessBL);
+                    ListsWindow we = new ListsWindow(accsessBL,true);
                     we.Show();
                     Close();
                 }

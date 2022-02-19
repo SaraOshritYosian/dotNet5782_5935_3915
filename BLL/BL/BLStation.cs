@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -29,6 +30,7 @@ namespace BL
             return null;
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Station GetStationByDrone(int idd)// v
         {
             BO.Station c = new BO.Station();
@@ -50,7 +52,7 @@ namespace BL
             }
             return c;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Station GetStation(int id)// v
         {
             BO.Station c = new BO.Station();
@@ -71,6 +73,8 @@ namespace BL
             }
             return c;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(BO.Station station)//v
         {
             if (station.LocationStation.Longitude > 32.1027879 || station.LocationStation.Longitude < 32.056227 || station.LocationStation.Latitude < 34.75948 || station.LocationStation.Longitude > 34.8007048)
@@ -85,6 +89,8 @@ namespace BL
             }
            
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(int idS, int names,int chargeSlote)//v
         {
 
@@ -115,9 +121,9 @@ namespace BL
                 throw new BO.Excptions(ex.Message);
             }
         }
-      
-       
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.StationToList StationToListToPrint(int id)
         {
             
@@ -138,7 +144,7 @@ namespace BL
             return c;
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<int> AvailableStationToChargeListt()//return list station who have available to charge 
         {
             IEnumerable<DO.Station> a = accessIDal.GetAllStation();
@@ -152,7 +158,9 @@ namespace BL
             return b;
 
         }
-            public IEnumerable <BO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public IEnumerable <BO.Station> AvailableStationToChargeList()//ptint list station who have available to charge 
         {
             
             IEnumerable<DO.Station> a = accessIDal.GetAllStation();
@@ -164,7 +172,7 @@ namespace BL
             }
             return b;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.StationToList> AvailableStationToChargeListStationToList()//ptint list station who have available to charge 
         {
 
@@ -177,6 +185,7 @@ namespace BL
             }
             return b;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.StationToList> GetStations()
         {
             List<BO.StationToList> b = new List<BO.StationToList>();

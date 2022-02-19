@@ -71,10 +71,10 @@
     <Lattitude>34.8</Lattitude>
   </Customer>
   <Customer>
-    <Id>165768987</Id>
-    <Name>israel</Name>
-    <Pone>0543546545</Pone>
-    <Longitude>32.1</Longitude>
-    <Lattitude>34.8</Lattitude>
+    <Id>222222</Id>
+    <Name>avishag</Name>
+    <Pone>0504389875</Pone>
+    <Longitude>32.059</Longitude>
+    <Lattitude>34.88</Lattitude>
   </Customer>
 </ArrayOfCustomer>
