@@ -54,6 +54,9 @@
             <ComboBox x:Name="statusPaket" Grid.Column="2" HorizontalAlignment="Left" Margin="103,85,0,0" VerticalAlignment="Top" Width="86"/>
             <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="208,35,0,0" VerticalAlignment="Top" Width="19" Height="17" Background="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" FontWeight="Bold" Click="Button_Click_4"/>
             <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="211,87,0,0" VerticalAlignment="Top" Width="19" RenderTransformOrigin="-0.217,0.027" Height="18" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF1A0707" FontWeight="Bold" Click="Button_Click_3"/>
+            <DatePicker x:Name="datePickerStart" DisplayDateEnd="{Binding SelectedDate, ElementName=datePickerEnd}" Grid.Column="2" HorizontalAlignment="Left" Margin="103,14,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <DatePicker x:Name="datePickerEnd" DisplayDateStart="{Binding SelectedDate, ElementName=datePickerStart}" Grid.Column="2" HorizontalAlignment="Left" Margin="103,44,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="102"/>
+            <Label x:Name="TextSelector_Copy1" Content="To:" Grid.Column="2" HorizontalAlignment="Left" Margin="47,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.028,0.849" Width="27"/>
         </Grid>
 
         <Button x:Name="AddParcel" Content="ADD" HorizontalAlignment="Right" Margin="676,12,10,0" Grid.Row="3" VerticalAlignment="Top" Height="34" Width="78" Click="AddParcel_Click" BorderBrush="{x:Null}"/>
@@ -62,6 +65,7 @@
                 <ImageBrush ImageSource="/back-arrow_1f519.png" Opacity="0.9"/>
             </Button.Background>
         </Button>
+        <Label x:Name="TextSelector_Copy" Content="From:" HorizontalAlignment="Left" Margin="440,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.578,1.685"/>
 
     </Grid>
 </Window>

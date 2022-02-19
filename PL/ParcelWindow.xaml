@@ -53,7 +53,7 @@
             <Rectangle HorizontalAlignment="Left" Height="147" Margin="0,255,0,0" Stroke="Black" VerticalAlignment="Top" Width="404"/>
             <Rectangle HorizontalAlignment="Left" Height="133" Margin="0,100,0,0" Stroke="Black" VerticalAlignment="Top" Width="404"/>
             <Label Content="Id:" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="32"/>
-            <Label x:Name="IdLabel" Content="{Binding Id}" HorizontalAlignment="Left" Margin="49,41,0,0" VerticalAlignment="Top" Height="33" Width="91" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
+            <Label x:Name="IdLabel" Content="{Binding Id}" HorizontalAlignment="Left" Margin="59,36,0,0" VerticalAlignment="Top" Height="32" Width="134" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"/>
             <Label Content="The Name Of Sender Is:" HorizontalAlignment="Left" Margin="0,115,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Height="28" Width="219"/>
             <Button x:Name="IdsLabel" Content="" HorizontalAlignment="Left" Margin="259,120,0,0" VerticalAlignment="Top" Width="134" Height="99" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Background="#FFB1926A" BorderBrush="#FF090303" Foreground="#FFE21414" Click="IdsLabel_Click"/>
             <Label Content="The Name Of The Target is:" HorizontalAlignment="Left" Margin="0,282,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Arial Black"  Height="28" Width="252"/>
