@@ -68,9 +68,9 @@
             <Label x:Name="LabeLocation2" Content="{Binding Path = LocationDrone}" HorizontalAlignment="Left" Margin="120,170,0,0" VerticalAlignment="Top" Width="166" Height="141" FontSize="16" FontFamily="Arial Black" Grid.RowSpan="2" FontWeight="Medium" FontStretch="Condensed" FontStyle="Oblique"/>
 
 
-            <Rectangle HorizontalAlignment="Center" Height="277" Margin="0,26,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="288"/>
-            <TextBox x:Name="TexBoxModel" Text="{Binding Path = Model, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" Height="35" Grid.Row="1"/>
-            <Label x:Name="LabelModel1" Content="Model:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="35" Width="95" FontSize="18" FontFamily="Arial Black" Grid.Row="1"/>
+            <Rectangle HorizontalAlignment="Left" Height="277" Margin="8,23,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="288"/>
+            <TextBox x:Name="TexBoxModel" Text="{Binding Path = Model, Mode=OneWay}" HorizontalAlignment="Left" Margin="100,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" Height="35" Grid.Row="1"/>
+            <Label x:Name="LabelModel1" Content="Model:" HorizontalAlignment="Left" Margin="19,55,0,0" VerticalAlignment="Top" Height="35" Width="95" FontSize="18" FontFamily="Arial Black" Grid.Row="1"/>
 
 
 
@@ -81,17 +81,18 @@
             <Label Content="Battary" Grid.Column="1" HorizontalAlignment="Left" Margin="8,24,0,0" VerticalAlignment="Top" Width="98" Height="56" FontSize="18" FontFamily="Arial Black"/>
             <TextBox x:Name="TexBattery" Text="{Binding Path = StatusBatter}"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" Height="46" Background="{x:Null}" Foreground="#FF2F2828" BorderBrush="#FF161B28" TextAlignment="Center" FontFamily="Agency FB" FontWeight="Bold" FontSize="14"/>
 
-            <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="276" Margin="0,25,242,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="270"/>
-            <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Right" Margin="0,141,265,0" VerticalAlignment="Top" Width="215" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
-            <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,220,264,0" Grid.Row="1" VerticalAlignment="Top" Width="213" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
+            <Rectangle HorizontalAlignment="Left" Height="276" Margin="307,24,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="272" Grid.ColumnSpan="2"/>
+            <Button x:Name="BottonToFun" Content="" HorizontalAlignment="Left" Margin="19,143,0,0" VerticalAlignment="Top" Width="215" Height="40" Grid.Column="1" RenderTransformOrigin="0.876,0.975" Grid.Row="1" FontFamily="Arial Black" FontSize="14" Click="BottonToFun_Click"/>
+            <Button x:Name="BottonToFun2" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="19,215,0,0" Grid.Row="1" VerticalAlignment="Top" Width="213" Height="40" FontFamily="Arial Black" FontSize="14" Click="BottonToFun2_Click"/>
             <Button x:Name="Cancell" Content="X" Grid.Column="1" Height="28" Width="28" Margin="448,5,12,246" FontFamily="Arial Black" Background="#FFEB1414" Click="Cancell_Click" />
-            <Label x:Name="LabelTime" Content="Enter Time To Charge" Grid.Column="1" HorizontalAlignment="Right" Margin="0,46,264,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14" Height="26" Width="177"/>
-            <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Right" Margin="0,84,302,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22"/>
+            <Label x:Name="LabelTime" Content="Enter Time To Charge" Grid.Column="1" HorizontalAlignment="Right" Margin="0,41,321,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="14" Height="26" Width="177"/>
+            <ComboBox x:Name="comoboxTime" Grid.Column="1" HorizontalAlignment="Left" Margin="88,78,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22"/>
             <Label x:Name="LabelErrorTime" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="118,101,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.27" Foreground="#FFE61717" Height="26" Width="72"/>
             <Label x:Name="LabelErrorMode"  Content="Please fill in" HorizontalAlignment="Left" Margin="130,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="82" Foreground="#FFF50C0C" Height="26"/>
-            <Button x:Name="ButtonParcel" Content="{Binding Path = PackageInTransfe}" Grid.Column="1" HorizontalAlignment="Left" Margin="290,46,0,0" VerticalAlignment="Top" Height="401" Width="231" Click="ButtonParcel_Click" Grid.RowSpan="2" FontWeight="Bold" FontSize="16" FontFamily="Arial Black" Background="{x:Null}"/>
+            <Label x:Name="ButtonParcel" Content="{Binding Path = PackageInTransfe}" Grid.Column="1" HorizontalAlignment="Left" Margin="283,46,0,0" VerticalAlignment="Top" Height="401" Width="238"  Grid.RowSpan="2" FontWeight="Bold" FontSize="16" FontFamily="Arial Black" Background="{x:Null}"/>
             <CheckBox x:Name="SimulatorIsActive" Content="Simulator is Active" Visibility="Collapsed" HorizontalAlignment="Left" Margin="271,13,0,0" VerticalAlignment="Top" Height="0" Width="0"/>
-            <CheckBox x:Name="SimulatorButton" Content="automatic" Grid.Column="1" HorizontalAlignment="Left" Margin="339,202,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="143" FontSize="20" FontWeight="Bold" Background="White" Foreground="#FFEF3535" Checked="SimulatorButton_Checked" Unchecked="SimulatorButton_Unchecked_1" RenderTransformOrigin="0.573,0.597"/>
+            <CheckBox x:Name="SimulatorButton" Content="automatic" Grid.Column="1" HorizontalAlignment="Left" Margin="339,268,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="143" FontSize="20" FontWeight="Bold" Background="White" Foreground="#FFEF3535" Checked="SimulatorButton_Checked" Unchecked="SimulatorButton_Unchecked_1" RenderTransformOrigin="0.573,0.597"/>
+            <Button x:Name="parcelB" Content="view parcel" Grid.Column="1" HorizontalAlignment="Left" Margin="335,187,0,0" Grid.Row="1" VerticalAlignment="Top" Width="147" Height="35" Click="Button_Click"/>
 
 
 
