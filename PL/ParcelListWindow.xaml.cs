@@ -78,16 +78,36 @@ namespace PL
         }
         private void comoboxByParcel()//סינון החבילה לפי השולח והמקבל
         {
-            if (senderrr.SelectedItem == null && target.SelectedItem == null)
+            if (senderrr.SelectedItem == null && target.SelectedItem == null&&statusPaket==null)
             {
                 parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
             }
-            if (target.SelectedIndex != -1 && senderrr.SelectedIndex != -1)//גם לפי מקבל ולפי שולח
-                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && x.TargetName ==Convert.ToString( target.SelectedItem));
-            else if (target.SelectedIndex != -1 && senderrr.SelectedIndex == -1)//רק לפי מקבל
-                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
-            else if (target.SelectedIndex == -1 && senderrr.SelectedIndex != -1)//רק לפי שולח
+            if (target.SelectedIndex != -1 && senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex != -1)//by sender,tatget,status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && x.TargetName == Convert.ToString(target.SelectedItem) && (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (target.SelectedIndex != -1 && senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex == -1)
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && x.TargetName == Convert.ToString(target.SelectedItem));
+            else if (target.SelectedIndex == -1 && senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex == -1)//by sender
                 parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem));
+            else if (target.SelectedIndex != -1 && senderrr.SelectedIndex == -1 && statusPaket.SelectedIndex == -1)//by target
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
+            else if (target.SelectedIndex == -1 && senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex != -1)//by sender,atatus
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (target.SelectedIndex != -1 && senderrr.SelectedIndex == -1 && statusPaket.SelectedIndex != -1)//by target and status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem) && (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (target.SelectedIndex == -1 && senderrr.SelectedIndex == -1 && statusPaket.SelectedIndex != -1) //by status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (target.SelectedIndex == -1 && senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex == -1)//by sender,target
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && x.TargetName == Convert.ToString(target.SelectedItem));
+
+
+
+            //else if (target.SelectedIndex != -1 && senderrr.SelectedIndex != -1)//גם לפי מקבל ולפי שולח
+            //    parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && x.TargetName == Convert.ToString(target.SelectedItem));
+            //else if (target.SelectedIndex != -1 && senderrr.SelectedIndex == -1)//רק לפי מקבל
+            //    parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
+            //else if (target.SelectedIndex == -1 && senderrr.SelectedIndex != -1)//רק לפי שולח
+            //    parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem));
+
 
         }
 
@@ -101,23 +121,55 @@ namespace PL
             comoboxByParcel();
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)//רק לפי השולח כי ניקינו בחירה
+        private void Button_Click_3(object sender, RoutedEventArgs e)//רק לפי השולח והסטטוס כי ניקינו בחירה
         {
-            if(senderrr.SelectedIndex != -1)
-            parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem));
-        else
-                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
+            if (senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex != -1)//by sender and status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (senderrr.SelectedIndex == -1 && statusPaket.SelectedIndex != -1)//by status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (senderrr.SelectedIndex != -1 && statusPaket.SelectedIndex == -1)//by sender
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem));
+            else parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
+
+
+
             target.SelectedIndex= -1;
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)//רק לפי המקבל
+        private void Button_Click_4(object sender, RoutedEventArgs e)//  רק לפי המקבל והסטטוס
         {
-            if(target.SelectedIndex != -1)
-            parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
-            else
-                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
+            if (target.SelectedIndex != -1 && statusPaket.SelectedIndex != -1)//by sender and status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem) && (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (target.SelectedIndex == -1 && statusPaket.SelectedIndex != -1)//by status
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => (int)x.statusParcel == Convert.ToInt32(statusPaket.SelectedItem));
+            else if (target.SelectedIndex != -1 && statusPaket.SelectedIndex == -1)//by sender
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
+            else parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
+            //if(target.SelectedIndex != -1)
+            //parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
+            //else
+            //    parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
 
             senderrr.SelectedIndex = -1;
+        }
+
+        private void statusPaket_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            comoboxByParcel();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)//רק לפי השולח ומקבל
+        {
+            
+            if (senderrr.SelectedIndex != -1 && target.SelectedIndex != -1)//by sender and target
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem) && x.TargetName == Convert.ToString(target.SelectedItem));
+            else if (senderrr.SelectedIndex != -1 && target.SelectedIndex == -1)//by sender
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.SenderName == Convert.ToString(senderrr.SelectedItem));
+            else if(senderrr.SelectedIndex == -1 && target.SelectedIndex != -1)//by target
+                parcelToLIstDataGrid.DataContext = accseccBL1.GetParcelByPerdicate(x => x.TargetName == Convert.ToString(target.SelectedItem));
+            else  parcelToLIstDataGrid.DataContext = accseccBL1.GetParcels();//ממלא את הרשימה
+
+            statusPaket.SelectedIndex = -1;
         }
     }
 }
