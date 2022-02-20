@@ -22,11 +22,13 @@ namespace PL
     {
         private IBL accseccBL1;
         bool customer = false;
-        public ParcelListWindow(IBL accseccBL,bool cur=false)
+        int idCU;
+        public ParcelListWindow(IBL accseccBL,bool cur=false, int idc=0)
         {
             InitializeComponent();
             accseccBL1 = accseccBL;
             customer = cur;
+            idCU = idc;
             parcelToLIstDataGrid.DataContext= accseccBL1.GetParcels();
             parcelToLIstDataGrid.IsReadOnly = true;
             senderrr.ItemsSource = accseccBL1.GetCustomersName();
@@ -45,7 +47,7 @@ namespace PL
         {
             if (customer == true)
             {
-                ListsWindow we = new ListsWindow(accseccBL1, true);
+                ListsWindow we = new ListsWindow(accseccBL1, true, idCU);
                 we.Show();
                 Close();
             }

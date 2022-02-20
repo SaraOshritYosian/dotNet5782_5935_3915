@@ -60,9 +60,10 @@ namespace PL
         private void Button_Click_1(object sender, RoutedEventArgs e)//הלקוח קיים הקיש סיסמה
         {
             IEnumerable<BO.CustomerToList> a = accsessBL.GetCustomers();
-            if (a.Any(x => x.Id == Convert.ToInt32(passwordTextc.Password)))//קיים
+            int pp = Convert.ToInt32(passwordTextc.Password);
+            if (a.Any(x => x.Id == pp))//קיים
                 {
-                    ListsWindow we = new ListsWindow(accsessBL,true);
+                    ListsWindow we = new ListsWindow(accsessBL,true, Convert.ToInt32(passwordTextc.Password));//שולח גם שהוא לקוח וגם את הת"ז
                     we.Show();
                     Close();
                 }

@@ -24,6 +24,9 @@ namespace PL
         private IBL accseccBL2;
         ParcelListWindow ParcelListWindow;
         BO.ParcelToLIst ParcelToLIst;
+        bool cusbool;
+        int idC;
+        ListsWindow listsWindowgg;
         public ParcelWindow(IBL accseccBL, BO.ParcelToLIst parcel ,ParcelListWindow parcelList)//update
         {
             InitializeComponent();
@@ -93,8 +96,35 @@ namespace PL
         {
             InitializeComponent();
             Width = 600;
+            FromCustomer.Visibility = Visibility.Hidden;
             accseccBL2 = accseccBL;
+            ButtonAdd.Visibility = Visibility.Visible;
             ParcelListWindow = parcelList;
+            GridUpParcel.Visibility = Visibility.Hidden;//עדכון מופעל
+            GridAddParcel.Visibility = Visibility.Visible;//הוספה מופעל
+            ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            ComboBoxproperty.ItemsSource = Enum.GetValues(typeof(BO.Priority));
+            Label2.Visibility = Visibility.Hidden;
+            Label3.Visibility = Visibility.Hidden;
+            Label1.Visibility = Visibility.Hidden;
+            Label4.Visibility = Visibility.Hidden;
+            Label5.Visibility = Visibility.Hidden;
+            Label6.Visibility = Visibility.Hidden;
+
+        }
+
+        public ParcelWindow(IBL accseccBL,bool cus=false, int id=0,ListsWindow listsWindow=null) //מקבל שהוא לקוח וגם את הת"ז
+        {
+            InitializeComponent();
+            Width = 600;
+            idC = id;
+            listsWindowgg = listsWindow;
+            TextIds.Text = idC.ToString();//ממלא את השולח שמקבל
+            TextIds.IsReadOnly = true;
+            ButtonAdd.Visibility = Visibility.Hidden;
+            FromCustomer.Visibility = Visibility.Visible;
+            cusbool = cus;
+            accseccBL2 = accseccBL;
             GridUpParcel.Visibility = Visibility.Hidden;//עדכון מופעל
             GridAddParcel.Visibility = Visibility.Visible;//הוספה מופעל
             ComboBoxWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
@@ -151,7 +181,7 @@ namespace PL
 
             }
 
-            if (TextIds.Text != "")
+            if (TextIds.Text != ""&& (TexIdt.Text != ""))
             {
                 if ((TexIdt.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxproperty.SelectedItem != null) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == true) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == true))
                 {
@@ -240,6 +270,80 @@ namespace PL
             else
                 MessageBox.Show("This invitation could not be deleted because it was associated with Drone");
 
+        }
+
+        private void FromCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            if (TexIdt.Text == "")
+                Label3.Visibility = Visibility.Visible;
+            if (TextIds.Text == "")
+                Label4.Visibility = Visibility.Visible;
+            if (ComboBoxWeight.SelectedItem == null)
+                Label2.Visibility = Visibility.Visible;
+            if (ComboBoxproperty.SelectedItem == null)
+                Label1.Visibility = Visibility.Visible;
+
+            if (TexIdt.Text != "")
+                Label3.Visibility = Visibility.Hidden;
+            if (ComboBoxWeight.SelectedItem != null)
+                Label2.Visibility = Visibility.Hidden;
+            if (ComboBoxproperty.SelectedItem != null)
+                Label1.Visibility = Visibility.Hidden;
+            if (TextIds.Text != "")
+            {
+
+                Label4.Visibility = Visibility.Hidden;
+                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == false)//לא קיים
+                {
+                    Label5.Visibility = Visibility.Visible;
+                }
+                else
+                    Label5.Visibility = Visibility.Hidden;
+
+            }
+            if (TexIdt.Text != "")//לא ריק לבדור אם ת"ז קיים
+            {
+
+
+                Label3.Visibility = Visibility.Hidden;
+                if (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == false)//לא קיים
+                {
+                    Label6.Visibility = Visibility.Visible;
+                }
+                else
+                    Label6.Visibility = Visibility.Hidden;
+
+            }
+
+            if (TextIds.Text != ""&&(TexIdt.Text != ""))
+            {
+                if ((TexIdt.Text != "") & (ComboBoxWeight.SelectedItem != null) & (ComboBoxproperty.SelectedItem != null) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TextIds.Text)) == true) & (accseccBL2.GetCustomers().Any(p => p.Id == Convert.ToInt32(TexIdt.Text)) == true))
+                {
+                    BO.Parcel parcel1;
+                    parcel1 = new()
+                    {
+                        CustomerInParcelSender = new BO.CustomerInParcel { Id = Convert.ToInt32(TextIds.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TextIds.Text)).Name }
+                    , CustomerInParcelTarget = new BO.CustomerInParcel { Id = Convert.ToInt32(TexIdt.Text), Name = accseccBL2.GetCustomer(Convert.ToInt32(TexIdt.Text)).Name },
+                        Weight = (BO.WeightCategories)ComboBoxWeight.SelectedItem, Priority = (BO.Priority)ComboBoxproperty.SelectedItem
+                    };
+                    try
+                    {
+                        int i = accseccBL2.AddParcel(parcel1);//parcel add
+
+                        MessageBox.Show("Adding a Parcel number: " + i + " was successful");
+                        listsWindowgg.to.ItemsSource = accseccBL2.ListParcelFromCustomers(idC);
+                        listsWindowgg.From.ItemsSource = accseccBL2.ListParcelToCustomer(idC);
+                        Close();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+
+                }
+            }
         }
     }
 }

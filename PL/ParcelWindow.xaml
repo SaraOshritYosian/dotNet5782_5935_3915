@@ -15,7 +15,7 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid  x:Name="GridAddParcel" d:IsHidden="True">
+        <Grid  x:Name="GridAddParcel">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="233*"/>
                 <ColumnDefinition Width="217*"/>
@@ -37,11 +37,12 @@
             <Label x:Name="Label4" Content="Please fill in" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" VerticalAlignment="Top" Foreground="#FFF31111"/>
             <Label x:Name="Label5" Content="customer is not exsist" Grid.Column="1" HorizontalAlignment="Left" Margin="0,69,0,0" Foreground="#FFF31111" VerticalAlignment="Top"/>
             <Label x:Name="Label6" Content="customer is not exsist" Grid.Column="1" HorizontalAlignment="Left" Margin="0,139,0,0" Foreground="#FFF31111" VerticalAlignment="Top"/>
+            <Button x:Name="FromCustomer" Content="Add" Grid.Column="2" HorizontalAlignment="Left" Margin="11,446,0,0" VerticalAlignment="Top" Height="54" Width="147" Background="#FFF1DFB6" Foreground="#FF040202" FontSize="18" FontFamily="Arial Black" FontWeight="Bold" Click="FromCustomer_Click"/>
 
 
 
         </Grid>
-        <Grid  x:Name="GridUpParcel" OpacityMask="#FF231919" RenderTransformOrigin="0.433,0.507">
+        <Grid  x:Name="GridUpParcel" OpacityMask="#FF231919" RenderTransformOrigin="0.433,0.507" d:IsHidden="True">
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>

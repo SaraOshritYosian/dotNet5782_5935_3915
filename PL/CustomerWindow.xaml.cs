@@ -133,7 +133,7 @@ namespace PL
                         }
                         else
                         {
-                            ListsWindow we = new ListsWindow(accseccBL2,true);
+                            ListsWindow we = new ListsWindow(accseccBL2,true, customer1.Id);//שולח ג םשהוא לקוח וגם את הת"ז
                             we.Show();
                         }
                         this.Close();

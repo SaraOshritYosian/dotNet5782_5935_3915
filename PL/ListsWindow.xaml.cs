@@ -23,20 +23,33 @@ namespace PL
     {
         IBL accseccBL2;
         bool cus;
-        public ListsWindow(IBL accseccBL1,bool c=false)
+        int idC;
+        public ListsWindow(IBL accseccBL1,bool c=false,int idc=0)
         {
             InitializeComponent();
              accseccBL2 = accseccBL1;
             cus = c;
-            if (cus == true)
+            idC = idc;
+            if (cus == true& idc!=0)
             {
                 
                 CostumerList.Visibility = Visibility.Hidden;
                 DroneList12.Visibility = Visibility.Hidden;
                 CostumerList.Visibility = Visibility.Hidden;
                 StationList.Visibility = Visibility.Hidden;
+                ParcelList.Visibility=Visibility.Hidden;
+                Addd.Visibility = Visibility.Visible;
+                to.ItemsSource=accseccBL2.ListParcelFromCustomers(idc);
+                From.ItemsSource = accseccBL2.ListParcelToCustomer(idc);
 
-                ParcelList.Margin = new Thickness(294, 224, 0, 0);
+            }
+            else
+            {
+                toc.Visibility = Visibility.Hidden;
+                fromc.Visibility = Visibility.Hidden;
+                From.Visibility = Visibility.Hidden;
+                to.Visibility = Visibility.Hidden;
+                Addd.Visibility = Visibility.Hidden;
 
 
             }
@@ -60,7 +73,7 @@ namespace PL
         private void ParcelList_Click(object sender, RoutedEventArgs e)//parcel
         {
             if (cus == true){
-                ParcelListWindow we = new ParcelListWindow(accseccBL2,true);
+                ParcelListWindow we = new ParcelListWindow(accseccBL2,true, idC);
                 we.Show();
                 Close();
             }
@@ -135,6 +148,14 @@ namespace PL
             MainWindow main = new MainWindow();
             main.Show();
             Close();
+        }
+
+        private void Addd_Click(object sender, RoutedEventArgs e)
+        {
+            ParcelWindow dr = new ParcelWindow(accseccBL2,true, idC,this);//מקבל גם גישה וגם את החלון כדי שיוכל לסגור אותו
+            dr.Show();
+            to.ItemsSource = accseccBL2.ListParcelFromCustomers(idC);
+            From.ItemsSource = accseccBL2.ListParcelToCustomer(idC);
         }
     }
 }

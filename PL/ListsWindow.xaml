@@ -41,7 +41,28 @@
                 <ImageBrush ImageSource="/576x768bb.png"/>
             </Button.Background>
         </Button>
+        <ListView x:Name="to" Margin="20,164,675,32">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="From"  Margin="366,162,326,33">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="toc" Content="The Parcel to:" HorizontalAlignment="Left" Margin="92,124,0,0" VerticalAlignment="Top" Height="58" Width="176" FontWeight="Bold" FontSize="18"/>
+        <Label x:Name="fromc" Content="The Parcel for you:" HorizontalAlignment="Left" Margin="464,117,0,0" VerticalAlignment="Top" Height="35" Width="193" FontWeight="Bold" FontSize="18"/>
+        <Button x:Name="Addd" Content="ADD new parcel" HorizontalAlignment="Left" Margin="768,277,0,0" VerticalAlignment="Top" Height="56" Width="167" FontSize="14" FontWeight="Bold" Background="#FFF8DA8D" Click="Addd_Click"/>
 
 
-    </Grid>
+    </Grid >
+
+
+
+
 </Window>
