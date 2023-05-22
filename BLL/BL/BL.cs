@@ -106,7 +106,7 @@ namespace BL
 
 
                     }
-                    if (DALParcel1[index].PichedUp == DateTime.MinValue)//אם לא נאסף ולא סופק המיקום יהיה בתחנה קרוב לשולח
+                    if (DALParcel1[index].PichedUp == default)//אם לא נאסף ולא סופק המיקום יהיה בתחנה קרוב לשולח
                     {
                         item.LocationDrone = new Location { Latitude = GetStationCalculatesTheSmallestDistance(senderLocation).Latitude, Longitude = GetStationCalculatesTheSmallestDistance(senderLocation).Longitude };// שמים את הרחן במקום של התחנה הקרובה לשולח לא נאסף ןלא סופק 
                         electricityUse += DistanceTo(item.LocationDrone.Latitude, item.LocationDrone.Longitude, senderLocation.Latitude, senderLocation.Longitude) * Free;
