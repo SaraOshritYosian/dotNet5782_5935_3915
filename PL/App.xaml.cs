@@ -9,7 +9,7 @@ using System.Windows;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for App.xamlnnn
     /// </summary>
     public partial class App : Application
     {
